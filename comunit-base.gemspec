@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'redis-namespace'
   s.add_dependency 'elasticsearch-persistence'
   s.add_dependency 'elasticsearch-model'
+  s.add_dependency 'mini_magick'
   s.add_dependency 'carrierwave'
   s.add_dependency 'carrierwave-bombshelter'
   s.add_dependency 'sidekiq'
