@@ -11,7 +11,7 @@ module RegionsHelper
     else
       selection = Region.ordered_by_name
     end
-    selection.each { |r| options << ["#{r.slug}: #{r.name}", r.id] }
+    selection.each { |r| options << [r.name, r.id] }
     options
   end
 
