@@ -1,0 +1,30 @@
+<% content_for :meta_title, t('.title', name: @entity.name) %>
+<% content_for :hide_sidebar, '1' %>
+
+<article class="entity-page">
+  <h1><%= @entity.name %></h1>
+  <ul class="actions">
+    <li><%= back_icon(admin_regions_path) %></li>
+    <% unless @entity.locked? %>
+        <li><%= edit_icon edit_region_path(@entity) %></li>
+        <li class="danger"><%= destroy_icon @entity %></li>
+    <% end %>
+  </ul>
+
+  <% unless @entity.header_image.blank? %>
+      <div>
+        <%= image_tag(@entity.header_image.medium.url) %>
+      </div>
+  <% end %>
+
+  <% unless @entity.image.blank? %>
+      <div>
+        <%= image_tag(@entity.image.header.url) %>
+      </div>
+  <% end %>
+
+  <p><%= @entity.slug %></p>
+  <p><%= link_to t('admin.regions.cities.heading'), cities_admin_region_path(@entity.id) %></p>
+  <p><%= t(:user, count: @entity.users_count) %></p>
+  <p><%= t(:post, count: @entity.news_count) %></p>
+</article>

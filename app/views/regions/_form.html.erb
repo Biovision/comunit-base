@@ -1,0 +1,62 @@
+<%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+
+<%= form_for entity do |f| %>
+    <table>
+      <tbody>
+      <tr>
+        <td colspan="2">
+          <figure class="preview" id="region-image">
+            <% if entity.image.blank? %>
+                <%= image_tag 'image-placeholder.png' %>
+            <% else %>
+                <%= image_tag entity.image.url %>
+            <% end %>
+            <figcaption>
+              <%= f.label :image %>
+              <%= f.file_field :image, accept: 'image/jpeg,image/png', data: { image: 'region-image' } %>
+            </figcaption>
+          </figure>
+          <div class="guideline"><%= t('.guidelines.image') %></div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <figure class="preview" id="region-header-image">
+            <% if entity.header_image.blank? %>
+                <%= image_tag 'image-placeholder.png' %>
+            <% else %>
+                <%= image_tag entity.header_image.medium.url %>
+            <% end %>
+            <figcaption>
+              <%= f.label :header_image %>
+              <%= f.file_field :header_image, accept: 'image/jpeg,image/png', data: { image: 'region-header-image' } %>
+            </figcaption>
+          </figure>
+          <div class="guideline"><%= t('.guidelines.header_image') %></div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <%= f.label :name %>
+        </th>
+        <td>
+          <%= f.text_field :name, required: true, size: nil, maxlength: 100 %>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <%= f.label :slug %>
+        </th>
+        <td>
+          <%= f.text_field :slug, required: true, size: 10, maxlength: 63 %>
+          <div class="guideline"><%= t('.guidelines.slug') %></div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <%= f.button t(:save), type: :submit %>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+<% end %>

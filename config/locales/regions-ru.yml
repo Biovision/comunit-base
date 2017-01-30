@@ -1,0 +1,65 @@
+ru:
+  activerecord:
+    models:
+      region: "Регион"
+      city: "Город"
+    errors:
+      models:
+        city:
+          attributes:
+            region:
+              required: "должен быть указан"
+    attributes:
+      region:
+        visible: "Показывать"
+        name: "Название"
+        slug: "Код"
+        image: "Герб"
+        header_image: "Картинка для шапки"
+      city:
+        region: "Регион"
+        region_id: "Регион"
+        name: "Название"
+  admin:
+    regions:
+      index:
+        title: "Регионы"
+        heading: "Регионы"
+        description: "Управление регионами"
+      show:
+        title: "Регион «%{name}»"
+      cities:
+        title: "Города региона %{region}"
+        heading: "Города региона"
+  regions:
+    update:
+      success: "Регион успешно изменён"
+    destroy:
+      success: "Регион успешно удалён"
+    edit:
+      title: "Редактирование региона"
+      forbidden: "Редактирование этого региона запрещено"
+    new:
+      title: "Добавить регион"
+    form:
+      guidelines:
+        image: "Квадратная картинка в формате JPG или PNG размером до 2000×2000"
+        header_image: "Картинка в формате JPG или PNG размером 1000×220 (лишнее будет обрезано автоматически)"
+        slug: "Используется в доменном имени. Только анлийские буквы, дефис и цифры. Первый и последний символ — только буква или цифра."
+  cities:
+    update:
+      success: "Город успешно изменён"
+    destroy:
+      success: "Город успешно удалён"
+    edit:
+      title: "Редактирование города"
+      forbidden: "Редактирование этого города запрещено"
+    new:
+      title: "Добавить город"
+    not_found:
+      title: "Город не найден"
+      heading: "Город не найден"
+  api:
+    cities:
+      not_found:
+        title: "Город не найден"

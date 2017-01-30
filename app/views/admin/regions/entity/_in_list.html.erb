@@ -1,0 +1,22 @@
+<div class="image">
+  <% unless region.image.blank? %>
+      <%= image_tag(region.image.preview.url, alt: region.name) %>
+  <% end %>
+</div>
+<div class="data">
+  <div><%= link_to region.name, admin_region_path(region) %></div>
+  <div class="info">
+    <%= region.slug %>
+  </div>
+  <div class="secondary info">
+    <%= t(:user, count: region.users_count) %>,
+    <%= t(:post, count: region.news_count) %>
+  </div>
+
+  <ul class="actions">
+    <li class="lockable <%= region.locked? ? 'hidden' : '' %>">
+      <%= edit_icon edit_region_path(region) %>
+    </li>
+    <%= render partial: 'shared/actions/locks', locals: { entity: region, path: lock_api_region_path(region) } %>
+  </ul>
+</div>
