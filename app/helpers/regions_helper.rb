@@ -1,7 +1,17 @@
 module RegionsHelper
-  def regions_for_select
+  def regions_for_select(user = nil)
     options = [[t(:not_set), '']]
-    Region.ordered_by_slug.each { |r| options << ["#{r.slug}: #{r.name}", r.id] }
+    if user.is_a?(User)
+      allowed_ids = UserPrivilege.where(user: user).pluck(:region_id).uniq
+      if allowed_ids.any?
+        selection = Region.where(id: allowed_ids).ordered_by_name
+      else
+        selection = Region.ordered_by_name
+      end
+    else
+      selection = Region.ordered_by_name
+    end
+    selection.each { |r| options << ["#{r.slug}: #{r.name}", r.id] }
     options
   end
 
