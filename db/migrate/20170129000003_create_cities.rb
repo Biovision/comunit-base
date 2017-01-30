@@ -1,12 +1,12 @@
-class CreateRegions < ActiveRecord::Migration[5.0]
+class CreateCities < ActiveRecord::Migration[5.0]
   def up
-    unless Region.table_exists?
-      create_table :regions do |t|
+    unless City.table_exists?
+      create_table :cities do |t|
         t.timestamps
+        t.references :region, foreign_key: true, null: false, on_update: :cascade, on_delete: :cascade
         t.boolean :visible, default: true, null: false
         t.boolean :locked, default: false, null: false
         t.integer :users_count, default: 0, null: false
-        t.integer :cities_count, default: 0, null: false
         t.integer :news_count, default: 0, null: false
         t.string :slug, null: false
         t.string :name, null: false
@@ -17,8 +17,8 @@ class CreateRegions < ActiveRecord::Migration[5.0]
   end
 
   def down
-    if Region.table_exists?
-      drop_table :regions
+    if City.table_exists?
+      drop_table :cities
     end
   end
 end
