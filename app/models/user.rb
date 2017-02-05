@@ -25,8 +25,8 @@ class User < ApplicationRecord
   has_many :followee_links, class_name: UserLink.to_s, foreign_key: :follower_id, dependent: :destroy
   has_many :sent_messages, class_name: UserMessage.to_s, foreign_key: :sender_id, dependent: :destroy
   has_many :received_messages, class_name: UserMessage.to_s, foreign_key: :receiver_id, dependent: :destroy
-  has_many :privilege_users, dependent: :destroy
-  has_many :privileges, through: :privilege_users
+  has_many :user_privileges, dependent: :destroy
+  has_many :privileges, through: :user_privileges
 
   has_secure_password
 
@@ -103,7 +103,7 @@ class User < ApplicationRecord
   end
 
   def self.relink_parameters
-    ignored = %w(id external_id site_id agent_id image network native_id)
+    ignored = %w(id external_id site_id agent_id image native_id)
     result  = []
     column_names.each do |column|
       next if ignored.include?(column)
