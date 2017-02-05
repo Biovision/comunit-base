@@ -1,0 +1,4 @@
+<div class="follow-user-buttons" data-url="<%= follow_api_user_path(user.id) %>">
+  <%= button_tag t(:follow), class: "follow #{followee ? 'hidden' : ''}" %>
+  <%= button_tag t(:unfollow), class: "unfollow #{followee ? '' : 'hidden'}" %>
+</div>

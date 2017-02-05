@@ -2,20 +2,22 @@ namespace :regions do
   desc 'Load regions from YAML with deleting old data'
   task load: :environment do
     file_path = "#{Rails.root}/tmp/import/regions.yml"
-    image_fir = "#{Rails.root}/tmp/import/regions"
+    image_dir = "#{Rails.root}/tmp/import/regions"
+    ignored   = %w(image)
     if File.exists? file_path
       puts 'Deleting old regions...'
       Region.destroy_all
       puts 'Done. Importing...'
       File.open file_path, 'r' do |file|
         YAML.load(file).each do |id, data|
-          region = Region.new id: id
-          region.assign_attributes data
+          attributes = data.reject { |key| ignored.include?(key) }
+          entity     = Region.new id: id
+          entity.assign_attributes(attributes)
           if data.has_key? 'image'
             image_file   = "#{image_dir}/#{id}/#{data['image']}"
-            region.image = Pathname.new(image_file).open if File.exists?(image_file)
+            entity.image = Pathname.new(image_file).open if File.exists?(image_file)
           end
-          region.save!
+          entity.save!
           print "\r#{id}    "
         end
         puts

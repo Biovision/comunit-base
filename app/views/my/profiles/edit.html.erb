@@ -1,0 +1,11 @@
+<% content_for :meta_title, t('.title') %>
+<% content_for :hide_sidebar, '1' %>
+
+<article class="profile entity-page">
+  <h1><%= current_user.profile_name %></h1>
+  <div>
+    <p><%= link_to t(:view), my_profile_path %></p>
+  </div>
+
+  <%= render partial: 'my/profiles/edit/form', locals: { entity: current_user } %>
+</article>

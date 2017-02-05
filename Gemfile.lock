@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/Biovision/track
-  revision: 5bc1999d99577adb8dd1881f5cb271242b0c5fa4
+  revision: 101cf0aaba18b76b7da57b10f467800d4745362b
   specs:
-    track (0.1.0)
+    track (0.1.0dev)
       rails (~> 5.0.1)
 
 PATH
@@ -111,10 +111,10 @@ GEM
       addressable (~> 2)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
-    hashie (3.4.6)
+    hashie (3.5.1)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
-    i18n (0.7.0)
+    i18n (0.8.0)
     ice_nine (0.11.2)
     kaminari (1.0.1)
       activesupport (>= 4.1.0)
@@ -145,6 +145,7 @@ GEM
     nio4r (1.2.1)
     nokogiri (1.7.0.1)
       mini_portile2 (~> 2.1.0)
+    openssl (2.0.3)
     pg (0.19.0)
     public_suffix (2.0.5)
     rack (2.0.1)
@@ -216,6 +217,7 @@ PLATFORMS
 
 DEPENDENCIES
   comunit-base!
+  openssl (~> 2.0.3)
   pg
   track!
 

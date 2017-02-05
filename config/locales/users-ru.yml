@@ -1,0 +1,351 @@
+ru:
+  user_count:
+    zero: "пользователей нет"
+    one: "%{count} пользователь"
+    few: "%{count} пользователя"
+    many: "%{count} пользователей"
+    other: "%{count} пользователей"
+  code_activation_count:
+    zero: "активаций нет"
+    one: "%{count} активация"
+    few: "%{count} активации"
+    many: "%{count} активаций"
+    other: "%{count} активаций"
+  attitudes:
+    "-3": "резко негативное"
+    "-2": "негативное"
+    "-1": "компромиссное"
+    "0": "нейтральное"
+    "1": "положительное"
+  invalid_code: "Недействительный код"
+  insufficient_role: "Ваша роль не подходит для доступа к странице"
+  insufficient_rights: "Не хватает прав для доступа"
+  could_not_log_in: "Не удалось выполнить вход"
+  please_log_in: "Пожалуйста, выполните вход"
+  logout: "Выйти"
+  email_already_confirmed: "Электронная почта уже подтверждена"
+  anonymous: "Анонимно"
+  view_as_administrator: "Посмотреть в админке"
+  view_as_visitor: "Посмотреть как посетитель"
+  activerecord:
+    models:
+      user: "Пользователь"
+      code: "Код"
+      token: "Жетон доступа"
+      privilege: "Привилегия"
+      user_privilege: "Привилегия у пользователя"
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              unreasonable: "не выглядит как email"
+            slug:
+              invalid: "должен содержать от 1 до 20 английских букв, цифр или знаков подчёркивания"
+    attributes:
+      user:
+        ip: "Адрес при регистрации"
+        agent: "Агент пользователя при регистрации"
+        slug: "Идентификатор"
+        gender: "Пол"
+        birthday: "Дата рождения"
+        bot: "Это бот"
+        allow_login: "Позволить вход"
+        email_confirmed: "Email подтверждён"
+        phone_confirmed: "Телефон подтверждён"
+        allow_mail: "Разрешить email-уведомления"
+        last_seen: "Последняя активность"
+        password: "Пароль"
+        password_confirmation: "Подтверждение пароля"
+        email: "Email"
+        phone: "Телефон"
+        screen_name: "Логин"
+        name: "Имя"
+        patronymic: "Отчество"
+        surname: "Фамилия"
+        notice: "Заметка"
+        image: "Картинка"
+        verified: "Проверен"
+        marital_status: "Семейное положение"
+        region_id: "Регион"
+        home_city_name: "Родной город"
+        language_names: "Языки"
+        country_name: "Страна"
+        city_name: "Город"
+        home_address: "Домашний адрес"
+        secondary_phone: "Дополнительный телефон"
+        skype_uid: "Skype"
+        show_email: "Показывать email"
+        show_phone: "Показывать телефон"
+        show_secondary_phone: "Показывать дополинтельный телефон"
+        show_birthday: "Показывать дату рождения"
+        show_patronymic: "Показывать отчество"
+        show_skype_uid: "Показывать skype"
+        show_home_address: "Показывать домашинй адрес"
+        show_about: "Показывать «Кратко о себе»"
+        about: "Кратко о себе"
+        activities: "Деятельность"
+        nationality_name: "Национальность"
+        interests: "Интересы"
+        favorite_music: "Любимая музыка"
+        favorite_movies: "Любимые фильмы"
+        favorite_shows: "Любимые телепередачи"
+        favorite_books: "Любимые книги"
+        favorite_games: "Любимые игры"
+        favorite_quotes: "Любимые цитаты"
+        political_views: "Политические предпочтения"
+        religion_name: "Религиозные убеждения"
+        main_in_life: "Главное в жизни"
+        main_in_people: "Главное в людях"
+        smoking_attitude: "Отношение к курению"
+        alcohol_attitude: "Отношение к алкоголю"
+        inspiration: "Источники вдохновения"
+        allow_posts: "Может писать в блог"
+        genders:
+          female: "Женский"
+          male: "Мужской"
+        marital_statuses:
+          male:
+            single: "Не женат"
+            dating: "Встречаюсь"
+            engaged: "Помолвлен"
+            married: "Женат"
+            in_love: "Влюблён"
+            complicated: "Всё сложно"
+            in_active_search: "В активном поиске"
+          female:
+            single: "Не замужем"
+            dating: "Встречаюсь"
+            engaged: "Помолвлена"
+            married: "Замужем"
+            in_love: "Влюблена"
+            complicated: "Всё сложно"
+            in_active_search: "В активном поиске"
+          default:
+            single: "Не женат/не замужем"
+            dating: "Встречаюсь"
+            engaged: "Помолвлен(а)"
+            married: "Женат/замужем"
+            in_love: "Влюблён/влюблена"
+            complicated: "Всё сложно"
+            in_active_search: "В активном поиске"
+      token:
+        user: "Пользователь"
+        user_id: "Пользователь"
+        last_used: "Последнее использование"
+        active: "Активен"
+        token: "Жетон"
+      code:
+        user: "Пользователь"
+        user_id: "Пользователь"
+        category: "Категория"
+        body: "Код"
+        payload: "Полезная нагрузка"
+        quantity: "Количество активаций"
+        categories:
+          confirmation: "Подтверждение почты"
+          recovery: "Сброс пароля"
+          invitation: "Приглашение"
+      privilege:
+        parent_id: "Родительская категория"
+        priority: "Порядок сортировки"
+        regional: "Региональная"
+        name: "Название"
+        slug: "Идентификатор"
+        description: "Описание"
+        parents_cache: "Кеш родителей"
+        children_cache: "Кеш дочерей"
+      user_privilege:
+        privilege: "Привилегия"
+        user: "Пользователь"
+        region: "Регион"
+      user_role:
+        roles:
+          administrator: "Администратор"
+          moderator: "Модератор"
+          chief_editor: "Главнй редактор"
+          post_editor: "Редактор публикаций"
+          news_editor: "Редактор новостей"
+  admin:
+    users:
+      index:
+        title: "Пользователи, страница %{page}"
+        heading: "Пользователи"
+        description: "Управление пользователями сайта"
+      show:
+        title: "Пользователь %{name}"
+        privileges: "Привилегии"
+      tokens:
+        title: "Жетоны пользователя %{user], страница %{page}"
+      codes:
+        title: "Коды пользователя %{user}, страница %{page}"
+      privileges:
+        title: "Привилегии пользователя %{user}"
+        heading: "Привилегии пользователя"
+    tokens:
+      index:
+        title: "Жетоны, страница %{page}"
+        heading: "Жетоны"
+      show:
+        title: "Жетон №%{id}"
+    codes:
+      index:
+        title: "Коды, страница %{page}"
+        heading: "Коды"
+      show:
+        title: "Код «%{body}»"
+    privileges:
+      show:
+        title: "Привилегия «%{name}»"
+        children: "Дочерние привилегии"
+        add_child: "Добавить дочернюю привилегию"
+      users:
+        title: "Пользователи с привилегией «%{privilege}», страница %{page}"
+        heading: "Пользователи с привилегией"
+      index:
+        title: "Привилегии"
+        heading: "Привилегии пользователей"
+        description: "Управление привилегиями пользователей"
+  authentication:
+    info:
+      logout: "Выйти"
+    new:
+      title: "Вход"
+      breadcrumbs: "Вход"
+      external:
+        vkontakte: "Войти через VK"
+        twitter: "Войти через Twitter"
+        facebook: "Войти через Facebook"
+    mailbutton: "Вход в почту"
+  users:
+    create:
+      success: "Пользователь успешно создан"
+    update:
+      success: "Пользователь успешно изменён"
+    destroy:
+      success: "Пользователь успешно удалён"
+    edit:
+      title: "Редактирование пользователя"
+    new:
+      title: "Добавить пользователя"
+    form:
+      roles: "Роли"
+    user:
+      account_data: "Данные аккаунта"
+    index:
+      title: "Пользователи сайта, страница %{page}"
+      heading: "Пользователи сайта"
+    entity:
+      in_list:
+        entries: "Блог"
+    show:
+      not_found: "Пользователь не найден"
+  profiles:
+    profile:
+      user_info: "Информация о пользователе"
+      registration_date: "Дата регистрации"
+      followees: "Друзья"
+    entries:
+      title: "Блог пользователя %{user}, страница %{page}"
+      heading: "Блог пользователя %{user}"
+  tokens:
+    update:
+      success: "Жетон успешно обновлён"
+    destroy:
+      success: "Жетон успешно удалён"
+    new:
+      title: "Добавить жетон"
+    edit:
+      title: "Редактирование жетона"
+  codes:
+    update:
+      success: "Код успешно обновлён"
+    destroy:
+      success: "Код успешно удалён"
+    edit:
+      title: "Редактирование кода"
+    new:
+      title: "Новый код"
+  code_sender:
+    email:
+      subject: "Подтверждение адреса электронной почты"
+    password:
+      subject: "Сброс пароля"
+  my:
+    index:
+      index:
+        title: "Личный кабинет"
+    recoveries:
+      create:
+        impossible: "Сброс пароля для этого пользователя недоступен"
+        completed: "Код сброса пароля отправлен на адрес вашей электронной почты"
+      update:
+        invalid_code: "Введён недействительный код"
+        success: "Пароль успешно сброшен. Вы вошли."
+      show:
+        title: "Сброс пароля"
+        got_code: "Есть код для сброса пароля?"
+        update_password: "Изменить пароль"
+        no_code: "Нет кода для сброса пароля?"
+        send_code: "Отправить код"
+    confirmations:
+      create:
+        set_email: "Пожалуйста, заполните адрес электронной почты"
+        success: "Код подтверждения выслан"
+      update:
+        invalid_code: "Недействительный код"
+      show:
+        title: "Подтвердить адрес электронной почты"
+        got_code: "Есть код подтверждения"
+        confirm: "Подтвердить адрес"
+        no_code: "Кода подтверждения нет?"
+        send_code: "Отправить код подтверждения"
+    profiles:
+      new:
+        title: "Регистрация"
+        form:
+          i_am_bot: "Я — бот и не собираюсь пользоваться сайтом"
+          registration_form: "Форма регистрации"
+          you_accept_terms_of_service: "Регистрируясь на сайте, вы принимаете пользовательское соглашение."
+      create:
+        success: "Вы зарегистрировались и вошли"
+      update:
+        success: "Профиль успешно изменён"
+      show:
+        title: "Мой профиль"
+        heading: "Мой профиль"
+        description: "Просмотр и редактирование вашего профиля"
+      edit:
+        title: "Редактирование профиля"
+        form:
+          common_parameters: "Общие параметры"
+          update_image: "Загрузить новую картинку"
+          sensitive_parameters: "Связанные с безопасностью параметры"
+          sensitive_parameters_notice: "Для изменения этих данных нужно ввести текущий пароль."
+          current_password: "Текущий пароль"
+          leave_blank_if_necessary: "Если не будете менять пароль, оставьте эти поля пустыми."
+          new_password: "Новый пароль"
+          update: "Обновить данные"
+          contact: "Контактные данные"
+          about: "Кратко о себе"
+          stand_in_life: "Жизненная позиция"
+    notifications:
+      index:
+        title: "Уведомления, страница %{page}"
+        heading: "Мои уведомления"
+        description: "Просмотр списка уведомлений"
+    messages:
+      index:
+        title: "Сообщения"
+        heading: "Мои сообщения"
+        description: "Ваше общение с другими пользователями"
+  privileges:
+    new:
+      title: "Новая привилегия"
+    edit:
+      title: "Редактирование привилегии"
+      forbidden: "Редактирование этой привилегии запрещено"
+    update:
+      success: "Привилегия успешно изменена"
+    destroy:
+      success: "Привилегия успешно удалена"

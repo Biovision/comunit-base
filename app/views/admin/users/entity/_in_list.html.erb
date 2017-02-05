@@ -1,0 +1,33 @@
+<div class="image">
+  <%= profile_avatar user %>
+</div>
+<div class="data">
+  <div><%= admin_user_link user %> (<%= user.screen_name %>)</div>
+  <% unless user.notice.blank? %>
+      <div><%= user.notice %></div>
+  <% end %>
+  <% unless user.email.blank? %>
+      <div class="info">
+        <div><%= t('activerecord.attributes.user.email') %>
+          : <%= user.email %></div>
+      </div>
+  <% end %>
+  <div class="secondary info">
+    <div><%= t(:created_at) %>: <%= time_tag user.created_at %></div>
+    <% unless user.last_seen.nil? %>
+        <div>
+          <%= t('activerecord.attributes.user.last_seen') %>:
+          <%= time_tag user.last_seen %>
+        </div>
+    <% end %>
+  </div>
+  <% if UserRole.has_any_role?(user) %>
+      <div class="info">
+        <%= t('users.form.roles') %>: <%= user_roles(user).join(', ') %>
+      </div>
+  <% end %>
+  <%= render partial: 'admin/users/toggleable', locals: { user: user } %>
+  <ul class="actions">
+    <li><%= edit_icon edit_user_path(user) %></li>
+  </ul>
+</div>

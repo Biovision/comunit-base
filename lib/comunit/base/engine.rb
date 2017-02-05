@@ -1,8 +1,10 @@
 module Comunit
   module Base
     class Engine < ::Rails::Engine
-      config.before_initialize do
-        config.i18n.load_path += Dir["#{config.root}/config/locales/**/*.yml"]
+      initializer  "comunit_base.load_base_methods" do
+        ActiveSupport.on_load(:action_controller) do
+          include Comunit::Base::BaseMethods
+        end
       end
     end
 

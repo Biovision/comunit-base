@@ -1,0 +1,247 @@
+<article class="user-profile">
+  <h1><%= user.profile_name %></h1>
+
+  <% if current_user == user %>
+      <ul class="actions">
+        <li><%= edit_icon(edit_my_profile_path) %></li>
+      </ul>
+  <% end %>
+
+  <table>
+    <caption><%= t('.user_info') %></caption>
+    <% if current_user.is_a?(User) && (current_user != user) %>
+        <thead>
+        <tr>
+          <td colspan="2">
+            <div class="user-actions">
+              <%= render partial: 'users/follow_buttons', locals: { user: user, followee: current_user.follows?(user) } %>
+              <div><%= link_to t('user_messages.new.heading'), dialog_my_messages_path(user_slug: user.long_slug), class: 'nav-button' %></div>
+            </div>
+          </td>
+        </tr>
+        </thead>
+    <% end %>
+    <tbody>
+    <tr>
+      <td colspan="2">
+        <figure><%= profile_avatar(user) %></figure>
+      </td>
+    </tr>
+    <tr>
+      <th><%= t('.registration_date') %></th>
+      <td><%= time_tag user.created_at %></td>
+    </tr>
+    <% unless user.last_seen.blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.user.last_seen') %></th>
+          <td><%= time_tag user.last_seen %></td>
+        </tr>
+    <% end %>
+    <% unless user.full_name(user.show_patronymic?).blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.user.name') %></th>
+          <td><%= user.full_name(user.show_patronymic?) %></td>
+        </tr>
+    <% end %>
+    <% if user.show_birthday? && !user.birthday.blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.user.birthday') %></th>
+          <td><%= time_tag(user.birthday) %></td>
+        </tr>
+    <% end %>
+    <% unless user.gender.blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.user.gender') %></th>
+          <td><%= t("activerecord.attributes.user.genders.#{user.gender}") %></td>
+        </tr>
+    <% end %>
+    <% unless user.marital_status.blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.user.marital_status') %></th>
+          <td><%= marital_status_for_user(user) %></td>
+        </tr>
+    <% end %>
+    <% unless user.home_city_name.blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.user.home_city_name') %></th>
+          <td><%= user.home_city_name %></td>
+        </tr>
+    <% end %>
+    <% unless user.language_names.blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.user.language_names') %></th>
+          <td><%= user.language_names %></td>
+        </tr>
+    <% end %>
+    <tr>
+      <td colspan="2"><%= t('my.profiles.edit.form.contact') %></td>
+    </tr>
+    <% unless user.region.blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.user.region_id') %></th>
+          <td><%= user.region.name %></td>
+        </tr>
+    <% end %>
+    <% unless user.country_name.blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.user.country_name') %></th>
+          <td><%= user.country_name %></td>
+        </tr>
+    <% end %>
+    <% unless user.city_name.blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.user.city_name') %></th>
+          <td><%= user.city_name %></td>
+        </tr>
+    <% end %>
+    <% if user.show_home_address? && !user.home_address.blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.user.home_address') %></th>
+          <td><%= user.home_address %></td>
+        </tr>
+    <% end %>
+    <% if user.show_phone? && !user.phone.blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.user.phone') %></th>
+          <td><%= user.phone %></td>
+        </tr>
+    <% end %>
+    <% if user.show_secondary_phone? && !user.secondary_phone.blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.user.secondary_phone') %></th>
+          <td><%= user.secondary_phone %></td>
+        </tr>
+    <% end %>
+    <% if user.show_skype_uid? && !user.skype_uid.blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.user.skype_uid') %></th>
+          <td><%= user.skype_uid %></td>
+        </tr>
+    <% end %>
+    <% if user.show_email? && !user.email.blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.user.email') %></th>
+          <td><%= user.email %></td>
+        </tr>
+    <% end %>
+    <% if user.show_about? %>
+        <tr>
+          <td colspan="2"><%= t('my.profiles.edit.form.about') %></td>
+        </tr>
+        <% unless user.about.blank? %>
+            <tr>
+              <th><%= t('activerecord.attributes.user.about') %></th>
+              <td><%= user.about %></td>
+            </tr>
+        <% end %>
+        <% unless user.activities.blank? %>
+            <tr>
+              <th><%= t('activerecord.attributes.user.activities') %></th>
+              <td><%= user.activities %></td>
+            </tr>
+        <% end %>
+        <% unless user.nationality_name.blank? %>
+            <tr>
+              <th><%= t('activerecord.attributes.user.nationality_name') %></th>
+              <td><%= user.nationality_name %></td>
+            </tr>
+        <% end %>
+        <% unless user.interests.blank? %>
+            <tr>
+              <th><%= t('activerecord.attributes.user.interests') %></th>
+              <td><%= user.interests %></td>
+            </tr>
+        <% end %>
+        <% unless user.favorite_music.blank? %>
+            <tr>
+              <th><%= t('activerecord.attributes.user.favorite_music') %></th>
+              <td><%= user.favorite_music %></td>
+            </tr>
+        <% end %>
+        <% unless user.favorite_movies.blank? %>
+            <tr>
+              <th><%= t('activerecord.attributes.user.favorite_movies') %></th>
+              <td><%= user.favorite_movies %></td>
+            </tr>
+        <% end %>
+        <% unless user.favorite_shows.blank? %>
+            <tr>
+              <th><%= t('activerecord.attributes.user.favorite_shows') %></th>
+              <td><%= user.favorite_shows %></td>
+            </tr>
+        <% end %>
+        <% unless user.favorite_books.blank? %>
+            <tr>
+              <th><%= t('activerecord.attributes.user.favorite_books') %></th>
+              <td><%= user.favorite_books %></td>
+            </tr>
+        <% end %>
+        <% unless user.favorite_games.blank? %>
+            <tr>
+              <th><%= t('activerecord.attributes.user.favorite_games') %></th>
+              <td><%= user.favorite_games %></td>
+            </tr>
+        <% end %>
+        <% unless user.favorite_quotes.blank? %>
+            <tr>
+              <th><%= t('activerecord.attributes.user.favorite_quotes') %></th>
+              <td><%= user.favorite_quotes %></td>
+            </tr>
+        <% end %>
+    <% end %>
+    <tr>
+      <td colspan="2"><%= t('my.profiles.edit.form.stand_in_life') %></td>
+    </tr>
+    <% unless user.political_views.blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.user.political_views') %></th>
+          <td><%= user.political_views %></td>
+        </tr>
+    <% end %>
+    <% unless user.religion_name.blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.user.religion_name') %></th>
+          <td><%= user.religion_name %></td>
+        </tr>
+    <% end %>
+    <% unless user.main_in_life.blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.user.main_in_life') %></th>
+          <td><%= user.main_in_life %></td>
+        </tr>
+    <% end %>
+    <% unless user.main_in_people.blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.user.main_in_people') %></th>
+          <td><%= user.main_in_people %></td>
+        </tr>
+    <% end %>
+    <% unless user.smoking_attitude.blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.user.smoking_attitude') %></th>
+          <td><%= t("attitudes.#{user.smoking_attitude}") %></td>
+        </tr>
+    <% end %>
+    <% unless user.alcohol_attitude.blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.user.alcohol_attitude') %></th>
+          <td><%= t("attitudes.#{user.alcohol_attitude}") %></td>
+        </tr>
+    <% end %>
+    <% unless user.inspiration.blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.user.inspiration') %></th>
+          <td><%= user.inspiration %></td>
+        </tr>
+    <% end %>
+    </tbody>
+    <tfoot>
+    <tr>
+      <td colspan="2">
+        <div><%= link_to "#{t('.followees')} (#{user.followee_count})", user_profile_followees_path(slug: user.long_slug), class: 'nav-button' %></div>
+      </td>
+    </tr>
+    </tfoot>
+  </table>
+</article>
+

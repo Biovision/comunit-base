@@ -1,0 +1,9 @@
+<% content_for :meta_title, t('.title', user: @entity.profile_name, page: current_page) %>
+
+<article>
+  <h1><%= t('.heading', user: @entity.profile_name) %></h1>
+
+  <%= paginate @collection %>
+  <%= render partial: 'entries/list', locals: { collection: @collection } %>
+  <%= paginate @collection %>
+</article>

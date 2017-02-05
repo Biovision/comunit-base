@@ -1,0 +1,19 @@
+<div class="image">
+  <%= image_tag(user.image.profile.url, alt: user.profile_name) %>
+</div>
+<div class="data">
+  <div><%= user_link(user) %></div>
+  <div class="info">
+    <span><%= t('.entries') %></span>:
+    <%= link_to t(:entry, count: user.entries_count), user_profile_entries_path(user.long_slug) %>
+    <% if current_user.is_a?(User) && current_user != user %>
+        <div class="follow-options">
+          <% followee = current_user.follows?(user) %>
+          <%= render partial: 'users/follow_buttons', locals: { user: user, followee: followee } %>
+          <% if local_assigns[:link] && user.follows?(current_user) && !followee %>
+              <%= button_tag t(:hide), type: :button, class: 'hide-request', data: { url: hide_api_user_link_path(link.id) } %>
+          <% end %>
+        </div>
+    <% end %>
+  </div>
+</div>

@@ -14,3 +14,4 @@ gemspec
 # gem 'byebug', group: [:development, :test]
 
 gem 'track', git: 'https://github.com/Biovision/track'
+gem 'openssl', '~> 2.0.3'

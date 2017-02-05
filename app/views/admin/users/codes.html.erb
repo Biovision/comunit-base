@@ -1,0 +1,20 @@
+<% content_for :meta_title, t('.title', user: @entity.profile_name, page: current_page) %>
+<% content_for :hide_sidebar, '1' %>
+
+<article class="entity-page">
+  <h1><%= t('admin.codes.index.heading') %></h1>
+
+  <ul class="actions">
+    <li><%= back_icon admin_user_path(@entity) %></li>
+  </ul>
+
+  <%= paginate @collection %>
+  <%= render partial: 'admin/codes/list', locals: { collection: @collection } %>
+  <%= paginate @collection %>
+
+  <section>
+    <h2><%= t('codes.new.title') %></h2>
+
+    <%= render partial: 'codes/form', locals: { entity: @entity.codes.new } %>
+  </section>
+</article>

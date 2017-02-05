@@ -24,8 +24,13 @@ class NetworkManager
   def relink_user(user)
     url     = "#{MAIN_HOST}/network/users/relink"
     allowed = User.relink_parameters
+    # Залепа для переходного периода
+    attributes = user.attributes.select { |a| allowed.include?(a) }
+    if user.respond_to?(:religion)
+      attributes.merge!(religion_name: user.religion)
+    end
     data    = {
-        user: user.attributes.select { |a| allowed.include?(a) }.merge(religion_name: user.religion),
+        user: attributes,
         data: Hash.new
     }
     unless user.agent.nil?

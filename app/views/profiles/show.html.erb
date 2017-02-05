@@ -1,0 +1,4 @@
+<% content_for :meta_title, @entity.profile_name %>
+<% content_for :meta_image, (request.protocol + request.host_with_port + @entity.image.url) unless @entity.image.blank? %>
+
+<%= render partial: 'profile', locals: { user: @entity } %>
