@@ -56,7 +56,7 @@ class My::ProfilesController < ApplicationController
 
   def creation_parameters
     parameters = params.require(:user).permit(User.new_profile_parameters)
-    parameters.merge(tracking_for_entity).merge(network: User.networks[:native])
+    parameters.merge(tracking_for_entity)
   end
 
   def user_parameters
