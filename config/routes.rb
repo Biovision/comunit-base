@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :users, except: [:show]
   resources :tokens, :codes, except: [:index, :show]
   resources :privileges, except: [:index, :show]
-  resources :regions, except: [:index, :show]
+  resources :regions, except: [:index, :new, :create, :show, :destroy]
 
   namespace :admin do
     resources :users, only: [:index, :show] do

@@ -5,9 +5,8 @@
   <h1><%= @entity.name %></h1>
   <ul class="actions">
     <li><%= back_icon(admin_regions_path) %></li>
-    <% unless @entity.locked? %>
+    <% if @entity.editable_by?(current_user) %>
         <li><%= edit_icon edit_region_path(@entity) %></li>
-        <li class="danger"><%= destroy_icon @entity %></li>
     <% end %>
   </ul>
 
@@ -24,7 +23,7 @@
   <% end %>
 
   <p><%= @entity.slug %></p>
-  <p><%= link_to t('admin.regions.cities.heading'), cities_admin_region_path(@entity.id) %></p>
-  <p><%= t(:user, count: @entity.users_count) %></p>
+  <p><%# link_to t('admin.regions.cities.heading'), cities_admin_region_path(@entity.id) %></p>
+  <p><%= t(:user_count, count: @entity.users_count) %></p>
   <p><%= t(:post, count: @entity.news_count) %></p>
 </article>

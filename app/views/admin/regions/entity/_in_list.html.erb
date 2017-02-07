@@ -1,22 +1,21 @@
 <div class="image">
-  <% unless region.image.blank? %>
-      <%= image_tag(region.image.preview.url, alt: region.name) %>
-  <% end %>
+  <%= region_image_preview(entity) %>
 </div>
 <div class="data">
-  <div><%= link_to region.name, admin_region_path(region) %></div>
+  <div><%= link_to entity.name, admin_region_path(entity) %></div>
   <div class="info">
-    <%= region.slug %>
+    <%= entity.slug %>
   </div>
   <div class="secondary info">
-    <%= t(:user, count: region.users_count) %>,
-    <%= t(:post, count: region.news_count) %>
+    <%= t(:user_count, count: entity.users_count) %>,
+    <%= t(:post, count: entity.news_count) %>
   </div>
+  <%= render partial: 'admin/regions/toggleable', locals: { entity: entity } %>
 
   <ul class="actions">
-    <li class="lockable <%= region.locked? ? 'hidden' : '' %>">
-      <%= edit_icon edit_region_path(region) %>
+    <li class="lockable <%= entity.editable_by?(current_user) ? '' : 'hidden' %>">
+      <%= edit_icon edit_region_path(entity) %>
     </li>
-    <%= render partial: 'shared/actions/locks', locals: { entity: region, path: lock_api_region_path(region) } %>
+    <%= render partial: 'shared/actions/locks', locals: { entity: entity, path: lock_api_region_path(entity) } %>
   </ul>
 </div>

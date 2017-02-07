@@ -22,10 +22,26 @@ module RegionsHelper
 
   def current_region_for_select(selected_id)
     options = [['Центр', '', { data: { url: root_url(subdomain: '') } }]]
-    Region.ordered_by_name.each do |region|
+    Region.visible.ordered_by_name.each do |region|
       options << [region.name, region.id, {data: {url: root_url(subdomain: region.slug) } }]
     end
 
     options_for_select(options, selected_id)
+  end
+  
+  # @param [Region] entity
+  def region_image_preview(entity)
+    unless entity.image.blank?
+      versions = ''#"#{entity.image.preview_2x.url} 2x"
+      image_tag(entity.image.preview.url, alt: entity.name, srcset: versions)
+    end
+  end
+
+  # @param [Region] entity
+  def region_image_medium(entity)
+    unless entity.image.blank?
+      versions = ''#"#{entity.image.medium_2x.url} 2x"
+      image_tag(entity.image.medium.url, alt: entity.name, srcset: versions)
+    end
   end
 end

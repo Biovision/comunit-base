@@ -12,11 +12,9 @@
                 <%= image_tag entity.image.url %>
             <% end %>
             <figcaption>
-              <%= f.label :image %>
-              <%= f.file_field :image, accept: 'image/jpeg,image/png', data: { image: 'region-image' } %>
+              <%= t('activerecord.attributes.region.image') %>
             </figcaption>
           </figure>
-          <div class="guideline"><%= t('.guidelines.image') %></div>
         </td>
       </tr>
       <tr>
@@ -45,11 +43,13 @@
       </tr>
       <tr>
         <th>
-          <%= f.label :slug %>
+          <%= t('activerecord.attributes.region.slug') %>
         </th>
         <td>
-          <%= f.text_field :slug, required: true, size: 10, maxlength: 63 %>
-          <div class="guideline"><%= t('.guidelines.slug') %></div>
+          <%= entity.slug %>
+          <div class="guideline">
+            <%= t('.guidelines.slug') %>
+          </div>
         </td>
       </tr>
       <tr>

@@ -24,12 +24,20 @@ class RegionImageUploader < CarrierWave::Uploader::Base
 
   resize_to_fit 480, 480
 
-  version :header do
+  version :header_2x do
     resize_to_fit 220, 220
   end
 
-  version :preview, from_version: :header do
+  version :header, from_version: :header_2x do
+    resize_to_fit 110, 110
+  end
+
+  version :preview_2x, from_version: :header do
     resize_to_fit 160, 160
+  end
+
+  version :preview, from_version: :preview_2x do
+    resize_to_fit 80, 80
   end
 
   # Add a white list of extensions which are allowed to be uploaded.

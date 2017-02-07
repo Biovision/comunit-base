@@ -1,22 +1,7 @@
 class RegionsController < ApplicationController
   before_action :restrict_access
-  before_action :set_entity, only: [:edit, :update, :destroy]
-  before_action :restrict_editing, only: [:edit, :update, :destroy]
-
-  # get /regions/new
-  def new
-    @entity = Region.new
-  end
-
-  # post /regions
-  def create
-    @entity = Region.new entity_parameters
-    if @entity.save
-      redirect_to admin_region_path(@entity)
-    else
-      render :new, status: :bad_request
-    end
-  end
+  before_action :set_entity, only: [:edit, :update]
+  before_action :restrict_editing, only: [:edit, :update]
 
   # get /regions/:id/edit
   def edit
@@ -31,14 +16,6 @@ class RegionsController < ApplicationController
     end
   end
 
-  # delete /regions/:id
-  def destroy
-    if @entity.destroy
-      flash[:notice] = t('regions.destroy.success')
-    end
-    redirect_to admin_regions_path
-  end
-
   protected
 
   def restrict_access
@@ -46,7 +23,10 @@ class RegionsController < ApplicationController
   end
 
   def set_entity
-    @entity = Region.find params[:id]
+    @entity = Region.find_by(id: params[:id])
+    if @entity.nil?
+      handle_http_404('Cannot find region')
+    end
   end
 
   def restrict_editing

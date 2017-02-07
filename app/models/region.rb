@@ -19,8 +19,9 @@ class Region < ApplicationRecord
   validates_uniqueness_of :name, :slug
   validates_format_of :slug, with: SLUG_PATTERN
 
-  scope :ordered_by_slug, -> { order 'slug asc' }
-  scope :ordered_by_name, -> { order 'name asc' }
+  scope :ordered_by_slug, -> { order('slug asc') }
+  scope :ordered_by_name, -> { order('name asc') }
+  scope :visible, -> { where(visible: true) }
 
   # @param [Integer] page
   def self.page_for_administration(page = 1)
@@ -29,5 +30,10 @@ class Region < ApplicationRecord
 
   def self.entity_parameters
     %i(visible header_image)
+  end
+
+  # @param [User] user
+  def editable_by?(user)
+    UserRole.user_has_role?(user, :administrator) && !locked?
   end
 end

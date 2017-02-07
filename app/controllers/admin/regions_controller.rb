@@ -4,7 +4,7 @@ class Admin::RegionsController < ApplicationController
 
   # get /admin/regions
   def index
-    @collection = Region.page_for_administration
+    @collection = Region.page_for_administration(current_page)
   end
 
   # get /admin/regions/:id
