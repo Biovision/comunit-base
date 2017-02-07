@@ -46,6 +46,8 @@ Rails.application.routes.draw do
     resources :regions, except: [:new, :edit] do
       member do
         post 'toggle'
+        put 'lock'
+        delete 'lock', action: :unlock
       end
     end
   end
