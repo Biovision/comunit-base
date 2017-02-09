@@ -1,0 +1,63 @@
+$calendar_heading_weekend_background: #fc605c;
+$calendar_heading_weekend_color: #fc605c;
+$calendar_weekend_color: #ffbfb2;
+$calendar_today: #34c749;
+
+table.calendar {
+  margin: 0 auto 1.6rem;
+  border-spacing: 0;
+  font-size: $normal_font_size;
+  box-shadow: 0 0 0.1rem 0.1rem rgba(0, 0, 0, 0.1);
+
+  caption {
+    color: #777;
+  }
+
+  col {
+    //width: 4.5rem;
+  }
+
+  thead {
+    tr {
+      background: linear-gradient(to top, $row_background_even, #fff);
+    }
+  }
+
+  td, th {
+    text-align: center;
+    padding: 0.2rem;
+    font-weight: normal;
+
+    > div {
+      border: solid #eee 0.1rem;
+      padding: 0 0.4rem;
+      line-height: 3.2rem;
+    }
+  }
+
+  th:nth-of-type(6), th:nth-of-type(7) {
+    //background: linear-gradient(to top, $calendar_heading_weekend_background, #fff);
+    color: $calendar_heading_weekend_color;
+  }
+
+  td:nth-of-type(6), td:nth-of-type(7) {
+    color: $calendar_heading_weekend_background;
+
+    &.outer {
+      color: $calendar_weekend_color;
+    }
+  }
+
+  .today {
+    font-weight: bold;
+
+    > div {
+      border: solid 0.2rem;
+      color: $calendar_today;
+    }
+  }
+
+  .outer {
+    color: #ccc;
+  }
+}

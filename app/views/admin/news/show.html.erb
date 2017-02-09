@@ -1,0 +1,66 @@
+<% content_for :meta_title, t('.title', title: @entity.title) %>
+<% content_for :hide_sidebar, '1' %>
+
+<article class="entity-page">
+  <h1><%= @entity.title %></h1>
+
+  <ul class="actions">
+    <li><%= back_icon(admin_news_path) %></li>
+    <li><%= news_link(@entity, image_tag('icons/detail.png'), data: { tootik: t(:view) }) %></li>
+    <% unless @entity.locked? %>
+        <li><%= edit_icon edit_news_path(@entity) %></li>
+    <% end %>
+  </ul>
+  <table>
+    <tbody>
+    <% unless @entity.image.blank? %>
+        <tr>
+          <td colspan="2">
+            <figure>
+              <%= image_tag @entity.image.small.url %>
+              <figcaption><%= t(:current_image) %></figcaption>
+            </figure>
+          </td>
+        </tr>
+    <% end %>
+    <tr>
+      <th><%= t('activerecord.attributes.news.user') %></th>
+      <td><%= user_link @entity.user %></td>
+    </tr>
+    <tr>
+      <th><%= t('activerecord.attributes.news.post_type') %></th>
+      <td><%= t("activerecord.attributes.news.post_types.#{@entity.post_type}") %></td>
+    </tr>
+    <% unless @entity.region.nil? %>
+        <tr>
+          <th><%= t('activerecord.attributes.news.region_id') %></th>
+          <td><%= link_to @entity.region.name, admin_region_path(@entity.region_id) %></td>
+        </tr>
+    <% end %>
+    <% unless @entity.news_category.nil? %>
+        <tr>
+          <th>Категория</th>
+          <td><%= admin_news_category_link(@entity.news_category) %></td>
+        </tr>
+    <% end %>
+    <tr>
+      <th><%= t('activerecord.attributes.news.lead') %></th>
+      <td><%= @entity.lead %></td>
+    </tr>
+    <tr>
+      <td colspan="2"><%= render partial: 'admin/news/toggleable', locals: { news: @entity } %></td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <%= t(:view_count, count: @entity.view_count) %>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div><%= raw @entity.body %></div>
+
+  <% if @entity.figures.any? %>
+      <%= render partial: 'admin/figures/list', locals: { collection: @entity.figures } %>
+  <% end %>
+</article>

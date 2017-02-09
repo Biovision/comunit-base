@@ -1,0 +1,108 @@
+<%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+
+<%= form_tag(create_repost_entry_path(entry.id), method: :post, multipart: true) do %>
+    <table>
+      <tbody>
+      <tr>
+        <td colspan="2">
+          <figure class="preview" id="news-image">
+            <%= image_tag 'image-placeholder.png' %>
+            <figcaption>
+              <%= label_tag :news_image, t('activerecord.attributes.news.image') %>
+              <%= file_field_tag 'news[image]', accept: 'image/jpeg,image/png', data: { image: 'news-image' } %>
+            </figcaption>
+          </figure>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <%= label_tag :news_image_name, t('activerecord.attributes.news.image_name') %>
+        </th>
+        <td>
+          <%= text_field_tag 'news[image_name]', entity.image_name %>
+          <div class="guideline"><%= t('news.form.guidelines.image_name') %></div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <%= label_tag :news_image_author_name, t('activerecord.attributes.news.image_author_name') %>
+        </th>
+        <td>
+          <%= text_field_tag 'news[image_author_name]', entity.image_author_name %>
+          <div class="guideline"><%= t('news.form.guidelines.author_name') %></div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <%= label_tag :news_image_author_link, t('activerecord.attributes.news.image_author_link') %>
+        </th>
+        <td>
+          <%= url_field_tag 'news[image_author_link]', entity.image_author_link, placeholder: t('news.form.placeholders.image_author_link') %>
+          <div class="guideline"><%= t('news.form.guidelines.author_link') %></div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <%= label_tag :news_news_category_id, t('activerecord.attributes.news.news_category') %>
+        </th>
+        <td>
+          <%= select_tag 'news[news_category_id]', options_for_select(news_categories_for_select(current_user)), required: true %>
+          <div class="guideline"><%= t('news.form.guidelines.news_category_id') %></div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <%= label_tag :news_region_id, t('activerecord.attributes.news.region_id') %>
+        </th>
+        <td>
+          <%= select_tag 'news[region_id]', options_for_select(regions_for_select) %>
+          <div class="guideline"><%= t('news.form.guidelines.region_id') %></div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <div><%= t('activerecord.attributes.news.title') %></div>
+          <%= entry.title %>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <div><%= label_tag :news_lead, t('activerecord.attributes.news.lead') %></div>
+          <%= text_area_tag 'news[lead]', entity.lead, cols: 20, rows: 3, required: true %>
+          <div class="guideline"><%= t('news.form.guidelines.lead') %></div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <div><%= t('activerecord.attributes.news.body') %></div>
+          <%= raw entry.body %>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <%= label_tag :news_source, t('activerecord.attributes.news.source') %>
+        </th>
+        <td>
+          <%= text_field_tag 'news[source]', entity.source %>
+          <div class="guideline"><%= t('news.form.guidelines.source') %></div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <%= label_tag :news_source_link, t('activerecord.attributes.news.source_link') %>
+        </th>
+        <td>
+          <%= url_field_tag 'news[source_link]', entity.source_link, placeholder: t('news.form.placeholders.source_link') %>
+          <div class="guideline"><%= t('news.form.guidelines.source_link') %></div>
+        </td>
+      </tr>
+      </tbody>
+      <tfoot>
+      <tr>
+        <th colspan="2">
+          <%= button_tag t(:save), type: :submit %>
+        </th>
+      </tr>
+      </tfoot>
+    </table>
+<% end %>

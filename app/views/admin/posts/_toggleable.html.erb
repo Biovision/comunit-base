@@ -1,0 +1,7 @@
+<div class="toggleable" data-url="<%= toggle_api_post_path(post) %>">
+  <% Post.toggleable_attributes.each do |flag| %>
+  <span class="<%= post.attributes[flag.to_s] ? 'active' : 'inactive' %>" data-flag="<%= flag %>">
+    <%= t("activerecord.attributes.post.#{flag}") %>
+  </span>
+  <% end %>
+</div>

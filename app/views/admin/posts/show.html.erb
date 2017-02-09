@@ -1,0 +1,90 @@
+<% content_for :meta_title, t('.title', title: @entity.title) %>
+<% content_for :hide_sidebar, '1' %>
+
+<article class="entity-page">
+  <h1><%= @entity.title %></h1>
+
+  <ul class="actions">
+    <li><%= back_icon admin_posts_path %></li>
+    <li><%= create_icon new_post_path %></li>
+    <% unless @entity.locked? %>
+        <li><%= edit_icon edit_post_path(@entity) %></li>
+    <% end %>
+  </ul>
+  <table>
+    <tbody>
+    <% unless @entity.image.blank? %>
+        <tr>
+          <td colspan="2">
+            <figure>
+              <%= image_tag @entity.image.small.url %>
+              <figcaption><%= t(:current_image) %></figcaption>
+            </figure>
+          </td>
+        </tr>
+    <% end %>
+    <tr>
+      <th><%= t('activerecord.attributes.post.user') %></th>
+      <td><%= user_link @entity.user %></td>
+    </tr>
+    <% unless @entity.post_category.nil? %>
+        <tr>
+          <th>Категория</th>
+          <td><%= admin_post_category_link(@entity.post_category) %></td>
+        </tr>
+    <% end %>
+    <tr>
+      <th><%= t(:created_at) %></th>
+      <td><%= time_tag @entity.created_at %></td>
+    </tr>
+    <tr>
+      <th><%= t(:updated_at) %></th>
+      <td><%= time_tag @entity.updated_at %></td>
+    </tr>
+    <tr>
+      <th><%= t('activerecord.attributes.post.slug') %></th>
+      <td><%= @entity.slug %></td>
+    </tr>
+    <tr>
+      <th><%= t('activerecord.attributes.post.lead') %></th>
+      <td><%= @entity.lead %></td>
+    </tr>
+    <tr>
+      <td colspan="2"><%= render partial: 'admin/posts/toggleable', locals: { post: @entity } %></td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <%= t(:view_count, count: @entity.view_count) %>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div><%= prepare_post_text(@entity) %></div>
+</article>
+
+<script>/*<![CDATA[*/
+$(function () {
+    var $category_list = $('#post_category');
+    var $category_setter = $('#category-setter');
+
+    $category_list.on('change', function () {
+        $category_setter.removeClass('hidden');
+    });
+    $category_setter.on('click', function () {
+        var url = $(this).closest('td').data('url');
+        var data = {
+            category_id: $category_list.val()
+        };
+
+        $.ajax({
+            url: url,
+            method: 'put',
+            data: data,
+            success: function () {
+                $category_setter.addClass('hidden');
+            }
+        }).fail(handle_ajax_failure);
+    });
+});
+/*]]>*/</script>

@@ -1,0 +1,12 @@
+<% content_for :meta_title, t('.title') + title_for_archive(params[:year], params[:month]) %>
+
+<article class="posts">
+  <h1><%= t('.title') %></h1>
+  <ul>
+    <% @dates.keys.each do |year| %>
+        <li><%= link_to year, archive_posts_path(year: year) %></li>
+    <% end %>
+  </ul>
+
+  <%= render 'posts/archive/month_list' %>
+</article>

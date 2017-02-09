@@ -1,0 +1,10 @@
+<div class="news-preview">
+  <div><%= time_tag news.created_at %></div>
+  <% unless news.image.blank? %>
+      <div class="image">
+        <%= news_link news, image_tag(news.image.small.url, alt: news.title) %>
+      </div>
+  <% end %>
+  <div class="link"><%= news_link news %></div>
+  <div class="lead"><%= news.lead %></div>
+</div>

@@ -1,0 +1,19 @@
+<%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+
+<%= form_for entity do |f| %>
+    <div>
+      <%= f.hidden_field :commentable_id %>
+      <%= f.hidden_field :commentable_type %>
+      <%= f.label :body %><br />
+      <%= f.text_area :body, required: true, cols: 80, rows: 7 %>
+    </div>
+    <% if current_user_has_role?(:administrator) && !entity.id.nil? %>
+        <div>
+          <%= f.check_box :deleted %>
+          <%= f.label :deleted %>
+        </div>
+    <% end %>
+    <div>
+      <%= f.button t(:submit), type: 'submit' %>
+    </div>
+<% end %>

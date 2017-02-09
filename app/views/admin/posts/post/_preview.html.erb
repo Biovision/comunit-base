@@ -1,0 +1,28 @@
+<div class="image">
+  <% unless post.image.blank? %>
+      <%= image_tag post.image.preview.url %>
+  <% end %>
+</div>
+<div class="data">
+  <div class="heading">
+    <cite><%= link_to post.title, post %></cite>
+    <div class="actions">
+      <span class="edit <%= post.editable_by?(current_user) ? '' : 'hidden' %>">
+        <%= link_to image_tag('icons/edit.png', alt: t(:edit)), edit_post_path(post), title: t(:edit) %>
+      </span>
+      <span class="lock" data-url="<%= current_user_has_role?(:chief_editor) ? lock_api_post_path(post) : '' %>">
+        <%= link_to image_tag('icons/locked.png'), '#', class: "unlock #{post.locked? ? '' : 'hidden'}" %>
+        <%= link_to image_tag('icons/unlocked.png'), '#', class: "lock #{post.locked? ? 'hidden' : ''}" %>
+      </span>
+    </div>
+  </div>
+  <div class="creation-info">
+    <%= user_link post.user %>,
+    <%= time_tag post.created_at %>
+  </div>
+  <div class="tags">
+    <%= t('posts.form.tags') %>: <%= raw post.tags.map { |tag| link_to tag.name, tag }.join(', ') %>
+  </div>
+
+  <%= render partial: 'admin/posts/toggleable', locals: { post: post } %>
+</div>

@@ -74,7 +74,7 @@ class Privilege < ApplicationRecord
 
   # @param [User] user
   def has_user?(user)
-    privilege_users.exists?(user: user)
+    user_privileges.exists?(user: user)
   end
 
   # @param [Integer] delta

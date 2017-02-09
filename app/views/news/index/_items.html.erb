@@ -1,0 +1,13 @@
+<% item = collection.shift %>
+<div class="most-recent">
+  <% unless item.nil? || item.category.nil? %>
+      <div><%= time_tag(item.created_at) %></div>
+      <% unless item.image.blank? %>
+          <div class="image"><%= news_link(item, image_tag(item.image.preview.url, alt: item.title)) %></div>
+      <% end %>
+      <div class="link"><%= news_link(item) %></div>
+      <div class="lead"><%= news_link item, item.lead %></div>
+  <% end %>
+</div>
+<%= render partial: 'news/index/column', locals: { items: collection.shift(5) } %>
+<%= render partial: 'news/index/column', locals: { items: collection.shift(6) } %>

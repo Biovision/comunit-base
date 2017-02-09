@@ -1,0 +1,15 @@
+<% if collection.any? %>
+    <div class="news-aside news-comments">
+      <div class="heading"><%= t('.heading') %></div>
+      <% collection.each do |item| %>
+          <div class="item">
+            <div><%= time_tag item.created_at %></div>
+            <% unless item.image.blank? %>
+                <div><%= news_link item, image_tag(item.image.preview.url, alt: item.title) %></div>
+            <% end %>
+            <div><%= news_link item %></div>
+            <div><%= item.lead.split(/\s+/)[0..12].join(' ') %>&hellip;</div>
+          </div>
+      <% end %>
+    </div>
+<% end %>

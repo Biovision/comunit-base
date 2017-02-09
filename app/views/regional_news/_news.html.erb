@@ -1,0 +1,70 @@
+<article class="news" itemscope itemtype="http://schema.org/Article">
+  <% if news.editable_by? current_user %>
+      <ul class="actions">
+        <li><%= edit_icon edit_news_path(news) %></li>
+      </ul>
+  <% end %>
+  <div class="time">
+    <%= time_tag news.created_at, itemProp: 'datePublished' %>
+  </div>
+  <div class="pre-head">
+    <% unless news.image.blank? %>
+        <figure>
+          <%= image_tag(news.image.small.url, alt: news.title, itemprop: 'image') %>
+          <figcaption>
+            <% unless news.image_name.blank? %>
+                &laquo;<%= news.image_name %>&raquo;<br/>
+            <% end %>
+            <% unless news.image_author_name.blank? && news.image_author_link.blank? %>
+                Фото: <%= source_link(news.image_author_name, news.image_author_link) %>
+            <% end %>
+          </figcaption>
+        </figure>
+    <% end %>
+    <div class="post-counters">
+      <meta itemprop="commentCount" content="<%= news.comments_count %>" />
+      <span class="comments"><%= news.comments_count %></span>
+      <span class="views"><%= news.view_count %></span>
+    </div>
+  </div>
+
+  <h1 itemprop="name"><%= news.title %></h1>
+
+  <div class="body" itemprop="articleBody">
+    <div class="lead"><%= news.lead %></div>
+
+    <%= prepare_post_text news %>
+  </div>
+
+  <% if news.figures.any? %>
+      <ul class="additional-images">
+        <% news.figures.each do |figure| %>
+            <li><%= link_to(image_tag(figure.image.preview.url, alt: figure.text_for_alt), figure.image.url) %></li>
+        <% end %>
+      </ul>
+  <% end %>
+
+  <div class="footer">
+    <div class="source">
+      <% unless news.source.blank? && news.source_link.blank? %>
+          <%= t('activerecord.attributes.news.source') %>:
+          <%= source_link(news.source, news.source_link) %>
+      <% end %>
+    </div>
+    <% unless news.entry.nil? %>
+        <div class="repost">
+          <%= user_link(news.entry.user) %>
+          <cite><%= entry_link(news.entry, current_user) %></cite>
+        </div>
+    <% end %>
+    <div class="back-to-list">
+      <%= link_to t('.back_to_list'), category_regional_news_index_path(category_slug: @category.slug) %>
+    </div>
+  </div>
+
+  <%= render 'shared/pluso' %>
+  <%= render partial: 'shared/track', locals: { item: news } %>
+
+  <meta itemprop="commentCount" content="<%= news.comments_count %>"/>
+  <%= render partial: 'comments/list', locals: { commentable: news, comments: news.comments } %>
+</article>

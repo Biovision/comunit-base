@@ -1,0 +1,38 @@
+<% content_for :meta_title, t('.title', category: @category.name) %>
+<% content_for :hide_sidebar, '1' %>
+<% content_for :breadcrumbs do %>
+    <%= link_to t(:home), root_path %> /
+    <%= link_to t('news.index.title'), news_index_path %> /
+    <span><%= @category.name %></span>
+<% end %>
+
+<article>
+  <div class="news-categories">
+    <div>
+      <div class="category">
+        <ul>
+          <li><%= link_to t('news.index.heading'), news_index_path %></li>
+          <% NewsCategory.visible.ordered_by_priority.each do |category| %>
+              <% if category == @category %>
+                  <li class="selected"><%= category.name %></li>
+              <% else %>
+                  <li><%= link_to category.name, category_news_index_path(category_slug: category.slug) %></li>
+              <% end %>
+          <% end %>
+        </ul>
+      </div>
+      <div class="list">
+        <div class="previews">
+          <% @collection.each do |news| %>
+              <%= render partial: 'news/preview', locals: { news: news } %>
+          <% end %>
+          <%= paginate @collection %>
+        </div>
+      </div>
+      <div class="comments-and-topics">
+        <%= render partial: 'news/previews/topics', locals: { collection: News.of_type(:topic).in_category(@category).visible.recent.first(3) } %>
+        <%= render partial: 'news/previews/comments', locals: { collection: News.of_type(:comment).in_category(@category).visible.recent.first(7) } %>
+      </div>
+    </div>
+  </div>
+</article>

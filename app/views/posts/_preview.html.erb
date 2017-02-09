@@ -1,0 +1,15 @@
+<div class="post-preview">
+  <div class="heading"><%= link_to post.title, post %></div>
+  <div class="body">
+    <% unless post.image.blank? %>
+        <div class="image"><%= image_tag post.image.small.url %></div>
+        <div class="lead"><%= post.lead %></div>
+    <% end %>
+  </div>
+  <div class="footer">
+    <div class="author"><%= user_link(post.user) %> <%= time_tag post.created_at %></div>
+    <% if post.tags_cache.any? %>
+        <div class="tags"><%= t('posts.form.tags') %>: <%= post.tags_string %></div>
+    <% end %>
+  </div>
+</div>

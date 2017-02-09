@@ -1,0 +1,7 @@
+<% if entries.any? %>
+    <% entries.each do |entry| %>
+        <%= render partial: 'entries/preview', locals: { entry: entry } %>
+    <% end %>
+<% else %>
+    <%= render 'shared/nothing_found' %>
+<% end %>

@@ -1,0 +1,87 @@
+<%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+
+<%= form_for entity do |f| %>
+    <table>
+      <tbody>
+      <tr>
+        <td colspan="2">
+          <figure class="preview" id="post-image">
+            <% if entity.image.blank? %>
+                <%= image_tag 'image-placeholder.png' %>
+            <% else %>
+                <%= image_tag entity.image.big.url %>
+            <% end %>
+            <figcaption>
+              <%= f.label :image %>
+              <%= f.file_field :image, accept: 'image/jpeg,image/png', data: { image: 'post-image' } %>
+            </figcaption>
+          </figure>
+        </td>
+      </tr>
+      <tr>
+        <th><%= f.label :post_category_id %></th>
+        <td><%= f.select :post_category_id, post_categories_for_select(current_user), required: true %></td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <div><%= f.label :title %></div>
+          <%= f.text_field :title, size: 50, mexlength: Post::TITLE_LIMIT, required: true %>
+        </td>
+      </tr>
+      <% unless entity.id.nil? %>
+          <tr>
+            <td colspan="2">
+              <div><%= f.label :slug %></div>
+              <%= f.text_field :slug, size: 50, required: true %>
+            </td>
+          </tr>
+      <% end %>
+      <tr>
+        <td colspan="2">
+          <div><%= f.label :lead %></div>
+          <%= f.text_area :lead, cols: 20, rows: 5, required: true %>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <div><%= f.label :body %></div>
+          <% if entity.entry.nil? %>
+              <%= f.text_area :body, cols: 20, rows: 25, required: true %>
+          <% else %>
+              <%= prepare_post_text(entity) %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" class="flags">
+          <ul>
+            <li><%= f.check_box :visible %><%= f.label :visible %></li>
+            <li><%= f.check_box :main_post %><%= f.label :main_post %></li>
+          </ul>
+        </td>
+      </tr>
+      </tbody>
+      <tfoot>
+      <tr>
+        <th colspan="2">
+          <%= f.button t(:save), type: :submit %>
+        </th>
+      </tr>
+      </tfoot>
+    </table>
+<% end %>
+
+<% if entity.entry.nil? %>
+    <script src="/ckeditor/ckeditor.js"></script>
+    <script>
+        $(function () {
+            var editor = document.getElementById('post_body');
+
+            CKEDITOR.replace(editor, {
+                filebrowserUploadUrl: '/illustrations',
+                removePlugins: 'forms,save,preview,flash,bidi,language,print,templates,newpage',
+                extraPlugins: 'embed'
+            });
+        });
+    </script>
+<% end %>

@@ -1,0 +1,16 @@
+<% content_for :meta_title, t('.title', title: @entity.title, page: current_page) %>
+
+<article class="entity-page">
+  <h1><%= @entity.title %></h1>
+  <ul class="actions">
+    <li><%= back_icon admin_entry_path(@entity) %></li>
+  </ul>
+
+  <section>
+    <h2><%= t(:comments_list) %></h2>
+
+    <%= paginate @collection %>
+    <%= render partial: 'admin/comments/list', locals: { collection: @collection } %>
+    <%= paginate @collection %>
+  </section>
+</article>

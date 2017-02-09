@@ -1,0 +1,14 @@
+<% if collection.any? %>
+    <div class="news-aside recent-news">
+      <div class="heading"><%= t('.heading') %></div>
+      <% collection.each do |item| %>
+          <% next if item.category.nil? %>
+          <div class="item">
+            <div><%= time_tag item.created_at %></div>
+            <div><%= news_link item %></div>
+            <div><%= item.lead.split(/\s+/)[0..12].join(' ') %>&hellip;</div>
+          </div>
+      <% end %>
+    </div>
+<% end %>
+

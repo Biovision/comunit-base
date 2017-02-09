@@ -1,0 +1,25 @@
+<% unless params[:year].nil? %>
+    <h2><%= t('posts.archive.year', year: params[:year]) %></h2>
+    <% if params[:month].nil? %>
+        <% if @dates[params[:year].to_i] %>
+            <ul>
+              <% @dates[params[:year].to_i].each do |month| %>
+                  <li><%= link_to t('date.nominative_months')[month], archive_posts_path(year: params[:year], month: month) %></li>
+              <% end %>
+            </ul>
+        <% else %>
+            <%= render 'shared/nothing_found' %>
+        <% end %>
+    <% else %>
+        <h3><%= t('date.nominative_months')[params[:month].to_i] %></h3>
+        <%= paginate @collection %>
+        <% if @collection.any? %>
+            <% @collection.each do |post| %>
+                <%= render partial: 'posts/preview', locals: { post: post } %>
+            <% end %>
+        <% else %>
+            <%= render 'shared/nothing_found' %>
+        <% end %>
+        <%= paginate @collection %>
+    <% end %>
+<% end %>

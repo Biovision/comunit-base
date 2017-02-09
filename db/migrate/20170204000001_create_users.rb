@@ -31,6 +31,7 @@ class CreateUsers < ActiveRecord::Migration[5.0]
         t.integer :follower_count, default: 0, null: false
         t.integer :followee_count, default: 0, null: false
         t.integer :comments_count, default: 0, null: false
+        t.integer :news_count, default: 0, null: false
         t.integer :posts_count, default: 0, null: false
         t.integer :entries_count, default: 0, null: false
         t.integer :gender, limit: 2

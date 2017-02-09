@@ -1,0 +1,142 @@
+div.list-of-posts {
+  > div {
+    background: $row_background_odd;
+
+    &:nth-of-type(even) {
+      background: $row_background_even;
+    }
+  }
+}
+
+.post-preview {
+  margin: 0.8rem 0;
+  padding: 0.8rem;
+  position: relative;
+
+  &.visible_to_community, &.visible_to_followees {
+    .header {
+      background: image_url('icons/lock-yellow.png') no-repeat top right / 2.4rem 2.4rem;
+    }
+  }
+
+
+  &.personal {
+    .header {
+      background: image_url('icons/lock-red.png') no-repeat top right / 2.4rem 2.4rem;
+    }
+  }
+
+  .title {
+    text-transform: uppercase;
+  }
+
+  .header {
+    display: flex;
+    background: #fff;
+
+    .image {
+      flex-basis: 8rem;
+      width: 8rem;
+      height: 8rem;
+
+      img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+    }
+
+    .info {
+      display: flex;
+      align-content: space-between;
+      flex-wrap: wrap;
+      margin: 0 0 0 0.8rem;
+      flex: 1;
+
+      > div {
+        width: 100%;
+      }
+
+      .title {
+        font-size: $increased_font_size;
+        font-weight: normal;
+      }
+
+      .time {
+        font-size: $decreased_font_size;
+      }
+    }
+  }
+
+  .body {
+    margin: 0.8rem 0;
+    padding: 0.8rem;
+
+    .image {
+      margin: 0 .8rem .4rem 0;
+      float: left;
+
+      img {
+        max-width: 100%;
+      }
+    }
+
+    p:first-of-type {
+      margin-top: 0;
+    }
+
+    .more {
+      &::before {
+        content: '(';
+      }
+
+      &::after {
+        content: ')';
+      }
+    }
+  }
+
+  .footer {
+    clear: both;
+    border-top: solid $secondary_text_color 0.1rem;
+    text-align: right;
+    padding: 0.8rem 0.8rem 0;
+    font-size: $decreased_font_size;
+  }
+}
+
+.entry-form {
+  form {
+    input[type=text] {
+      width: calc(100% - 0.8rem);
+    }
+
+    > div {
+      margin: 0 0 0.8rem 0;
+    }
+  }
+
+  .privacy {
+    ul {
+      margin: 0;
+      padding: 0 0 0 1.6rem;
+
+      li {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+}
+
+@media screen and(max-width: 400px) {
+  .post-preview {
+    .header {
+      .image {
+        flex-basis: 4rem;
+        width: 4rem;
+        height: 4rem;
+      }
+    }
+  }
+}

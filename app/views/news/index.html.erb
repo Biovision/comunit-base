@@ -1,0 +1,42 @@
+<% content_for :meta_title, t('.heading') %>
+<% content_for :hide_sidebar, '1' %>
+<% content_for :breadcrumbs do %>
+    <%= link_to t(:home), root_path %> / <span><%= t('.title') %></span>
+<% end %>
+
+<% categories = NewsCategory.visible.ordered_by_priority %>
+<article>
+  <div class="news-categories">
+    <div>
+      <div class="category">
+        <div><%= t('.main') %></div>
+        <ul>
+          <% categories.each do |news_category| %>
+              <li><%= link_to news_category.name, "##{news_category.slug}" %></li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="list">
+        <%= render partial: 'news/index/items', locals: { collection: News.of_type(:news).visible.recent.first(12) } %>
+      </div>
+      <div class="comments-and-topics">
+        <%= render partial: 'news/previews/comments', locals: { collection: News.of_type(:comment).visible.recent.first(1) } %>
+        <%= render partial: 'news/previews/topics', locals: { collection: News.of_type(:topic).visible.recent.first(1) } %>
+      </div>
+    </div>
+    <% categories.each do |category| %>
+        <div>
+          <div class="category" id="<%= category.slug %>">
+            <div><%= link_to category.name, category_news_index_path(category_slug: category.slug) %></div>
+          </div>
+          <div class="list">
+            <%= render partial: 'news/index/items', locals: { collection: News.of_type(:news).in_category(category).visible.recent.first(11) } %>
+          </div>
+          <div class="comments-and-topics">
+            <%= render partial: 'news/previews/comments', locals: { collection: News.of_type(:comment).in_category(category).visible.recent.first(1) } %>
+            <%= render partial: 'news/previews/topics', locals: { collection: News.of_type(:topic).in_category(category).visible.recent.first(1) } %>
+          </div>
+        </div>
+    <% end %>
+  </div>
+</article>

@@ -1,0 +1,14 @@
+<% content_for :meta_title, t('.title') %>
+<% content_for :options do %>
+      <ul>
+        <li><%= link_to t(:view), @entity %></li>
+        <li><%= link_to t(:list), admin_comments_path %></li>
+        <li><%= link_to_delete @entity %></li>
+      </ul>
+<% end %>
+
+<article class="edit-comment">
+  <h1><%= t('.title') %></h1>
+
+  <%= render partial: 'form', locals: { entity: @entity } %>
+</article>

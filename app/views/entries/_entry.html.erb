@@ -1,0 +1,34 @@
+<article class="post <%= entry.privacy %>" itemscope itemtype="http://schema.org/BlogPosting">
+  <h1 itemprop="name"><%= entry.title || t(:untitled) %></h1>
+
+  <meta itemprop="commentCount" content="<%= entry.comments_count %> "/>
+
+  <ul class="actions">
+    <% if entry.editable_by? current_user %>
+        <li><%= edit_icon edit_entry_path(entry) %></li>
+    <% end %>
+    <% if entry.can_be_reposted_by? current_user %>
+        <li><%= icon_with_link('icons/repost.png', new_repost_entry_path(entry.id), 'Репост') %></li>
+    <% end %>
+  </ul>
+
+  <div class="body" itemprop="articleBody">
+    <% unless entry.image.blank? %>
+        <figure><%= image_tag(entry.image.big.url, alt: entry.title) %></figure>
+    <% end %>
+    <%= raw entry.body %>
+  </div>
+
+  <div class="footer">
+    <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <span itemprop="name"><%= user_link entry.user %></span>
+    </div>
+    <div class="time">
+      <%= time_tag entry.created_at, itemProp: 'datePublished' %>
+    </div>
+  </div>
+  <%= render 'shared/pluso' %>
+  <%= render partial: 'shared/track', locals: { item: entry } %>
+
+  <%= render partial: 'comments/list', locals: { comments: entry.comments.visible.recent, commentable: entry } %>
+</article>

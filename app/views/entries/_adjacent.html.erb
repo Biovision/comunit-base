@@ -1,0 +1,16 @@
+<% if entries[:next].is_a?(Entry) || entries[:prev].is_a?(Entry) %>
+    <nav class="adjacent">
+      <ul>
+        <li>
+          <% unless entries[:prev].blank? %>
+              <span><%= entry_link entries[:prev], current_user %></span>
+          <% end %>
+        </li>
+        <li>
+          <% unless entries[:next].blank? %>
+              <span><%= entry_link entries[:next], current_user %></span>
+          <% end %>
+        </li>
+      </ul>
+    </nav>
+<% end %>

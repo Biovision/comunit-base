@@ -1,0 +1,54 @@
+<article class="post" itemscope itemtype="http://schema.org/Article">
+  <% if post.editable_by? current_user %>
+      <ul class="actions">
+        <li><%= edit_icon edit_post_path(post) %></li>
+      </ul>
+  <% end %>
+  <header>
+    <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <span itemprop="name"><%= user_link post.user %></span>
+    </div>
+    <div class="post-counters">
+      <meta itemprop="commentCount" content="<%= post.comments_count %>" />
+      <span class="comments"><%= post.comments_count %></span>
+      <span class="views"><%= post.view_count %></span>
+    </div>
+  </header>
+  <h1 itemprop="name"><%= post.title %></h1>
+
+  <div class="body" itemprop="articleBody">
+    <div class="lead">
+      <% unless post.image.blank? %>
+          <figure><%= image_tag(post.image.big.url, alt: post.title, itemprop: 'image') %></figure>
+      <% end %>
+      <p><%= post.lead %></p>
+    </div>
+
+    <%= prepare_post_text post %>
+  </div>
+
+  <% if post.tags_cache.any? %>
+      <div class="tags">
+        <% post.tags_cache.each do |tag_name| %>
+            <%= link_to tag_name, tagged_posts_path(tag_name: Canonizer.urlize(tag_name)), rel: 'tag' %>
+        <% end %>
+      </div>
+  <% end %>
+
+  <div class="footer">
+    <div class="time">
+      <%= time_tag post.created_at, itemProp: 'datePublished' %>
+    </div>
+    <% unless post.entry.nil? %>
+      <div class="repost">
+        <%= user_link(post.entry.user) %>
+        <cite><%= entry_link(post.entry, current_user) %></cite>
+      </div>
+    <% end %>
+  </div>
+
+  <%= render 'shared/pluso' %>
+  <%= render partial: 'shared/track', locals: { item: post } %>
+
+  <%= render partial: 'comments/list', locals: { commentable: post, comments: post.comments } %>
+</article>

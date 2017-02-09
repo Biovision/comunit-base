@@ -1,0 +1,11 @@
+<% if collection.any? %>
+    <ul class="comments-list">
+      <% collection.each do |comment| %>
+          <li>
+            <%= render comment %>
+          </li>
+      <% end %>
+    </ul>
+<% else %>
+    <%= render 'shared/nothing_found' %>
+<% end %>

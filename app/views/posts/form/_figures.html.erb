@@ -1,0 +1,67 @@
+<tr>
+  <td colspan="2" class="figures">
+    <div class="heading"><%= t('posts.form.figures') %></div>
+
+    <ul class="list-of-figures">
+      <% entity.figures.each do |figure| %>
+          <li>
+            <div class="image">
+              <%= link_to image_tag(figure.image.preview.url), figure unless figure.image.blank? %>
+            </div>
+            <div class="data">
+              <div class="slug"><%= link_to figure.slug, figure %></div>
+              <div class="caption">
+                <%= figure.caption %>
+                <% unless figure.alt_text.blank? %>
+                    (<%= figure.alt_text %>)
+                <% end %>
+              </div>
+            </div>
+          </li>
+      <% end %>
+      <li>
+        <div id="new-figure-0" class="image">
+          <%= image_tag 'image-placeholder.png', alt: t('activerecord.attributes.figure.image') %>
+        </div>
+        <div class="data">
+          <div>
+            <%= label_tag 'figures[0][image]', t('activerecord.attributes.figure.image') %>
+            <%= file_field_tag 'figures[0][image]', accept: 'image/jpeg,image/png', data: { image: 'new-figure-0' } %>
+          </div>
+          <div>
+            <%= label_tag 'figures[0][slug]', t('activerecord.attributes.figure.slug') %>
+            <%= text_field_tag 'figures[0][slug]', Figure.next_slug(entity), size: 20, maxlength: 30 %>
+          </div>
+          <div>
+            <%= label_tag 'figures[0][caption]', t('activerecord.attributes.figure.caption') %>
+            <%= text_field_tag 'figures[0][caption]', '', size: 20 %>
+          </div>
+          <div>
+            <%= label_tag 'figures[0][alt_text]', t('activerecord.attributes.figure.alt_text') %>
+            <%= text_field_tag 'figures[0][alt_text]', '', size: 20 %>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <button type="button" id="add-figure"><%= t('posts.form.add_figure') %></button>
+
+    <script>/*<![CDATA[*/
+    $(document).ready(function () {
+      var default_src = 'src="<%= image_path 'image-placeholder.png' %>"';
+
+      $('#add-figure').on('click', function () {
+        var $container = $(this).parent().find('ul');
+        var $last_item = $container.find('li:last-of-type');
+        var last_index = $last_item.find('input[type=file]').attr('id').replace(/\D+(\d+)\D+/, '$1');
+        var next_index = $container.find('li').length;
+        var pattern = new RegExp('([_\\[])' + last_index + '([_\\]])', 'g');
+        var $new_element = '<li>' + $last_item.html().replace(pattern, '$1' + next_index + '$2') + '</li>';
+
+        $new_element = $new_element.replace(/src=".+"/, default_src);
+        $container.append($new_element.replace(new RegExp('figure-' + last_index, 'g'), 'figure-' + next_index));
+        $('#figures_' + next_index + '_slug').val(next_index + 1);
+      });
+    });
+    /*]]>*/</script>
+  </td>
+</tr>

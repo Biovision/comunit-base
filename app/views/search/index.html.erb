@@ -1,0 +1,29 @@
+<% content_for :meta_title, t('.title') %>
+
+<article>
+  <h1><%= t('.heading') %></h1>
+
+  <section class="search-form">
+    <%= form_tag url_for, method: :get do %>
+        <div>
+          <%= search_field_tag 'q', param_from_request(:q) %>
+          <%= button_tag t('.find'), type: :submit %>
+        </div>
+    <% end %>
+  </section>
+
+  <% if @collection.any? %>
+      <div class="frontpage-posts">
+        <div class="heading">
+          Результат поиска
+        </div>
+        <div class="posts">
+          <% @collection.each do |post| %>
+              <% next if post.category.blank? %>
+              <%= render partial: 'index/frontpage_posts/preview', locals: { post: post } %>
+          <% end %>
+        </div>
+      </div>
+  <% end %>
+
+</article>

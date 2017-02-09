@@ -1,0 +1,149 @@
+<%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+
+<%= form_for entity do |f| %>
+    <table>
+      <tbody>
+      <tr>
+        <th>
+          <%= f.label :title %>
+        </th>
+        <td>
+          <%= f.text_field :title, mexlength: Post::TITLE_LIMIT, required: true %>
+          <div class="guideline"><%= t('.guidelines.title') %></div>
+        </td>
+      </tr>
+      <% unless entity.id.nil? %>
+          <tr>
+            <th>
+              <%= f.label :slug %>
+            </th>
+            <td>
+              <%= f.text_field :slug, size: 50, required: true %>
+              <div class="guideline"><%= t('.guidelines.slug') %></div>
+            </td>
+          </tr>
+      <% end %>
+      <tr>
+        <th>
+          <%= f.label :news_category_id %>
+        </th>
+        <td>
+          <%= f.select :news_category_id, news_categories_for_select(current_user), required: true %>
+          <div class="guideline"><%= t('.guidelines.news_category_id') %></div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <%= f.label :region_id %>
+        </th>
+        <td>
+          <%= f.select :region_id, regions_for_select(current_user) %>
+          <div class="guideline"><%= t('.guidelines.region_id') %></div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <div><%= f.label :lead %></div>
+          <%= f.text_area :lead, cols: 80, rows: 3, maxlength: News::LEAD_LIMIT, required: true %>
+          <div class="guideline"><%= t('.guidelines.lead') %></div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <div><%= f.label :body %></div>
+          <% if entity.entry.nil? %>
+              <%= f.text_area :body, cols: 20, rows: 25, required: true %>
+          <% else %>
+              <%= prepare_post_text(entity) %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <figure class="preview" id="post-image">
+            <% if entity.image.blank? %>
+                <%= f.label :image, image_tag('image-placeholder.png') %>
+            <% else %>
+                <%= f.label :image, image_tag(entity.image.big.url) %>
+            <% end %>
+          </figure>
+        </td>
+        <td class="sparse">
+          <div>
+            <%= f.label :image %><br />
+            <%= f.file_field :image, accept: 'image/jpeg,image/png', data: { image: 'post-image' } %>
+            <div class="guideline"><%= t('.guidelines.image') %></div>
+          </div>
+          <div>
+            <%= f.label :image_name %><br />
+            <%= f.text_field :image_name %>
+            <div class="guideline"><%= t('.guidelines.image_name') %></div>
+          </div>
+          <div>
+            <%= f.label :image_author_name %><br />
+            <%= f.text_field :image_author_name %>
+            <div class="guideline"><%= t('.guidelines.author_name') %></div>
+          </div>
+          <div>
+            <%= f.label :image_author_link %><br />
+            <%= f.url_field :image_author_link, placeholder: t('.placeholders.image_author_link') %>
+            <div class="guideline"><%= t('.guidelines.author_link') %></div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <%= f.label :source %>
+        </th>
+        <td>
+          <%= f.text_field :source %>
+          <div class="guideline"><%= t('.guidelines.source') %></div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <%= f.label :source_link %>
+        </th>
+        <td>
+          <%= f.url_field :source_link, placeholder: t('.placeholders.source_link') %>
+          <div class="guideline"><%= t('.guidelines.source_link') %></div>
+        </td>
+      </tr>
+      <tr>
+        <th><%= f.label :post_type %></th>
+        <td><%= f.select :post_type, post_types_for_select %></td>
+      </tr>
+      <tr>
+        <td class="flags" colspan="2">
+          <ul>
+            <li><%= f.check_box :visible %><%= f.label :visible %></li>
+            <li><%= f.check_box :show_name %><%= f.label :show_name %></li>
+          </ul>
+        </td>
+      </tr>
+      <%= render partial: 'news/form/figures', locals: { entity: entity } %>
+      </tbody>
+      <tfoot>
+      <tr>
+        <th colspan="2">
+          <%= f.button t(:save), type: :submit %>
+        </th>
+      </tr>
+      </tfoot>
+    </table>
+<% end %>
+
+<% if entity.entry.nil? %>
+    <script src="/ckeditor/ckeditor.js"></script>
+    <script>
+        $(function () {
+            var editor = document.getElementById('news_body');
+
+            CKEDITOR.replace(editor, {
+                filebrowserUploadUrl: '/illustrations',
+                removePlugins: 'forms,save,preview,flash,bidi,language,print,templates,newpage',
+                extraPlugins: 'embed'
+            });
+        });
+    </script>
+<% end %>

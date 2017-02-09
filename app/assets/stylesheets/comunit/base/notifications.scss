@@ -1,0 +1,12 @@
+$unread_notification_bg_even: #f0fff0;
+$unread_notification_bg_odd: #fafffa;
+
+.list-of-notifications {
+  li.unread {
+    background: $unread_notification_bg_odd;
+
+    &:nth-of-type(even) {
+      background: $unread_notification_bg_even;
+    }
+  }
+}

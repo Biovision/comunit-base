@@ -51,7 +51,7 @@ class User < ApplicationRecord
   scope :email_like, -> (val) { where 'email ilike ?', "%#{val}%" unless val.blank? }
   scope :with_email, -> (email) { where 'email ikike ?', email }
   scope :with_roles, -> (roles) { joins(:user_roles).where(user_roles: { role: roles }) unless roles.blank? }
-  scope :with_privilege, -> (privilege) { joins(:privilege_users).where(privilege_users: { privilege_id: privilege.ids} ) }
+  scope :with_privilege, -> (privilege) { joins(:user_privileges).where(user_privileges: { privilege_id: privilege.ids} ) }
   scope :filtered, -> (f) {
     name_like(f[:name]).surname_like(f[:surname]).email_like(f[:email]).
         screen_name_like(f[:screen_name]).with_roles(f[:roles])

@@ -1,0 +1,22 @@
+<div class="post-preview <%= entry.privacy %>">
+  <div class="header">
+    <div class="image"><%= profile_avatar entry.user %></div>
+    <div class="info">
+      <div class="title"><%= entry_link entry, current_user %></div>
+      <div class="author"><%= user_link entry.user %></div>
+      <div class="time"><%= time_tag entry.created_at %></div>
+    </div>
+  </div>
+  <div class="body">
+    <% unless entry.image.blank? %>
+        <div class="image"><%= image_tag(entry.image.preview.url, alt: entry.title) %></div>
+    <% end %>
+    <%= glimpse(entry.body, 50) %>
+    <div class="more"><%= entry_link entry, current_user, t(:read_all) %></div>
+  </div>
+  <div class="footer">
+    <div class="comments">
+      <%= entry_link entry, current_user, t(:comment, count: entry.comments_count), { anchor: 'comments' } %>
+    </div>
+  </div>
+</div>
