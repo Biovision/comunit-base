@@ -121,7 +121,7 @@
           </ul>
         </td>
       </tr>
-      <%= render partial: 'news/form/figures', locals: { entity: entity } %>
+      <%# render partial: 'news/form/figures', locals: { entity: entity } %>
       </tbody>
       <tfoot>
       <tr>
@@ -134,7 +134,7 @@
 <% end %>
 
 <% if entity.entry.nil? %>
-    <script src="/ckeditor/ckeditor.js"></script>
+    <script src="/ckeditor/4-6-2/ckeditor.js"></script>
     <script>
         $(function () {
             var editor = document.getElementById('news_body');
