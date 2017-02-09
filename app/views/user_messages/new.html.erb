@@ -1,0 +1,7 @@
+<% content_for :meta_title, t('.title') %>
+
+<article class="entity-page">
+  <h1><%= t('.heading') %></h1>
+
+  <%= render partial: 'form', locals: { entity: @entity } %>
+</article>

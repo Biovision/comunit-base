@@ -1,0 +1,15 @@
+<div id="sidebar">
+  <%= render 'shared/sidebar/calendar' %>
+  <%= render 'shared/sidebar/popular_topics' %>
+
+  <div class="video">
+    <%= render 'index/frontpage_posts/videos' %>
+  </div>
+
+  <div class="regions">
+    <div class="heading">
+      Карта регионов
+    </div>
+    <%= image_tag('regions.png', srcset: "#{asset_path('regions-2x.png')} 2x") %>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+ru:
+  follow: "В друзья"
+  unfollow: "Из друзей"
+  activerecord:
+    models:
+      user_link: "Заявка в друзья"
+      user_message: "Сообщение"
+    errors:
+      models:
+        user_link:
+          attributes:
+            follower:
+              required: "должен быть указан"
+            followee:
+              required: "должен быть указан"
+        user_message:
+          attributes:
+            sender:
+              required: "должен быть указан"
+            receiver:
+              required: "должен быть указан"
+    attributes:
+      user_link:
+        follower: "Пользователь"
+        followee: "Друг"
+        visible: "Показывать"
+      user_message:
+        sender: "Отправитель"
+        receiver: "Получатель"
+        read_by_receiver: "Получатель прочитал"
+        deleted_by_sender: "Отправитель удалил"
+        deleted_by_receiver: "Получатель удалил"
+        body: "Текст"
+  my:
+    followees:
+      index:
+        title: "Ваши друзья, страница %{page}"
+        heading: "Ваши друзья"
+        description: "Список тех, кого вы добавили в друзья"
+    followers:
+      index:
+        title: "Список добавивших вас в друзья, страница %{page}"
+        heading: "Список добавивших вас в друзья"
+        description: "Список пользователей, добавивших вас в друзья"
+    messages:
+      dialog:
+        title: "Диалог с пользователем %{user}, страница %{page}"
+        heading: "Диалог с пользователем %{user}"
+  user_messages:
+    not_found:
+      title: "Сообщение не найдено"
+      heading: "Сообщение не найдено"
+      message: "Сообщение, которое вы ищете, не существует или было удалено."
+    new:
+      title: "Новое сообщение"
+      heading: "Новое сообщение"
+  api:
+    user_links:
+      not_found:
+        title: "Отношение не найдено"

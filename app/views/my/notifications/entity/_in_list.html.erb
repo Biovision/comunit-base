@@ -1,0 +1,5 @@
+<div class="data">
+  <%= render partial: "my/notifications/entity/#{entity.category}", locals: { entity: entity } %>
+  <div class="secondary info"><%= time_tag entity.created_at %></div>
+  <% entity.update(read_by_user: true) %>
+</div>

@@ -1,0 +1,55 @@
+<% posts = PopularPosts.prepare(5) %>
+<div id="popular-topics">
+  <div class="heading">Самые популярные сюжеты</div>
+  <input type="radio" id="popular-week" name="popular_switch" checked/>
+  <div>
+    <ol>
+      <% posts[:week].each do |item| %>
+          <% if item.is_a? News %>
+              <li><%= news_link item %></li>
+          <% else %>
+              <li><%= post_link item %></li>
+          <% end %>
+      <% end %>
+    </ol>
+    <div>
+      <label for="popular-week"><span>Неделя</span></label>
+      <label for="popular-month">Месяц</label>
+      <label for="popular-all">Все</label>
+    </div>
+  </div>
+  <input type="radio" id="popular-month" name="popular_switch"/>
+  <div>
+    <ol>
+      <% posts[:month].each do |item| %>
+          <% if item.is_a? News %>
+              <li><%= news_link item %></li>
+          <% else %>
+              <li><%= post_link item %></li>
+          <% end %>
+      <% end %>
+    </ol>
+    <div>
+      <label for="popular-week">Неделя</label>
+      <label for="popular-month"><span>Месяц</span></label>
+      <label for="popular-all">Все</label>
+    </div>
+  </div>
+  <input type="radio" id="popular-all" name="popular_switch"/>
+  <div>
+    <ol>
+      <% posts[:overall].each do |item| %>
+          <% if item.is_a? News %>
+              <li><%= news_link item %></li>
+          <% else %>
+              <li><%= post_link item %></li>
+          <% end %>
+      <% end %>
+    </ol>
+    <div>
+      <label for="popular-week">Неделя</label>
+      <label for="popular-month">Месяц</label>
+      <label for="popular-all"><span>Все</span></label>
+    </div>
+  </div>
+</div>

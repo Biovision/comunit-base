@@ -1,0 +1,14 @@
+<div class="image">
+  <%= profile_avatar(entity.sender) %>
+</div>
+<div class="image">
+  <%= profile_avatar(entity.receiver) %>
+</div>
+<div class="data">
+  <div>
+    <% user = entity.sender?(current_user) ? entity.receiver : entity.sender %>
+    <%= link_to user.profile_name, dialog_my_messages_path(user_slug: user.long_slug), class: 'profile' %>,
+    <%= time_tag entity.created_at %>
+  </div>
+  <div class="secondary info"><%= glimpse(entity.body, 20) %></div>
+</div>

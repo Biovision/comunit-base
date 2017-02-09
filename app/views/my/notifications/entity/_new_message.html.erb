@@ -1,0 +1,9 @@
+<% sender = entity.payload_object %>
+<div>
+  Пользователь <%= user_link(sender) %> отправил вам
+  <% if sender.nil? %>
+  сообщение.
+  <% else %>
+  <%= link_to 'сообщение', dialog_my_messages_path(user_slug: sender.long_slug) %>.
+  <% end %>
+</div>

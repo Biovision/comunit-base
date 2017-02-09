@@ -1,0 +1,8 @@
+ru:
+  unread_notifications: "Непрочитанные уведомления"
+  new_notification_count:
+    zero: "Новых уведомлений нет"
+    one: "%{count} новое уведомление"
+    few: "%{count} новых уведомления"
+    many: "%{count} новых уведомлений"
+    other: "%{count} новых уведомлений"

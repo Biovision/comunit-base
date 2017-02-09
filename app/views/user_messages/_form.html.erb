@@ -1,0 +1,12 @@
+<%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+
+<%= form_for entity do |f| %>
+    <div>
+      <%= f.hidden_field :receiver_id if entity.id.nil? %>
+      <div><%= f.label :body %></div>
+      <div><%= f.text_area :body, required: true, cols: 50, rows: 5 %></div>
+    </div>
+    <div class="buttons">
+      <%= f.button t(:submit), type: :submit %>
+    </div>
+<% end %>

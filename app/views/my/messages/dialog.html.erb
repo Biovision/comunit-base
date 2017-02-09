@@ -1,0 +1,35 @@
+<% content_for :meta_title, t('.title', user: @interlocutor.profile_name, page: current_page) %>
+
+<article>
+  <h1><%= t('.heading', user: @interlocutor.profile_name) %></h1>
+
+  <ul class="actions">
+    <li><%= back_icon(my_messages_path) %></li>
+  </ul>
+
+  <%# paginate @collection %>
+  <ul class="list-of-messages">
+    <% @collection.reverse.each do |message| %>
+        <li class="<%= message.sender?(current_user) ? 'sent' : 'received' %>">
+          <div>
+            <div class="heading">
+              <%= user_link(message.sender) %>, <%= time_tag message.created_at %>
+            </div>
+            <div class="image"><%= profile_avatar(message.sender) %></div>
+            <div class="message"><%= simple_format(message.body) %></div>
+          </div>
+        </li>
+    <% end %>
+    <li class="sent">
+      <div>
+        <div class="image"><%= profile_avatar(current_user) %></div>
+        <div class="message">
+          <%= render partial: 'user_messages/form', locals: { entity: UserMessage.new(sender: current_user, receiver: @interlocutor) } %>
+        </div>
+
+      </div>
+    </li>
+  </ul>
+
+  <%# paginate @collection %>
+</article>

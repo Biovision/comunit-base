@@ -1,0 +1,16 @@
+<% content_for :meta_title, t('.title', page: current_page) %>
+
+<article>
+  <h1><%= t('.heading') %></h1>
+
+  <ul class="actions">
+    <li><%= back_icon(my_path) %></li>
+    <li><%= list_icon(users_path, t('users.index.heading')) %></li>
+  </ul>
+
+  <%= render partial: 'users/filter', locals: { filter: @filter } %>
+
+  <%= paginate @collection %>
+  <%= render partial: 'list', locals: { collection: @collection } %>
+  <%= paginate @collection %>
+</article>

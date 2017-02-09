@@ -1,0 +1,11 @@
+<% if collection.any? %>
+    <ul class="list-of-entities">
+      <% collection.each do |entity| %>
+          <li>
+            <%= render partial: 'users/entity/in_list', locals: { user: entity.followee } %>
+          </li>
+      <% end %>
+    </ul>
+<% else %>
+    <%= render 'shared/nothing_found' %>
+<% end %>

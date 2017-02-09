@@ -15,6 +15,8 @@ class CreatePostCategories < ActiveRecord::Migration[5.0]
         t.string :parents_cache, default: "", null: false
         t.integer :children_cache, default: [], null: false, array: true
       end
+
+      add_foreign_key :post_categories, :post_categories, column: :parent_id, on_update: :cascade, on_delete: :cascade
     end
   end
 
