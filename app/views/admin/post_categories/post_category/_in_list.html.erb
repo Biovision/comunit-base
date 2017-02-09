@@ -1,0 +1,21 @@
+<div class="data">
+  <div><%= link_to category.name, admin_post_category_path(category) %></div>
+  <div class="info">
+    <div><%= category.slug %></div>
+    <div><%= link_to t(:post, count: category.items_count), items_admin_post_category_path(category) %></div>
+  </div>
+  <%= render partial: 'admin/post_categories/toggleable', locals: { post_category: category } %>
+  <ul class="actions">
+    <li class="lockable <%= category.locked? ? 'hidden' : '' %>">
+      <%= edit_icon edit_post_category_path(category) %>
+    </li>
+    <%= render partial: 'shared/actions/priority_changer', locals: { path: priority_api_post_category_path(category) } %>
+    <%= render partial: 'shared/actions/locks', locals: { entity: category, path: lock_api_post_category_path(category) } %>
+  </ul>
+
+  <% if category.children.any? %>
+      <div class="children">
+        <%= render partial: 'admin/post_categories/list', locals: { collection: PostCategory.for_tree(category.id) } %>
+      </div>
+  <% end %>
+</div>

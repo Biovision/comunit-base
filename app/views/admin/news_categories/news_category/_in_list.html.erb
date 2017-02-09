@@ -1,0 +1,15 @@
+<div class="data">
+  <div><%= link_to category.name, admin_news_category_path(category) %></div>
+  <div class="info">
+    <div><%= category.slug %></div>
+    <div><%= link_to t(:news_count, count: category.items_count), items_admin_news_category_path(category) %></div>
+  </div>
+  <%= render partial: 'admin/news_categories/toggleable', locals: { news_category: category } %>
+  <ul class="actions">
+    <li class="lockable <%= category.locked? ? 'hidden' : '' %>">
+      <%= edit_icon edit_news_category_path(category) %>
+    </li>
+    <%= render partial: 'shared/actions/priority_changer', locals: { path: priority_api_news_category_path(category) } %>
+    <%= render partial: 'shared/actions/locks', locals: { entity: category, path: lock_api_news_category_path(category) } %>
+  </ul>
+</div>

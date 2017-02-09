@@ -248,6 +248,9 @@ ru:
     entries:
       title: "Блог пользователя %{user}, страница %{page}"
       heading: "Блог пользователя %{user}"
+    followees:
+      title: "Подписки пользователя %{user}, страница %{page}"
+      heading: "Подписки пользователя %{user}"
   tokens:
     update:
       success: "Жетон успешно обновлён"

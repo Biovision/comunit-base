@@ -1,0 +1,12 @@
+<ul class="theme-categories">
+  <% categories.each do |category| %>
+      <li>
+        <div>
+          <% field_id = "theme_news_category_#{category.id}" %>
+          <% change_url = news_category_api_theme_path(id: theme.id, category_id: category.id) %>
+          <%= check_box_tag field_id, 1, ids.include?(category.id), data: { url: change_url } %>
+          <%= label_tag field_id, category.name %>
+        </div>
+      </li>
+  <% end %>
+</ul>

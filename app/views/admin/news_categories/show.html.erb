@@ -1,0 +1,35 @@
+<% content_for :meta_title, t('.title', name: @entity.name) %>
+<% content_for :hide_sidebar, '1' %>
+
+<article class="entity-page">
+  <h1><%= @entity.name %></h1>
+  <ul class="actions">
+    <li><%= list_icon admin_news_categories_path %></li>
+    <% unless @entity.locked? %>
+        <li><%= edit_icon edit_news_category_path(@entity) %></li>
+    <% end %>
+  </ul>
+
+  <table>
+    <tbody>
+    <tr>
+      <th><%= t('activerecord.attributes.news_category.slug') %></th>
+      <td><%= @entity.slug %></td>
+    </tr>
+    <tr>
+      <th><%= t('activerecord.attributes.news_category.priority') %></th>
+      <td><%= @entity.priority %></td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <%= render partial: 'admin/news_categories/toggleable', locals: { news_category: @entity } %>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <%= link_to t(:news_count, count: @entity.items_count), items_admin_news_category_path(@entity) %>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</article>

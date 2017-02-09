@@ -1,0 +1,53 @@
+<% content_for :meta_title, t('.title', name: @entity.name) %>
+<% content_for :hide_sidebar, '1' %>
+
+<article class="entity-page">
+  <h1><%= @entity.name %></h1>
+  <ul class="actions">
+    <li><%= back_icon(admin_themes_path) %></li>
+    <% unless @entity.locked? %>
+        <li><%= edit_icon edit_theme_path(@entity) %></li>
+        <li class="danger"><%= destroy_icon @entity %></li>
+    <% end %>
+  </ul>
+
+  <p><%= @entity.slug %></p>
+
+  <section>
+    <h2><%= t('admin.post_categories.index.heading') %></h2>
+
+    <%= render partial: 'admin/themes/entity/post_categories', locals: { categories: PostCategory.for_tree, theme: @entity, ids: @entity.post_category_ids } %>
+  </section>
+
+  <section>
+    <h2><%= t('admin.news_categories.index.heading') %></h2>
+
+    <%= render partial: 'admin/themes/entity/news_categories', locals: { categories: NewsCategory.page_for_administration, theme: @entity, ids: @entity.news_category_ids } %>
+  </section>
+</article>
+
+<script>
+    $(function () {
+        $('.theme-categories input[type=checkbox]').on('click', function () {
+            var $box = $(this);
+            var url = $box.data('url');
+            var method;
+            if (!$box.attr('disabled')) {
+                $box.attr('disabled', true);
+
+                if ($box.prop('checked')) {
+                    method = 'put';
+                } else {
+                    method = 'delete';
+                }
+
+                $.ajax(url, {
+                    method: method,
+                    success: function (response) {
+                        $box.attr('disabled', false);
+                    }
+                }).fail(handle_ajax_failure);
+            }
+        });
+    })
+</script>

@@ -1,0 +1,61 @@
+<% content_for :meta_title, t('.title', name: @entity.name) %>
+<% content_for :hide_sidebar, '1' %>
+
+<article class="entity-page">
+  <h1><%= @entity.name %></h1>
+  <ul class="actions">
+    <li><%= list_icon admin_post_categories_path %></li>
+    <% unless @entity.locked? %>
+        <li><%= edit_icon edit_post_category_path(@entity) %></li>
+    <% end %>
+  </ul>
+
+  <table>
+    <tbody>
+    <% unless @entity.parent.nil? %>
+        <tr>
+          <th><%= t('activerecord.attributes.post_category.parent_id') %></th>
+          <td><%= link_to @entity.parent.name, admin_post_category_path(@entity.parent) %></td>
+        </tr>
+    <% end %>
+    <tr>
+      <th><%= t('activerecord.attributes.post_category.slug') %></th>
+      <td><%= @entity.slug %></td>
+    </tr>
+    <tr>
+      <th><%= t('activerecord.attributes.post_category.priority') %></th>
+      <td><%= @entity.priority %></td>
+    </tr>
+    <tr>
+      <th><%= t('activerecord.attributes.post_category.parents_cache') %></th>
+      <td><%= @entity.parents_cache %></td>
+    </tr>
+    <tr>
+      <th><%= t('activerecord.attributes.post_category.children_cache') %></th>
+      <td><%= @entity.children_cache.join(', ') %></td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <%= render partial: 'admin/post_categories/toggleable', locals: { post_category: @entity } %>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <%= link_to t(:post, count: @entity.items_count), items_admin_post_category_path(@entity) %>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <section>
+    <h2><%= t('.children') %></h2>
+
+    <%= render partial: 'admin/post_categories/list', locals: { collection: PostCategory.for_tree(@entity.id) } %>
+  </section>
+
+  <section>
+    <h2><%= t('.add_child') %></h2>
+
+    <%= render partial: 'post_categories/form', locals: { entity: PostCategory.new(parent: @entity) } %>
+  </section>
+</article>

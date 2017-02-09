@@ -9,6 +9,7 @@ class CreateUsers < ActiveRecord::Migration[5.0]
         t.references :agent, foreign_key: true, on_update: :cascade, on_delete: :nullify
         t.inet :ip
         t.integer :external_id
+        t.integer :redirect_id
         t.boolean :super_user, default: false, null: false
         t.boolean :bot, default: false, null: false
         t.boolean :verified, default: false, null: false

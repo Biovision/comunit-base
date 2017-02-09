@@ -1,0 +1,21 @@
+<%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+
+<%= form_for entity do |f| %>
+    <table>
+      <tbody>
+      <tr>
+        <th><%= f.label :name %></th>
+        <td><%= f.text_field :name, required: true %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :slug %></th>
+        <td><%= f.text_field :slug, required: true %></td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <%= f.button t(:save), type: :submit %>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+<% end %>

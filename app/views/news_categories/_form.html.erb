@@ -1,0 +1,39 @@
+<%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+
+<%= form_for entity do |f| %>
+    <table>
+      <tbody>
+      <tr>
+        <th><%= f.label :name %></th>
+        <td><%= f.text_field :name, size: 25, required: true %></td>
+      </tr>
+      <% unless entity.id.nil? %>
+          <tr>
+            <th><%= f.label :slug %></th>
+            <td><%= f.text_field :slug, size: 25, required: true %></td>
+          </tr>
+      <% end %>
+      <tr>
+        <th><%= f.label :priority %></th>
+        <td><%= f.number_field :priority, in: (1..10000), required: true %></td>
+      </tr>
+      <tr>
+        <td colspan="2" class="flags">
+          <ul>
+            <li>
+              <%= f.check_box :visible %>
+              <%= f.label :visible %>
+            </li>
+          </ul>
+        </td>
+      </tr>
+      </tbody>
+      <tfoot>
+      <tr>
+        <td colspan="2">
+          <%= f.button t(:save), type: :submit %>
+        </td>
+      </tr>
+      </tfoot>
+    </table>
+<% end %>

@@ -1,0 +1,15 @@
+<% if collection.any? %>
+    <ol class="list-of-entities">
+      <% collection.each do |category| %>
+          <% if category.deleted? %>
+              <li class="deleted"><%= t(:deleted_entity) %>, id: <%= category.id %></li>
+          <% else %>
+              <li data-number="<%= category.priority %>">
+                <%= render partial: 'admin/post_categories/post_category/in_list', locals: { category: category } %>
+              </li>
+          <% end %>
+      <% end %>
+    </ol>
+<% else %>
+    <%= render 'shared/nothing_found' %>
+<% end %>
