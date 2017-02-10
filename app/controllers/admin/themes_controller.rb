@@ -18,6 +18,9 @@ class Admin::ThemesController < ApplicationController
   end
 
   def set_entity
-    @entity = Theme.find params[:id]
+    @entity = Theme.find_by(id: params[:id])
+    if @entity.nil?
+      handle_http_404('Cannot find theme')
+    end
   end
 end
