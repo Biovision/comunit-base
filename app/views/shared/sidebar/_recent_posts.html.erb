@@ -1,6 +1,6 @@
 <div class="frontpage-posts">
   <div class="heading">Блог</div>
-  <% entries = Entry.public_entries.recent.first(3) %>
+  <% entries = Entry.public_entries.recent.first(5) %>
   <% if entries.any? %>
       <div class="posts">
         <% entries.each do |entry| %>
