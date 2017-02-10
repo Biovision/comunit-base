@@ -1,0 +1,27 @@
+<div class="frontpage-posts">
+  <div class="heading">Блог</div>
+  <% entries = Entry.public_entries.recent.first(3) %>
+  <% if entries.any? %>
+      <div class="posts">
+        <% entries.each do |entry| %>
+            <div class="header">
+              <div class="info">
+                <div class="author">
+                  <%= profile_avatar entry.user %>
+                  <%= user_link entry.user %>
+                </div>
+                <div class="time"><%= time_tag entry.created_at %></div>
+              </div>
+              <div class="title"><%= entry_link entry, current_user %></div>
+            </div>
+            <div class="body">
+              <% unless entry.image.blank? %>
+                  <div class="image"><%= image_tag(entry.image.preview.url, alt: entry.title) %></div>
+              <% end %>
+              <%= glimpse(entry.body, 50) %>
+              <div class="more"><%= entry_link entry, current_user, t(:read_all) %></div>
+            </div>
+        <% end %>
+      </div>
+  <% end %>
+</div>

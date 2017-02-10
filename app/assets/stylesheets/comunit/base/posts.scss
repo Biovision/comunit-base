@@ -672,6 +672,37 @@ ul.post-categories {
     }
   }
 
+  .posts {
+    .header {
+      padding: 0 .2rem;
+
+      .info {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        .author {
+          display: flex;
+          align-items: center;
+
+          img {
+            margin: .2rem;
+            max-width: 2rem;
+            max-height: 2rem;
+          }
+        }
+
+        .time {
+          color: $secondary_text_color;
+          font-size: $small_font_size;
+          text-align: right;
+        }
+      }
+    }
+
+  }
+
   .body {
     min-height: 11rem;
     padding: 0 0.8rem;
