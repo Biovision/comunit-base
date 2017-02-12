@@ -31,7 +31,7 @@ class News < ApplicationRecord
   scope :in_category, -> (category) { where(news_category: category) }
   scope :with_category_ids, -> (ids) { where(news_category_id: Array(ids)) }
   scope :of_type, -> (type) { where post_type: News.post_types[type] }
-  scope :recent, -> { order 'id desc' }
+  scope :recent, -> { order 'created_at desc' }
   scope :visible, -> { where visible: true, deleted: false }
   scope :regional, -> (id = 0, exclude_region = nil) { (id > 0) ? where(region_id: id) : where('region_id != ?', exclude_region&.id.to_i) }
   scope :federal, -> { where region_id: nil }

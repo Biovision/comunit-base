@@ -28,7 +28,7 @@ class Post < ApplicationRecord
 
   scope :in_category, -> (category) { with_category_ids category.ids }
   scope :with_category_ids, -> (ids) { where(post_category_id: ids) }
-  scope :recent, -> { order 'id desc' }
+  scope :recent, -> { order 'created_at desc' }
   scope :popular, -> { order 'view_count desc' }
   scope :visible, -> { where(deleted: false, visible: true) }
   scope :tagged, -> (tag) { joins(:post_tags).where(post_tags: { tag: tag }) }
