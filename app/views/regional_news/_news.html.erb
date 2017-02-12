@@ -36,7 +36,7 @@
     <%= prepare_post_text news %>
   </div>
 
-  <% if news.figures.any? %>
+  <% if false #news.figures.any? %>
       <ul class="additional-images">
         <% news.figures.each do |figure| %>
             <li><%= link_to(image_tag(figure.image.preview.url, alt: figure.text_for_alt), figure.image.url) %></li>

@@ -60,7 +60,7 @@
 
   <div><%= raw @entity.body %></div>
 
-  <% if @entity.figures.any? %>
+  <% if false #@entity.figures.any? %>
       <%= render partial: 'admin/figures/list', locals: { collection: @entity.figures } %>
   <% end %>
 </article>

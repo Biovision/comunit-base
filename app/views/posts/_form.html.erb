@@ -7,9 +7,9 @@
         <td colspan="2">
           <figure class="preview" id="post-image">
             <% if entity.image.blank? %>
-                <%= image_tag 'image-placeholder.png' %>
+                <%= label_tag(:post_image, image_tag('image-placeholder.png')) %>
             <% else %>
-                <%= image_tag entity.image.big.url %>
+                <%= label_tag(:post_image, image_tag(entity.image.big.url)) %>
             <% end %>
             <figcaption>
               <%= f.label :image %>

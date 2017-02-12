@@ -17,6 +17,11 @@
     <%= user_link post.user %>,
     <%= time_tag post.created_at %>
   </div>
+  <% unless post.post_category.nil? %>
+      <div class="secondary info">
+        <%= admin_post_category_link(post.post_category) %>
+      </div>
+  <% end %>
 
   <%= render partial: 'admin/posts/toggleable', locals: { post: post } %>
   <ul class="actions">

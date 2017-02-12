@@ -5,10 +5,9 @@
   <h1><%= @entity.title %></h1>
 
   <ul class="actions">
-    <li><%= back_icon admin_posts_path %></li>
-    <li><%= create_icon new_post_path %></li>
+    <li><%= back_icon(admin_posts_path) %></li>
     <% unless @entity.locked? %>
-        <li><%= edit_icon edit_post_path(@entity) %></li>
+        <li><%= edit_icon(edit_post_path(@entity.id)) %></li>
     <% end %>
   </ul>
   <table>

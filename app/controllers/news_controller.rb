@@ -25,7 +25,7 @@ class NewsController < ApplicationController
   def create
     @entity = News.new creation_parameters
     if @entity.save
-      add_figures unless params[:figures].blank?
+      # add_figures unless params[:figures].blank?
       redirect_to admin_news_path(@entity)
     else
       render :new, status: :bad_request
@@ -70,7 +70,7 @@ class NewsController < ApplicationController
   # patch /news/:id
   def update
     if @entity.update entity_parameters
-      add_figures unless params[:figures].blank?
+      # add_figures unless params[:figures].blank?
       redirect_to admin_news_path(@entity), notice: t('news.update.success')
     else
       render :edit, status: :bad_request

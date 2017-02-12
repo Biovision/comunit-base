@@ -23,7 +23,7 @@ class PostsController < ApplicationController
   def create
     @entity = Post.new creation_parameters
     if @entity.save
-      set_dependent_entities
+      # set_dependent_entities
       redirect_to admin_post_path(@entity)
     else
       render :new, status: :bad_request
@@ -56,7 +56,7 @@ class PostsController < ApplicationController
   # patch /posts/:id
   def update
     if @entity.update entity_parameters
-      set_dependent_entities
+      # set_dependent_entities
       redirect_to admin_post_path(@entity), notice: t('posts.update.success')
     else
       render :edit, status: :bad_request
@@ -71,12 +71,6 @@ class PostsController < ApplicationController
     redirect_to admin_posts_path
   end
 
-  # get /posts/tagged/:tag_name
-  def tagged
-    set_tag
-    @collection = Post.tagged(@tag).page_for_visitors(current_page)
-  end
-
   # get /posts/archive/(:year)/(:month)
   def archive
     collect_months
@@ -86,11 +80,10 @@ class PostsController < ApplicationController
   private
 
   def set_entity
-    @entity = Post.find params[:id]
-  end
-
-  def set_tag
-    @tag = Tag.match_by_name! params[:tag_name]
+    @entity = Post.find_by(id: params[:id], deleted: false)
+    if @entity.nil?
+      handle_http_404('Cannot find post')
+    end
   end
 
   def collect_months
@@ -106,7 +99,9 @@ class PostsController < ApplicationController
   end
 
   def restrict_editing
-    raise record_not_found unless @entity.editable_by? current_user
+    unless @entity.editable_by? current_user
+      handle_http_401("Post is not editable by user #{current_user&.id}")
+    end
   end
 
   def entity_parameters
@@ -114,12 +109,10 @@ class PostsController < ApplicationController
   end
 
   def creation_parameters
-    entity_parameters.merge(owner_for_entity).merge(tracking_for_entity)
+    entity_parameters.merge(owner_for_entity(true))
   end
 
   def set_dependent_entities
-    @entity.tag_ids = params[:tag_ids]
-    @entity.cache_tags!
     add_figures unless params[:figures].blank?
   end
 

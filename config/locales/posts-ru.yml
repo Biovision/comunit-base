@@ -115,6 +115,8 @@ ru:
         source: "Источник новости"
         source_link: "Ссылка на источник новости"
         region_id: "Регион"
+        approved: "Опубликовано"
+        allow_comments: "Разрешить комментарии"
         post_type: "Тип публикации"
         post_types:
           news: "Новость"
@@ -131,6 +133,9 @@ ru:
         lead: "Аннотация"
         body: "Текст"
         main_post: "Тема дня"
+        show_name: "Показывать автора"
+        approved: "Опубликовано"
+        allow_comments: "Разрешить комментарии"
       entry:
         user: "Пользователь"
         community_id: "Сообщество"

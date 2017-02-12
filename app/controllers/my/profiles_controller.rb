@@ -47,7 +47,7 @@ class My::ProfilesController < ApplicationController
     @user = User.new creation_parameters
     if @user.save
       create_token_for_user @user, tracking_for_entity
-      NetworkManager.new.relink_user(@user)
+      NetworkManager.new.relink_user(@user) if Rails.env.production?
       redirect_to my_profile_path, notice: t('my.profiles.create.success')
     else
       render :new, status: :bad_request

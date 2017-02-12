@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     @entity = User.new creation_parameters
     if @entity.save
       set_roles
-      NetworkManager.new.relink_user(@entity)
+      NetworkManager.new.relink_user(@entity) if Rails.env.production?
       redirect_to admin_user_path(@entity), notice: t('users.create.success')
     else
       render :new, status: :bad_request

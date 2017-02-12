@@ -4,9 +4,9 @@
 <article class="entity-page">
   <h1><%= @entity.name %></h1>
   <ul class="actions">
-    <li><%= list_icon admin_post_categories_path %></li>
+    <li><%= back_icon(admin_post_categories_path) %></li>
     <% unless @entity.locked? %>
-        <li><%= edit_icon edit_post_category_path(@entity) %></li>
+        <li><%= edit_icon(edit_post_category_path(@entity.id)) %></li>
     <% end %>
   </ul>
 

@@ -15,10 +15,9 @@ class News < ApplicationRecord
   belongs_to :user
   belongs_to :agent, optional: true
   belongs_to :region, optional: true, counter_cache: true, touch: false
-  belongs_to :news_category
+  belongs_to :news_category, counter_cache: :items_count
   belongs_to :entry, optional: true
   has_many :figures, dependent: :destroy
-  has_many :site_news, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
 
   enum post_type: [:news, :comment, :topic]
