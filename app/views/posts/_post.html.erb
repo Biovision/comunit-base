@@ -27,14 +27,6 @@
     <%= prepare_post_text post %>
   </div>
 
-  <% if post.tags_cache.any? %>
-      <div class="tags">
-        <% post.tags_cache.each do |tag_name| %>
-            <%= link_to tag_name, tagged_posts_path(tag_name: Canonizer.urlize(tag_name)), rel: 'tag' %>
-        <% end %>
-      </div>
-  <% end %>
-
   <div class="footer">
     <div class="time">
       <%= time_tag post.created_at, itemProp: 'datePublished' %>

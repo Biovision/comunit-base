@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/Biovision/track
-  revision: 101cf0aaba18b76b7da57b10f467800d4745362b
+  revision: 6b1bb7230cee1b004e638b2eacd36b1a697704da
   specs:
     track (0.1.0dev)
       rails (~> 5.0.1)
@@ -111,7 +111,7 @@ GEM
       addressable (~> 2)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
-    hashie (3.5.1)
+    hashie (3.5.3)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (0.8.0)
@@ -136,7 +136,7 @@ GEM
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
-    mini_magick (4.6.0)
+    mini_magick (4.6.1)
     mini_portile2 (2.1.0)
     minitest (5.10.1)
     multi_json (1.12.1)
