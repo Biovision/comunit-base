@@ -2,12 +2,14 @@
   flex: 3;
   padding: 0 0 0 0.8rem;
 
-  .regions {
+  > div {
     .heading {
       @include heading;
       background: $heading_background;
     }
+  }
 
+  .regions {
     img {
       max-width: 100%;
     }

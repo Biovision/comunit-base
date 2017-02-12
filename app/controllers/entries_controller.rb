@@ -29,7 +29,7 @@ class EntriesController < ApplicationController
 
   # get /entries/:id
   def show
-    raise record_not_found unless @entity.visible_to? current_user
+    @entity.increment! :view_count
     set_adjacent_entities
   end
 
@@ -84,6 +84,9 @@ class EntriesController < ApplicationController
     @entity = Entry.find_by(id: params[:id], deleted: false)
     if @entity.nil?
       handle_http_404('Cannot find non-deleted entry')
+    end
+    unless @entity.visible_to?(current_user)
+      handle_http_401("Entity is not visible to user #{current_user&.id}")
     end
   end
 

@@ -6,9 +6,9 @@ module EntriesHelper
   end
 
   # @param [String] text
-  # @param [Integer] words
-  def glimpse(text, words = 100)
-    strip_tags(text).gsub(/(\S{20})/, '\1 ').strip.split(/\s+/)[0..words].join(' ') + '…'
+  # @param [Integer] letters
+  def glimpse(text, letters = 140)
+    strip_tags(text).gsub(/(\S{20})/, '\1 ').strip[0..letters] + '…'
   end
 
   # @param [News] news

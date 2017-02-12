@@ -27,6 +27,11 @@
       <%= time_tag entry.created_at, itemProp: 'datePublished' %>
     </div>
   </div>
+  <div class="post-counters">
+    <meta itemprop="commentCount" content="<%= entry.comments_count %>" />
+    <span class="comments"><%= entry.comments_count %></span>
+    <span class="views"><%= entry.view_count %></span>
+  </div>
   <%= render 'shared/pluso' %>
   <%= render partial: 'shared/track', locals: { item: entry } %>
 
