@@ -163,7 +163,7 @@ ru:
         roles:
           administrator: "Администратор"
           moderator: "Модератор"
-          chief_editor: "Главнй редактор"
+          chief_editor: "Главный редактор"
           post_editor: "Редактор публикаций"
           news_editor: "Редактор новостей"
   admin:
