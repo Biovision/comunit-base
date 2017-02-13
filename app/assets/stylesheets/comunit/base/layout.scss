@@ -1,0 +1,119 @@
+body {
+  > header {
+    > div {
+      align-items: stretch;
+      display: flex;
+      height: 22rem;
+
+      .logo {
+        flex-basis: 22rem;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          max-width: 100%;
+        }
+      }
+
+      .partials {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .authentication {
+          display: flex;
+          justify-content: flex-end;
+
+          .plate {
+            align-items: center;
+            background: $transparent-block-background;
+            border-radius: 0 .4rem 0 0;
+            display: flex;
+            height: 4rem;
+            padding: 0 .4rem;
+            width: auto;
+          }
+
+          .notifications {
+            text-decoration: none;
+
+            &.read {
+              opacity: .33;
+            }
+          }
+        }
+
+        .search {
+          align-items: center;
+          display: flex;
+          justify-content: space-between;
+
+          form {
+            align-items: center;
+            display: flex;
+            height: 4rem;
+            padding: 0 .4rem;
+
+            > div {
+              input[type=text] {
+                background: #fff image_url('comunit/base/icons/search.svg') no-repeat center right / 2.4rem 2.4rem;
+                border-radius: 1.4rem;
+                box-sizing: border-box;
+                box-shadow: 0 0 .5rem .5rem rgba(255, 255, 255, .5);
+                display: inline-block;
+                font-size: $normal_font_size;
+                height: 2.8rem;
+                line-height: 2.4rem;
+                margin: 0 .4rem;
+                opacity: .85;
+                transition: .125s;
+                width: 2.8rem;
+
+                &:hover {
+                  opacity: 1;
+                }
+
+                &:focus, &:valid {
+                  border-radius: 0;
+                  box-shadow: none;
+                  opacity: 1;
+                  padding: 0 2.6rem 0 0;
+                  width: calc(25ch + 2.6rem);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+#current-region-selector {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 0 0 2rem;
+  background: $transparent-block-background;
+  height: 4rem;
+  align-items: center;
+  padding: 0 .4rem;
+
+  label {
+    margin: 0 .4rem 0 0;
+  }
+
+  select {
+    font-size: $normal_font_size;
+  }
+
+  > div {
+    align-items: center;
+    background: $transparent-block-background;
+    border-radius: .4rem 0 0 .4rem;
+    display: flex;
+    padding: .8rem;
+  }
+}
