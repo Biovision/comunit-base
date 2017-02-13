@@ -1,4 +1,11 @@
 <div id="current-region-selector">
   <%= label_tag 'current_region', 'Регион' %>
   <%= select_tag 'current_region', current_region_for_select(current_region&.id) %>
+  <script>
+      $(function() {
+          $('#current_region').on('change', function() {
+              window.location = $(this).find(':selected').data('url');
+          });
+      });
+  </script>
 </div>
