@@ -1,4 +1,5 @@
 <% content_for :meta_title, t('.title', category: @category.name, page: current_page) %>
+<% content_for :posts_selected, '1' %>
 
 <article>
   <% if @collection.any? %>
