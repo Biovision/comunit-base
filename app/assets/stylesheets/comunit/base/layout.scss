@@ -6,14 +6,15 @@ body {
       height: 22rem;
 
       .logo {
+        align-items: center;
+        display: flex;
         flex-basis: 22rem;
         height: 100%;
-        display: flex;
-        align-items: center;
         justify-content: center;
 
         img {
-          max-width: 100%;
+          max-height: 22rem;
+          max-width: 22rem;
         }
       }
 
@@ -42,6 +43,31 @@ body {
 
             &.read {
               opacity: .33;
+            }
+          }
+        }
+
+        .regions {
+          align-items: center;
+          display: flex;
+          height: 14rem;
+          justify-content: space-between;
+          padding: 0 0 0 .5rem;
+
+          .arms {
+            align-items: center;
+            background: none;
+            display: flex;
+            justify-content: center;
+            height: 10rem;
+            margin: .8rem 1.3rem;
+            max-width: 10rem;
+
+            img {
+              filter: drop-shadow(0 0 2rem $header-background-transparent) saturate(50%);
+              max-height: 100%;
+              max-width: 100%;
+              opacity: .75;
             }
           }
         }
@@ -93,12 +119,11 @@ body {
 }
 
 #current-region-selector {
+  align-items: center;
   display: flex;
+  height: 4rem;
   justify-content: flex-end;
   margin: 0 0 0 2rem;
-  background: $transparent-block-background;
-  height: 4rem;
-  align-items: center;
   padding: 0 .4rem;
 
   label {
