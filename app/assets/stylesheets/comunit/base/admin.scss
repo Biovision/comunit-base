@@ -15,14 +15,14 @@ $toggleable_background: #ffffff;
     border-radius: 0.8rem;
     cursor: pointer;
     display: inline-block;
-    line-height: $huge_font_size;
+    line-height: calc(#{$small_font_size} * 2);
     margin: 0.4rem;
     padding: 0 0.8rem 0 0;
 
     &::before {
       border-radius: 0.6rem 0 0 0.6rem;
       display: inline-block;
-      line-height: $huge_font_size;
+      line-height: calc(#{$small_font_size} * 2);
       margin: 0 0.4rem 0 0;
       text-align: center;
       width: 2.2rem;
