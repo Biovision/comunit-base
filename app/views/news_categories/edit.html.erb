@@ -4,9 +4,8 @@
 <article class="entity-page">
   <h1><%= t('.title') %></h1>
   <ul class="actions">
-    <li><%= list_icon admin_news_categories_path %></li>
-    <li><%= detail_icon admin_news_category_path(@entity) %></li>
-    <li class="danger"><%= destroy_icon @entity %></li>
+    <li><%= return_icon(admin_news_category_path(@entity.id)) %></li>
+    <li class="danger"><%= destroy_icon(@entity) %></li>
   </ul>
 
   <%= render partial: 'form', locals: { entity: @entity } %>

@@ -34,6 +34,18 @@ class NewsCategory < ApplicationRecord
     news.news_category == self
   end
 
+  # @param [Integer] delta
+  def change_priority(delta)
+    new_priority = priority + delta
+    adjacent     = NewsCategory.find_by(priority: new_priority)
+    if adjacent.is_a?(NewsCategory) && (adjacent.id != id)
+      adjacent.update!(priority: priority)
+    end
+    self.update(priority: new_priority)
+
+    NewsCategory.ordered_by_priority.map { |e| [e.id, e.priority] }.to_h
+  end
+
   private
 
   def set_next_priority

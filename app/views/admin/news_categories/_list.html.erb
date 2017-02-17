@@ -1,11 +1,13 @@
 <% if collection.any? %>
     <ul class="list-of-entities">
-      <% collection.each do |category| %>
-          <% if category.deleted? %>
-              <li class="deleted"><%= t(:deleted_entity) %>, id: <%= category.id %></li>
+      <% collection.each do |entity| %>
+          <% if entity.deleted? %>
+              <li class="deleted">
+                <%= t(:deleted_entity) %>, id: <%= entity.id %> (<%= entity.name %>)
+              </li>
           <% else %>
-              <li data-number="<%= category.priority %>">
-                <%= render partial: 'admin/news_categories/news_category/in_list', locals: { category: category } %>
+              <li data-number="<%= entity.priority %>" data-id="<%= entity.id %>">
+                <%= render partial: 'admin/news_categories/news_category/in_list', locals: { category: entity } %>
               </li>
           <% end %>
       <% end %>

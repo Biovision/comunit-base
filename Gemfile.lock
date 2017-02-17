@@ -1,4 +1,13 @@
 GIT
+  remote: https://github.com/Biovision/biovision-base
+  revision: 6171b56464ed9c09ddc90c894f851d64c44a7d7f
+  specs:
+    biovision-base (0.1.0dev)
+      kaminari
+      rails (~> 5.0.1)
+      rails-i18n (~> 5.0.0)
+
+GIT
   remote: https://github.com/Biovision/track
   revision: 6b1bb7230cee1b004e638b2eacd36b1a697704da
   specs:
@@ -13,7 +22,6 @@ PATH
       carrierwave-bombshelter
       elasticsearch-model
       elasticsearch-persistence
-      kaminari
       mini_magick
       rails (~> 5.0.1)
       redis-namespace
@@ -170,6 +178,9 @@ GEM
       nokogiri (~> 1.6)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
+    rails-i18n (5.0.3)
+      i18n (~> 0.7)
+      railties (~> 5.0)
     railties (5.0.1)
       actionpack (= 5.0.1)
       activesupport (= 5.0.1)
@@ -178,7 +189,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rake (12.0.0)
     redis (3.3.3)
-    redis-namespace (1.5.2)
+    redis-namespace (1.5.3)
       redis (~> 3.0, >= 3.0.4)
     rest-client (2.0.0)
       http-cookie (>= 1.0.2, < 2.0)
@@ -216,10 +227,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  biovision-base!
   comunit-base!
   openssl (~> 2.0.3)
   pg
   track!
 
 BUNDLED WITH
-   1.14.3
+   1.14.4

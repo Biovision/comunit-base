@@ -13,5 +13,7 @@ gemspec
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
 
+gem 'biovision-base', git: 'https://github.com/Biovision/biovision-base'
 gem 'track', git: 'https://github.com/Biovision/track'
+
 gem 'openssl', '~> 2.0.3'

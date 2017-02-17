@@ -5,7 +5,6 @@ class PostCategory < ApplicationRecord
 
   belongs_to :parent, class_name: PostCategory.to_s, optional: true, touch: true
   has_many :children, class_name: PostCategory.to_s, foreign_key: :parent_id
-  has_many :site_posts, dependent: :destroy
   has_many :posts
   has_many :theme_post_categories, dependent: :destroy
 
@@ -66,12 +65,24 @@ class PostCategory < ApplicationRecord
   end
 
   def can_be_deleted?
-    children.count < 1
+    !locked? && children.count < 1
   end
 
   # @param [Post] post
   def has_post?(post)
     post.post_category == self
+  end
+
+  # @param [Integer] delta
+  def change_priority(delta)
+    new_priority = priority + delta
+    adjacent     = PostCategory.find_by(parent_id: parent_id, priority: new_priority)
+    if adjacent.is_a?(PostCategory) && (adjacent.id != id)
+      adjacent.update!(priority: priority)
+    end
+    self.update(priority: new_priority)
+
+    PostCategory.where(parent_id: parent_id).ordered_by_priority.map { |e| [e.id, e.priority] }.to_h
   end
 
   private

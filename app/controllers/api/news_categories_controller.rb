@@ -27,9 +27,7 @@ class Api::NewsCategoriesController < ApplicationController
 
   # post /api/news_categories/:id/priority
   def priority
-    @entity.increment! :priority, params[:delta].to_s.to_i
-
-    render json: { data: { priority: @entity.priority } }
+    render json: { data: @entity.change_priority(params[:delta].to_s.to_i) }
   end
 
   private

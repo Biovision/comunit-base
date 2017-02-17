@@ -1,4 +1,0 @@
-<li class="lock" data-url="<%= path %>">
-  <%= link_to image_tag('icons/locked.png'), '#', class: "unlock #{entity.locked? ? '' : 'hidden'}", data: { tootik: t(:locked) } %>
-  <%= link_to image_tag('icons/unlocked.png'), '#', class: "lock #{entity.locked? ? 'hidden' : ''}", data: { tootik: t(:unlocked) } %>
-</li>

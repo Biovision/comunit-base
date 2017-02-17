@@ -6,12 +6,14 @@ module Comunit
           include Comunit::Base::BaseMethods
         end
       end
+
+      config.assets.precompile << %w(biovision/base/icons/*)
     end
 
+    require 'biovision/base'
     require 'redis-namespace'
     require 'sidekiq'
     require 'carrierwave'
-    require 'kaminari'
     require 'elasticsearch/persistence'
     require 'elasticsearch/model'
     require 'mini_magick'
