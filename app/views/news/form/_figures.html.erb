@@ -21,7 +21,7 @@
       <% end %>
       <li>
         <div id="new-figure-0" class="image">
-          <%= image_tag 'image-placeholder.png', alt: t('activerecord.attributes.figure.image') %>
+          <%= image_tag 'biovision/base/placeholders/image.svg', alt: t('activerecord.attributes.figure.image') %>
         </div>
         <div class="data">
           <div>
@@ -49,7 +49,7 @@
 
     <script>/*<![CDATA[*/
     $(document).ready(function () {
-      var default_src = 'src="<%= image_path 'image-placeholder.png' %>"';
+      var default_src = 'src="<%= image_path 'biovision/base/placeholders/image.svg' %>"';
 
       $('#add-figure').on('click', function () {
         var $container = $(this).parent().find('ul');

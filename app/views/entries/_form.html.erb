@@ -3,7 +3,7 @@
 <%= form_for entity, class: 'entry-form' do |f| %>
     <figure class="preview" id="entry-image">
       <% if entity.image.blank? %>
-          <%= label_tag(:entry_image, image_tag('image-placeholder.png')) %>
+          <%= label_tag(:entry_image, image_tag('biovision/base/placeholders/image.svg')) %>
       <% else %>
           <%= label_tag(:entry_image, image_tag(entity.image.big.url)) %>
       <% end %>

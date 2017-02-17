@@ -7,7 +7,7 @@
         <td colspan="2">
           <figure class="preview" id="region-image">
             <% if entity.image.blank? %>
-                <%= image_tag 'image-placeholder.png' %>
+                <%= image_tag 'biovision/base/placeholders/image.svg' %>
             <% else %>
                 <%= image_tag entity.image.url %>
             <% end %>
@@ -21,7 +21,7 @@
         <td colspan="2">
           <figure class="preview" id="region-header-image">
             <% if entity.header_image.blank? %>
-                <%= image_tag 'image-placeholder.png' %>
+                <%= image_tag 'biovision/base/placeholders/image.svg' %>
             <% else %>
                 <%= image_tag entity.header_image.medium.url %>
             <% end %>

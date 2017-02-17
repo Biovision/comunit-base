@@ -57,7 +57,7 @@ module UsersHelper
     if user.is_a?(User) && !user.image.blank? && !user.deleted?
       image_tag user.image.profile.url
     else
-      image_tag 'fallback/avatar/profile_default.png'
+      image_tag('biovision/base/placeholders/user.svg')
     end
   end
 end
