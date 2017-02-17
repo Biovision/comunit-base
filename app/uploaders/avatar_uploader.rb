@@ -13,7 +13,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
   end
 
   def default_url
-    ActionController::Base.helpers.asset_path('biovision/base/placeholder/user.svg')
+    ActionController::Base.helpers.asset_path('biovision/base/placeholders/user.svg')
   end
 
   process :auto_orient
