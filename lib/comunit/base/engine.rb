@@ -8,6 +8,7 @@ module Comunit
       end
 
       config.assets.precompile << %w(biovision/base/icons/*)
+      config.assets.precompile << %w(biovision/base/placeholders/*)
     end
 
     require 'biovision/base'
