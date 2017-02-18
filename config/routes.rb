@@ -44,6 +44,7 @@ Rails.application.routes.draw do
   end
 
   resources :user_messages, only: [:create, :destroy]
+  resources :editable_pages, except: [:index, :show]
 
   namespace :admin do
     get '/' => 'index#index'
@@ -76,6 +77,8 @@ Rails.application.routes.draw do
     resources :entries, only: [:index, :show] do
       get 'comments', on: :member
     end
+
+    resources :editable_pages, only: [:index, :show]
   end
 
   namespace :api, defaults: { format: :json } do

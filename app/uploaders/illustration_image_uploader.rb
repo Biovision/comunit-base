@@ -14,7 +14,7 @@ class IllustrationImageUploader < CarrierWave::Uploader::Base
     resize_to_fit 960, 960
   end
 
-  version :medium, from_version: :medium do
+  version :medium, from_version: :medium_2x do
     resize_to_fit 480, 480
   end
 

@@ -2,7 +2,7 @@ class EditablePage < ApplicationRecord
   include RequiredUniqueName
   include RequiredUniqueSlug
 
-  mount_uploader :image, PostImageUploader
+  mount_uploader :image, EditablePageImageUploader
 
   def self.page_for_administration
     ordered_by_name

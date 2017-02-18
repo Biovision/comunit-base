@@ -3,9 +3,9 @@ class IllustrationsController < ApplicationController
   before_action :restrict_access
   layout false
 
+  # post /illustrations
   def create
-    @illustration = Illustration.new(creation_parameters)
-    @illustration.save!
+    @illustration = Illustration.create!(creation_parameters)
   end
 
   private
