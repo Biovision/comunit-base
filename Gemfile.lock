@@ -18,6 +18,7 @@ PATH
   remote: .
   specs:
     comunit-base (0.1.0a)
+      bcrypt (~> 3.1.7)
       carrierwave
       carrierwave-bombshelter
       elasticsearch-model
@@ -75,6 +76,7 @@ GEM
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
+    bcrypt (3.1.11)
     builder (3.2.3)
     carrierwave (1.0.0)
       activemodel (>= 4.0.0)
