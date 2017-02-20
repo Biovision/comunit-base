@@ -11,7 +11,7 @@ class IllustrationsController < ApplicationController
   private
 
   def restrict_access
-    require_role :chief_editor, :editor
+    require_privilege_group :editors
   end
 
   def creation_parameters
