@@ -83,6 +83,22 @@ class Privilege < ApplicationRecord
     user_privileges.exists?(criteria) || user&.super_user?
   end
 
+  # @param [User] user
+  # @param [Region] region
+  def grant(user, region)
+    criteria          = { privilege: self, user: user }
+    criteria[:region] = region if regional?
+    UserPrivilege.create(criteria) unless UserPrivilege.exists?(criteria)
+  end
+
+  # @param [User] user
+  # @param [Region] region
+  def revoke(user, region)
+    criteria          = { privilege: self, user: user }
+    criteria[:region] = region if regional?
+    UserPrivilege.where(criteria).destroy_all
+  end
+
   # @param [Integer] delta
   def change_priority(delta)
     new_priority = priority + delta

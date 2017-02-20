@@ -24,16 +24,16 @@ class Api::UsersController < ApplicationController
 
   # put /api/users/:id/privileges/:privilege_id
   def grant_privilege
-    @entity.privilege_ids = @entity.privilege_ids + [@privilege.id]
+    @privilege.grant(@entity, @region)
 
-    render json: { data: { privilege_ids: @entity.privilege_ids } }
+    render json: { data: { user_privilege_ids: @entity.user_privilege_ids } }
   end
 
   # delete /api/users/:id/privileges/:privilege_id
   def revoke_privilege
-    @entity.privilege_ids = @entity.privilege_ids - [@privilege.id]
+    @privilege.revoke(@entity, @region)
 
-    render json: { data: { privilege_ids: @entity.privilege_ids } }
+    render json: { data: { user_privilege_ids: @entity.user_privilege_ids } }
   end
 
   private
@@ -49,6 +49,13 @@ class Api::UsersController < ApplicationController
     @privilege = Privilege.find_by(id: params[:privilege_id], deleted: false)
     if @privilege.nil?
       handle_http_404("Cannot use privilege #{params[:privilege_id]}")
+    elsif @privilege.regional?
+      @region = Region.find_by(id: params[:region_id], visible: true)
+      if @region.nil?
+        handle_http_404("Cannot use region #{params[:region_id]}")
+      end
+    else
+      @region = nil
     end
   end
 

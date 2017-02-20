@@ -15,7 +15,7 @@
     <script>
       $(function() {
           $('ul.privileges input[type=checkbox]').on('click', function() {
-              var url = $(this).closest('div').data('url');
+              var url = $(this).data('url');
               var method = $(this).is(':checked') ? 'put' : 'delete';
 
               $.ajax(url, {
