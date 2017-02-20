@@ -76,8 +76,11 @@ class Privilege < ApplicationRecord
   end
 
   # @param [User] user
-  def has_user?(user)
-    user_privileges.exists?(user: user)
+  # @param [Region] region
+  def has_user?(user, region = nil)
+    criteria          = { user: user }
+    criteria[:region] = region if regional?
+    user_privileges.exists?(criteria) || user&.super_user?
   end
 
   # @param [Integer] delta

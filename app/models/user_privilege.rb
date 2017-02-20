@@ -4,4 +4,12 @@ class UserPrivilege < ApplicationRecord
   belongs_to :region, optional: true
 
   validates_uniqueness_of :privilege_id, scope: [:user_id, :region_id]
+
+  # @param [User] user
+  # @param [String|Symbol] privilege_name
+  # @param [Region] region
+  def self.user_has_privilege?(user, privilege_name, region)
+    privilege = Privilege.find_by(slug: privilege_name)
+    privilege&.has_user?(user, region)
+  end
 end

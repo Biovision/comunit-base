@@ -25,6 +25,12 @@ module Comunit
         UserRole.user_has_role? current_user, *role
       end
 
+      # @param [Symbol] privilege_name
+      # @param [Region] region
+      def current_user_has_privilege?(privilege_name, region)
+        UserPrivilege.user_has_privilege?(current_user, privilege_name, region)
+      end
+
       protected
 
       # Ограничить доступ для анонимных посетителей
@@ -38,6 +44,13 @@ module Comunit
           redirect_to root_path, alert: t(:insufficient_role) unless current_user.has_role? *role
         else
           redirect_to login_path, alert: t(:please_log_in)
+        end
+      end
+
+      # @param [Symbol] privilege_name
+      def require_privilege(privilege_name)
+        unless current_user_has_privilege?(privilege_name, current_region)
+          handle_http_401("Current user has no privilege #{privilege_name}")
         end
       end
 
