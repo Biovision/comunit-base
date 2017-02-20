@@ -4,7 +4,7 @@ module Comunit
       extend ActiveSupport::Concern
 
       included do
-        helper_method :current_user, :current_user_has_role?
+        helper_method :current_user, :current_user_has_role?, :current_user_has_privilege?
         helper_method :current_region
       end
 
