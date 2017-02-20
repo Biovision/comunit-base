@@ -95,7 +95,7 @@ class PostsController < ApplicationController
   end
 
   def restrict_access
-    require_role :chief_editor, :post_editor
+    require_privilege_group :editors
   end
 
   def restrict_editing

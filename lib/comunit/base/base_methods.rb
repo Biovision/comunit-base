@@ -54,6 +54,13 @@ module Comunit
         end
       end
 
+      # @param [Symbol] name
+      def require_privilege_group(name)
+        unless UserPrivilege.user_has_privilege_group?(current_user, name)
+          handle_http_401("Current user has no privilege class #{name}")
+        end
+      end
+
       # Информация о текущем пользователе для сущности
       #
       # @param [Boolean] track

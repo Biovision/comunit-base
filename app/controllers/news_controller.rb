@@ -92,7 +92,7 @@ class NewsController < ApplicationController
   end
 
   def restrict_access
-    require_role :chief_editor, :news_editor
+    require_privilege_group :editors
   end
 
   def restrict_editing

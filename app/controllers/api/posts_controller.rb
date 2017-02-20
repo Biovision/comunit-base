@@ -1,6 +1,7 @@
 class Api::PostsController < ApplicationController
   before_action :restrict_access
   before_action :set_entity
+  before_action :restrict_locking, only: [:lock, :unlock]
 
   # post /api/posts/:id/toggle
   def toggle
@@ -13,7 +14,6 @@ class Api::PostsController < ApplicationController
 
   # put /api/posts/:id/lock
   def lock
-    require_role :chief_editor
     @entity.update! locked: true
 
     render json: { data: { locked: @entity.locked? } }
@@ -21,7 +21,6 @@ class Api::PostsController < ApplicationController
 
   # delete /api/posts/:id/lock
   def unlock
-    require_role :chief_editor
     @entity.update! locked: false
 
     render json: { data: { locked: @entity.locked? } }
@@ -48,6 +47,10 @@ class Api::PostsController < ApplicationController
   end
 
   def restrict_access
-    require_role :chief_editor, :post_editor
+    require_privilege_group :editors
+  end
+
+  def restrict_locking
+    require_privilege :central_chief_editor
   end
 end

@@ -38,6 +38,15 @@ class Privilege < ApplicationRecord
     entity_parameters + %i(parent_id)
   end
 
+  # @param [Symbol] group_name
+  def self.ids_in_privilege_group(group_name)
+    if group_name == :editors
+      where("slug like '%editor%'").pluck(:id)
+    else
+      []
+    end
+  end
+
   def full_title
     (parents.map { |parent| parent.name } + [name]).join ' / '
   end

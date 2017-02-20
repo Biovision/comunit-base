@@ -82,7 +82,7 @@ class Post < ApplicationRecord
 
   # @param [User] user
   def editable_by?(user)
-    !deleted? && !locked? && (owned_by?(user) || UserRole.user_has_role?(user, :chief_editor))
+    !deleted? && !locked? && (owned_by?(user) || UserPrivilege.user_has_privilege?(user, :central_chief_editor))
   end
 
   # @param [User] user

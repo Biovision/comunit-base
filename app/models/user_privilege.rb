@@ -8,8 +8,20 @@ class UserPrivilege < ApplicationRecord
   # @param [User] user
   # @param [String|Symbol] privilege_name
   # @param [Region] region
-  def self.user_has_privilege?(user, privilege_name, region)
+  def self.user_has_privilege?(user, privilege_name, region = nil)
     privilege = Privilege.find_by(slug: privilege_name)
     privilege&.has_user?(user, region)
+  end
+
+  # @param [User] user
+  def self.user_has_any_privilege?(user)
+    exists?(user: user) || user&.super_user?
+  end
+
+  # @param [User] user
+  # @param [Symbol] group_name
+  def self.user_has_privilege_group?(user, group_name)
+    privilege_ids = Privilege.ids_in_privilege_group(group_name)
+    exists?(user: user, privilege_id: privilege_ids) || user&.super_user?
   end
 end

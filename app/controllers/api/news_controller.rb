@@ -1,6 +1,7 @@
 class Api::NewsController < ApplicationController
   before_action :restrict_access
   before_action :set_entity, only: [:toggle, :lock, :unlock, :category]
+  before_action :restrict_locking, only: [:lock, :unlock]
 
   # post /api/news/:id/toggle
   def toggle
@@ -44,6 +45,10 @@ class Api::NewsController < ApplicationController
   end
 
   def restrict_access
-    require_role :administrator
+    require_privilege_group :editors
+  end
+
+  def restrict_locking
+    require_privilege :central_chief_editor
   end
 end
