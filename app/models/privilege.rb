@@ -1,6 +1,8 @@
 class Privilege < ApplicationRecord
   include Toggleable
 
+  DESCRIPTION_LIMIT = 350
+
   toggleable :regional
 
   belongs_to :parent, class_name: Privilege.to_s, optional: true
@@ -18,6 +20,7 @@ class Privilege < ApplicationRecord
   validates_presence_of :name, :slug, :priority
   validates_uniqueness_of :name, scope: [:parent_id]
   validates_uniqueness_of :slug
+  validates_length_of :description, maximum: DESCRIPTION_LIMIT
 
   scope :ordered_by_priority, -> { order('priority asc, name asc') }
   scope :visible, -> { where(visible: true, deleted: false) }

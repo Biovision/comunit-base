@@ -1,9 +1,13 @@
 <div class="data">
-  <div><%= link_to entity.name, admin_privilege_path(entity.id) %></div>
+  <div><%= admin_privilege_link(entity) %></div>
+  <div class="secondary info">
+    <div><%= entity.description %></div>
+  </div>
   <div class="info">
     <div><%= entity.slug %></div>
-    <div><%= link_to t(:user, count: entity.users_count), users_admin_privilege_path(entity.id) %></div>
+    <div><%= link_to t(:user_count, count: entity.users_count), users_admin_privilege_path(entity.id) %></div>
   </div>
+  <%= render partial: 'admin/privileges/toggleable', locals: { entity: entity } %>
 
   <ul class="actions">
     <li class="lockable <%= entity.locked? ? 'hidden' : '' %>">

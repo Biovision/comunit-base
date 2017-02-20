@@ -3,6 +3,7 @@
 
 <article class="entity-page">
   <h1><%= @entity.name %></h1>
+
   <ul class="actions">
     <li><%= back_icon(admin_privileges_path) %></li>
     <% unless @entity.locked? %>
@@ -46,10 +47,17 @@
     <% end %>
     <tr>
       <td colspan="2">
-        <%= link_to t(:user, count: @entity.users_count), users_admin_privilege_path(@entity.id) %>
+        <%= link_to t(:user_count, count: @entity.users_count), users_admin_privilege_path(@entity.id) %>
       </td>
     </tr>
     </tbody>
+    <tfoot>
+    <tr>
+      <td colspan="2">
+        <%= render partial: 'admin/privileges/toggleable', locals: { entity: @entity } %>
+      </td>
+    </tr>
+    </tfoot>
   </table>
 
   <section>

@@ -352,3 +352,9 @@ ru:
       success: "Привилегия успешно изменена"
     destroy:
       success: "Привилегия успешно удалена"
+    form:
+      guidelines:
+        slug: "Используется в коде для определения наличия привилегии."
+        description: "Краткое пояснение сути привилегии. До 350 символов."
+      placeholders:
+        slug: "administrator"

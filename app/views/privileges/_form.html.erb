@@ -15,19 +15,35 @@
         <th><%= f.label :name %></th>
         <td><%= f.text_field :name, size: 25, required: true %></td>
       </tr>
-      <% unless entity.id.nil? %>
-          <tr>
-            <th><%= f.label :slug %></th>
-            <td><%= f.text_field :slug, size: 25, required: true %></td>
-          </tr>
-      <% end %>
+      <tr>
+        <th>
+          <%= f.label :slug %>
+        </th>
+        <td>
+          <%= f.text_field :slug, size: 25, required: true, placeholder: t('.placeholders.slug') %>
+          <div class="guideline"><%= t('.guidelines.slug') %></div>
+        </td>
+      </tr>
       <tr>
         <th><%= f.label :priority %></th>
         <td><%= f.number_field :priority, in: (1..32767), required: true %></td>
       </tr>
       <tr>
         <th><%= f.label :description %></th>
-        <td><%= f.text_area :description, cols: 50, rows: 3 %></td>
+        <td>
+          <%= f.text_area :description, cols: 50, rows: 3, maxlength: Privilege::DESCRIPTION_LIMIT %>
+          <div class="guideline"><%= t('.guidelines.description') %></div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" class="flags">
+          <ul>
+            <li>
+              <%= f.check_box :regional %>
+              <%= f.label :regional %>
+            </li>
+          </ul>
+        </td>
       </tr>
       </tbody>
       <tfoot>

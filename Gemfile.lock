@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/Biovision/biovision-base
-  revision: d845571fa39660a671991b2672529a496efb3181
+  revision: 7235edb87ab7c79e80463cdb6af004c11bf1b4ad
   specs:
     biovision-base (0.1.0rc)
       kaminari
@@ -200,7 +200,7 @@ GEM
     redis (3.3.3)
     redis-namespace (1.5.3)
       redis (~> 3.0, >= 3.0.4)
-    rest-client (2.0.0)
+    rest-client (2.0.1)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
