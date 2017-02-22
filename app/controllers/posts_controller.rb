@@ -43,10 +43,17 @@ class PostsController < ApplicationController
   # get /posts/:category_slug/:slug
   # get /publikacii/:category_slug/:slug
   def show_in_category
-    @category = PostCategory.find_by! slug: params[:category_slug]
-    @entity = Post.find_by! slug: params[:slug]
-    raise record_not_found unless @entity.visible_to?(current_user) && @category.has_post?(@entity)
-    @entity.increment! :view_count
+    @category = PostCategory.find_by(slug: params[:category_slug], deleted: false)
+    if @category.nil?
+      handle_http_404("Cannot find post category #{params[:category_slug]}")
+    else
+      @entity = Post.find_by(slug: params[:slug], deleted: false)
+      if @entity.nil? || !@entity.visible_to?(current_user) || !@category.has_post?(@entity)
+        handle_http_404("Cannot show post #{params[:slug]} to user #{current_user&.id}")
+      else
+        @entity.increment! :view_count
+      end
+    end
   end
 
   # get /posts/:id/edit
