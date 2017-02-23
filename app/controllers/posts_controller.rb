@@ -44,15 +44,14 @@ class PostsController < ApplicationController
   # get /publikacii/:category_slug/:slug
   def show_in_category
     @category = PostCategory.find_by(slug: params[:category_slug], deleted: false)
-    if @category.nil?
-      handle_http_404("Cannot find post category #{params[:category_slug]}")
+    @entity   = Post.find_by(slug: params[:slug], deleted: false)
+    if @entity.nil? || !@entity.visible_to?(current_user)
+      handle_http_404("Cannot show post #{params[:slug]} to user #{current_user&.id}")
+    elsif @entity.post_category == @category
+      @entity.increment! :view_count
     else
-      @entity = Post.find_by(slug: params[:slug], deleted: false)
-      if @entity.nil? || !@entity.visible_to?(current_user) || !@category.has_post?(@entity)
-        handle_http_404("Cannot show post #{params[:slug]} to user #{current_user&.id}")
-      else
-        @entity.increment! :view_count
-      end
+      parameters = { category_slug: @entity.post_category.slug, slug: @entity.slug }
+      redirect_to post_in_category_posts_path(parameters)
     end
   end
 

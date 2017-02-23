@@ -49,13 +49,13 @@ module PostsHelper
   # @param [PostCategory] selected_category
   def post_categories_for_site(selected_category)
     options = [[t(:not_set), '']]
-    PostCategory.for_tree.visible.each do |category|
+    PostCategory.for_tree.each do |category|
       options << [category.name, category.id]
-      if category.children.visible.any?
-        PostCategory.for_tree(category).visible.each do |subcategory|
+      if category.children.any?
+        PostCategory.for_tree(category).each do |subcategory|
           options << ["-#{subcategory.name}", subcategory.id]
-          if subcategory.children.visible.any?
-            PostCategory.for_tree(subcategory).visible.each do |deep_category|
+          if subcategory.children.any?
+            PostCategory.for_tree(subcategory).each do |deep_category|
               options << ["--#{deep_category.name}", deep_category.id]
             end
           end
@@ -69,7 +69,7 @@ module PostsHelper
   # @param [NewsCategory] selected_category
   def news_categories_for_site(selected_category)
     options = [[t(:not_set), '']]
-    NewsCategory.visible.ordered_by_priority.each do |category|
+    NewsCategory.ordered_by_priority.each do |category|
       options << [category.name, category.id]
     end
     selected = selected_category.nil? ? nil : selected_category.id
