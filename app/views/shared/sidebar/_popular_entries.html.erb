@@ -1,7 +1,23 @@
 <% entries = PopularEntries.prepare(5) %>
 <div class="popular-list">
   <div class="heading">Блоги</div>
-  <input type="radio" id="popular-entries-week" name="popular_entries_switch" checked/>
+  <input type="radio" id="popular-entries-new" name="popular_entries_switch" checked/>
+  <div>
+    <ul>
+      <% Entry.public_entries.not_deleted.recent.first(5).each do |entry| %>
+          <li>
+            <%= render partial: 'entries/sidebar_preview', locals: { entry: entry } %>
+          </li>
+      <% end %>
+    </ul>
+    <div>
+      <label for="popular-entries-new"><span>Новые</span></label>
+      <label for="popular-entries-week">Неделя</label>
+      <label for="popular-entries-month">Месяц</label>
+      <label for="popular-entries-all">Все</label>
+    </div>
+  </div>
+  <input type="radio" id="popular-entries-new" name="popular_entries_switch" />
   <div>
     <ul>
       <% entries[:week].each do |entry| %>
@@ -11,6 +27,7 @@
       <% end %>
     </ul>
     <div>
+      <label for="popular-entries-new">Новые</label>
       <label for="popular-entries-week"><span>Неделя</span></label>
       <label for="popular-entries-month">Месяц</label>
       <label for="popular-entries-all">Все</label>
@@ -26,6 +43,7 @@
       <% end %>
     </ul>
     <div>
+      <label for="popular-entries-new">Новые</label>
       <label for="popular-entries-week">Неделя</label>
       <label for="popular-entries-month"><span>Месяц</span></label>
       <label for="popular-entries-all">Все</label>
@@ -41,6 +59,7 @@
       <% end %>
     </ul>
     <div>
+      <label for="popular-entries-new">Новые</label>
       <label for="popular-entries-week">Неделя</label>
       <label for="popular-entries-month">Месяц</label>
       <label for="popular-entries-all"><span>Все</span></label>
