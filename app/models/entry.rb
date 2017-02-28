@@ -21,11 +21,13 @@ class Entry < ApplicationRecord
 
   validates_presence_of :body, :privacy
 
-  scope :not_deleted, -> { where deleted: false }
-  scope :with_privacy, -> (value) { where privacy: value unless value.blank? }
-  scope :public_entries, -> { where privacy: Entry.privacies[:generally_accessible] }
+  scope :not_deleted, -> { where(deleted: false) }
+  scope :with_privacy, -> (value) { where(privacy: value) unless value.blank? }
+  scope :public_entries, -> { where(privacy: Entry.privacies[:generally_accessible]) }
   scope :recent, -> { order 'id desc' }
   scope :archive, -> (year, month) { where "date_trunc('month', created_at) = ?", '%04d-%02d-01' % [year, month] }
+  scope :since, -> (time) { where('created_at > ?', time) }
+  scope :popular, -> { order('view_count desc') }
 
   # @param [Integer] page
   def self.page_for_administration(page)

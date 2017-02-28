@@ -8,7 +8,7 @@ module Comunit
       end
 
       config.assets.precompile << %w(biovision/base/**/*)
-      config.assets.precompile << %w(comunit/base/**/*)
+      # config.assets.precompile << %w(comunit/base/**/*)
     end
 
     require 'biovision/base'

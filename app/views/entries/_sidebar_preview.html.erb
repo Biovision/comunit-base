@@ -1,0 +1,10 @@
+<div class="image">
+  <%= profile_avatar(entry.user) %>
+</div>
+<div class="post">
+  <div class="header">
+    <span class="author"><%= user_link(entry.user) %></span>
+    <%= time_tag(entry.created_at) { entry.created_at.strftime('%d.%m.%Y') } %>
+  </div>
+  <div class="title"><%= entry_link(entry, current_user) %></div>
+</div>
