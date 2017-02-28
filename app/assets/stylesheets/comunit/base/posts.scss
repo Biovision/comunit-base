@@ -225,6 +225,12 @@ article.news {
     font-style: italic;
   }
 
+  .body {
+    img {
+      max-width: 100%;
+    }
+  }
+
   .footer {
     clear: both;
     display: flex;
