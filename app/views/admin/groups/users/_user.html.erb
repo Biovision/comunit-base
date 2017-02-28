@@ -1,0 +1,16 @@
+<div class="image">
+  <%= profile_avatar(entity) %>
+</div>
+<div class="data">
+  <div><%= user_link(entity) %></div>
+  <% if entity.groups.any? %>
+      <div class="info">
+        <%= entity.groups.map(&:name).join(', ') %>
+      </div>
+  <% end %>
+  <ul class="actions">
+    <li>
+      <%= image_tag('biovision/base/icons/destroy.svg', alt: t(:delete), class: 'remove-user') %>
+    </li>
+  </ul>
+</div>

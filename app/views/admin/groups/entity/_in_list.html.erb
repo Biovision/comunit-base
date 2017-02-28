@@ -1,0 +1,15 @@
+<div class="data">
+  <div>
+    <%= admin_group_link(entity) %>
+  </div>
+  <div class="info">
+    <%= entity.slug %>
+  </div>
+  <div class="secondary info">
+    <%= entity.description %>
+  </div>
+
+  <ul class="actions">
+    <li><%= edit_icon(edit_group_path(entity)) %></li>
+  </ul>
+</div>

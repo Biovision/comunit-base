@@ -46,6 +46,8 @@ Rails.application.routes.draw do
   resources :user_messages, only: [:create, :destroy]
   resources :editable_pages, except: [:index, :show]
 
+  resources :groups, except: [:index, :show]
+
   namespace :admin do
     get '/' => 'index#index'
 
@@ -79,6 +81,13 @@ Rails.application.routes.draw do
     end
 
     resources :editable_pages, only: [:index, :show]
+
+    resources :groups, only: [:index, :show] do
+      member do
+        put 'users/:user_id' => :add_user, as: :user, defaults: { format: :json }
+        delete 'users/:user_id' => :remove_user, defaults: { format: :json }
+      end
+    end
   end
 
   namespace :api, defaults: { format: :json } do

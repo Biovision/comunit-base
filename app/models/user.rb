@@ -6,8 +6,8 @@ class User < ApplicationRecord
   OLD_SLUG_PATTERN  = /\A[-a-z0-9_а-яё@&*. ]{3,30}\z/
   PER_PAGE          = 25
 
-  METRIC_REGISTRATION  = 'users.registration.count'
-  METRIC_AUTHORIZATION = 'users.authorization.count'
+  METRIC_REGISTRATION  = 'users.registration.hit'
+  METRIC_AUTHORIZATION = 'users.authorization.hit'
 
   toggleable %i(email_confirmed allow_mail allow_login verified)
 
@@ -27,6 +27,8 @@ class User < ApplicationRecord
   has_many :received_messages, class_name: UserMessage.to_s, foreign_key: :receiver_id, dependent: :destroy
   has_many :user_privileges, dependent: :destroy
   has_many :privileges, through: :user_privileges
+  has_many :user_groups, dependent: :destroy
+  has_many :groups, through: :user_groups
 
   has_secure_password
 

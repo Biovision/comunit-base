@@ -34,6 +34,8 @@ ru:
       token: "Жетон доступа"
       privilege: "Привилегия"
       user_privilege: "Привилегия у пользователя"
+      group: "Группа"
+      user_group: "Пользователь в группе"
     errors:
       models:
         user:
@@ -166,6 +168,13 @@ ru:
           chief_editor: "Главный редактор"
           post_editor: "Редактор публикаций"
           news_editor: "Редактор новостей"
+      group:
+        name: "Название"
+        slug: "Идентификатор"
+        description: "Описание"
+      user_group:
+        user_id: "Пользователь"
+        group_id: "Группа"
   admin:
     users:
       index:
@@ -195,6 +204,10 @@ ru:
       show:
         title: "Код «%{body}»"
     privileges:
+      index:
+        title: "Привилегии"
+        heading: "Привилегии пользователей"
+        description: "Управление привилегиями пользователей"
       show:
         title: "Привилегия «%{name}»"
         children: "Дочерние привилегии"
@@ -202,10 +215,17 @@ ru:
       users:
         title: "Пользователи с привилегией «%{privilege}», страница %{page}"
         heading: "Пользователи с привилегией"
+    groups:
+      show:
+        title: "Группа «%{name}»"
+        add_user: "Добавить пользователя"
+      users:
+        title: "Пользователи в группе «%{name}», страница %{page}"
+        heading: "Пользователи в группе"
       index:
-        title: "Привилегии"
-        heading: "Привилегии пользователей"
-        description: "Управление привилегиями пользователей"
+        title: "Группы"
+        heading: "Группы пользователей"
+        description: "Управление группами пользователей"
   authentication:
     info:
       logout: "Выйти"
@@ -274,6 +294,38 @@ ru:
       subject: "Подтверждение адреса электронной почты"
     password:
       subject: "Сброс пароля"
+  privileges:
+    new:
+      title: "Новая привилегия"
+    edit:
+      title: "Редактирование привилегии"
+      forbidden: "Редактирование этой привилегии запрещено"
+    update:
+      success: "Привилегия успешно изменена"
+    destroy:
+      success: "Привилегия успешно удалена"
+    form:
+      guidelines:
+        slug: "Используется в коде для определения наличия привилегии."
+        description: "Краткое пояснение сути привилегии. До 350 символов."
+      placeholders:
+        slug: "administrator"
+  groups:
+    new:
+      title: "Новая группа пользователей"
+    edit:
+      title: "Редактирование группы пользователей"
+    update:
+      success: "Группа успешно изменена"
+    destroy:
+      success: "Группа успешно удалена"
+    form:
+      guidelines:
+        slug: "Используется в коде для вывода пользователей."
+        description: "Краткое пояснение сути группы. До 350 символов."
+      placeholders:
+        name: "Совет"
+        slug: "council"
   my:
     index:
       index:
@@ -342,19 +394,3 @@ ru:
         title: "Сообщения"
         heading: "Мои сообщения"
         description: "Ваше общение с другими пользователями"
-  privileges:
-    new:
-      title: "Новая привилегия"
-    edit:
-      title: "Редактирование привилегии"
-      forbidden: "Редактирование этой привилегии запрещено"
-    update:
-      success: "Привилегия успешно изменена"
-    destroy:
-      success: "Привилегия успешно удалена"
-    form:
-      guidelines:
-        slug: "Используется в коде для определения наличия привилегии."
-        description: "Краткое пояснение сути привилегии. До 350 символов."
-      placeholders:
-        slug: "administrator"
