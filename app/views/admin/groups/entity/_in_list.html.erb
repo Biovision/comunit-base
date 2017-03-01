@@ -3,7 +3,7 @@
     <%= admin_group_link(entity) %>
   </div>
   <div class="info">
-    <%= entity.slug %>
+    <%= entity.slug %>, <%= t(:user_count, count: entity.users_count) %>
   </div>
   <div class="secondary info">
     <%= entity.description %>
