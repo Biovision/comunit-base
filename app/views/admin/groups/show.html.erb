@@ -16,7 +16,7 @@
     <%= paginate @collection %>
   </section>
 
-  <section data-filter-url="<%= users_path(format: :json) %>">
+  <section data-filter-url="<%= users_admin_group_path(@entity.id) %>">
     <h2><%= t('.add_user') %></h2>
 
     <%= render partial: 'users/filter', locals: { filter: {} } %>
@@ -26,20 +26,64 @@
 </article>
 
 <script>
-  'use strict';
+    'use strict';
 
-  $(function() {
-      $('form.filter').on('submit', function(e) {
-          e.preventDefault();
+    $(function () {
+        $('form.filter').on('submit', function (e) {
+            e.preventDefault();
 
-          var url = $(this).closest('section').data('filter-url');
+            var url = $(this).closest('section').data('filter-url');
 
-          $.get(url, function (response) {
-              if (!response.hasOwnProperty('data')) {
-                  return;
-              }
-              console.log(response['data']);
-          }).fail(handle_ajax_failure);
-      })
-  })
+            $.get(url, function (response) {
+                if (!response.hasOwnProperty('data')) {
+                    return;
+                }
+                if (!response['data'].hasOwnProperty('users')) {
+                    return;
+                }
+                var content = '';
+                var $container = $('#found-users');
+
+                for (var i in response['data']['users']) {
+                    if (!response['data']['users'].hasOwnProperty(i)) {
+                        continue;
+                    }
+
+                    content += '<li>' + response['data']['users'][i]['html'] + '</li>';
+                }
+
+                $container.html(content);
+
+            }).fail(handle_ajax_failure);
+        });
+
+        $(document).on('click', '.group-user a', function (e) {
+            e.preventDefault();
+
+            var method = $(this).hasClass('remove-user') ? 'delete' : 'put';
+            var url = $(this).attr('href');
+            var $li = $(this).closest('li:not([class])');
+            var $section = $('#group-users');
+            var $container = $section.find('ul.list-of-entities');
+
+            $.ajax(url, {
+                method: method,
+                success: function (response) {
+                    if (response && response.hasOwnProperty('data')) {
+                        $li.detach();
+                        if (!$container[0]) {
+                            $section.find('div.message-box-warning').remove();
+                            $container = $('<ul class="list-of-entities"></ul>');
+                            $section.append($container);
+                        }
+
+                        $container.append($li);
+                        $li.find('.actions').remove();
+                    } else {
+                        $li.remove();
+                    }
+                }
+            }).fail(handle_ajax_failure);
+        });
+    })
 </script>

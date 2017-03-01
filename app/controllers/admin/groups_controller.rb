@@ -13,6 +13,12 @@ class Admin::GroupsController < ApplicationController
     @collection = @entity.users.page_for_administration(current_page)
   end
 
+  # get /admin/groups/:id/users
+  def users
+    @filter     = params[:filter] || Hash.new
+    @collection = User.page_for_visitors(current_page, @filter)
+  end
+
   # put /admin/groups/:id/users/:user_id
   def add_user
     link = @entity.add_user(@user)

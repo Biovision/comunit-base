@@ -7,8 +7,8 @@
                 (<%= entity.screen_name %>)
               </li>
           <% else %>
-              <li data-url="<%= user_admin_group_path(id: group.id, user_id: entity.id) %>">
-                <%= render partial: 'admin/groups/users/user', locals: { entity: entity } %>
+              <li>
+                <%= render partial: 'admin/groups/users/user', locals: { entity: entity, group: group } %>
               </li>
           <% end %>
       <% end %>

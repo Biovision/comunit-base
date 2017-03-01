@@ -3,14 +3,22 @@
 </div>
 <div class="data">
   <div><%= user_link(entity) %></div>
+  <div class="secondary info">
+    <%= entity.screen_name %>
+  </div>
   <% if entity.groups.any? %>
       <div class="info">
         <%= entity.groups.map(&:name).join(', ') %>
       </div>
   <% end %>
   <ul class="actions">
-    <li>
-      <%= image_tag('biovision/base/icons/destroy.svg', alt: t(:delete), class: 'remove-user') %>
+    <li class="group-user">
+      <% href = user_admin_group_path(id: group.id, user_id: entity.id) %>
+      <% if group.has_user?(entity) %>
+          <%= icon_with_link('biovision/base/icons/destroy.svg', href, t('.remove'), class: 'remove-user') %>
+      <% else %>
+          <%= icon_with_link('biovision/base/icons/create.svg', href, t('.add'), class: 'add-user') %>
+      <% end %>
     </li>
   </ul>
 </div>

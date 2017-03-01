@@ -84,6 +84,7 @@ Rails.application.routes.draw do
 
     resources :groups, only: [:index, :show] do
       member do
+        get 'users', defaults: { format: :json }
         put 'users/:user_id' => :add_user, as: :user, defaults: { format: :json }
         delete 'users/:user_id' => :remove_user, defaults: { format: :json }
       end

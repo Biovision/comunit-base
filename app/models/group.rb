@@ -18,6 +18,11 @@ class Group < ApplicationRecord
   end
 
   # @param [User] user
+  def has_user?(user)
+    user_groups.where(user: user).exists?
+  end
+
+  # @param [User] user
   def add_user(user)
     UserGroup.find_or_create_by(user: user, group: self)
   end
