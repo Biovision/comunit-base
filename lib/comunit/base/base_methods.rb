@@ -4,20 +4,13 @@ module Comunit
       extend ActiveSupport::Concern
 
       included do
-        helper_method :current_user, :current_user_has_role?, :current_user_has_privilege?
+        helper_method :current_user_has_role?, :current_user_has_privilege?
         helper_method :current_region
       end
 
       # @return [Region]
       def current_region
         @current_region
-      end
-
-      # Получить текущего пользователя из жетона доступа в куки
-      #
-      # @return [User|nil]
-      def current_user
-        @current_user ||= Token.user_by_token cookies['token'], true
       end
 
       # @param [Symbol] role
@@ -32,11 +25,6 @@ module Comunit
       end
 
       protected
-
-      # Ограничить доступ для анонимных посетителей
-      def restrict_anonymous_access
-        redirect_to login_path, alert: t(:please_log_in) unless current_user.is_a? User
-      end
 
       # @param [Symbol] role
       def require_role(*role)
@@ -59,15 +47,6 @@ module Comunit
         unless UserPrivilege.user_has_privilege_group?(current_user, name)
           handle_http_401("Current user has no privilege class #{name}")
         end
-      end
-
-      # Информация о текущем пользователе для сущности
-      #
-      # @param [Boolean] track
-      def owner_for_entity(track = false)
-        result = { user: current_user }
-        result.merge!(tracking_for_entity) if track
-        result
       end
 
       def set_current_region
