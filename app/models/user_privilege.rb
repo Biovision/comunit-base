@@ -11,6 +11,8 @@ class UserPrivilege < ApplicationRecord
   # @param [String|Symbol] privilege_name
   # @param [Region] region
   def self.user_has_privilege?(user, privilege_name, region = nil)
+    return false if user.nil?
+    return true if user.super_user?
     privilege = Privilege.find_by(slug: privilege_name)
     privilege&.has_user?(user, region)
   end
