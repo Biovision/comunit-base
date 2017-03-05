@@ -5,7 +5,6 @@ Rails.application.routes.draw do
 
   resources :users, except: [:show]
   resources :tokens, :codes, except: [:index, :show]
-  resources :privileges, except: [:index, :show]
   resources :regions, except: [:index, :new, :create, :show, :destroy]
 
   resources :news_categories, :post_categories, except: [:index, :show]
@@ -60,9 +59,6 @@ Rails.application.routes.draw do
     end
     resources :tokens, :codes, only: [:index, :show]
 
-    resources :privileges, only: [:index, :show] do
-      get 'users', on: :member
-    end
     resources :regions, only: [:index, :show] do
       get 'cities', on: :member
     end
@@ -101,14 +97,6 @@ Rails.application.routes.draw do
         delete 'follow' => :unfollow
         put 'privileges/:privilege_id' => :grant_privilege, as: :privilege
         delete 'privileges/:privilege_id' => :revoke_privilege
-        post 'toggle'
-      end
-    end
-    resources :privileges, except: [:new, :edit] do
-      member do
-        put 'lock'
-        delete 'lock', action: :unlock
-        post 'priority'
         post 'toggle'
       end
     end

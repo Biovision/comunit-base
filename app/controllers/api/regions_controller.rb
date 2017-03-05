@@ -13,7 +13,7 @@ class Api::RegionsController < ApplicationController
 
   # put /api/regions/:id/lock
   def lock
-    require_role :administrator
+    require_privilege :administrator
     @entity.update! locked: true
 
     render json: { data: { locked: @entity.locked? } }
@@ -21,7 +21,7 @@ class Api::RegionsController < ApplicationController
 
   # delete /api/regions/:id/lock
   def unlock
-    require_role :administrator
+    require_privilege :administrator
     @entity.update! locked: false
 
     render json: { data: { locked: @entity.locked? } }
@@ -37,6 +37,6 @@ class Api::RegionsController < ApplicationController
   end
 
   def restrict_access
-    require_role :administrator
+    require_privilege :administrator
   end
 end

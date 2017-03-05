@@ -18,7 +18,7 @@ class Admin::PostCategoriesController < ApplicationController
   protected
 
   def restrict_access
-    require_role :administrator
+    require_privilege :administrator
   end
 
   def set_entity

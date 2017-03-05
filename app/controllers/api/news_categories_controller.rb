@@ -40,6 +40,6 @@ class Api::NewsCategoriesController < ApplicationController
   end
 
   def restrict_access
-    require_role :administrator
+    require_privilege :administrator
   end
 end

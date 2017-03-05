@@ -26,7 +26,7 @@ class Api::IllustrationsController < ApplicationController
   protected
 
   def restrict_access
-    require_role :chief_editor, :post_editor, :news_editor
+    require_privilege_group :editors
   end
 
   def creation_parameters

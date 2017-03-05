@@ -60,7 +60,7 @@ class Api::UsersController < ApplicationController
   end
 
   def restrict_access
-    require_role :administrator
+    require_privilege :administrator
   end
 
   # @param [UserLink] link

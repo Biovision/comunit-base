@@ -5,9 +5,9 @@
   <h1><%= @entity.name %></h1>
 
   <ul class="actions">
-    <li><%= back_icon(admin_privileges_path) %></li>
+    <li><%= return_icon(admin_privileges_path) %></li>
     <% unless @entity.locked? %>
-        <li><%= edit_icon edit_privilege_path(@entity.id) %></li>
+        <li><%= edit_icon(edit_privilege_path(@entity.id)) %></li>
     <% end %>
   </ul>
 
@@ -59,6 +59,8 @@
     </tr>
     </tfoot>
   </table>
+
+  <%= render partial: 'admin/privileges/entity/groups', locals: { privilege: @entity } %>
 
   <section>
     <h2><%= t('.children') %></h2>
