@@ -311,9 +311,16 @@ end
 После этого можно запустить `mina setup` и настроить остальное на стороне
 сервера.
 
+В бою
+-----
 
-## Contributing
-Contribution directions go here.
+Нужно создать индексы для поиска в эластике (`bin/rails console`)
+
+```ruby
+Post.__elasticsearch__.create_index!
+News.__elasticsearch__.create_index!
+Entry.__elasticsearch__.create_index!
+```
 
 ## License
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
