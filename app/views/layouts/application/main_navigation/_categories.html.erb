@@ -1,0 +1,10 @@
+<% categories.each do |category| %>
+    <li class="<%= (category.parent_id.nil? || category.children.visible.blank?) ? '' : 'parent' %>">
+      <%= post_category_link category %>
+      <% if category.children.any? %>
+          <ul>
+            <%= render partial: 'layouts/application/main_navigation/categories', locals: { categories: PostCategory.visible.for_tree(category.id) } %>
+          </ul>
+      <% end %>
+    </li>
+<% end %>

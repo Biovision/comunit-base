@@ -1,0 +1,30 @@
+<% if current_region&.header_image.blank? %>
+    <% style = '' %>
+<% else %>
+    <% style = "background: url('#{current_region.header_image.url}') no-repeat center / cover " %>
+<% end %>
+<div style="<%= style %>">
+  <div class="logo">
+    <%= link_to(image_tag('logo.png', alt: '', srcset: "#{asset_path('logo_2x.png')} 2x"), root_path) %>
+  </div>
+  <div class="partials">
+    <div class="authentication">
+      <div class="plate">
+        <%= render 'layouts/authentication' %>
+      </div>
+    </div>
+    <div class="region">
+      <div id="header-content">
+      </div>
+      <% unless current_region&.image.blank? %>
+          <div class="arms">
+            <%= image_tag(current_region.image.header.url, alt: current_region.name, srcset: "#{current_region.image.url} 2x") %>
+          </div>
+      <% end %>
+    </div>
+    <div class="search">
+      <%= render 'layouts/application/header/region_selector' %>
+      <%= render 'layouts/application/header/search' %>
+    </div>
+  </div>
+</div>

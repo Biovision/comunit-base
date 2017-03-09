@@ -4,8 +4,7 @@
 <article class="entity-page">
   <h1><%= @entity.name %></h1>
   <ul class="actions">
-    <li><%= back_icon admin_news_category_path(@entity), t('activerecord.models.news_category') %></li>
-    <li><%= list_icon admin_news_categories_path %></li>
+    <li><%= return_icon(admin_news_category_path(@entity), t('activerecord.models.news_category')) %></li>
   </ul>
 
   <section>

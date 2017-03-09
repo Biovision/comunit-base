@@ -16,4 +16,21 @@ class UserPrivilege < ApplicationRecord
     privilege = Privilege.find_by(slug: privilege_name)
     privilege&.has_user?(user, region)
   end
+
+  # @param [User] user
+  def self.user_has_any_privilege?(user)
+    return false if user.nil?
+    return true if user.super_user?
+    exists?(user: user)
+  end
+
+  # @param [User] user
+  # @param [Symbol] group_name
+  def self.user_in_group?(user, group_name)
+    return false if user.nil?
+    return true if user.super_user?
+    privilege_ids = PrivilegeGroup.ids(group_name)
+    return false if privilege_ids.blank?
+    exists?(user: user, privilege_id: privilege_ids)
+  end
 end

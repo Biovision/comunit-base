@@ -396,8 +396,8 @@ ru:
       continue_reading: "Читать далее…"
   entries:
     index:
-      title: "Записи в блоге, страница %{page}"
-      heading: "Записи в блоге"
+      title: "Блоги, страница %{page}"
+      heading: "Блоги"
     update:
       success: "Запись успешно изменена"
     destroy:

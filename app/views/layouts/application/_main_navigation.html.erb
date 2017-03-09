@@ -1,0 +1,13 @@
+<ul class="main-navigation">
+  <%= render partial: 'layouts/application/main_navigation/categories', locals: { categories: PostCategory.visible.for_tree } %>
+  <li>
+    <%= link_to t('news.index.heading'), news_index_path %>
+    <ul>
+      <% NewsCategory.page_for_visitors.each do |news_category| %>
+          <li><%= news_category_link(news_category) %></li>
+      <% end %>
+    </ul>
+  </li>
+  <li><%= link_to t('entries.index.heading'), entries_path %></li>
+  <%= render 'layouts/application/main_navigation/addition' %>
+</ul>

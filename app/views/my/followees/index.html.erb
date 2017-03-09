@@ -6,7 +6,7 @@
 
   <ul class="actions">
     <li><%= back_icon(my_path) %></li>
-    <li><%= list_icon(users_path, t('users.index.heading')) %></li>
+    <li><%= return_icon(users_path, t('users.index.heading')) %></li>
   </ul>
 
   <%= render partial: 'users/filter', locals: { filter: @filter } %>

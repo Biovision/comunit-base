@@ -1,0 +1,14 @@
+<div class="frontpage-posts">
+  <div class="heading">
+    Новости регионов
+  </div>
+  <% posts = News.regional(params[:region_id].to_s.to_i, current_region).visible.recent.first(7) %>
+  <% if posts.any? %>
+      <div class="posts">
+        <% posts.each do |post| %>
+            <% next if post.category.blank? %>
+            <%= render partial: 'index/frontpage_posts/preview', locals: { post: post } %>
+        <% end %>
+      </div>
+  <% end %>
+</div>

@@ -23,3 +23,5 @@ ru:
       title: "Поиск"
       heading: "Поиск по сайту"
       find: "Искать"
+  site_name: "example.com"
+  copyright: "2017 comunit.online"

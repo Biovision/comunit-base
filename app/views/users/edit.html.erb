@@ -3,8 +3,7 @@
 <article class="entity-page">
   <h1><%= t('.title') %></h1>
   <ul class="actions">
-    <li><%= back_icon admin_user_path(@entity) %></li>
-    <li><%= list_icon admin_users_path %></li>
+    <li><%= return_icon admin_user_path(@entity) %></li>
     <% unless @entity.deleted? %>
         <li class="danger"><%= destroy_icon @entity %></li>
     <% end %>

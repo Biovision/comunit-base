@@ -412,17 +412,17 @@ div.post-preview1 {
   font-size: 11px;
 
   span {
-    margin: 0.125rem;
+    margin: 0.2rem;
   }
 
   .views {
-    background: image_url('icons/view_count.gif') no-repeat left center;
-    padding-left: 16px;
+    background: image_url('comunit/base/icons/view.svg') no-repeat left center / 1.2rem auto;
+    padding-left: 1.6rem;
   }
 
   .comments {
-    background: image_url('icons/comment_count.gif') no-repeat left center;
-    padding-left: 18px;
+    background: image_url('comunit/base/icons/comment.svg') no-repeat left center / 1.2rem auto;
+    padding-left: 1.6rem;
   }
 }
 
@@ -583,7 +583,7 @@ article.post {
       box-sizing: border-box;
       width: 100%;
       font-size: $small_font_size;
-      background: #fafafa image_url('icons/repost.png') no-repeat center left .8rem / 1.6rem 1.6rem;
+      background: #fafafa image_url('comunit/base/icons/repost.svg') no-repeat center left .8rem / 1.6rem 1.6rem;
       line-height: 2.4rem;
       padding: 0 0 0 3.2rem;
     }
@@ -777,7 +777,7 @@ ul.post-categories {
 
 .list-of-entities {
   .repost {
-    background: image_url('icons/repost.png') no-repeat center left / 1.2rem 1.2rem;
+    background: image_url('comunit/base/icons/repost.svg') no-repeat center left / 1.2rem 1.2rem;
     font-size: $small_font_size;
     line-height: 1.6rem;
     padding: 0 0 .4rem 1.6rem;

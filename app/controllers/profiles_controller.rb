@@ -21,7 +21,7 @@ class ProfilesController < ApplicationController
   private
 
   def set_entity
-    @entity = User.with_long_slug(params[:slug])
+    @entity = User.find_by(slug: params[:slug].downcase)
     if @entity.nil? || @entity.deleted?
       handle_http_404 "Cannot find user by slug: #{params[:slug]}"
     end

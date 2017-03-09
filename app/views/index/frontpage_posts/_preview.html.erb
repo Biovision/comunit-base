@@ -1,0 +1,38 @@
+<div>
+  <div class="category">
+    <% if post.class.to_s == Post.to_s %>
+        <%= post_category_link post.category %>
+        <%= time_tag post.created_at %>
+    <% elsif post.regional? %>
+        <div>
+          <%= regional_news_category_link post.category %>
+          <%= time_tag post.created_at %>
+        </div>
+        <div class="region"><%= link_to(post.region.name, root_path(region_id: post.region.id)) %></div>
+    <% else %>
+        <%= news_category_link post.category %>
+        <%= time_tag post.created_at %>
+    <% end %>
+  </div>
+  <div class="body">
+    <div class="title"><%= (post.class.to_s == Post.to_s) ? post_link(post) : news_link(post) %></div>
+    <div class="text">
+      <% unless post.image.blank? %>
+          <div class="image"><%= image_tag post.image.preview.url, alt: post.title %></div>
+      <% end %>
+      <div class="lead"><%= post.lead %></div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="author">
+      <% if post.class.to_s != News.to_s || post.show_name? %>
+        <%= profile_avatar(post.user) %>
+        <%= user_link post.user %><br/>
+      <% end %>
+    </div>
+    <div class="post-counters">
+      <span class="comments"><%= post.comments_count %></span>
+      <span class="views"><%= post.view_count %></span>
+    </div>
+  </div>
+</div>
