@@ -167,10 +167,6 @@ Rails.application.routes.draw do
   end
 
   namespace :my do
-    get '/' => 'index#index'
-
-    resource :profile, except: [:destroy]
-    resource :confirmation, :recovery, only: [:show, :create, :update]
     resources :posts, :news, :comments, only: [:index]
     resources :entries, only: [:index]
     resources :comments, only: [:index]
@@ -182,14 +178,7 @@ Rails.application.routes.draw do
   end
 
   scope 'u/:slug', controller: :profiles do
-    get '/' => :show, as: :user_profile
     get 'entries' => :entries, as: :user_profile_entries
     get 'followees', as: :user_profile_followees
-  end
-
-  controller :authentication do
-    get 'login' => :new
-    post 'login' => :create
-    delete 'logout' => :destroy
   end
 end

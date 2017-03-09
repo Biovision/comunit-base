@@ -3,23 +3,314 @@ Comunit::Base
 
 Основной функционал для сайтов сети `comunit`.
 
+Действия для создания нового сайта сети
+---------------------------------------
 
-## Installation
-Add this line to your application's Gemfile:
+### Дополнения в `Gemfile`
 
 ```ruby
-gem 'comunit-base'
+gem 'dotenv-rails'
+
+gem 'autoprefixer-rails', group: :production
+
+gem 'biovision-base', git: 'https://github.com/Biovision/biovision-base'
+# gem 'biovision-base', path: '/Users/maxim/Projects/Biovision/biovision-base'
+gem 'comunit-base', git: 'https://github.com/Biovision/comunit-base'
+# gem 'comunit-base', path: '/Users/maxim/Projects/Biovision/Comunit/comunit-base'
+
+group :development, :test do
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
+  gem 'rspec-rails'
+end
+
+group :development do
+  gem 'mina'
+end
 ```
 
-And then execute:
-```bash
-$ bundle
+### Добавления в `.gitignore`
+
+Стоит убрать строки `!log/.keep` и `!tmp/.keep`, так как `log` и `tmp` создаются
+на сервере как ссылки в любом случае.
+
+```
+/public/uploads
+/public/ckeditor
+
+/spec/examples.txt
+/spec/support/uploads/*
+
+.env
 ```
 
-Or install it yourself as:
-```bash
-$ gem install comunit-base
+### Добавления в `config/routes.rb`
+
+```ruby
+  mount Biovision::Base::Engine, at: '/'
+  mount Comunit::Base::Engine, at: '/'
+
+  root 'index#index'
+
+  scope 'about' do
+    get '/' => 'about#index', as: :about
+  end
 ```
+### Пример `.env`
+
+```
+RAILS_MAX_THREADS=5
+SECRET_KEY_BASE=
+DATABASE_PASSWORD=
+MAIL_PASSWORD=
+SIGNATURE_TOKEN=
+SITE_ID=
+```
+
+Параметр `SECRET_KEY_BASE` создаётся через `rails secret` в консоли.
+`DATABASE_PASSWORD` — через random.org, `MAIL_PASSWORD` — или через интерфейс
+внешнего почтовика, или через тот же random.org.
+`SIGNATURE_TOKEN` и `SITE_ID` берутся из админки comunit.
+
+### Добавления в `app/assets/`
+
+В `app/assets/javascripts/application.js` перед `//= require_tree .`
+
+```
+//= require biovision/base/biovision.js
+```
+
+Заменить `app/assets/stylesheets/application.css` на `application.scss`
+с этим содержимым.
+
+```scss
+@import "colors";
+@import "shared";
+@import "biovision/base/tootik";
+@import "biovision/base/fonts";
+@import "biovision/base/buttons";
+@import "biovision/base/biovision";
+@import "biovision/base/message-box";
+@import "biovision/base/pagination";
+@import "biovision/base/filters";
+@import "biovision/base/track";
+@import "comunit/base/layout";
+@import "comunit/base/sidebar";
+@import "comunit/base/users";
+@import "comunit/base/posts";
+@import "comunit/base/entries";
+@import "comunit/base/comments";
+@import "comunit/base/calendar";
+@import "comunit/base/socialization";
+@import "comunit/base/notifications";
+@import "comunit/base/privileges";
+@import "comunit/base/navigation";
+@import "layout";
+```
+
+Примеры для `colors`, `shared` и `layout` можно найти
+в `sample/app/assets/stylesheets/`
+
+### Дополнения в `config/*.yml`
+
+Для начала нужно убедиться в правильности содержимого `database.yml`
+
+ * Названия баз
+ * Наличие `host: localhost` в разделе `production`
+ * Правильный ключ в `ENV` в `production.password` (`DATABASE_PASSWORD`), 
+   такой же, как в `.env`
+
+В `secrets.yml` нужно добавить параметр:
+
+```yaml
+  signature_token: <%= ENV["SIGNATURE_TOKEN"] %>
+```
+
+### Дополнения в `config/application.rb`
+
+_Нужно поменять `example` на соответствующее название проекта!_
+
+```ruby
+  class Application < Rails::Application
+    config.time_zone = 'Moscow'
+
+    config.i18n.enforce_available_locales = true
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
+    config.i18n.default_locale = :ru
+
+    %w(app/services lib).each do |path|
+      config.autoload_paths << config.root.join(path).to_s
+    end
+
+    config.active_job.queue_adapter = :sidekiq
+
+    config.news_index_name  = 'example_news'
+    config.post_index_name  = 'example_posts'
+    config.entry_index_name = 'example_entries'
+  end
+```
+
+### Добавить файл `config/initializers/sidekiq.rb`
+
+_Нужно поменять `example` на соответствующее название проекта!_
+
+```ruby
+redis_uri = 'redis://localhost:6379/0'
+app_name  = 'example'
+
+Sidekiq.configure_server do |config|
+  config.redis = { url: redis_uri, namespace: app_name }
+end
+
+Sidekiq.configure_client do |config|
+  config.redis = { url: redis_uri, namespace: app_name }
+end
+```
+
+### Дополнения в `config/puma.rb`
+
+Нужно закомментировать строку с портом (`port ENV.fetch('PORT') { 3000 }`), 
+это 12 строка на момент написания инструкций.
+
+Нужно поменять `example.com` на актуальный домен.
+
+```ruby
+if ENV['RAILS_ENV'] == 'production'
+  shared_path = '/var/www/example.com/shared'
+  logs_dir    = "#{shared_path}/log"
+
+  pidfile "#{shared_path}/tmp/puma/pid"
+  state_path "#{shared_path}/tmp/puma/state"
+  bind "unix://#{shared_path}/tmp/puma.sock"
+  stdout_redirect "#{logs_dir}/stdout.log", "#{logs_dir}/stderr.log", true
+
+  activate_control_app
+end
+```
+
+### Дополнения в `spec/rails_helper.rb` (`$ rails generate rspec:install`)
+
+Раскомментировать строку 23 (включение содержимого spec/support)
+
+```ruby
+RSpec.configure do |config|
+  config.include FactoryGirl::Syntax::Methods
+end
+```
+
+### Дополнения в `spec/spec_helper.rb`
+
+```ruby
+RSpec.configure do |config|
+  config.after(:all) do
+    if Rails.env.test?
+      FileUtils.rm_rf(Dir["#{Rails.root}/spec/support/uploads"])
+    end
+  end
+end
+```
+
+### Дополнения в `app/controllers/application_controller.rb`
+
+```ruby
+  before_action :set_current_region
+```
+
+### Дополнения в config/environments/production.rb
+
+Нужно поменять `example.com` на актуальный домен
+
+Вариант для `mail.ru`
+
+```ruby
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+      address: 'smtp.mail.ru',
+      port: 465,
+      tls: true,
+      domain: 'example.com',
+      user_name: 'webmaster@example.com',
+      password: ENV['MAIL_PASSWORD'],
+      authentication: :login,
+      enable_starttls_auto: true
+  }
+  config.action_mailer.default_options = {
+      from: 'example.com <webmaster@example.com>',
+      reply_to: 'support@example.com'
+  }
+  config.action_mailer.default_url_options = { host: 'example.com' }
+```
+
+### Дополнения в config/environments/test.rb
+
+Нужно поменять `example.com` на актуальный домен
+
+```ruby
+  config.action_mailer.default_options = {
+      from: 'example.com <webmaster@example.com>',
+      reply_to: 'support@example.com'
+  }
+  config.action_mailer.default_url_options = { :host => '0.0.0.0:3000' }
+```
+  
+### Дополнения в config/environments/development.rb
+
+Нужно поменять `example.com` на актуальный домен
+
+```ruby
+  config.action_mailer.delivery_method = :test
+  config.action_mailer.default_options = {
+      from: 'example.com <webmaster@example.com>',
+      reply_to: 'support@example.com'
+  }
+  config.action_mailer.default_url_options = { :host => '0.0.0.0:3000' }
+```
+
+После настройки
+---------------
+
+```bash
+bundle binstub puma
+bundle binstub sidekiq
+rails db:create
+rails railties:install:migrations
+```
+
+В миграциях `create_biovision_users`, `create_biovision_privileges`
+и `create_biovision_user_privileges` нужно закомментировать блок с созданием, 
+так как эти таблицы со своей спецификой создаются позже.
+
+Миграции `create_tokens` и `create_codes` нужно переименовать так, чтобы они
+оказались после `create_users` из `comunit-base`.
+
+Миграции `create_privilege_groups` и `create_privilege_group_privilege` нужно
+переименовать так, чтобы они оказались после `create_privileges` 
+из `comunit-base`.
+
+```bash
+rails db:migrate
+mina init
+```
+
+После этого нужно отредактировать `config/deploy.rb`.
+
+```ruby
+# В самом начале, 3 строка
+require 'mina/rbenv'
+
+#...
+set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp', 'public/uploads', 'public/ckeditor')
+set :shared_files, fetch(:shared_files, []).push('.env')
+
+# В том месте, где task :development, сразу после
+task :environment do
+  invoke :'rbenv:load'
+end
+```
+
+После этого можно запустить `mina setup` и настроить остальное на стороне
+сервера.
+
 
 ## Contributing
 Contribution directions go here.

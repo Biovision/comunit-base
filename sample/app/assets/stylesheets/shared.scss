@@ -1,0 +1,11 @@
+$main-font-family: "PT Sans", Arial, Verdana, sans-serif;
+
+$content-width: 98rem;
+
+@mixin heading {
+  line-height: 29px;
+  font-size: $decreased_font_size;
+  color: #ffffff;
+  text-shadow: 1px 1px 0 #2a2a2a;
+  padding: 0 10px;
+}

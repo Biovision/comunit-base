@@ -1,0 +1,233 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i&subset=cyrillic');
+
+html {
+  background: image_url('bg-main.jpg') no-repeat fixed center / cover;
+  font: 10px $main-font-family;
+  margin: 0;
+  padding: 0;
+  -webkit-text-size-adjust: none;
+  -moz-text-size-adjust: none;
+  -ms-text-size-adjust: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
+a:link, a:visited {
+  color: #000;
+}
+
+body {
+  background: #ffffff;
+  border: none;
+  border-radius: 0.4rem;
+  box-shadow: $block-shadow;
+  box-sizing: border-box;
+  color: $primary_text_color;
+  font-size: $normal_font_size;
+  margin: 1.6rem auto;
+  padding: .1rem;
+  position: relative;
+  width: $content-width;
+
+  > header {
+    > div {
+      background: image_url('header.jpg') no-repeat center / cover;
+
+      .partials {
+        .region {
+          align-items: center;
+          display: flex;
+          justify-content: space-between;
+          padding: 0 0 0 .5rem;
+
+          > div {
+            //background: $header-background-transparent;
+            border-radius: .5rem;
+            padding: 0 .5rem;
+
+            > div {
+              color: #fff;
+
+              .text {
+                font-size: 3rem;
+                font-weight: bold;
+                font-style: italic;
+                margin-right: 2rem;
+                text-transform: uppercase;
+              }
+            }
+
+            .line-1 {
+              padding-left: 7.5rem;
+            }
+
+            .line-2 {
+              padding-left: 4rem;
+            }
+
+            .line-3 {
+              display: flex;
+              align-items: center;
+            }
+
+          }
+
+          .arms {
+            background: none;
+            margin: .8rem 1.3rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 10rem;
+            height: 10rem;
+
+            img {
+              max-width: 100%;
+              max-height: 100%;
+              opacity: .75;
+              filter: drop-shadow(0 0 2rem $header-background-transparent) saturate(50%);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  > footer {
+    .bottom {
+      display: flex;
+      justify-content: space-between;
+      font-size: $small_font_size;
+      padding: 0.4rem 0.8rem;
+    }
+  }
+}
+
+#main {
+  padding: 23px 0;
+  display: flex;
+  justify-content: space-between;
+
+  .content {
+    flex: 8;
+
+    > .breadcrumbs {
+      @include heading;
+      background: $heading_background;
+      text-transform: uppercase;
+      margin: 0 0 20px 0;
+
+      a:link, a:visited {
+        color: #ffffff;
+        text-decoration: none;
+      }
+    }
+
+    article {
+      position: relative;
+      padding: 0.8rem;
+    }
+  }
+}
+
+.hidden {
+  display: none !important;
+}
+
+.authentication {
+  //background: #ffffff;
+  border-radius: 0.4rem 0 0 0.4rem;
+
+  .plate {
+    width: 100%;
+
+    .current_user {
+      font-size: $small_font_size;
+      line-height: 2.4rem;
+
+      .button {
+        @include nav-button;
+      }
+    }
+
+    .login {
+      @include action-button;
+    }
+
+    .join {
+      @include nav-button;
+    }
+  }
+
+  form {
+    margin: 1.2rem;
+    max-width: 22rem;
+    padding: 0;
+    font-size: $decreased_font_size;
+
+    .fields {
+      flex: 1;
+
+      > div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    .actions {
+      margin: 0.4rem 0 0 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+
+      a {
+        @include nav-button;
+      }
+    }
+  }
+}
+
+#current-region-selector {
+  display: flex;
+  justify-content: flex-end;
+
+  > div {
+    align-items: center;
+    background: $transparent-block-background;
+    border-radius: .4rem 0 0 .4rem;
+    display: flex;
+    padding: .8rem;
+
+    label {
+      margin: 0 .4rem 0 0;
+    }
+
+    select {
+      font-size: $normal_font_size;
+    }
+  }
+}
+
+form {
+  .guideline {
+    color: $secondary_text_color;
+    font-size: $decreased_font_size;
+    margin: 0;
+
+    &::before {
+      content: '\261E';
+      margin-right: 0.4rem;
+    }
+  }
+}
+
+figure.preview {
+  img {
+    max-width: 40rem;
+    max-height: 40rem;
+  }
+}
