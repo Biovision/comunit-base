@@ -42,7 +42,7 @@ class CommentsController < ApplicationController
   private
 
   def restrict_access
-    require_privilege :administrator
+    require_privilege :moderator
   end
 
   def set_entity
@@ -50,12 +50,12 @@ class CommentsController < ApplicationController
   end
 
   def entity_parameters
-    permitted = current_user_has_role?(:administrator) ? Comment.administrative_parameters : Comment.entity_parameters
+    permitted = current_user_has_privilege?(:administrator, nil) ? Comment.administrative_parameters : Comment.entity_parameters
     params.require(:comment).permit(permitted)
   end
 
   def creation_parameters
-    params.require(:comment).permit(Comment.creation_parameters).merge(owner_for_entity).merge(tracking_for_entity)
+    params.require(:comment).permit(Comment.creation_parameters).merge(owner_for_entity(true))
   end
 
   def notify_participants

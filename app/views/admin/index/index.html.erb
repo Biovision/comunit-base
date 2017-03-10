@@ -21,6 +21,9 @@
         <% if current_user_has_privilege?(:central_chief_editor, nil) %>
             <li><%= render 'admin/editable_pages/nav_item' %></li>
         <% end %>
+        <% if current_user_has_privilege?(:moderator, nil) %>
+            <li><%= render 'admin/comments/nav_item' %></li>
+      <% end %>
 
         <% if UserPrivilege.user_in_group?(current_user, :editors) %>
             <li><%= render 'admin/posts/nav_item' %></li>

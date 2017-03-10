@@ -1,8 +1,8 @@
 <% if collection.any? %>
-    <ul class="comments-list">
-      <% collection.each do |comment| %>
-          <li>
-            <%= render comment %>
+    <ul class="list-of-entities">
+      <% collection.each do |entity| %>
+          <li data-id="<%= entity.id %>">
+            <%= render partial: 'admin/comments/entity/in_list', locals: { entity: entity} %>
           </li>
       <% end %>
     </ul>

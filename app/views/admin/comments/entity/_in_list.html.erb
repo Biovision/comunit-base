@@ -1,0 +1,26 @@
+<div class="image">
+  <%= profile_avatar(entity.user) %>
+</div>
+<div class="data">
+  <div>
+    <%= entity.commentable.model_name.human %>
+    <cite><%= link_to entity.commentable.title, entity.commentable %></cite>
+
+    <% if entity.deleted? %>
+    (<%= t('activerecord.attributes.comment.deleted') %>)
+    <% end %>
+  </div>
+
+  <div class="info">
+    <%= user_link entity.user %>,
+    <%= time_tag entity.created_at %>
+  </div>
+
+  <div class="info">
+    <%= prepare_comment_text(entity) %>
+  </div>
+
+  <ul class="actions">
+    <li><%= edit_icon(edit_comment_path(entity.id)) %></li>
+  </ul>
+</div>

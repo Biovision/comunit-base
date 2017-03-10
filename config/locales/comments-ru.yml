@@ -33,6 +33,7 @@ ru:
       index:
         heading: "Комментарии"
         title: "Комментарии, страница %{page}"
+        description: "Модерация комментариев"
   my:
     comments:
       index:

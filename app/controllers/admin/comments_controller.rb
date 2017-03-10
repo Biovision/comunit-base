@@ -9,6 +9,6 @@ class Admin::CommentsController < ApplicationController
   protected
 
   def restrict_access
-    require_privilege :administrator
+    require_privilege :moderator
   end
 end
