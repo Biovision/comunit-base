@@ -50,7 +50,7 @@ class CommentsController < ApplicationController
   end
 
   def entity_parameters
-    permitted = current_user_has_privilege?(:administrator, nil) ? Comment.administrative_parameters : Comment.entity_parameters
+    permitted = current_user_has_privilege?(:moderator, nil) ? Comment.administrative_parameters : Comment.entity_parameters
     params.require(:comment).permit(permitted)
   end
 
