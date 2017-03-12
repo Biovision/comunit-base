@@ -20,7 +20,7 @@ module Comunit
 
       # @param [Symbol] privilege_name
       # @param [Region] region
-      def current_user_has_privilege?(privilege_name, region)
+      def current_user_has_privilege?(privilege_name, region = nil)
         UserPrivilege.user_has_privilege?(current_user, privilege_name, region)
       end
 
