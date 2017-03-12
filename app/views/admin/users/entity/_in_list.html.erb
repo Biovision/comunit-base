@@ -1,15 +1,17 @@
 <div class="image">
-  <%= profile_avatar user %>
+  <%= profile_avatar(user) %>
 </div>
 <div class="data">
-  <div><%= admin_user_link user %> (<%= user.screen_name %>)</div>
+  <div><%= admin_user_link(user) %> (<%= user.screen_name %>)</div>
   <% unless user.notice.blank? %>
       <div><%= user.notice %></div>
   <% end %>
   <% unless user.email.blank? %>
       <div class="info">
-        <div><%= t('activerecord.attributes.user.email') %>
-          : <%= user.email %></div>
+        <div>
+          <%= t('activerecord.attributes.user.email') %>:
+          <%= user.email %>
+        </div>
       </div>
   <% end %>
   <div class="secondary info">
@@ -21,11 +23,13 @@
         </div>
     <% end %>
   </div>
-  <% if UserRole.has_any_role?(user) %>
-      <div class="info">
-        <%= t('users.form.roles') %>: <%= user_roles(user).join(', ') %>
+
+  <% if user.privileges.any? %>
+      <div class="secondary info">
+        <%= user.privileges.map(&:name).uniq.join(', ') %>
       </div>
   <% end %>
+
   <%= render partial: 'admin/users/toggleable', locals: { user: user } %>
   <ul class="actions">
     <li><%= edit_icon edit_user_path(user) %></li>

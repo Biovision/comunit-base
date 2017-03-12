@@ -7,11 +7,14 @@
   <div class="dashboard">
     <nav>
       <ul>
-        <% if current_user_has_privilege?(:administrator, nil) %>
+        <% if current_user_has_privilege?(:metrics_manager, nil) %>
             <li><%= render 'admin/metrics/nav_item' %></li>
+        <% end %>
+        <% if current_user_has_privilege?(:administrator, nil) %>
             <li><%= render 'admin/regions/nav_item' %></li>
             <li><%= render 'admin/themes/nav_item' %></li>
             <li><%= render 'admin/users/nav_item' %></li>
+            <li><%= render 'admin/tokens/nav_item' %></li>
             <li><%= render 'admin/privileges/nav_item' %></li>
             <li><%= render 'admin/privilege_groups/nav_item' %></li>
             <li><%= render 'admin/post_categories/nav_item' %></li>
@@ -23,7 +26,7 @@
         <% end %>
         <% if current_user_has_privilege?(:moderator, nil) %>
             <li><%= render 'admin/comments/nav_item' %></li>
-      <% end %>
+        <% end %>
 
         <% if UserPrivilege.user_in_group?(current_user, :editors) %>
             <li><%= render 'admin/posts/nav_item' %></li>

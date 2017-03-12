@@ -11,6 +11,9 @@ Rails.application.routes.draw do
 
   resources :illustrations, only: [:create]
 
+  resources :albums
+  resources :photos, except: [:index]
+
   resources :news do
     collection do
       get ':category_slug' => :category, as: :category, constraints: { category_slug: category_pattern }
@@ -57,7 +60,6 @@ Rails.application.routes.draw do
         get 'privileges'
       end
     end
-    resources :tokens, :codes, only: [:index, :show]
 
     resources :regions, only: [:index, :show] do
       get 'cities', on: :member
@@ -76,8 +78,6 @@ Rails.application.routes.draw do
       get 'comments', on: :member
     end
 
-    resources :editable_pages, only: [:index, :show]
-
     resources :groups, only: [:index, :show] do
       member do
         get 'users', defaults: { format: :json }
@@ -85,12 +85,17 @@ Rails.application.routes.draw do
         delete 'users/:user_id' => :remove_user, defaults: { format: :json }
       end
     end
+
+    resources :albums, only: [:index, :show] do
+      member do
+        post 'toggle', defaults: { format: :json }
+        get 'photos'
+      end
+    end
+    resources :photos, only: [:index, :show]
   end
 
   namespace :api, defaults: { format: :json } do
-    resources :tokens, except: [:new, :edit] do
-      post 'toggle', on: :member
-    end
     resources :users, except: [:new, :edit] do
       member do
         put 'follow'

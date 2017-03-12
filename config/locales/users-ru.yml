@@ -31,7 +31,6 @@ ru:
     models:
       user: "Пользователь"
       code: "Код"
-      token: "Жетон доступа"
       privilege: "Привилегия"
       user_privilege: "Привилегия у пользователя"
       group: "Группа"
@@ -131,12 +130,6 @@ ru:
             in_love: "Влюблён/влюблена"
             complicated: "Всё сложно"
             in_active_search: "В активном поиске"
-      token:
-        user: "Пользователь"
-        user_id: "Пользователь"
-        last_used: "Последнее использование"
-        active: "Активен"
-        token: "Жетон"
       code:
         user: "Пользователь"
         user_id: "Пользователь"
@@ -191,12 +184,6 @@ ru:
       privileges:
         title: "Привилегии пользователя %{user}"
         heading: "Привилегии пользователя"
-    tokens:
-      index:
-        title: "Жетоны, страница %{page}"
-        heading: "Жетоны"
-      show:
-        title: "Жетон №%{id}"
     codes:
       index:
         title: "Коды, страница %{page}"
@@ -274,15 +261,6 @@ ru:
     followees:
       title: "Подписки пользователя %{user}, страница %{page}"
       heading: "Подписки пользователя %{user}"
-  tokens:
-    update:
-      success: "Жетон успешно обновлён"
-    destroy:
-      success: "Жетон успешно удалён"
-    new:
-      title: "Добавить жетон"
-    edit:
-      title: "Редактирование жетона"
   codes:
     update:
       success: "Код успешно обновлён"
