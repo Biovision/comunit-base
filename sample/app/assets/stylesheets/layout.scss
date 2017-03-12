@@ -113,6 +113,10 @@ body {
   .content {
     flex: 8;
 
+    &.no-sidebar {
+      max-width: 70.5rem;
+    }
+
     > .breadcrumbs {
       @include heading;
       background: $heading_background;
