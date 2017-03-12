@@ -13,7 +13,7 @@
 <%= render 'layouts/application/header' %>
 
 <div id="main" role="main">
-  <div class="content <%= content_for?(:hide_sidebar) ? 'no-sidebar' : '' %>">
+  <div class="content <%= content_for?(:hide_sidebar) ? 'no-sidebar' : 'with-sidebar' %>">
     <%= render 'shared/breadcrumbs' %>
     <%= render 'shared/flash_messages' %>
     <%= yield %>

@@ -110,12 +110,16 @@ body {
   display: flex;
   justify-content: space-between;
 
+  .no-sidebar {
+    max-width: 100%;
+  }
+
+  .with-sidebar {
+    max-width: 70.5rem;
+  }
+
   .content {
     flex: 8;
-
-    &:not(.no-sidebar) {
-      max-width: 70.5rem;
-    }
 
     > .breadcrumbs {
       @include heading;
