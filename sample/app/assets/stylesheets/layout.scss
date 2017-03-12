@@ -113,7 +113,7 @@ body {
   .content {
     flex: 8;
 
-    &.no-sidebar {
+    &:not(.no-sidebar) {
       max-width: 70.5rem;
     }
 
