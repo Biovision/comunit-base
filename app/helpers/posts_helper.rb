@@ -101,4 +101,24 @@ module PostsHelper
       [category.name, category.id]
     end
   end
+
+  # @param [Post|News|Entry] entity
+  def post_image_medium(entity)
+    if entity.image.blank?
+      image_tag('biovision/base/placeholders/image.svg')
+    else
+      versions = ''#"#{entity.image.preview_2x.url} 2x"
+      image_tag(entity.image.medium.url, alt: entity.title, srcset: versions)
+    end
+  end
+
+  # @param [Post|News|Entry] entity
+  def post_image_preview(entity)
+    if entity.image.blank?
+      image_tag('biovision/base/placeholders/image.svg')
+    else
+      versions = ''#"#{entity.image.preview_2x.url} 2x"
+      image_tag(entity.image.preview.url, alt: entity.title, srcset: versions)
+    end
+  end
 end

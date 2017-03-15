@@ -811,3 +811,79 @@ ul.post-categories {
     }
   }
 }
+
+.posts-as-illustrations {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+
+  > li {
+    box-shadow: $block-shadow;
+    list-style: none;
+    margin: .4rem;
+    position: relative;
+    width: calc(50% - .8rem);
+
+    .image {
+      height: 22rem;
+      overflow: hidden;
+      width: 100%;
+
+      img {
+        height: 100%;
+        object-fit: cover;
+        transform: scale(1.125);
+        transition: .5s;
+        width: 100%;
+      }
+    }
+
+    .text {
+      background: rgba(255, 255, 255, .8);
+      bottom: 0;
+      left: 0;
+      padding: .8rem;
+      position: absolute;
+      right: 0;
+
+      > div {
+        font-size: $decreased-font-size;
+        line-height: 2.4rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 100%;
+      }
+
+      .title {
+        a:link,
+        a:visited {
+          color: #0000ff;
+        }
+      }
+
+      .lead {
+      }
+
+      .time {
+        font-size: $small-font-size;
+        font-style: italic;
+        text-align: right;
+
+        time {
+          display: inline-block;
+        }
+      }
+    }
+
+    &:hover {
+      .image {
+        img {
+          transform: scale(1);
+        }
+      }
+    }
+  }
+}

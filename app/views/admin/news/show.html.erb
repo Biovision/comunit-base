@@ -5,8 +5,8 @@
   <h1><%= @entity.title %></h1>
 
   <ul class="actions">
-    <li><%= back_icon(admin_news_path) %></li>
-    <li><%= news_link(@entity, image_tag('icons/detail.png'), data: { tootik: t(:view) }) %></li>
+    <li><%= back_icon(admin_news_index_path) %></li>
+    <li><%= news_link(@entity, image_tag('comunit/base/icons/view.svg'), data: { tootik: t(:view) }) %></li>
     <% unless @entity.locked? %>
         <li><%= edit_icon edit_news_path(@entity) %></li>
     <% end %>
