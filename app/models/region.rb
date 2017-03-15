@@ -9,6 +9,7 @@ class Region < ApplicationRecord
   has_many :news, dependent: :nullify
   has_many :users, dependent: :nullify
   has_many :cities, dependent: :destroy
+  has_many :albums, dependent: :nullify
 
   mount_uploader :image, RegionImageUploader
   mount_uploader :header_image, HeaderImageUploader

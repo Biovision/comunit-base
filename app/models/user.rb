@@ -29,6 +29,7 @@ class User < ApplicationRecord
   has_many :privileges, through: :user_privileges
   has_many :user_groups, dependent: :destroy
   has_many :groups, through: :user_groups
+  has_many :albums, dependent: :destroy
 
   has_secure_password
 
