@@ -92,7 +92,11 @@ Rails.application.routes.draw do
         get 'photos'
       end
     end
-    resources :photos, only: [:index, :show]
+    resources :photos, only: [:index, :show] do
+      member do
+        post 'priority'
+      end
+    end
   end
 
   namespace :api, defaults: { format: :json } do

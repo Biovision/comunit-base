@@ -1,0 +1,62 @@
+<%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+
+<%= form_for entity do |f| %>
+    <table>
+      <tbody>
+      <% unless entity.id.nil? %>
+          <tr>
+            <th><%= t('activerecord.attributes.photo.album') %></th>
+            <td><%= admin_album_link(entity.album) %></td>
+          </tr>
+      <% end %>
+      <tr>
+        <td colspan="2">
+          <figure class="preview" id="photo-image">
+            <% if entity.image.blank? %>
+                <%= image_tag 'biovision/base/placeholders/photo.svg' %>
+            <% else %>
+                <%= image_tag entity.image.medium.url %>
+            <% end %>
+            <figcaption>
+              <%= f.label :image %>
+              <%= f.file_field :image, accept: 'image/jpeg', data: { image: 'photo-image' } %>
+            </figcaption>
+          </figure>
+          <div class="guideline"><%= t('.guidelines.image') %></div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <%= f.label :priority %>
+        </th>
+        <td>
+          <%= f.number_field :priority, required: true, in: (0..999), size: 3 %>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <%= f.label :name %>
+        </th>
+        <td>
+          <%= f.text_field :name, required: true, size: nil, maxlength: 100 %>
+          <div class="guideline"><%= t('.guidelines.name') %></div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <%= f.label :description %>
+        </th>
+        <td>
+          <%= f.text_area :description, required: true, cols: 80, rows: 25 %>
+          <div class="guideline"><%= t('.guidelines.description') %></div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <%= f.hidden_field :album_id if entity.id.nil? %>
+          <%= f.button t(:save), type: :submit %>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+<% end %>

@@ -12,13 +12,14 @@ class Album < ApplicationRecord
   belongs_to :region, optional: true
   has_many :photos, dependent: :destroy
 
-  after_initialize { self.uuid - SecurePassword.uuid if uuid.nil? }
+  after_initialize { self.uuid = SecureRandom.uuid if uuid.nil? }
   before_validation { self.slug = Canonizer.transliterate(name.to_s) }
 
-  validates_presence_of :name, :image
+  validates_presence_of :name, :image, :description
 
   scope :ordered_by_name, -> { order('name asc') }
   scope :recent, -> { order('id desc') }
+  scope :for_frontpage, -> { where(show_on_front: true) }
 
   # @param [Integer] page
   def self.page_for_administration(page = 1)

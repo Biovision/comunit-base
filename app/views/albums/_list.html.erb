@@ -1,0 +1,13 @@
+<% if collection.any? %>
+    <ul class="list-of-albums">
+      <% collection.each do |entity| %>
+          <li>
+            <div class="image"><%= album_image_medium(entity) %></div>
+            <div class="texts">
+              <div class="title"><%= album_link(entity) %></div>
+              <div class="description"><%= glimpse(entity.description) %></div>
+            </div>
+          </li>
+      <% end %>
+    </ul>
+<% end %>

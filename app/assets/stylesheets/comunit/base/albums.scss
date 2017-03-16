@@ -1,0 +1,64 @@
+.list-of-albums {
+  margin: 0 auto;
+  padding: 0;
+  width: 66rem;
+
+  li {
+    box-shadow: $block-shadow;
+    list-style: none;
+    margin: .8rem auto;
+    padding: 0;
+    position: relative;
+
+    .image {
+      height: 44rem;
+      overflow: hidden;
+      width: 100%;
+
+      img {
+        height: 100%;
+        object-fit: cover;
+        transform: scale(1.25);
+        transition: 2s;
+        width: 100%;
+      }
+    }
+
+    .texts {
+      background: rgba(255, 255, 255, .75);
+      bottom: 0;
+      left: 0;
+      padding: .8rem;
+      position: absolute;
+      right: 0;
+      transition: .2s;
+
+      .title {
+        font-size: $increased-font-size;
+        line-height: 2.4rem;
+
+        a:link,
+        a:visited {
+          color: #0000ff;
+          text-decoration: none;
+        }
+
+        a:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    &:hover {
+      .image {
+        img {
+          transform: scale(1);
+        }
+      }
+
+      .texts {
+        background: rgba(255, 255, 255, .9);
+      }
+    }
+  }
+}

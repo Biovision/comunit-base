@@ -4,7 +4,7 @@ class CreateAlbums < ActiveRecord::Migration[5.0]
       create_table :albums do |t|
         t.timestamps
         t.references :user, foreign_key: true, null: false, on_update: :cascade, on_delete: :cascade
-        t.references :region, foreign_key: true, null: false, on_update: :cascade, on_delete: :nullify
+        t.references :region, foreign_key: true, on_update: :cascade, on_delete: :nullify
         t.integer :photos_count, default: 0, null: false
         t.boolean :show_on_front, default: false, null: false
         t.string :uuid, null: false

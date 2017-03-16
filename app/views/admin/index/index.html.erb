@@ -21,6 +21,9 @@
             <li><%= render 'admin/news_categories/nav_item' %></li>
             <li><%= render 'admin/entries/nav_item' %></li>
         <% end %>
+        <% if current_user_has_privilege?(:albums_manager) %>
+            <li><%= render 'admin/albums/nav_item' %></li>
+        <% end %>
         <% if current_user_has_privilege?(:central_chief_editor, nil) %>
             <li><%= render 'admin/editable_pages/nav_item' %></li>
         <% end %>

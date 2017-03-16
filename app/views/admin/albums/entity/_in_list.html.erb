@@ -1,0 +1,19 @@
+<div class="image">
+  <%= album_image_preview(entity) %>
+</div>
+<div class="data">
+  <div><%= admin_album_link(entity) %></div>
+  <div class="info">
+    <%= entity.slug %>
+  </div>
+  <div class="secondary info">
+    <%= t(:photo_count, count: entity.photos_count) %>
+  </div>
+  <%= render partial: 'admin/albums/toggleable', locals: { entity: entity } %>
+
+  <ul class="actions">
+    <li>
+      <%= edit_icon(edit_album_path(entity.id)) %>
+    </li>
+  </ul>
+</div>
