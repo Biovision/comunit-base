@@ -1,0 +1,17 @@
+<% if collection.any? %>
+    <ul>
+      <% collection.each do |entity| %>
+          <li>
+            <div class="image">
+              <%= album_image_medium(entity) %>
+            </div>
+            <div class="texts">
+              <div class="title"><%= photo_link(entity) %></div>
+              <div class="description">
+                <%= glimpse(entity.description) %>
+              </div>
+            </div>
+          </li>
+      <% end %>
+    </ul>
+<% end %>

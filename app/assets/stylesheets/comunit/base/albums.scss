@@ -1,3 +1,28 @@
+@mixin image-texts {
+  background: rgba(255, 255, 255, .75);
+  bottom: 0;
+  left: 0;
+  padding: .8rem;
+  position: absolute;
+  right: 0;
+  transition: .2s;
+
+  .title {
+    font-size: $increased-font-size;
+    line-height: 2.4rem;
+
+    a:link,
+    a:visited {
+      color: #0000ff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
 .list-of-albums {
   margin: 0 auto;
   padding: 0;
@@ -25,28 +50,7 @@
     }
 
     .texts {
-      background: rgba(255, 255, 255, .75);
-      bottom: 0;
-      left: 0;
-      padding: .8rem;
-      position: absolute;
-      right: 0;
-      transition: .2s;
-
-      .title {
-        font-size: $increased-font-size;
-        line-height: 2.4rem;
-
-        a:link,
-        a:visited {
-          color: #0000ff;
-          text-decoration: none;
-        }
-
-        a:hover {
-          text-decoration: underline;
-        }
-      }
+      @include image-texts;
     }
 
     &:hover {
@@ -58,6 +62,36 @@
 
       .texts {
         background: rgba(255, 255, 255, .9);
+      }
+    }
+  }
+}
+
+article.album {
+  ul {
+    margin: 0 auto;
+    padding: 0;
+    width: 48rem;
+
+    li {
+      list-style: none;
+      margin: .8rem;
+      padding: 0;
+      box-shadow: $block-shadow;
+      position: relative;
+
+      .image {
+        width: 100%;
+        overflow: hidden;
+
+        img {
+          max-width: 100%;
+          max-height: 100%;
+        }
+      }
+
+      .texts {
+        @include image-texts;
       }
     }
   }

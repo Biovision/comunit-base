@@ -9,6 +9,7 @@ class AlbumsController < ApplicationController
 
   # get /albums/:id
   def show
+    @collection = @entity.photos.page_for_visitors(current_page)
   end
 
   # post /albums

@@ -14,6 +14,11 @@ module AlbumsHelper
     link_to(entity.name, album_path(entity.id))
   end
 
+  # @param [Photo] entity
+  def photo_link(entity)
+    link_to(entity.name, photo_path(entity.id))
+  end
+
   # @param [Album] entity
   def album_image_preview(entity)
     unless entity.image.blank?
