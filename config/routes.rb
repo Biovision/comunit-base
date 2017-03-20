@@ -46,21 +46,10 @@ Rails.application.routes.draw do
   end
 
   resources :user_messages, only: [:create, :destroy]
-  resources :editable_pages, except: [:index, :show]
 
   resources :groups, except: [:index, :show]
 
   namespace :admin do
-    get '/' => 'index#index'
-
-    resources :users, only: [:index, :show] do
-      member do
-        get 'tokens'
-        get 'codes'
-        get 'privileges'
-      end
-    end
-
     resources :regions, only: [:index, :show] do
       get 'cities', on: :member
     end

@@ -9,6 +9,9 @@ class CreateThemes < ActiveRecord::Migration[5.0]
         t.string :name, null: false
         t.string :slug, null: false
       end
+
+      Theme.create(slug: 'main-news', name: 'Главные новости')
+      Theme.create(slug: 'video', name: 'Видео')
     end
   end
 

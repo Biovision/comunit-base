@@ -56,6 +56,13 @@ end
     get '/' => 'about#index', as: :about
   end
 ```
+
+### Если сайт региональный, добавить в `app/controllers/application_controller.rb`
+
+```ruby
+  before_action :set_current_region
+```
+
 ### Пример `.env`
 
 ```

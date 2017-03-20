@@ -43,7 +43,6 @@ body {
           padding: 0 0 0 .5rem;
 
           > div {
-            //background: $header-background-transparent;
             border-radius: .5rem;
             padding: 0 .5rem;
 
@@ -58,20 +57,6 @@ body {
                 text-transform: uppercase;
               }
             }
-
-            .line-1 {
-              padding-left: 7.5rem;
-            }
-
-            .line-2 {
-              padding-left: 4rem;
-            }
-
-            .line-3 {
-              display: flex;
-              align-items: center;
-            }
-
           }
 
           .arms {
@@ -102,140 +87,5 @@ body {
       font-size: $small_font_size;
       padding: 0.4rem 0.8rem;
     }
-  }
-}
-
-#main {
-  padding: 23px 0;
-  display: flex;
-  justify-content: space-between;
-
-  .no-sidebar {
-    max-width: 100%;
-  }
-
-  .with-sidebar {
-    max-width: 70.5rem;
-  }
-
-  .content {
-    flex: 8;
-
-    > .breadcrumbs {
-      @include heading;
-      background: $heading_background;
-      text-transform: uppercase;
-      margin: 0 0 20px 0;
-
-      a:link, a:visited {
-        color: #ffffff;
-        text-decoration: none;
-      }
-    }
-
-    article {
-      position: relative;
-      padding: 0.8rem;
-    }
-  }
-}
-
-.hidden {
-  display: none !important;
-}
-
-.authentication {
-  //background: #ffffff;
-  border-radius: 0.4rem 0 0 0.4rem;
-
-  .plate {
-    width: 100%;
-
-    .current_user {
-      font-size: $small_font_size;
-      line-height: 2.4rem;
-
-      .button {
-        @include nav-button;
-      }
-    }
-
-    .login {
-      @include action-button;
-    }
-
-    .join {
-      @include nav-button;
-    }
-  }
-
-  form {
-    margin: 1.2rem;
-    max-width: 22rem;
-    padding: 0;
-    font-size: $decreased_font_size;
-
-    .fields {
-      flex: 1;
-
-      > div {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-    }
-
-    .actions {
-      margin: 0.4rem 0 0 0;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-
-      a {
-        @include nav-button;
-      }
-    }
-  }
-}
-
-#current-region-selector {
-  display: flex;
-  justify-content: flex-end;
-
-  > div {
-    align-items: center;
-    background: $transparent-block-background;
-    border-radius: .4rem 0 0 .4rem;
-    display: flex;
-    padding: .8rem;
-
-    label {
-      margin: 0 .4rem 0 0;
-    }
-
-    select {
-      font-size: $normal_font_size;
-    }
-  }
-}
-
-form {
-  .guideline {
-    color: $secondary_text_color;
-    font-size: $decreased_font_size;
-    margin: 0;
-
-    &::before {
-      content: '\261E';
-      margin-right: 0.4rem;
-    }
-  }
-}
-
-figure.preview {
-  img {
-    max-width: 40rem;
-    max-height: 40rem;
   }
 }

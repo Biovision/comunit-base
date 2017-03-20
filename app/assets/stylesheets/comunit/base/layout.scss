@@ -142,3 +142,116 @@ body {
     padding: .8rem;
   }
 }
+
+#main {
+  padding: 2.3rem 0;
+  display: flex;
+  justify-content: space-between;
+
+  .no-sidebar {
+    max-width: 100%;
+  }
+
+  .with-sidebar {
+    max-width: 70.5rem;
+  }
+
+  .content {
+    flex: 8;
+
+    > .breadcrumbs {
+      @include heading;
+      background: $heading_background;
+      text-transform: uppercase;
+      margin: 0 0 20px 0;
+
+      a:link, a:visited {
+        color: #ffffff;
+        text-decoration: none;
+      }
+    }
+
+    article {
+      position: relative;
+      padding: 0.8rem;
+    }
+  }
+}
+
+.authentication {
+  border-radius: 0.4rem 0 0 0.4rem;
+
+  .plate {
+    width: 100%;
+
+    .current_user {
+      font-size: $small_font_size;
+      line-height: 2.4rem;
+
+      .button {
+        @include nav-button;
+      }
+    }
+
+    .login {
+      @include action-button;
+    }
+
+    .join {
+      @include nav-button;
+    }
+  }
+
+  form {
+    margin: 1.2rem;
+    max-width: 22rem;
+    padding: 0;
+    font-size: $decreased_font_size;
+
+    .fields {
+      flex: 1;
+
+      > div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    .actions {
+      margin: 0.4rem 0 0 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+
+      a {
+        @include nav-button;
+      }
+    }
+  }
+}
+
+form {
+  .guideline {
+    color: $secondary_text_color;
+    font-size: $decreased_font_size;
+    margin: 0;
+
+    &::before {
+      content: '\261E';
+      margin-right: 0.4rem;
+    }
+  }
+}
+
+figure.preview {
+  img {
+    max-width: 40rem;
+    max-height: 40rem;
+  }
+}
+
+.hidden {
+  display: none !important;
+}

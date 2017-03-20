@@ -16,6 +16,14 @@ class CreatePrivileges < ActiveRecord::Migration[5.0]
         t.string :slug, null: false
         t.string :description, default: '', null: false
       end
+
+      Privilege.create(slug: 'administrator', name: 'Администратор')
+      Privilege.create(slug: 'moderator', name: 'Модератор')
+      Privilege.create(slug: 'metrics_manager', name: 'Аналитик метрик')
+      Privilege.create(slug: 'group_manager', name: 'Управляющий группами')
+      Privilege.create(slug: 'feedback_manager', name: 'Орготдел')
+      Privilege.create(slug: 'head', name: 'Руководитель')
+      Privilege.create(slug: 'chief_editor', name: 'Главный редактор центра')
     end
   end
 

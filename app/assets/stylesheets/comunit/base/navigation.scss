@@ -52,7 +52,7 @@ ul.main-navigation {
         }
 
         &.parent {
-          background: image_url('arrow.gif') no-repeat center right;
+          background: image_url('comunit/base/icons/right-arrow') no-repeat center right .4rem / 1.6rem 1.6rem;
         }
 
         > ul {
@@ -89,8 +89,8 @@ body {
       > li {
         > ul {
           top: auto;
-          bottom: 31px;
-          padding: 0 0 20px 0;
+          bottom: 3.1rem;
+          padding: 0 0 2rem 0;
         }
       }
     }

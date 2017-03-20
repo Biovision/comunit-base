@@ -1,4 +1,5 @@
 <ul class="main-navigation">
+  <%= render 'layouts/application/main_navigation/prepend' %>
   <%= render partial: 'layouts/application/main_navigation/categories', locals: { categories: PostCategory.visible.for_tree } %>
   <li>
     <%= link_to t('news.index.heading'), news_index_path %>
