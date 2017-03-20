@@ -23,7 +23,7 @@
 
   <%= render partial: 'admin/news/toggleable', locals: { news: news } %>
   <ul class="actions">
-    <%= render partial: 'shared/actions/locks', locals: { entity: news, path: (current_user_has_privilege?(:central_chief_editor, current_region) ? lock_api_news_path(news) : '') } %>
+    <%= render partial: 'shared/actions/locks', locals: { entity: news, path: (current_user_has_privilege?(:chief_editor, current_region) ? lock_api_news_path(news) : '') } %>
     <li class="lockable <%= news.editable_by?(current_user) ? '' : 'hidden' %>">
       <%= edit_icon edit_news_path(news) %>
     </li>

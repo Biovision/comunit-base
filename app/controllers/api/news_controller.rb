@@ -49,6 +49,6 @@ class Api::NewsController < ApplicationController
   end
 
   def restrict_locking
-    require_privilege :central_chief_editor
+    require_privilege :chief_editor
   end
 end

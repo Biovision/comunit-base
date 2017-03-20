@@ -25,7 +25,7 @@
 
   <%= render partial: 'admin/posts/toggleable', locals: { post: post } %>
   <ul class="actions">
-    <%= render partial: 'shared/actions/locks', locals: { entity: post, path: (current_user_has_privilege?(:central_chief_editor, current_region) ? lock_api_post_path(post) : '') } %>
+    <%= render partial: 'shared/actions/locks', locals: { entity: post, path: (current_user_has_privilege?(:chief_editor, current_region) ? lock_api_post_path(post) : '') } %>
     <li class="lockable <%= post.editable_by?(current_user) ? '' : 'hidden' %>">
       <%= edit_icon edit_post_path(post) %>
     </li>
