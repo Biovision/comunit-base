@@ -8,6 +8,7 @@
 <% end %>
 <% content_for :meta_image, (request.protocol + request.host_with_port + @entity.image.url) if @entity.image.url %>
 <% content_for :posts_selected, '1' %>
+<% content_for :selected_item, 'pc' + (@entity.post_category.parents.first&.id || @entity.post_category_id).to_s %>
 <% content_for :breadcrumbs do %>
     <%= link_to t(:home), root_path %> /
     <% @category.parents.each do |category| %>

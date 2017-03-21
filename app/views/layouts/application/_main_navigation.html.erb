@@ -1,7 +1,8 @@
+<% selected_item = content_for(:selected_item) %>
 <ul class="main-navigation">
   <%= render 'layouts/application/main_navigation/prepend' %>
   <%= render partial: 'layouts/application/main_navigation/categories', locals: { categories: PostCategory.visible.for_tree } %>
-  <li>
+  <li class="<%= selected_item == 'news' ? 'selected' : '' %>">
     <%= link_to t('news.index.heading'), news_index_path %>
     <ul>
       <% NewsCategory.page_for_visitors.each do |news_category| %>
@@ -9,6 +10,6 @@
       <% end %>
     </ul>
   </li>
-  <li><%= link_to t('entries.index.heading'), entries_path %></li>
+  <li><%= link_to t('entries.index.heading'), entries_path, class: selected_item == 'entries' ? 'selected' : nil %></li>
   <%= render 'layouts/application/main_navigation/addition' %>
 </ul>

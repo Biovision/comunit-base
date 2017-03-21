@@ -1,5 +1,8 @@
+<% selected_item = content_for(:selected_item) %>
 <% categories.each do |category| %>
-    <li class="<%= (category.parent_id.nil? || category.children.visible.blank?) ? '' : 'parent' %>">
+    <% li_class = (category.parent_id.nil? || category.children.visible.blank?) ? '' : 'parent' %>
+    <% li_class += ' selected' if selected_item == "pc#{category.id}" %>
+    <li class="<%= li_class %>">
       <%= post_category_link category %>
       <% if category.children.any? %>
           <ul>

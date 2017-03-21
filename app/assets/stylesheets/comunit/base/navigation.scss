@@ -12,11 +12,13 @@ ul.main-navigation {
     line-height: 3.1rem;
     white-space: nowrap;
 
-    &:hover, &.selected {
+    &:hover,
+    &.selected {
       background: $navigation_main_background;
     }
 
-    a:link, a:visited {
+    a:link,
+    a:visited {
       color: #ffffff;
       font-weight: bold;
       font-size: 1.4rem; // 11px
@@ -44,7 +46,8 @@ ul.main-navigation {
         height: 22px;
         position: relative;
 
-        a:link, a:visited {
+        a:link,
+        a:visited {
           font-weight: normal;
           text-shadow: none;
           display: inline-block;

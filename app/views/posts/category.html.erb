@@ -1,5 +1,6 @@
 <% content_for :meta_title, t('.title', category: @category.name, page: current_page) %>
 <% content_for :posts_selected, '1' %>
+<% content_for :selected_item, 'pc' + (@category.parents.first&.id || @category.id).to_s %>
 
 <article>
   <% if @collection.any? %>
