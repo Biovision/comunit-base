@@ -1,6 +1,4 @@
 class EntriesController < ApplicationController
-  layout 'blog'
-
   before_action :restrict_anonymous_access, except: [:index, :show]
   before_action :restrict_adding, only: [:new, :create]
   before_action :set_entity, except: [:index, :new, :create, :archive]

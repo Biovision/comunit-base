@@ -1,6 +1,4 @@
 class My::EntriesController < ApplicationController
-  layout 'blog'
-
   before_action :restrict_anonymous_access
 
   # get /my/entries

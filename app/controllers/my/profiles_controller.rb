@@ -1,8 +1,6 @@
 class My::ProfilesController < ApplicationController
   include Authentication
 
-  layout 'blog'
-
   before_action :redirect_authorized_user, only: [:new, :create]
   before_action :restrict_anonymous_access, except: [:new, :create]
 

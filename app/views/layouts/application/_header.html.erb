@@ -2,5 +2,6 @@
   <%= render 'layouts/main_header' %>
   <nav>
     <%= render 'layouts/application/main_navigation' %>
+    <%= render 'layouts/application/secondary_navigation' if content_for?(:secondary_navigation) %>
   </nav>
 </header>

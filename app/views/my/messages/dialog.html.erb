@@ -1,4 +1,5 @@
 <% content_for :meta_title, t('.title', user: @interlocutor.profile_name, page: current_page) %>
+<% content_for :secondary_navigation, '1' %>
 
 <article>
   <h1><%= t('.heading', user: @interlocutor.profile_name) %></h1>

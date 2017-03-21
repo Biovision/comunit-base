@@ -1,6 +1,4 @@
 class ProfilesController < ApplicationController
-  layout 'blog'
-
   before_action :set_entity
 
   # get /u/:slug

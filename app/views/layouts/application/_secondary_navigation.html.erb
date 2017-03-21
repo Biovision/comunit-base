@@ -1,0 +1,16 @@
+<% selected = content_for(:selected_item) %>
+<ul class="main-navigation">
+  <!--<li><%= link_to 'Настройки', '#' %></li>-->
+  <li class="<%= selected == 'my-profile' ? 'selected' : '' %>">
+    <%= link_to t('my.profiles.show.heading'), my_profile_path %>
+  </li>
+  <li class="<%= selected == 'my-entries' ? 'selected' : '' %>">
+    <%= link_to 'Мои записи', my_entries_path %>
+  </li>
+  <li class="<%= selected == 'my-followees' ? 'selected' : '' %>">
+    <%= link_to 'Друзья', my_followees_path %>
+  </li>
+  <li class="<%= selected == 'my-followers' ? 'selected' : '' %>">
+    <%= link_to 'Подписчики', my_followers_path %>
+  </li>
+</ul>

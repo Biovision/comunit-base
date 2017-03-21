@@ -1,4 +1,6 @@
 <% content_for :meta_title, t('.title', title: @entity.title || t(:untitled)) %>
+<% content_for :secondary_navigation, '1' %>
+<% content_for :selected_item, 'entries' %>
 <%# content_for :meta_description, glimpse(prepare_entry_text(@entity, nil)) %>
 <% content_for :meta_type, 'article' %>
 <% content_for :meta_type_extension do %>

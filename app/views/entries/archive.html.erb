@@ -1,5 +1,6 @@
 <% content_for :meta_title, t('.title') + title_for_archive(params[:year], params[:month]) %>
-<% content_for :entries_selected, '1' %>
+<% content_for :secondary_navigation, '1' %>
+<% content_for :selected_item, 'entries' %>
 
 <article class="entries">
   <h1><%= t('.title') %></h1>
