@@ -1,0 +1,16 @@
+<% content_for :meta_title, t('.title', name: @entity.name) %>
+<% content_for :hide_sidebar, '1' %>
+
+<article class="entity-page">
+  <h1><%= @entity.name %></h1>
+  <ul class="actions">
+    <li><%= back_icon(admin_teams_path) %></li>
+    <li><%= edit_icon(edit_team_path(@entity.id)) %></li>
+  </ul>
+
+  <p><%= @entity.description %></p>
+
+  <%= render partial: 'admin/teams/toggleable', locals: { entity: @entity } %>
+
+  <%= render partial: 'admin/teams/entity/privileges', locals: { entity: @entity, collection: @collection } %>
+</article>

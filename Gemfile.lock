@@ -14,7 +14,7 @@ GIT
 PATH
   remote: .
   specs:
-    comunit-base (0.1.0a.170322)
+    comunit-base (0.1.170322)
       bcrypt (~> 3.1.7)
       carrierwave
       carrierwave-bombshelter

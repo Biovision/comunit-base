@@ -241,6 +241,9 @@ ru:
         title: "Команды лиц"
         heading: "Команды лиц"
         description: "Управление командами для раздела «лица»"
+      entity:
+        privileges:
+          heading: "Привилегии для участия в группе"
   authentication:
     info:
       logout: "Выйти"

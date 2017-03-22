@@ -18,7 +18,7 @@ class Team < ApplicationRecord
   scope :visible, -> { where(visible: true) }
   scope :ordered_by_priority, -> { order('priority asc') }
 
-  def self.page_for_administrator
+  def self.page_for_administration
     ordered_by_priority
   end
 
@@ -37,7 +37,7 @@ class Team < ApplicationRecord
 
   # @param [Privilege] privilege
   def add_privilege(privilege)
-    TeamPrivilege.find_or_create_by(privilege: privilege, group: self)
+    TeamPrivilege.find_or_create_by(privilege: privilege, team: self)
   end
 
   # @param [Privilege] privilege
