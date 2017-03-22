@@ -27,7 +27,22 @@ class Team < ApplicationRecord
   end
 
   def self.entity_parameters
-    %i(name slug priority description)
+    %i(name slug priority description visible)
+  end
+
+  # @param [Privilege] privilege
+  def has_privilege?(privilege)
+    team_privileges.where(privilege: privilege).exists?
+  end
+
+  # @param [Privilege] privilege
+  def add_privilege(privilege)
+    TeamPrivilege.find_or_create_by(privilege: privilege, group: self)
+  end
+
+  # @param [Privilege] privilege
+  def remove_privilege(privilege)
+    team_privileges.where(privilege: privilege).destroy_all
   end
 
   # @param [Integer] delta

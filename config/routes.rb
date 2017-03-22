@@ -52,6 +52,7 @@ Rails.application.routes.draw do
   resources :user_messages, only: [:create, :destroy]
 
   resources :groups, except: [:index, :show]
+  resources :teams, except: [:index, :show]
 
   namespace :admin do
     resources :regions, only: [:index, :show] do
@@ -76,6 +77,14 @@ Rails.application.routes.draw do
         get 'users', defaults: { format: :json }
         put 'users/:user_id' => :add_user, as: :user, defaults: { format: :json }
         delete 'users/:user_id' => :remove_user, defaults: { format: :json }
+      end
+    end
+    resources :teams, only: [:index, :show] do
+      member do
+        post 'toggle', defaults: { format: :json }
+        post 'priority', defaults: { format: :json }
+        put 'privileges/:privilege_id' => :add_privilege, as: :privilege, defaults: { format: :json }
+        delete 'privileges/:privilege_id' => :remove_privilege, defaults: { format: :json }
       end
     end
 

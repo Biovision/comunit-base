@@ -11,6 +11,12 @@ ru:
     few: "%{count} активации"
     many: "%{count} активаций"
     other: "%{count} активаций"
+  privilege_count:
+    zero: "привилегий нет"
+    one: "%{count} привилегия"
+    few: "%{count} привилегии"
+    many: "%{count} привилегий"
+    other: "%{count} привилегий"
   attitudes:
     "-3": "резко негативное"
     "-2": "негативное"
@@ -35,6 +41,8 @@ ru:
       user_privilege: "Привилегия у пользователя"
       group: "Группа"
       user_group: "Пользователь в группе"
+      team: "Команда лиц"
+      team_privilege: "Привилегия для команды лиц"
     errors:
       models:
         user:
@@ -168,6 +176,16 @@ ru:
       user_group:
         user_id: "Пользователь"
         group_id: "Группа"
+      team:
+        priority: "Порядок сортировки"
+        visible: "Показывать"
+        image: "Картинка"
+        name: "Название"
+        slug: "Идентификатор"
+        description: "Описание"
+      team_privilege:
+        team_id: "Команда"
+        privilege_id: "Привилегия"
   admin:
     users:
       index:
@@ -216,6 +234,13 @@ ru:
         title: "Группы"
         heading: "Группы пользователей"
         description: "Управление группами пользователей"
+    teams:
+      show:
+        title: "Команда лиц «%{name}»"
+      index:
+        title: "Команды лиц"
+        heading: "Команды лиц"
+        description: "Управление командами для раздела «лица»"
   authentication:
     info:
       logout: "Выйти"
@@ -304,6 +329,22 @@ ru:
       guidelines:
         slug: "Используется в коде для вывода пользователей."
         description: "Краткое пояснение сути группы. До 350 символов."
+      placeholders:
+        name: "Совет"
+        slug: "council"
+  teams:
+    new:
+      title: "Новая команда"
+    edit:
+      title: "Редактирование команды"
+    update:
+      success: "Команда успешно изменена"
+    destroy:
+      success: "Команда успешно удалена"
+    form:
+      guidelines:
+        slug: "Используется в адресной строке для вывода пользователей. Только английские буквы, цифры, дефис и знак подчёркивания."
+        description: "Краткое пояснение сути группы. До 250 символов."
       placeholders:
         name: "Совет"
         slug: "council"
