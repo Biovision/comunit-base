@@ -45,6 +45,11 @@ class Team < ApplicationRecord
     team_privileges.where(privilege: privilege).destroy_all
   end
 
+  def users
+    ids = UserPrivilege.where(privilege_id: privilege_ids).pluck(:user_id)
+    User.where(id: ids.uniq).order('surname asc, name asc, slug asc')
+  end
+
   # @param [Integer] delta
   def change_priority(delta)
     new_priority = priority + delta

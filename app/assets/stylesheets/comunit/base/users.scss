@@ -196,3 +196,37 @@ article.user {
     padding: 0 0 0 .4rem;
   }
 }
+
+.group-user-info {
+  align-items: flex-start;
+  border-bottom: .1rem solid #f0f0f0;
+  display: flex;
+  margin: 2.4rem 0;
+
+  .image {
+    flex-basis: 20rem;
+    margin: 0 1rem 0 0;
+
+    img {
+      max-width: 100%;
+    }
+  }
+
+  .data {
+    flex: 1;
+
+    .name {
+      font-size: $large-font-size;
+      border-bottom: .1rem solid #f0f0f0;
+    }
+
+    .city {
+      text-align: right;
+      color: $secondary-text-color;
+    }
+
+    .about {
+      margin-top: 1.6rem;
+    }
+  }
+}
