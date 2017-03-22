@@ -14,6 +14,10 @@ Rails.application.routes.draw do
   resources :albums
   resources :photos, except: [:index]
 
+  resources :appeals, except: [:index, :new, :show, :edit, :update]
+  get 'feedback' => 'appeals#new'
+  post 'feedback' => 'appeals#create'
+
   resources :news do
     collection do
       get ':category_slug' => :category, as: :category, constraints: { category_slug: category_pattern }
@@ -84,6 +88,12 @@ Rails.application.routes.draw do
     resources :photos, only: [:index, :show] do
       member do
         post 'priority'
+      end
+    end
+
+    resources :appeals, only: [:index, :show] do
+      member do
+        post 'toggle', defaults: { format: :json }
       end
     end
   end
@@ -173,6 +183,7 @@ Rails.application.routes.draw do
     end
     resources :notifications, only: [:index]
     resources :followers, :followees, only: [:index]
+    resources :appeals, only: [:index]
   end
 
   scope 'u/:slug', controller: :profiles do

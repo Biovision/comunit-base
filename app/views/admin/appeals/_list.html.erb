@@ -1,0 +1,17 @@
+<% if collection.any? %>
+    <ul class="list-of-entities">
+      <% collection.each do |entity| %>
+          <% if entity.deleted? %>
+          <li class="deleted">
+            <%= t(:deleted_entity) %> <%= entity.id %> (<%= entity.subject %>)
+          </li>
+          <% else %>
+              <li data-id="<%= entity.id %>">
+                <%= render partial: 'admin/appeals/entity/in_list', locals: { entity: entity } %>
+              </li>
+          <% end %>
+      <% end %>
+    </ul>
+<% else %>
+    <%= render 'shared/nothing_found' %>
+<% end %>

@@ -1,0 +1,12 @@
+<% content_for :meta_title, t('.title') %>
+<% content_for :selected_item, 'feedback' %>
+
+<article class="entity-page">
+  <h1><%= t('.heading') %></h1>
+
+  <% unless @editable_page.nil? %>
+      <%= raw @editable_page.body %>
+  <% end %>
+
+  <%= render partial: 'form', locals: { entity: @entity } %>
+</article>

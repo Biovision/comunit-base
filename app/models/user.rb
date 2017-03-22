@@ -30,6 +30,7 @@ class User < ApplicationRecord
   has_many :user_groups, dependent: :destroy
   has_many :groups, through: :user_groups
   has_many :albums, dependent: :destroy
+  has_many :appeals, dependent: :destroy
 
   has_secure_password
 
@@ -52,7 +53,7 @@ class User < ApplicationRecord
   scope :name_like, -> (val) { where 'name ilike ?', "%#{val}%" unless val.blank? }
   scope :surname_like, -> (val) { where('surname ilike ?', "%#{val}%") unless val.blank? }
   scope :email_like, -> (val) { where 'email ilike ?', "%#{val}%" unless val.blank? }
-  scope :with_email, -> (email) { where 'email ikike ?', email }
+  scope :with_email, -> (email) { where 'email ilike ?', email }
   scope :with_roles, -> (roles) { joins(:user_roles).where(user_roles: { role: roles }) unless roles.blank? }
   scope :with_privilege, -> (privilege) { joins(:user_privileges).where(user_privileges: { privilege_id: privilege.ids} ) }
   scope :filtered, -> (f) {
@@ -63,7 +64,7 @@ class User < ApplicationRecord
   # @param [Integer] page
   # @param [Hash] filter
   def self.page_for_administration(page, filter = {})
-    bots(filter[:bots]).filtered(filter).order('slug asc').page(page).per(PER_PAGE)
+    filtered(filter).order('slug asc').page(page).per(PER_PAGE)
   end
 
   # @param [Integer] page

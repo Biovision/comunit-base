@@ -1,0 +1,13 @@
+<div class="data">
+  <div><%= admin_appeal_link(entity) %></div>
+  <div class="info">
+    <%= time_tag(entity.created_at) %>,
+    <%= entity.name %>
+  </div>
+  <% unless entity.user.nil? %>
+      <div class="secondary info">
+        <%= admin_user_link(entity.user) %>
+      </div>
+  <% end %>
+  <%= render partial: 'admin/appeals/toggleable', locals: { entity: entity } %>
+</div>

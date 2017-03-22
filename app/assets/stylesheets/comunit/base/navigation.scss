@@ -5,6 +5,10 @@ ul.main-navigation {
   background: $heading_background;
   display: flex;
 
+  &:last-of-type {
+    margin-top: .4rem;
+  }
+
   > li {
     margin: 0;
     list-style: none;

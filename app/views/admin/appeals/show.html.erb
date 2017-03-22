@@ -1,0 +1,51 @@
+<% content_for :meta_title, t('.title', subject: @entity.subject) %>
+<% content_for :hide_sidebar, '1' %>
+
+<article class="entity-page">
+  <h1><%= @entity.subject %></h1>
+  <ul class="actions">
+    <li><%= return_icon(admin_appeals_path) %></li>
+  </ul>
+
+  <table>
+    <tbody>
+    <tr>
+      <th><%= t(:created_at) %></th>
+      <td><%= time_tag @entity.created_at %></td>
+    </tr>
+    <tr>
+      <th><%= t(:updated_at) %></th>
+      <td><%= time_tag @entity.updated_at %></td>
+    </tr>
+    <tr>
+      <th><%= t('activerecord.attributes.appeal.name') %></th>
+      <td><%= @entity.name %></td>
+    </tr>
+    <% unless @entity.email.blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.appeal.email') %></th>
+          <td><%= @entity.email %></td>
+        </tr>
+    <% end %>
+    <% unless @entity.phone.blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.appeal.phone') %></th>
+          <td><%= @entity.phone %></td>
+        </tr>
+    <% end %>
+    <tr>
+      <th><%= t('activerecord.attributes.appeal.body') %></th>
+      <td><%= simple_format(@entity.body) %></td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+      <td colspan="2">
+        <%= render partial: 'admin/appeals/toggleable', locals: { entity: @entity } %>
+      </td>
+    </tr>
+    </tfoot>
+  </table>
+
+  <%= render partial: 'shared/track', locals: { item: @entity } %>
+</article>
