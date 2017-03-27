@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/Biovision/biovision-base
-  revision: 5ec092214e98d03dc94f0c3aaec008f191c04f50
+  revision: c42593fd02b6d33a60abd1a9c1487bd1a1e7b23a
   specs:
-    biovision-base (0.2.0dev)
+    biovision-base (0.2.170321)
       bcrypt (~> 3.1.7)
       carrierwave
       carrierwave-bombshelter
@@ -14,7 +14,7 @@ GIT
 PATH
   remote: .
   specs:
-    comunit-base (0.1.170322)
+    comunit-base (0.1.170323)
       bcrypt (~> 3.1.7)
       carrierwave
       carrierwave-bombshelter
@@ -155,7 +155,7 @@ GEM
     multipart-post (2.0.0)
     netrc (0.11.0)
     nio4r (2.0.0)
-    nokogiri (1.7.0.1)
+    nokogiri (1.7.1)
       mini_portile2 (~> 2.1.0)
     openssl (2.0.3)
     pg (0.20.0)
@@ -229,7 +229,7 @@ GEM
       sprockets (>= 3.0.0)
     thor (0.19.4)
     thread_safe (0.3.6)
-    tzinfo (1.2.2)
+    tzinfo (1.2.3)
       thread_safe (~> 0.1)
     unf (0.1.4)
       unf_ext
