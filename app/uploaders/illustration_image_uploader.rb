@@ -11,11 +11,11 @@ class IllustrationImageUploader < CarrierWave::Uploader::Base
   resize_to_fit 1920, 1920
 
   version :medium_2x do
-    resize_to_fit 960, 960
+    resize_to_fit 1280, 1280
   end
 
   version :medium, from_version: :medium_2x do
-    resize_to_fit 480, 480
+    resize_to_fit 640, 640
   end
 
   version :preview_2x, from_version: :medium do

@@ -45,6 +45,7 @@
       var editor = document.getElementById('entry_body');
 
       CKEDITOR.replace(editor, {
+          filebrowserUploadUrl: '/illustrations',
           removePlugins: 'stylescombo,about,sourcearea,save,pagebreak,print,preview,newpage,bidi,forms,format,font,flash,language,div,iframe,colorbutton,table,smiley,scayt,wsc,pastefromword,copyformatting',
           extraPlugins: 'embed'
       });

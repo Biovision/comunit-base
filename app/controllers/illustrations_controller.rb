@@ -11,7 +11,7 @@ class IllustrationsController < ApplicationController
   private
 
   def restrict_access
-    require_privilege_group :editors
+    require_privilege_group :editors unless current_user&.verified?
   end
 
   def creation_parameters
