@@ -6,6 +6,13 @@ Comunit::Base
 Действия для создания нового сайта сети
 ---------------------------------------
 
+Нужно заменить `config/locales/en.yml` на `ru.yml` и добавить туда ключи
+`site_name` и `copyright` для вывода названия сайта в метаданных и копирайта
+соответственно.
+
+Также нужно добавить в локаль ключ `index.index.title` с заголовком для главной
+страницы.
+
 ### Дополнения в `Gemfile`
 
 ```ruby
@@ -215,12 +222,6 @@ RSpec.configure do |config|
     end
   end
 end
-```
-
-### Дополнения в `app/controllers/application_controller.rb`
-
-```ruby
-  before_action :set_current_region
 ```
 
 ### Дополнения в config/environments/production.rb

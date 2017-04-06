@@ -9,6 +9,7 @@ module Comunit
 
       config.assets.precompile << %w(biovision/base/icons/*)
       config.assets.precompile << %w(biovision/base/placeholders/*)
+      config.assets.precompile << %w(biovision/vote/icons/*)
     end
 
     require 'biovision/base'

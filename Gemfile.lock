@@ -11,17 +11,26 @@ GIT
       rails (~> 5.0.1)
       rails-i18n (~> 5.0.0)
 
+GIT
+  remote: https://github.com/Biovision/biovision-vote
+  revision: 6e11cc8f2cd0c97f60d05013afef1d87af02c443
+  specs:
+    biovision-vote (0.1.0.170330)
+      kaminari
+      rails (~> 5.0.2)
+      rails-i18n (~> 5.0.0)
+
 PATH
   remote: .
   specs:
-    comunit-base (0.1.170323)
+    comunit-base (0.1.170329)
       bcrypt (~> 3.1.7)
       carrierwave
       carrierwave-bombshelter
       elasticsearch-model
       elasticsearch-persistence
       mini_magick
-      rails (~> 5.0.1)
+      rails (~> 5.0.2)
       rails-i18n (~> 5.0.0)
       redis-namespace
       rest-client
@@ -157,7 +166,6 @@ GEM
     nio4r (2.0.0)
     nokogiri (1.7.1)
       mini_portile2 (~> 2.1.0)
-    openssl (2.0.3)
     pg (0.20.0)
     rack (2.0.1)
     rack-protection (1.5.3)
@@ -248,10 +256,10 @@ PLATFORMS
 
 DEPENDENCIES
   biovision-base!
+  biovision-vote!
   comunit-base!
   database_cleaner
   factory_girl_rails
-  openssl (~> 2.0.3)
   pg
   rspec-rails
 

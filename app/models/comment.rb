@@ -1,6 +1,7 @@
 class Comment < ApplicationRecord
   include HasOwner
   include Toggleable
+  include VotableItem
 
   PER_PAGE = 20
 

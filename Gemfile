@@ -14,5 +14,4 @@ gemspec
 # gem 'byebug', group: [:development, :test]
 
 gem 'biovision-base', git: 'https://github.com/Biovision/biovision-base'
-
-gem 'openssl', '~> 2.0.3'
+gem 'biovision-vote', git: 'https://github.com/Biovision/biovision-vote'
