@@ -7,7 +7,7 @@
     <cite><%= link_to entity.commentable.title, entity.commentable %></cite>
 
     <% if entity.deleted? %>
-    (<%= t('activerecord.attributes.comment.deleted') %>)
+        (<%= t('activerecord.attributes.comment.deleted') %>)
     <% end %>
   </div>
 
@@ -22,6 +22,8 @@
 
   <ul class="actions">
     <li><%= edit_icon(edit_comment_path(entity.id)) %></li>
-    <li class="danger"><%= destroy_icon(entity) %></li>
+    <% unless entity.deleted? %>
+        <li class="danger"><%= destroy_icon(entity) %></li>
+    <% end %>
   </ul>
 </div>
