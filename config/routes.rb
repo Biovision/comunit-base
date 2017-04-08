@@ -3,6 +3,11 @@ Rails.application.routes.draw do
 
   get 'search' => 'search#index'
 
+  controller :index, defaults: { format: :json} do
+    get 'index/main_news' => :main_news, as: :index_main_news
+    get 'index/regional_news' => :regional_news, as: :index_regional_news
+  end
+
   resources :users, except: [:show]
   resources :tokens, :codes, except: [:index, :show]
   resources :regions, except: [:index, :new, :create, :show, :destroy]

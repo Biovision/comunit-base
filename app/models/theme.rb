@@ -19,15 +19,16 @@ class Theme < ApplicationRecord
 
   # @param [Integer] limit
   # @param [Region] region
-  def entries(limit = 5, region = nil)
+  # @param [Integer] page
+  def entries(limit = 5, region = nil, page = 1)
     collection = []
     if post_category_ids.any?
-      Post.with_category_ids(post_category_ids).visible.recent.first(limit).each do |post|
+      Post.with_category_ids(post_category_ids).visible.recent.page(page).per(limit).each do |post|
         collection << post
       end
     end
     if news_category_ids.any?
-      News.in_region(region).with_category_ids(news_category_ids).visible.recent.first(limit).each do |news|
+      News.in_region(region).with_category_ids(news_category_ids).visible.recent.page(page).per(limit).each do |news|
         collection << news
       end
     end

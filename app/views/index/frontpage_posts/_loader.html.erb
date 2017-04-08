@@ -1,0 +1,35 @@
+<script>
+    'use strict';
+    $(function () {
+        $('.load-more button').on('click', function() {
+            var $button = $(this);
+            var $container = $button.parent();
+
+            $button.prop('disabled', true);
+            $container.addClass('wait');
+            $.get($container.data('url'), function (result) {
+                if (result.hasOwnProperty('data')) {
+                    if (result['data'].length < 1) {
+                        $button.hide();
+                    } else {
+                        var entry;
+                        for (var i in result['data']) {
+                            if (result['data'].hasOwnProperty(i)) {
+                                entry = result['data'][i];
+                                $container.before($(entry['html']));
+                            }
+                        }
+                    }
+                }
+                if (result.hasOwnProperty('links')) {
+                    var next_url = result['links']['next'];
+                    $container.data('url', next_url);
+                    $container.attr('data-url', next_url);
+                }
+
+                $button.prop('disabled', false);
+                $container.removeClass('wait');
+            }).fail(handle_ajax_failure);
+        });
+    });
+</script>

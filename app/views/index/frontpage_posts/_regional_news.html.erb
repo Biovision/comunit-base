@@ -2,13 +2,15 @@
   <div class="heading">
     Новости регионов
   </div>
-  <% posts = News.regional(params[:region_id].to_s.to_i, current_region).visible.recent.first(7) %>
-  <% if posts.any? %>
-      <div class="posts">
+  <div class="posts">
+    <% if posts.any? %>
         <% posts.each do |post| %>
             <% next if post.category.blank? %>
             <%= render partial: 'index/frontpage_posts/preview', locals: { post: post } %>
         <% end %>
-      </div>
-  <% end %>
+    <% end %>
+    <div class="load-more" data-url="<%= index_regional_news_path(page: 2, region_id: param_from_request(:redion_id)) %>">
+      <%= button_tag 'Загрузить ещё', type: :button %>
+    </div>
+  </div>
 </div>

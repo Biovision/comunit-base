@@ -779,6 +779,19 @@ ul.post-categories {
       }
     }
   }
+
+  .load-more {
+    text-align: center;
+    transition: .1s;
+
+    &.wait {
+      filter: grayscale(50%);
+    }
+
+    button {
+      @include action-button;
+    }
+  }
 }
 
 .list-of-entities {

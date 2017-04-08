@@ -4,9 +4,10 @@
 
 <div id="frontpage-posts">
   <div class="posts">
-    <%= render 'index/frontpage_posts/main_news' %>
+    <%= render partial: 'index/frontpage_posts/main_news', locals: { posts: @main_news } %>
   </div>
   <div class="posts">
-    <%= render 'index/frontpage_posts/regional_news' %>
+    <%= render partial: 'index/frontpage_posts/regional_news', locals: { posts: @regional_news } %>
   </div>
 </div>
+<%= render 'index/frontpage_posts/loader' %>

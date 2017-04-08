@@ -2,13 +2,15 @@
   <div class="heading">
     Главные новости
   </div>
-  <% posts = Theme.where(slug: 'main-news').first&.entries(7, current_region) %>
-  <% if posts.to_a.any? %>
-      <div class="posts">
+  <div class="posts">
+    <% if posts.to_a.any? %>
         <% posts.each do |post| %>
             <% next if post.category.blank? %>
             <%= render partial: 'index/frontpage_posts/preview', locals: { post: post } %>
         <% end %>
-      </div>
-  <% end %>
+    <% end %>
+    <div class="load-more" data-url="<%= index_main_news_path(page: 2) %>">
+      <%= button_tag 'Загрузить ещё', type: :button %>
+    </div>
+  </div>
 </div>
