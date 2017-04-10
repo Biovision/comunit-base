@@ -16,6 +16,7 @@ class CreateEntries < ActiveRecord::Migration[5.0]
         t.integer :rating, default: 0, null: false
         t.integer :upvote_count, default: 0, null: false
         t.integer :downvote_count, default: 0, null: false
+        t.integer :vote_result, default: 0, null: false
         t.datetime :publication_time
         t.string :title
         t.string :slug

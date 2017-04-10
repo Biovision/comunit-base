@@ -20,6 +20,9 @@ class CreateNews < ActiveRecord::Migration[5.0]
         t.integer :author_id
         t.integer :comments_count, default: 0, null: false
         t.integer :view_count, default: 0, null: false
+        t.integer :upvote_count, default: 0, null: false
+        t.integer :downvote_count, default: 0, null: false
+        t.integer :vote_result, default: 0, null: false
         t.datetime :publication_time
         t.string :title, null: false
         t.string :slug, null: false

@@ -22,7 +22,9 @@ gem 'autoprefixer-rails', group: :production
 
 gem 'biovision-base', git: 'https://github.com/Biovision/biovision-base'
 # gem 'biovision-base', path: '/Users/maxim/Projects/Biovision/biovision-base'
-gem 'comunit-base', git: 'https://github.com/Biovision/comunit-base'
+gem 'biovision-vote', git: 'https://github.com/Biovision/biovision-vote'
+# gem 'biovision-vote', path: '/Users/maxim/Projects/Biovision/biovision-base'
+gem 'comunit-base', git: 'https://github.com/Biovision/comunit-vote'
 # gem 'comunit-base', path: '/Users/maxim/Projects/Biovision/Comunit/comunit-base'
 
 group :development, :test do
@@ -91,7 +93,9 @@ SITE_ID=
 В `app/assets/javascripts/application.js` перед `//= require_tree .`
 
 ```
-//= require biovision/base/biovision.js
+//= require biovision/base/biovision
+//= require biovision/vote/biovision-vote
+//= require comunit/base/socialization
 ```
 
 Заменить `app/assets/stylesheets/application.css` на `application.scss`
@@ -288,12 +292,28 @@ rails railties:install:migrations
 и `create_biovision_user_privileges` нужно закомментировать блок с созданием, 
 так как эти таблицы со своей спецификой создаются позже.
 
-Миграции `create_tokens` и `create_codes` нужно переименовать так, чтобы они
-оказались после `create_users` из `comunit-base`.
+Миграции `create_tokens`, `create_codes` и `create_votes` нужно переименовать 
+так, чтобы они оказались после `create_users` из `comunit-base`.
 
 Миграции `create_privilege_groups` и `create_privilege_group_privilege` нужно
 переименовать так, чтобы они оказались после `create_privileges` 
 из `comunit-base`.
+
+В миграции групп привилегий можно добавить этот фрагмент в `up`
+
+```ruby
+      PrivilegeGroup.create!(slug: 'editors', name: 'Редакторы публикаций')
+      PrivilegeGroup.create!(slug: 'reporters', name: 'Редакторы новостей')
+```
+
+В миграции редактируемых страниц можно добавить этот фрагмент в `up`
+
+```ruby
+      EditablePage.create!(slug: 'feedback', name: 'Вступление для приёмной')
+      EditablePage.create!(slug: 'donate', name: 'Поддержать')
+```
+
+Дальше в консоли:
 
 ```bash
 rails db:migrate
@@ -310,7 +330,7 @@ require 'mina/rbenv'
 set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp', 'public/uploads', 'public/ckeditor')
 set :shared_files, fetch(:shared_files, []).push('.env')
 
-# В том месте, где task :development, сразу после
+# В том месте, где task :environment, сразу после
 task :environment do
   invoke :'rbenv:load'
 end
@@ -328,6 +348,12 @@ end
 Post.__elasticsearch__.create_index!
 News.__elasticsearch__.create_index!
 Entry.__elasticsearch__.create_index!
+```
+
+Также нужно импортировать регионы
+
+```bash
+bin/rake regions:load
 ```
 
 ## License

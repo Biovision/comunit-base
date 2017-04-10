@@ -10,6 +10,9 @@ class CreateComments < ActiveRecord::Migration[5.0]
         t.boolean :visible, default: true, null: false
         t.boolean :locked, default: false, null: false
         t.boolean :deleted, default: false, null: false
+        t.integer :upvote_count, default: 0, null: false
+        t.integer :downvote_count, default: 0, null: false
+        t.integer :vote_result, default: 0, null: false
         t.integer :commentable_id, null: false
         t.string :commentable_type, null: false
         t.text :body, null: false

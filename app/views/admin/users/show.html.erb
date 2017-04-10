@@ -91,10 +91,6 @@
           <td><%= time_tag @entity.last_seen %></td>
         </tr>
     <% end %>
-    <tr>
-      <th><%= t('users.form.roles') %></th>
-      <td><%= user_roles(@entity).join(', ') %></td>
-    </tr>
     <% if @entity.privileges.any? %>
         <tr>
           <th><%= t('.privileges') %></th>
