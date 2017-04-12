@@ -1,0 +1,9 @@
+<% content_for :selected_item, 'about' %>
+
+<article>
+  <% if @editable_page.nil? %>
+      <div class="message-box-warning">Раздел в разработке</div>
+  <% else %>
+      <%= render partial: 'shared/editable_pages/body', locals: { entity: @editable_page } %>
+  <% end %>
+</article>

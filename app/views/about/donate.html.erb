@@ -1,0 +1,12 @@
+<% content_for :meta_title, t('.title') %>
+<% content_for :selected_item, 'donate' %>
+
+<article>
+  <h1><%= t('.heading') %></h1>
+
+  <% if @editable_page.nil? %>
+      <div class="message-box-warning">Раздел в разработке</div>
+  <% else %>
+      <%= raw @editable_page.body %>
+  <% end %>
+</article>
