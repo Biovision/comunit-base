@@ -1,0 +1,2 @@
+class EventProgramsController < ApplicationController
+end

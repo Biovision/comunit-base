@@ -9,6 +9,7 @@ class CreateEvents < ActiveRecord::Migration[5.0]
         t.integer :event_participants_count, default: 0, null: false
         t.boolean :visible, default: true, null: false
         t.boolean :active, default: true, null: false
+        t.boolean :locked, default: false, null: false
         t.string :name, null: false
         t.string :slug
         t.string :image

@@ -1,0 +1,2 @@
+class EventSponsorsController < ApplicationController
+end

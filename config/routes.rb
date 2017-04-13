@@ -24,6 +24,9 @@ Rails.application.routes.draw do
   resources :albums
   resources :photos, except: [:index]
 
+  resources :events
+  resources :event_speakers, :event_sponsors, :event_materials, :event_programs, except: [:index, :new, :show]
+
   resources :appeals, except: [:index, :new, :show, :edit, :update]
   get 'feedback' => 'appeals#new'
   post 'feedback' => 'appeals#create'
@@ -115,6 +118,21 @@ Rails.application.routes.draw do
         post 'toggle', defaults: { format: :json }
       end
     end
+
+    resources :events, only: [:index, :show] do
+      member do
+        post 'toggle', defaults: { format: :json }
+        put 'lock', defaults: { format: :json }
+        delete 'lock', action: :unlock, defaults: { format: :json }
+        get 'participants'
+      end
+    end
+    resources :event_participants, only: [:show] do
+      member do
+        post 'toggle', defaults: { format: :json }
+      end
+    end
+    resources :event_programs, only: [:show]
   end
 
   namespace :api, defaults: { format: :json } do

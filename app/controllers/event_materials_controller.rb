@@ -1,0 +1,2 @@
+class EventMaterialsController < ApplicationController
+end

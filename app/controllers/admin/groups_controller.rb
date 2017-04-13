@@ -1,5 +1,4 @@
-class Admin::GroupsController < ApplicationController
-  before_action :restrict_access
+class Admin::GroupsController < AdminController
   before_action :set_entity, except: [:index]
   before_action :set_user, only: [:add_user, :remove_user]
 
