@@ -5,6 +5,7 @@ class CreateEventSponsors < ActiveRecord::Migration[5.0]
         t.timestamps
         t.references :event, foreign_key: true, null: false, on_update: :cascade, on_delete: :cascade
         t.integer :priority, limit: 2, null: false, default: 1
+        t.boolean :visible, default: true, null: false
         t.string :image
         t.string :name, null: false
         t.string :url

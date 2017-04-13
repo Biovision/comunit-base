@@ -4,6 +4,7 @@ class CreateEventMaterials < ActiveRecord::Migration[5.0]
       create_table :event_materials do |t|
         t.timestamps
         t.references :event, foreign_key: true, null: false, on_update: :cascade, on_delete: :cascade
+        t.boolean :show_on_page, default: true, null: false
         t.string :uuid, null: false
         t.string :name
         t.string :attachment
