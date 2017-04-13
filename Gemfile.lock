@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/Biovision/biovision-base
-  revision: c42593fd02b6d33a60abd1a9c1487bd1a1e7b23a
+  revision: b28f84335f2599a80725bf3f0753ae8cc953280a
   specs:
-    biovision-base (0.2.170321)
+    biovision-base (0.2.170328)
       bcrypt (~> 3.1.7)
       carrierwave
       carrierwave-bombshelter
@@ -157,7 +157,7 @@ GEM
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
-    mini_magick (4.6.1)
+    mini_magick (4.7.0)
     mini_portile2 (2.1.0)
     minitest (5.10.1)
     multi_json (1.12.1)

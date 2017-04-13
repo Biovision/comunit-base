@@ -38,6 +38,9 @@ class CreateUsers < ActiveRecord::Migration[5.0]
         t.integer :marital_status, limit: 2
         t.integer :smoking_attitude, limit: 2, default: 0, null: false
         t.integer :alcohol_attitude, limit: 2, default: 0, null: false
+        t.integer :upvote_count, default: 0, null: false
+        t.integer :downvote_count, default: 0, null: false
+        t.integer :vote_result, default: 0, null: false
         t.date :birthday
         t.datetime :last_seen
         t.string :notice
