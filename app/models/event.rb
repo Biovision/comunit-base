@@ -15,6 +15,8 @@ class Event < ApplicationRecord
   has_many :event_sponsors, dependent: :destroy
   has_many :event_programs, dependent: :delete_all
 
+  mount_uploader :image, EventImageUploader
+
   before_validation { self.name = name.to_s.strip }
   before_validation { self.slug = Canonizer.canonize(name.to_s) }
 
@@ -38,6 +40,6 @@ class Event < ApplicationRecord
   end
 
   def self.entity_parameters
-    %i(name lead body start_date day_count address visible active)
+    %i(name lead body start_date day_count address visible active image)
   end
 end

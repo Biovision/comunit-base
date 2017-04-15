@@ -39,6 +39,6 @@ class EventParticipant < ApplicationRecord
   end
 
   def self.creation_parameters
-    entity_parameters - %i(notice)
+    entity_parameters - %i(notice) + %i(event_id)
   end
 end

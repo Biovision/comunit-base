@@ -5,7 +5,7 @@ ul.main-navigation {
   background: $heading_background;
   display: flex;
 
-  &:last-of-type {
+  &:not(:first-of-type) {
     margin-top: .4rem;
   }
 
