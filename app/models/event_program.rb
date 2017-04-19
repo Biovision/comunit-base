@@ -28,6 +28,10 @@ class EventProgram < ApplicationRecord
     entity_parameters + %i(event_id)
   end
 
+  def name
+    "#{place}: #{day_number}"
+  end
+
   private
 
   def day_number_range

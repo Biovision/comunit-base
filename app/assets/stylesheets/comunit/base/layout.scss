@@ -255,3 +255,11 @@ figure.preview {
 .hidden {
   display: none !important;
 }
+
+input.toggle-box {
+  display: none;
+
+  &:not(:checked) + div {
+    display: none;
+  }
+}

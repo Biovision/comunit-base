@@ -18,61 +18,7 @@
     </ul>
   </nav>
 
-  <table>
-    <tbody>
-    <tr>
-      <td colspan="2">
-        <figure>
-          <%= event_image_medium(@entity) %>
-        </figure>
-      </td>
-    </tr>
-    <tr>
-      <th><%= t('activerecord.attributes.event.slug') %></th>
-      <td><%= @entity.slug %></td>
-    </tr>
-    <tr>
-      <th><%= t('activerecord.attributes.event.lead') %></th>
-      <td><%= simple_format(@entity.lead) %></td>
-    </tr>
-    <% unless @entity.start_date.blank? %>
-        <tr>
-          <th><%= t('activerecord.attributes.event.start_date') %></th>
-          <td><%= time_tag(@entity.start_date) %></td>
-        </tr>
-    <% end %>
-    <tr>
-      <th><%= t('activerecord.attributes.event.day_count') %></th>
-      <td><%= @entity.day_count %></td>
-    </tr>
-    <% if @entity.price > 0 %>
-        <tr>
-          <th><%= t('activerecord.attributes.event.price') %></th>
-          <td><%= @entity.price %></td>
-        </tr>
-    <% end %>
-    <tr>
-      <th><%= t('activerecord.attributes.event.address') %></th>
-      <td><%= @entity.address %></td>
-    </tr>
-    <% unless @entity.coordinates.blank? %>
-        <tr>
-          <th><%= t('activerecord.attributes.event.coordinates') %></th>
-          <td><%= @entity.coordinates %></td>
-        </tr>
-    <% end %>
-    <tr>
-      <td colspan="2">
-        <%= raw(@entity.body) %>
-      </td>
-    </tr>
-    </tbody>
-    <tfoot>
-    <tr>
-      <td colspan="2">
-        <%= render partial: 'admin/events/toggleable', locals: { entity: @entity } %>
-      </td>
-    </tr>
-    </tfoot>
-  </table>
+  <%= render @entity %>
+
+  <%= render partial: 'admin/events/entity/speakers', locals: { event: @entity, collection: @entity.event_speakers.page_for_administration } %>
 </article>

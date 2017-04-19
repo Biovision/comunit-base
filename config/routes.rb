@@ -109,7 +109,7 @@ Rails.application.routes.draw do
     end
     resources :photos, only: [:index, :show] do
       member do
-        post 'priority'
+        post 'priority', defaults: { format: :json }
       end
     end
 
@@ -130,6 +130,12 @@ Rails.application.routes.draw do
     resources :event_participants, only: [:show] do
       member do
         post 'toggle', defaults: { format: :json }
+      end
+    end
+    resources :event_speakers, :event_sponsors, only: [] do
+      member do
+        post 'toggle', defaults: { format: :json }
+        post 'priority', defaults: { format: :json }
       end
     end
     resources :event_programs, only: [:show]
