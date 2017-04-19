@@ -1,0 +1,143 @@
+<%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+
+<%= form_for entity do |f| %>
+    <table>
+      <tbody>
+      <tr>
+        <td colspan="2">
+          <figure class="preview" id="event-image">
+            <% if entity.image.blank? %>
+                <% image = image_tag('biovision/base/placeholders/image.svg') %>
+            <% else %>
+                <% image = image_tag(entity.image.medium.url) %>
+            <% end %>
+            <%= label_tag(:event_image, image) %>
+            <figcaption>
+              <%= f.label :image %>
+              <%= f.file_field :image, accept: 'image/jpeg', data: { image: 'event-image' } %>
+            </figcaption>
+          </figure>
+          <div class="guideline"><%= t('.guidelines.image') %></div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <%= f.label :name %>
+        </th>
+        <td>
+          <%= f.text_field :name, size: nil, maxlength: Event::NAME_LIMIT, required: true, placeholder: t('.placeholders.name') %>
+          <div class="guideline"><%= t('.guidelines.name') %></div>
+        </td>
+      </tr>
+      <!--
+      <tr>
+        <th>
+          <%= f.label :slug %>
+        </th>
+        <td>
+          <%= f.text_field :slug, size: 25, required: true, placeholder: t('.placeholders.slug') %>
+          <div class="guideline"><%= t('.guidelines.slug') %></div>
+        </td>
+      </tr>
+      -->
+      <tr>
+        <th>
+          <%= f.label :lead %>
+        </th>
+        <td>
+          <%= f.text_area :lead, cols: 50, rows: 5, maxlength: Event::LEAD_LIMIT, placeholder: t('.placeholders.lead'), required: true %>
+          <div class="guideline"><%= t('.guidelines.lead') %></div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <%= f.label :start_date %>
+        </th>
+        <td>
+          <%= f.date_field :start_date, size: 10, maxlength: 10, placeholder: t('.placeholders.start_date') %>
+          <div class="guideline"><%= t('.guidelines.start_date') %></div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <%= f.label :day_count %>
+        </th>
+        <td>
+          <%= f.number_field :day_count, size: 2, maxlength: 2, in: Event::DAYS_LIMIT, required: true %>
+          <div class="guideline"><%= t('.guidelines.day_count') %></div>
+        </td>
+      </tr>
+      <!--
+      <tr>
+        <th>
+          <%= f.label :price %>
+        </th>
+        <td>
+          <%= f.number_field :price, size: 8 %>
+          <div class="guideline"><%= t('.guidelines.price') %></div>
+        </td>
+      </tr>
+      -->
+      <tr>
+        <th>
+          <%= f.label :address %>
+        </th>
+        <td>
+          <%= f.text_field :address, placeholder: t('.placeholders.address'), size: nil, maxlength: Event::ADDRESS_LIMIT %>
+          <div class="guideline"><%= t('.guidelines.address') %></div>
+        </td>
+      </tr>
+      <!--
+      <tr>
+        <th>
+          <%= f.label :coordinates %>
+        </th>
+        <td>
+          <%= f.text_field :coordinates, placeholder: t('.placeholders.coordinates'), maxlength: 30 %>
+          <div class="guideline"><%= t('.guidelines.coordinates') %></div>
+        </td>
+      </tr>
+      -->
+      <tr>
+        <th>
+          <%= f.label :body %>
+        </th>
+        <td>
+          <%= f.text_area :body, cols: 80, rows: 25, required: true %>
+          <div class="guideline"><%= t('.guidelines.body') %></div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" class="flags">
+          <ul>
+            <li>
+              <%= f.check_box :visible %>
+              <%= f.label :visible %>
+            </li>
+          </ul>
+        </td>
+      </tr>
+      </tbody>
+      <tfoot>
+      <tr>
+        <td colspan="2">
+          <%= f.button t(:save), type: :submit %>
+        </td>
+      </tr>
+      </tfoot>
+    </table>
+<% end %>
+
+<script src="/ckeditor/4-6-2/ckeditor.js"></script>
+<script>
+    'use strict';
+    $(function() {
+        var editor = document.getElementById('event_body');
+
+        CKEDITOR.replace(editor, {
+            filebrowserUploadUrl: '/illustrations',
+            removePlugins: 'stylescombo,about,sourcearea,save,pagebreak,print,preview,newpage,bidi,forms,format,font,flash,language,div,iframe,colorbutton,table,smiley,scayt,wsc,pastefromword,copyformatting',
+            extraPlugins: 'embed'
+        });
+    });
+</script>

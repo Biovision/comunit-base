@@ -1,0 +1,9 @@
+<% content_for :meta_title, @entity.name %>
+
+<article>
+  <h1><%= @entity.name %></h1>
+
+  <div class="description">
+    <%= raw(@entity.body) %>
+  </div>
+</article>

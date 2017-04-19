@@ -5,7 +5,7 @@ class EventProgram < ApplicationRecord
   belongs_to :event
 
   validates_presence_of :day_number
-  validates_inclusion_of :day_number, in: (1..event.day_count)
+  validate :day_number_range
   validates_uniqueness_of :place, scope: [:day_number, :event_id]
   validates_length_of :place, maximum: PLACE_LIMIT
   validates_length_of :body, maximum: BODY_LIMIT
@@ -26,5 +26,13 @@ class EventProgram < ApplicationRecord
 
   def self.creation_parameters
     entity_parameters + %i(event_id)
+  end
+
+  private
+
+  def day_number_range
+    unless (1..event&.day_count.to_i).include?(day_number)
+      errors.add(:day_number, I18n.t('activerecord.errors.models.event_program.attributes.program_day.out_of_range'))
+    end
   end
 end

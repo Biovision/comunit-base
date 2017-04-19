@@ -18,7 +18,7 @@ class Event < ApplicationRecord
   mount_uploader :image, EventImageUploader
 
   before_validation { self.name = name.to_s.strip }
-  before_validation { self.slug = Canonizer.canonize(name.to_s) }
+  before_validation { self.slug = Canonizer.transliterate(name.to_s) }
 
   validates_presence_of :name, :body
   validates_length_of :lead, maximum: LEAD_LIMIT
@@ -40,6 +40,6 @@ class Event < ApplicationRecord
   end
 
   def self.entity_parameters
-    %i(name lead body start_date day_count address visible active image)
+    %i(name slug lead body start_date day_count price address coordinates visible active image)
   end
 end

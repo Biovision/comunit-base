@@ -23,7 +23,7 @@ class EventPersonImageUploader < CarrierWave::Uploader::Base
   end
 
   version :small, from_version: :medium do
-    resize_to_fir 320, 320
+    resize_to_fit 320, 320
   end
 
   version :preview_2x, from_version: :small do
