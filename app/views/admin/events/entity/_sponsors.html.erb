@@ -1,0 +1,14 @@
+<section>
+  <h2><%= t('.heading') %></h2>
+
+  <%= render partial: 'admin/event_sponsors/list', locals: { collection: collection } %>
+
+  <label for="new-sponsor-toggle" class="nav-button">
+    <%= t('event_sponsors.new.heading') %>
+  </label>
+
+  <input type="checkbox" id="new-sponsor-toggle" class="toggle-box"/>
+  <div>
+    <%= render partial: 'event_sponsors/form', locals: { entity: event.event_sponsors.new } %>
+  </div>
+</section>

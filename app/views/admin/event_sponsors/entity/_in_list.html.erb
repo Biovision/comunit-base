@@ -1,0 +1,17 @@
+<div class="image">
+  <%= event_sponsor_image_preview(entity) %>
+</div>
+<div class="data">
+  <div><%= entity.name %></div>
+  <div class="secondary info">
+    <%= entity.url %>
+  </div>
+  <%= render partial: 'admin/event_sponsors/toggleable', locals: { entity: entity } %>
+
+  <% unless entity.locked? %>
+      <ul class="actions">
+        <li><%= edit_icon(edit_event_sponsor_path(entity.id)) %></li>
+        <%= render partial: 'shared/actions/priority_changer', locals: { path: priority_admin_event_sponsor_path(entity.id) } %>
+      </ul>
+  <% end %>
+</div>

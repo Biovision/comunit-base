@@ -38,6 +38,10 @@ class EventSponsor < ApplicationRecord
     entity_parameters + %i(event_id)
   end
 
+  def locked?
+    event.locked?
+  end
+
   # @param [Integer] delta
   def change_priority(delta)
     new_priority = priority + delta

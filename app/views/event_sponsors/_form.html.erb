@@ -1,0 +1,75 @@
+<%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+
+<%= form_for entity do |f| %>
+    <table>
+      <tbody>
+      <tr>
+        <td colspan="2">
+          <figure class="preview" id="event-sponsor-image">
+            <% if entity.image.blank? %>
+                <% image = image_tag('biovision/base/placeholders/image.svg') %>
+            <% else %>
+                <% image = image_tag(entity.image.medium.url) %>
+            <% end %>
+            <%= label_tag(:event_sponsor_image, image) %>
+            <figcaption>
+              <%= f.label :image %>
+              <%= f.file_field :image, accept: 'image/jpeg', data: { image: 'event-sponsor-image' } %>
+            </figcaption>
+          </figure>
+          <div class="guideline"><%= t('.guidelines.image') %></div>
+        </td>
+      </tr>
+      <% unless entity.id.nil? %>
+          <tr>
+            <th><%= t('activerecord.attributes.event_sponsor.event') %></th>
+            <td><%= admin_event_link(entity.event) %></td>
+          </tr>
+      <% end %>
+      <tr>
+        <th>
+          <%= f.label :name %>
+        </th>
+        <td>
+          <%= f.text_field :name, size: nil, maxlength: EventSponsor::NAME_LIMIT, required: true, placeholder: t('.placeholders.name') %>
+          <div class="guideline"><%= t('.guidelines.name') %></div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <%= f.label :url %>
+        </th>
+        <td>
+          <%= f.url_field :url, size: nil, maxlength: EventSponsor::URL_LIMIT, placeholder: t('.placeholders.url') %>
+          <div class="guideline"><%= t('.guidelines.url') %></div>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <%= f.label :priority %>
+        </th>
+        <td>
+          <%= f.number_field :priority, size: 2, maxlength: 2, in: EventSponsor::PRIORITY_LIMIT, required: true %>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" class="flags">
+          <ul>
+            <li>
+              <%= f.check_box :visible %>
+              <%= f.label :visible %>
+            </li>
+          </ul>
+        </td>
+      </tr>
+      </tbody>
+      <tfoot>
+      <tr>
+        <td colspan="2">
+          <%= f.hidden_field :event_id if entity.id.nil? %>
+          <%= f.button t(:save), type: :submit %>
+        </td>
+      </tr>
+      </tfoot>
+    </table>
+<% end %>
