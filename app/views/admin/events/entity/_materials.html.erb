@@ -1,0 +1,14 @@
+<section>
+  <h2><%= t('.heading') %></h2>
+
+  <%= render partial: 'admin/event_materials/list', locals: { collection: collection } %>
+
+  <label for="new-material-toggle" class="nav-button">
+    <%= t('event_materials.new.heading') %>
+  </label>
+
+  <input type="checkbox" id="new-material-toggle" class="toggle-box"/>
+  <div>
+    <%= render partial: 'event_materials/form', locals: { entity: event.event_materials.new } %>
+  </div>
+</section>

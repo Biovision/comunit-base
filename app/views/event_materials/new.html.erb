@@ -1,0 +1,13 @@
+<% content_for :meta_title, t('.title') %>
+
+<article class="entity-page">
+  <h1><%= t('.heading') %></h1>
+
+  <% unless @entity.event.nil? %>
+      <ul class="actions">
+        <li><%= back_icon(admin_event_path(@entity.event_id)) %></li>
+      </ul>
+  <% end %>
+
+  <%= render partial: 'form', locals: { entity: @entity } %>
+</article>

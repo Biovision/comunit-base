@@ -138,6 +138,11 @@ Rails.application.routes.draw do
         post 'priority', defaults: { format: :json }
       end
     end
+    resources :event_materials, only: [] do
+      member do
+        post 'toggle', defaults: { format: :json }
+      end
+    end
     resources :event_programs, only: [:show]
   end
 

@@ -37,4 +37,8 @@ class EventMaterial < ApplicationRecord
   def self.creation_parameters
     entity_parameters + %i(event_id)
   end
+
+  def locked?
+    event.locked?
+  end
 end

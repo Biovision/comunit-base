@@ -1,0 +1,16 @@
+<div class="data">
+  <div><%= entity.name %></div>
+  <div class="secondary info">
+    <%= entity.description %>
+  </div>
+  <div class="info">
+    <%= link_to(t('activerecord.attributes.event_material.attachment'), entity.attachment.url, target: '_blank') %>
+  </div>
+  <%= render partial: 'admin/event_materials/toggleable', locals: { entity: entity } %>
+
+  <% unless entity.locked? %>
+      <ul class="actions">
+        <li><%= edit_icon(edit_event_material_path(entity.id)) %></li>
+      </ul>
+  <% end %>
+</div>

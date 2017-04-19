@@ -85,6 +85,8 @@ ru:
           heading: "Спикеры"
         sponsors:
           heading: "Спонсоры"
+        materials:
+          heading: "Материалы"
   events:
     new:
       title: "Добавить мероприятие"

@@ -22,4 +22,5 @@
 
   <%= render partial: 'admin/events/entity/speakers', locals: { event: @entity, collection: @entity.event_speakers.page_for_administration } %>
   <%= render partial: 'admin/events/entity/sponsors', locals: { event: @entity, collection: @entity.event_sponsors.page_for_administration } %>
+  <%= render partial: 'admin/events/entity/materials', locals: { event: @entity, collection: @entity.event_materials.page_for_administration } %>
 </article>

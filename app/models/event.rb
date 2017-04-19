@@ -14,6 +14,7 @@ class Event < ApplicationRecord
   has_many :event_speakers, dependent: :destroy
   has_many :event_sponsors, dependent: :destroy
   has_many :event_programs, dependent: :delete_all
+  has_many :event_materials, dependent: :destroy
 
   mount_uploader :image, EventImageUploader
 
