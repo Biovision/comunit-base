@@ -41,4 +41,8 @@ class EventParticipant < ApplicationRecord
   def self.creation_parameters
     entity_parameters - %i(notice) + %i(event_id)
   end
+
+  def full_name
+    "#{surname} #{name}".strip
+  end
 end

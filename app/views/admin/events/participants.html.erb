@@ -1,0 +1,17 @@
+<% content_for :meta_title, t('.title', name: @entity.name, page: current_page) %>
+
+<article class="entity-page">
+  <h1><%= @entity.name %></h1>
+
+  <ul class="actions">
+    <li><%= return_icon(admin_event_path(@entity.id)) %></li>
+  </ul>
+
+  <section>
+    <h2><%= t(:event_participant_count, count: @entity.event_participants_count) %></h2>
+
+    <%= paginate @collection %>
+    <%= render partial: 'admin/event_participants/list', locals: { collection: @collection } %>
+    <%= paginate @collection %>
+  </section>
+</article>

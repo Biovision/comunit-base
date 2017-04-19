@@ -73,7 +73,7 @@ ru:
   admin:
     events:
       index:
-        title: "Мероприятия"
+        title: "Мероприятия, страница %{page}"
         heading: "Мероприятия"
         description: "Управление мероприятиями"
       show:

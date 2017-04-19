@@ -1,0 +1,21 @@
+<div class="data">
+  <div>
+    <%= admin_event_participant_link(entity) %>
+  </div>
+  <% unless entity.notice.blank? %>
+      <div class="info">
+        <%= entity.notice %>
+      </div>
+  <% end %>
+  <% unless entity.user.nil? %>
+      <div class="info">
+        <%= entity.user.profile_name #admin_user_link(entity.user) %>
+      </div>
+  <% end %>
+  <div class="secondary info">
+    <div><%= entity.company %></div>
+    <div><%= entity.phone %></div>
+    <div><%= link_to(entity.email, "mailto:#{entity.email}") %></div>
+  </div>
+  <%= render partial: 'admin/event_participants/toggleable', locals: { entity: entity } %>
+</div>

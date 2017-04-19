@@ -10,6 +10,14 @@
     <% end %>
   </ul>
 
+  <nav>
+    <ul>
+      <li>
+        <%= link_to(t(:event_participant_count, count: @entity.event_participants_count), participants_admin_event_path(@entity.id)) %>
+      </li>
+    </ul>
+  </nav>
+
   <table>
     <tbody>
     <tr>

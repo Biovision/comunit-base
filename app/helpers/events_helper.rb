@@ -4,6 +4,11 @@ module EventsHelper
     link_to(entity.name, admin_event_path(entity.id))
   end
 
+  # @param [EventParticipant] entity
+  def admin_event_participant_link(entity)
+    link_to(entity.full_name, admin_event_participant_path(entity.id))
+  end
+
   # @param [Event] entity
   def event_image_preview(entity)
     return '' if entity.image.blank?
