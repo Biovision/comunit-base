@@ -1,5 +1,5 @@
 class UserPrivilege < ApplicationRecord
-  include Biovision::UserPrivilege
+  include Biovision::UserPrivilegeBase
 
   belongs_to :user
   belongs_to :privilege, counter_cache: :users_count
