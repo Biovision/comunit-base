@@ -87,6 +87,8 @@ ru:
           heading: "Спонсоры"
         materials:
           heading: "Материалы"
+        programs:
+          heading: "Дни программы"
   events:
     new:
       title: "Добавить мероприятие"
@@ -154,6 +156,7 @@ ru:
   event_programs:
     new:
       title: "Новая программа мероприятия на день"
+      heading: "Новая программа мероприятия на день"
     edit:
       title: "Редактирование программы мероприятия"
     update:

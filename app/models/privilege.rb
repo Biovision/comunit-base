@@ -1,6 +1,6 @@
 class Privilege < ApplicationRecord
   include Toggleable
-  include Biovision::Privilege
+  include Biovision::PrivilegeBase
 
   toggleable :regional
 

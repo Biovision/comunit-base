@@ -28,14 +28,22 @@ class EventProgram < ApplicationRecord
     entity_parameters + %i(event_id)
   end
 
+  def locked?
+    event.locked?
+  end
+
   def name
     "#{place}: #{day_number}"
+  end
+
+  def max_day_number
+    event&.day_count || 1
   end
 
   private
 
   def day_number_range
-    unless (1..event&.day_count.to_i).include?(day_number)
+    unless (1..max_day_number).include?(day_number)
       errors.add(:day_number, I18n.t('activerecord.errors.models.event_program.attributes.program_day.out_of_range'))
     end
   end
