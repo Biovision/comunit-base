@@ -21,7 +21,7 @@ class AddComunitToPrivileges < ActiveRecord::Migration[5.0]
   end
 
   def insert_records
-    editors   = Privilege.find_by(slug: 'editors')
+    editors   = PrivilegeGroup.find_by(slug: 'editors')
     reporters = PrivilegeGroup.create!(slug: 'reporters', name: 'Редакторы новостей')
 
     Privilege.create!(slug: 'group_manager', name: 'Управляющий группами')
