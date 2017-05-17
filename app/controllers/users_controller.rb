@@ -2,6 +2,8 @@ class UsersController < ApplicationController
   before_action :restrict_access, except: [:index]
   before_action :set_entity, only: [:edit, :update, :destroy]
 
+  layout 'admin', except: [:index]
+
   # get /users
   def index
     @filter     = params[:filter] || Hash.new
@@ -17,7 +19,6 @@ class UsersController < ApplicationController
   def create
     @entity = User.new creation_parameters
     if @entity.save
-      set_roles
       NetworkManager.new.relink_user(@entity) if Rails.env.production?
       redirect_to admin_user_path(@entity), notice: t('users.create.success')
     else
@@ -32,7 +33,6 @@ class UsersController < ApplicationController
   # patch /users/:id
   def update
     if @entity.update entity_parameters
-      set_roles
       redirect_to admin_user_path(@entity), notice: t('users.update.success')
     else
       render :edit, status: :bad_request
@@ -54,7 +54,10 @@ class UsersController < ApplicationController
   end
 
   def set_entity
-    @entity = User.find params[:id]
+    @entity = User.find_by(id: params[:id], deleted: false)
+    if @entity.nil?
+      handle_http_404('Cannot find user')
+    end
   end
 
   def entity_parameters
@@ -63,9 +66,5 @@ class UsersController < ApplicationController
 
   def creation_parameters
     params.require(:user).permit(User.creation_parameters).merge(tracking_for_entity)
-  end
-
-  def set_roles
-    @entity.roles = (params[:roles] || Hash.new)
   end
 end

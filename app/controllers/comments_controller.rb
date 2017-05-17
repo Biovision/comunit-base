@@ -3,6 +3,8 @@ class CommentsController < ApplicationController
   before_action :restrict_access, except: [:create]
   before_action :set_entity, only: [:show, :edit, :update, :destroy]
 
+  layout 'admin'
+
   # post /comments
   def create
     @entity = Comment.new creation_parameters

@@ -1,4 +1,4 @@
-class Admin::EventSponsorsController < ApplicationController
+class Admin::EventSponsorsController < AdminController
   before_action :set_entity
 
   # post /admin/event_sponsors/:id/toggle

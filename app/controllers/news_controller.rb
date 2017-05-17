@@ -3,6 +3,8 @@ class NewsController < ApplicationController
   before_action :set_entity, only: [:edit, :update, :destroy]
   before_action :restrict_editing, only: [:edit, :update, :destroy]
 
+  layout 'admin', only: [:new, :edit]
+
   # get /news
   # get /novosti
   def index

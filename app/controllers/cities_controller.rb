@@ -1,4 +1,4 @@
-class CitiesController < ApplicationController
+class CitiesController < AdminController
   before_action :restrict_access
   before_action :set_entity, only: [:edit, :update, :destroy]
   before_action :restrict_editing, only: [:edit, :update, :destroy]

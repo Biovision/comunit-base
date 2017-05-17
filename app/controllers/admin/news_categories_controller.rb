@@ -1,4 +1,4 @@
-class Admin::NewsCategoriesController < ApplicationController
+class Admin::NewsCategoriesController < AdminController
   before_action :restrict_access
   before_action :set_entity, except: [:index]
 

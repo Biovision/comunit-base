@@ -2,6 +2,8 @@ class PhotosController < ApplicationController
   before_action :restrict_access, except: [:show]
   before_action :set_entity, only: [:show, :edit, :update, :destroy]
 
+  layout 'admin', except: [:show]
+
   # get /photos/new
   def new
     @entity = Photo.new

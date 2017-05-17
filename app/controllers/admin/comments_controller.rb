@@ -1,4 +1,4 @@
-class Admin::CommentsController < ApplicationController
+class Admin::CommentsController < AdminController
   before_action :restrict_access
 
   # get /admin/comments

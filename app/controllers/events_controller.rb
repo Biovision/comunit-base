@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :restrict_access
+  before_action :restrict_access, except: [:index, :show]
   before_action :set_entity, except: [:index, :new, :create]
 
   layout 'admin', except: [:index, :show]

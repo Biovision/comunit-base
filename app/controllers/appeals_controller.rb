@@ -3,6 +3,8 @@ class AppealsController < ApplicationController
   before_action :restrict_access, except: [:new, :create]
   before_action :set_entity, only: [:destroy]
 
+  layout 'admin', except: [:new, :create]
+
   # get /appeals/new
   def new
     @entity = Appeal.new

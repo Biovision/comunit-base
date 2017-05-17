@@ -1,4 +1,4 @@
-class RegionsController < ApplicationController
+class RegionsController < AdminController
   before_action :restrict_access
   before_action :set_entity, only: [:edit, :update]
   before_action :restrict_editing, only: [:edit, :update]

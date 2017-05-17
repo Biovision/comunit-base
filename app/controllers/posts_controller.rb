@@ -3,6 +3,8 @@ class PostsController < ApplicationController
   before_action :set_entity, only: [:edit, :update, :destroy]
   before_action :restrict_editing, only: [:edit, :update, :destroy]
 
+  layout 'admin', only: [:new, :edit]
+
   # get /posts
   def index
     @collection = Post.page_for_visitors current_page

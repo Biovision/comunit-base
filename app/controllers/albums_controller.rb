@@ -2,6 +2,8 @@ class AlbumsController < ApplicationController
   before_action :restrict_access, except: [:show]
   before_action :set_entity, only: [:show, :edit, :update, :destroy]
 
+  layout 'admin', except: [:show]
+
   # get /albums/new
   def new
     @entity = Album.new
