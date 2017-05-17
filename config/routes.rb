@@ -8,9 +8,9 @@ Rails.application.routes.draw do
     get '/' => 'about#index', as: :about
   end
 
-  controller :index, defaults: { format: :json} do
-    get 'index/main_news' => :main_news, as: :index_main_news
-    get 'index/regional_news' => :regional_news, as: :index_regional_news
+  controller :index do
+    get 'index/main_news' => :main_news, as: :index_main_news, defaults: { format: :json}
+    get 'index/regional_news' => :regional_news, as: :index_regional_news, defaults: { format: :json}
   end
 
   resources :users, except: [:show]
