@@ -38,6 +38,8 @@ class CreateNews < ActiveRecord::Migration[5.0]
 
       execute "create index news_created_month_idx on news using btree (date_trunc('month', created_at));"
       execute "create index news_published_month_idx on news using btree (date_trunc('month', publication_time));"
+
+      News.__elasticsearch__.create_index!
     end
   end
 

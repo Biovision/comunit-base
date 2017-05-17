@@ -50,6 +50,8 @@ end
 /spec/examples.txt
 /spec/support/uploads/*
 
+/vendor/assets/javascripts/jquery.min.js
+
 .env
 ```
 
@@ -100,38 +102,14 @@ SITE_ID=
 //= require comunit/base/socialization
 ```
 
-Нужно положить актуальную версию `jquery.min.js` в `vendor/assets/javascripts`.
+Локально нужно положить актуальную версию `jquery.min.js` 
+в `vendor/assets/javascripts`.
 
-Заменить `app/assets/stylesheets/application.css` на `application.scss`
-с этим содержимым.
+Заменить `app/assets/stylesheets/application.css` на `application.scss` из
+`sample/app/assets/stylesheets/`.
 
-```scss
-@import "colors";
-@import "shared";
-@import "biovision/base/tootik";
-@import "biovision/base/fonts";
-@import "biovision/base/buttons";
-@import "biovision/base/biovision";
-@import "biovision/base/message-box";
-@import "biovision/base/pagination";
-@import "biovision/base/filters";
-@import "biovision/base/track";
-@import "comunit/base/layout";
-@import "comunit/base/sidebar";
-@import "comunit/base/users";
-@import "comunit/base/posts";
-@import "comunit/base/entries";
-@import "comunit/base/comments";
-@import "comunit/base/calendar";
-@import "comunit/base/socialization";
-@import "comunit/base/notifications";
-@import "comunit/base/privileges";
-@import "comunit/base/navigation";
-@import "layout";
-```
-
-Примеры для `colors`, `shared` и `layout` можно найти
-в `sample/app/assets/stylesheets/`
+Примеры для `colors`, `shared` и `layout` можно найти там же (просто скопировать
+поверх текущих файлов). 
 
 ### Дополнения в `config/*.yml`
 
@@ -292,20 +270,6 @@ rails db:create
 rails railties:install:migrations
 ```
 
-В миграции групп привилегий можно добавить этот фрагмент в `up`
-
-```ruby
-      PrivilegeGroup.create!(slug: 'editors', name: 'Редакторы публикаций')
-      PrivilegeGroup.create!(slug: 'reporters', name: 'Редакторы новостей')
-```
-
-В миграции редактируемых страниц можно добавить этот фрагмент в `up`
-
-```ruby
-      EditablePage.create!(slug: 'feedback', name: 'Вступление для приёмной')
-      EditablePage.create!(slug: 'donate', name: 'Поддержать')
-```
-
 Дальше в консоли:
 
 ```bash
@@ -335,15 +299,16 @@ end
 В бою
 -----
 
-Нужно создать индексы для поиска в эластике (`bin/rails console`)
+Нужно импортировать регионы
 
-```ruby
-Post.__elasticsearch__.create_index!
-News.__elasticsearch__.create_index!
-Entry.__elasticsearch__.create_index!
+В папке `tmp/import`:
+
+```bash
+ln -s /var/www/shared/import/regions
+ln -s /var/www/shared/import/regions.yml
 ```
 
-Также нужно импортировать регионы
+В папке проекта (`current`):
 
 ```bash
 bin/rake regions:load

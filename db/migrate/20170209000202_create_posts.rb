@@ -37,6 +37,8 @@ class CreatePosts < ActiveRecord::Migration[5.0]
 
       execute "create index posts_created_month_idx on posts using btree (date_trunc('month', created_at));"
       execute "create index posts_published_month_idx on posts using btree (date_trunc('month', publication_time));"
+
+      Post.__elasticsearch__.create_index!
     end
   end
 

@@ -32,6 +32,8 @@ class CreateEntries < ActiveRecord::Migration[5.0]
 
       execute "create index entries_created_month_idx on entries using btree (date_trunc('month', created_at));"
       execute "create index entries_published_month_idx on entries using btree (date_trunc('month', publication_time));"
+
+      Entry.__elasticsearch__.create_index!
     end
   end
 
