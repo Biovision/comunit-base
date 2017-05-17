@@ -280,7 +280,7 @@ mina init
 require 'mina/rbenv'
 
 #...
-set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp', 'public/uploads', 'public/ckeditor', 'vendor/assets/javascripts/jquery.min.js')
+set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp', 'public/uploads', 'public/ckeditor')
 set :shared_files, fetch(:shared_files, []).push('.env')
 
 # В том месте, где task :environment, сразу после
@@ -289,8 +289,18 @@ task :environment do
 end
 ```
 
-После этого можно запустить `mina setup` и настроить остальное на стороне
-сервера.
+На сервере в рабочей папке (`var/www/example.com`):
+
+```bash
+mkdir -p shared/tmp/puma
+mkdir -p shared/public/uploads
+mkdir -p shared/tmp/import
+cd shared/public
+ln -s /var/www/ckeditor
+```
+
+После этого локлаьно можно запустить `mina setup` и настроить остальное 
+на стороне сервера.
 
 В бою
 -----
