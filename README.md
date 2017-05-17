@@ -24,7 +24,7 @@ gem 'biovision-base', git: 'https://github.com/Biovision/biovision-base'
 # gem 'biovision-base', path: '/Users/maxim/Projects/Biovision/biovision-base'
 gem 'biovision-vote', git: 'https://github.com/Biovision/biovision-vote'
 # gem 'biovision-vote', path: '/Users/maxim/Projects/Biovision/biovision-base'
-gem 'comunit-base', git: 'https://github.com/Biovision/comunit-vote'
+gem 'comunit-base', git: 'https://github.com/Biovision/comunit-base'
 # gem 'comunit-base', path: '/Users/maxim/Projects/Biovision/Comunit/comunit-base'
 
 group :development, :test do
