@@ -7,6 +7,7 @@ module Comunit
         end
       end
 
+      config.assets.precompile << %w(admin.scss)
       config.assets.precompile << %w(biovision/base/icons/*)
       config.assets.precompile << %w(biovision/base/placeholders/*)
       config.assets.precompile << %w(biovision/vote/icons/*)

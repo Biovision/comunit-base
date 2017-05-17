@@ -57,6 +57,7 @@ end
 
 ```ruby
   mount Biovision::Base::Engine, at: '/'
+  mount Biovision::Vote::Engine, at: '/'
   mount Comunit::Base::Engine, at: '/'
 
   root 'index#index'
@@ -93,10 +94,13 @@ SITE_ID=
 В `app/assets/javascripts/application.js` перед `//= require_tree .`
 
 ```
+//= require jquery.min
 //= require biovision/base/biovision
 //= require biovision/vote/biovision-vote
 //= require comunit/base/socialization
 ```
+
+Нужно положить актуальную версию `jquery.min.js` в `vendor/assets/javascripts`.
 
 Заменить `app/assets/stylesheets/application.css` на `application.scss`
 с этим содержимым.
@@ -288,17 +292,6 @@ rails db:create
 rails railties:install:migrations
 ```
 
-В миграциях `create_biovision_users`, `create_biovision_privileges`
-и `create_biovision_user_privileges` нужно закомментировать блок с созданием, 
-так как эти таблицы со своей спецификой создаются позже.
-
-Миграции `create_tokens`, `create_codes` и `create_votes` нужно переименовать 
-так, чтобы они оказались после `create_users` из `comunit-base`.
-
-Миграции `create_privilege_groups` и `create_privilege_group_privilege` нужно
-переименовать так, чтобы они оказались после `create_privileges` 
-из `comunit-base`.
-
 В миграции групп привилегий можно добавить этот фрагмент в `up`
 
 ```ruby
@@ -327,7 +320,7 @@ mina init
 require 'mina/rbenv'
 
 #...
-set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp', 'public/uploads', 'public/ckeditor')
+set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp', 'public/uploads', 'public/ckeditor', 'vendor/assets/javascripts/jquery.min.js')
 set :shared_files, fetch(:shared_files, []).push('.env')
 
 # В том месте, где task :environment, сразу после
