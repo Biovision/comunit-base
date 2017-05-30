@@ -1,7 +1,5 @@
-<%= form_tag search_path, method: :get do %>
+<%= form_tag search_path, method: :get, class: 'header-search' do %>
     <div>
-      <%# label_tag 'top-search-q', 'Поиск' %>
       <%= text_field_tag 'q', param_from_request(:q), id: 'top-search-q', required: true %>
-      <!--<button type="submit">&#x1f50d;</button>-->
     </div>
 <% end %>
