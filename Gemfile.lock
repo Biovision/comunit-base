@@ -23,7 +23,7 @@ GIT
 PATH
   remote: .
   specs:
-    comunit-base (0.2.170517)
+    comunit-base (0.2.170531)
       bcrypt (~> 3.1.7)
       carrierwave
       carrierwave-bombshelter
@@ -264,4 +264,4 @@ DEPENDENCIES
   rspec-rails
 
 BUNDLED WITH
-   1.14.6
+   1.15.0

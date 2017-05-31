@@ -1,9 +1,20 @@
 <% content_for :meta_title, @entity.name %>
+<% content_for :hide_sidebar, '1' %>
 
-<article>
+<article class="event">
   <h1><%= @entity.name %></h1>
 
   <div class="description">
     <%= raw(@entity.body) %>
   </div>
+
+  <%= render partial: 'events/entity/speakers', locals: { collection: @entity.event_speakers.page_for_visitors } %>
+
+  <section class="register" id="registration-form">
+    <h2>Зарегистрироваться на мероприятие</h2>
+
+    <%= render partial: 'event_participants/form', locals: { entity: @entity.event_participants.new } %>
+  </section>
+
+  <%= render partial: 'events/entity/sponsors', locals: { collection: @entity.event_sponsors.page_for_visitors } %>
 </article>

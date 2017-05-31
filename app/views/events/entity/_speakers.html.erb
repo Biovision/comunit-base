@@ -1,0 +1,17 @@
+<% if collection.any? %>
+    <section>
+      <h2>Спикеры</h2>
+
+      <ul>
+        <% collection.each do |person| %>
+            <li>
+              <div class="image">
+                <%= image_tag(person.image.small.url, alt: person.name) %>
+              </div>
+              <div class="person"><%= person.name %></div>
+              <div class="position"><%= person.occupation %></div>
+            </li>
+        <% end %>
+      </ul>
+    </section>
+<% end %>

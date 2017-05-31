@@ -1,0 +1,15 @@
+<% if collection.any? %>
+    <section>
+      <h2>Спонсоры</h2>
+
+      <ul>
+        <% collection.each do |sponsor| %>
+            <li>
+              <div class="sponsor">
+                <%= image_tag(sponsor.image.small.url, alt: sponsor.name) %>
+              </div>
+            </li>
+        <% end %>
+      </ul>
+    </section>
+<% end %>

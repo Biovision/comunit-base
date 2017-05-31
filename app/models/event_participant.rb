@@ -8,6 +8,9 @@ class EventParticipant < ApplicationRecord
   PHONE_LIMIT   = 50
   COMMENT_LIMIT = 10000
   NOTICE_LIMIT  = 250
+  COMPANY_LIMIT = 250
+
+  METRIC_CREATED = 'events.participants.created.hit'
 
   toggleable :processed
 
@@ -22,6 +25,7 @@ class EventParticipant < ApplicationRecord
   validates_length_of :phone, maximum: PHONE_LIMIT
   validates_length_of :comment, maximum: COMMENT_LIMIT
   validates_length_of :notice, maximum: NOTICE_LIMIT
+  validates_length_of :company, maximum: COMPANY_LIMIT
 
   scope :recent, -> { order('id desc') }
   scope :surname_like, ->(val) { where('surname ilike ?', "%#{val}%") unless val.blank? }
@@ -35,7 +39,7 @@ class EventParticipant < ApplicationRecord
   end
 
   def self.entity_parameters
-    %i(name surname email phone comment notice)
+    %i(name surname email phone comment notice company)
   end
 
   def self.creation_parameters

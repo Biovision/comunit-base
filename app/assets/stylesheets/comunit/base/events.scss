@@ -1,0 +1,158 @@
+article.event {
+  h1 {
+    font-size: 4.5rem;
+    font-weight: 500;
+    margin: 0;
+    text-align: center;
+    font-variant: small-caps;
+  }
+
+  .place-and-time {
+    background: rgba(288, 143, 22, .25);
+    border-radius: .4rem;
+    font-size: $large_font_size;
+    margin: 1rem 5rem;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  > section {
+    margin: 2rem auto;
+    max-width: 75%;
+
+    h2 {
+      margin: 0;
+      text-align: center;
+    }
+
+    p:first-of-type {
+      margin-top: 0;
+    }
+
+    em {
+      font-size: $larger_font_size;
+      text-transform: uppercase;
+    }
+
+    .button {
+      a {
+        @include nav-button;
+      }
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+
+      li {
+        list-style: none;
+        margin: 1rem;
+
+        > div {
+          max-width: 20rem;
+        }
+
+        .image {
+          align-items: center;
+          display: flex;
+          justify-content: center;
+          height: 20rem;
+          width: 20rem;
+
+          img {
+            max-width: 20rem;
+            max-height: 20rem;
+          }
+        }
+
+        .person {
+          margin: .8rem 0 0 0;
+          text-align: center;
+        }
+
+        .position {
+          color: $secondary_text_color;
+          font-size: $decreased_font_size;
+          text-align: center;
+        }
+
+        .sponsor {
+          align-items: center;
+          display: flex;
+          justify-content: center;
+          height: 10rem;
+          width: 20rem;
+
+          img {
+            max-width: 20rem;
+            max-height: 10rem;
+          }
+        }
+      }
+    }
+
+    .program {
+      box-shadow: $block-shadow;
+      display: flex;
+      justify-content: space-between;
+
+      > div {
+        flex: 1;
+        padding: .8rem;
+
+        time {
+          font-size: $large_font_size;
+          text-align: center;
+        }
+
+        .place {
+          font-weight: bold;
+          margin: 0;
+        }
+
+        ul {
+          display: block;
+          margin: 0 1rem 1rem;
+
+          li {
+            display: block;
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+
+  form {
+    border: .1rem solid #f7f7f7;
+    padding: .8rem;
+    margin: 0 auto 2.4rem;
+
+    dl {
+      margin: 0;
+      padding: 0;
+
+      dt {
+        margin: .4rem 0;
+        padding: 0;
+      }
+
+      dd {
+        margin: 0 1.6rem;
+        padding: 0;
+      }
+    }
+
+    input[type=text],
+    input[type=email] {
+      width: 35ch;
+    }
+
+    textarea {
+      width: calc(100% - 1rem);
+    }
+  }
+}

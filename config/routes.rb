@@ -26,6 +26,7 @@ Rails.application.routes.draw do
 
   resources :events
   resources :event_speakers, :event_sponsors, :event_materials, :event_programs, except: [:index, :new, :show]
+  resources :event_participants, only: [:create, :destroy]
 
   resources :appeals, except: [:index, :new, :show, :edit, :update]
   get 'feedback' => 'appeals#new'

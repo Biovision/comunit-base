@@ -7,8 +7,8 @@ Comunit::Base
 ---------------------------------------
 
 Нужно заменить `config/locales/en.yml` на `ru.yml` и добавить туда ключи
-`site_name` и `copyright` для вывода названия сайта в метаданных и копирайта
-соответственно.
+`shared.meta_texts.site_name` и `copyright` для вывода названия сайта 
+в метаданных и копирайта соответственно.
 
 Также нужно добавить в локаль ключ `index.index.title` с заголовком для главной
 страницы.
@@ -23,7 +23,7 @@ gem 'autoprefixer-rails', group: :production
 gem 'biovision-base', git: 'https://github.com/Biovision/biovision-base'
 # gem 'biovision-base', path: '/Users/maxim/Projects/Biovision/biovision-base'
 gem 'biovision-vote', git: 'https://github.com/Biovision/biovision-vote'
-# gem 'biovision-vote', path: '/Users/maxim/Projects/Biovision/biovision-base'
+# gem 'biovision-vote', path: '/Users/maxim/Projects/Biovision/biovision-vote'
 gem 'comunit-base', git: 'https://github.com/Biovision/comunit-base'
 # gem 'comunit-base', path: '/Users/maxim/Projects/Biovision/Comunit/comunit-base'
 
@@ -206,7 +206,7 @@ RSpec.configure do |config|
 end
 ```
 
-### Дополнения в config/environments/production.rb
+### Дополнения в `config/environments/production.rb`
 
 Нужно поменять `example.com` на актуальный домен
 
@@ -231,7 +231,7 @@ end
   config.action_mailer.default_url_options = { host: 'example.com' }
 ```
 
-### Дополнения в config/environments/test.rb
+### Дополнения в `config/environments/test.rb`
 
 Нужно поменять `example.com` на актуальный домен
 
@@ -243,7 +243,7 @@ end
   config.action_mailer.default_url_options = { :host => '0.0.0.0:3000' }
 ```
   
-### Дополнения в config/environments/development.rb
+### Дополнения в `config/environments/development.rb`
 
 Нужно поменять `example.com` на актуальный домен
 

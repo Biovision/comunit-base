@@ -1,10 +1,16 @@
 <% content_for :meta_title, t('.title', name: @entity.name) %>
-<% content_for :hide_sidebar, '1' %>
+<% content_for :breadcrumbs do %>
+    <%= link_to t('admin.events.nav_item.text'), admin_events_path %>
+    <span><%= @entity.name %></span>
+<% end %>
 
 <article class="entity-page">
   <h1><%= @entity.name %></h1>
   <ul class="actions">
     <li><%= back_icon(admin_events_path) %></li>
+    <% if @entity.visible? %>
+        <li><%= world_icon(event_path(@entity.id)) %></li>
+    <% end %>
     <% unless @entity.locked? %>
         <li><%= edit_icon(edit_event_path(@entity.id)) %></li>
     <% end %>

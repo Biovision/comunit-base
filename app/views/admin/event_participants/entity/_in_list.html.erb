@@ -1,6 +1,7 @@
 <div class="data">
   <div>
-    <%= admin_event_participant_link(entity) %>
+    <%= entity.full_name %>
+    <%# admin_event_participant_link(entity) %>
   </div>
   <% unless entity.notice.blank? %>
       <div class="info">
@@ -9,7 +10,7 @@
   <% end %>
   <% unless entity.user.nil? %>
       <div class="info">
-        <%= entity.user.profile_name #admin_user_link(entity.user) %>
+        <%= entity.user.profile_name %>
       </div>
   <% end %>
   <div class="secondary info">

@@ -72,14 +72,17 @@ ru:
         description: "Описание"
   admin:
     events:
+      nav_item:
+        text: "Мероприятия"
+        description: "Управление мероприятиями"
       index:
         title: "Мероприятия, страница %{page}"
         heading: "Мероприятия"
-        description: "Управление мероприятиями"
       show:
         title: "Мероприятие «%{name}»"
       participants:
         title: "Участники мероприятия %{name}, страница %{page}"
+        heading: "Участники"
       entity:
         speakers:
           heading: "Спикеры"
@@ -187,3 +190,12 @@ ru:
         name: "Отображается в качестве названия ссылки"
         attachment: "Файл с материалом"
         description: "Отображается рядом с названием"
+  event_participants:
+    new:
+      title: "Регистрация на мероприятие"
+      heading: "Регистрация на мероприятие"
+    create:
+      success: "Вы успешно зарегистрировались на мероприятие"
+    edit:
+      title: "Редактирование регистрации на мероприятие"
+      heading: "Редактирование регистрации на мероприятие"
