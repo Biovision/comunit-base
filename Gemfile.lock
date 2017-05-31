@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/Biovision/biovision-base
-  revision: 4ecc8b0d121dbcf9f41a41ee8ccc0de722ac627c
+  revision: aba93f41a9d88162dd126fb9c94136cbe11f46c5
   specs:
-    biovision-base (0.4.170514)
+    biovision-base (0.4.170526)
       bcrypt (~> 3.1.7)
       carrierwave
       carrierwave-bombshelter
@@ -13,7 +13,7 @@ GIT
 
 GIT
   remote: https://github.com/Biovision/biovision-vote
-  revision: ff4787f05a0981da006bae97ad63967361f7759a
+  revision: 534584780ac7497514211552545a0fbd932c985b
   specs:
     biovision-vote (0.1.1.170517)
       kaminari
@@ -135,7 +135,7 @@ GEM
     hashie (3.5.5)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
-    i18n (0.8.1)
+    i18n (0.8.4)
     ice_nine (0.11.2)
     kaminari (1.0.1)
       activesupport (>= 4.1.0)
@@ -163,7 +163,7 @@ GEM
     multi_json (1.12.1)
     multipart-post (2.0.0)
     netrc (0.11.0)
-    nio4r (2.0.0)
+    nio4r (2.1.0)
     nokogiri (1.7.2)
       mini_portile2 (~> 2.1.0)
     pg (0.20.0)
