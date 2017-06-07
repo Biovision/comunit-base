@@ -24,11 +24,6 @@ module UsersHelper
   end
 
   # @param [User] user
-  def user_roles(user)
-    UserRole.owned_by(user).map { |role| I18n.t("activerecord.attributes.user_role.roles.#{role.role}") }
-  end
-
-  # @param [User] user
   def user_link(user)
     if user.is_a? User
       if user.deleted?

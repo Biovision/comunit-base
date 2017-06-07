@@ -14,7 +14,6 @@ class User < ApplicationRecord
   belongs_to :agent, optional: true
   belongs_to :site, optional: true, counter_cache: true
   belongs_to :region, optional: true, counter_cache: true, touch: false
-  has_many :user_roles, dependent: :destroy
   has_many :tokens, dependent: :destroy
   has_many :codes, dependent: :destroy
   has_many :posts, dependent: :destroy
@@ -54,12 +53,8 @@ class User < ApplicationRecord
   scope :surname_like, -> (val) { where('surname ilike ?', "%#{val}%") unless val.blank? }
   scope :email_like, -> (val) { where 'email ilike ?', "%#{val}%" unless val.blank? }
   scope :with_email, -> (email) { where 'email ilike ?', email }
-  scope :with_roles, -> (roles) { joins(:user_roles).where(user_roles: { role: roles }) unless roles.blank? }
   scope :with_privilege, -> (privilege) { joins(:user_privileges).where(user_privileges: { privilege_id: privilege.ids} ) }
-  scope :filtered, -> (f) {
-    name_like(f[:name]).surname_like(f[:surname]).email_like(f[:email]).
-        screen_name_like(f[:screen_name]).with_roles(f[:roles])
-  }
+  scope :filtered, -> (f) { name_like(f[:name]).surname_like(f[:surname]).email_like(f[:email]).screen_name_like(f[:screen_name]) }
 
   # @param [Integer] page
   # @param [Hash] filter

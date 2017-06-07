@@ -200,21 +200,6 @@
           </ul>
         </td>
       </tr>
-      <tr>
-        <td colspan="2" class="flags">
-          <fieldset>
-            <legend><%= t('.roles') %></legend>
-            <ul>
-              <% UserRole.roles.keys.each do |role| %>
-                  <li>
-                    <%= check_box_tag "roles[#{role}]", 1, @entity.has_role?(role) %>
-                    <%= label_tag "roles_#{role}", t("activerecord.attributes.user_role.roles.#{role}") %>
-                  </li>
-              <% end %>
-            </ul>
-          </fieldset>
-        </td>
-      </tr>
       </tbody>
       <tfoot>
       <tr>

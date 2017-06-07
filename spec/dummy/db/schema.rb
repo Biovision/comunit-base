@@ -396,14 +396,6 @@ ActiveRecord::Schema.define(version: 20170218000000) do
     t.index ["user_id"], name: "index_user_privileges_on_user_id", using: :btree
   end
 
-  create_table "user_roles", force: :cascade do |t|
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-    t.integer  "user_id",              null: false
-    t.integer  "role",       limit: 2, null: false
-    t.index ["user_id"], name: "index_user_roles_on_user_id", using: :btree
-  end
-
   create_table "users", force: :cascade do |t|
     t.datetime "created_at",                                     null: false
     t.datetime "updated_at",                                     null: false
@@ -520,7 +512,6 @@ ActiveRecord::Schema.define(version: 20170218000000) do
   add_foreign_key "user_privileges", "privileges"
   add_foreign_key "user_privileges", "regions"
   add_foreign_key "user_privileges", "users"
-  add_foreign_key "user_roles", "users"
   add_foreign_key "users", "agents"
   add_foreign_key "users", "cities"
   add_foreign_key "users", "regions"

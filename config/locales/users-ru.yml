@@ -163,13 +163,6 @@ ru:
         privilege: "Привилегия"
         user: "Пользователь"
         region: "Регион"
-      user_role:
-        roles:
-          administrator: "Администратор"
-          moderator: "Модератор"
-          chief_editor: "Главный редактор"
-          post_editor: "Редактор публикаций"
-          news_editor: "Редактор новостей"
       group:
         name: "Название"
         slug: "Идентификатор"

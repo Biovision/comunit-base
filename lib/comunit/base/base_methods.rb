@@ -4,18 +4,13 @@ module Comunit
       extend ActiveSupport::Concern
 
       included do
-        helper_method :current_user_has_role?, :current_user_has_privilege?, :current_user_in_group?
+        helper_method :current_user_has_privilege?, :current_user_in_group?
         helper_method :current_region
       end
 
       # @return [Region]
       def current_region
         @current_region
-      end
-
-      # @param [Symbol] role
-      def current_user_has_role?(*role)
-        UserRole.user_has_role? current_user, *role
       end
 
       # @param [Symbol] privilege_name
