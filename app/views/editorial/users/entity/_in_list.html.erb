@@ -1,0 +1,19 @@
+<div class="image">
+  <%= profile_avatar(entity) %>
+</div>
+<div class="data">
+  <div><%= editorial_user_link(entity) %> (<%= entity.screen_name %>)</div>
+  <div class="secondary info">
+    <div><%= t(:created_at) %>: <%= time_tag entity.created_at %></div>
+    <% unless entity.last_seen.nil? %>
+        <div>
+          <%= t('activerecord.attributes.user.last_seen') %>:
+          <%= time_tag entity.last_seen %>
+        </div>
+    <% end %>
+  </div>
+
+  <% if current_user_has_privilege?(:chief_editor) %>
+      <%= render partial: 'editorial/users/toggleable', locals: { entity: entity } %>
+  <% end %>
+</div>

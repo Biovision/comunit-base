@@ -14,7 +14,6 @@ Rails.application.routes.draw do
   end
 
   resources :users, except: [:show]
-  resources :tokens, :codes, except: [:index, :show]
   resources :regions, except: [:index, :new, :create, :show, :destroy]
 
   resources :news_categories, :post_categories, except: [:index, :show]
@@ -145,6 +144,16 @@ Rails.application.routes.draw do
       end
     end
     resources :event_programs, only: [:show]
+  end
+
+  namespace :editorial do
+    get '/' => 'index#index'
+
+    resources :users, only: [:index, :show] do
+      member do
+        post 'toggle', defaults: { format: :json }
+      end
+    end
   end
 
   namespace :api, defaults: { format: :json } do

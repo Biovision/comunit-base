@@ -24,19 +24,6 @@
         <% if current_user_has_privilege?(:albums_manager) %>
             <li><%= render 'admin/albums/nav_item' %></li>
         <% end %>
-        <% if current_user_has_privilege?(:chief_editor) %>
-            <li><%= render 'admin/editable_pages/nav_item' %></li>
-        <% end %>
-        <% if current_user_has_privilege?(:moderator) %>
-            <li><%= render 'admin/comments/nav_item' %></li>
-        <% end %>
-
-        <% if UserPrivilege.user_in_group?(current_user, :editors) %>
-            <li><%= render 'admin/posts/nav_item' %></li>
-        <% end %>
-        <% if UserPrivilege.user_in_group?(current_user, :reporters) %>
-            <li><%= render 'admin/news/nav_item' %></li>
-        <% end %>
         <% if current_user_has_privilege?(:group_manager) %>
             <li><%= render 'admin/groups/nav_item' %></li>
         <% end %>
@@ -49,5 +36,7 @@
         <%= render 'admin/index/additional' %>
       </ul>
     </nav>
+
+    <%= render 'editorial/index/navigation' %>
   </div>
 </article>

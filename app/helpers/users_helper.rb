@@ -44,11 +44,21 @@ module UsersHelper
 
   # @param [User] user
   def admin_user_link(user)
-    if user.is_a? User
-      text = user.profile_name
-      link_to text, admin_user_path(user), class: "profile native"
+    if user.nil?
+      t(:anonymous)
     else
-      I18n.t(:anonymous)
+      text = user.profile_name
+      link_to text, admin_user_path(user.id), class: "profile native"
+    end
+  end
+
+  # @param [User] user
+  def editorial_user_link(user)
+    if user.nil?
+      t(:anonymous)
+    else
+      text = user.profile_name
+      link_to text, editorial_user_path(user.id), class: 'profile'
     end
   end
 

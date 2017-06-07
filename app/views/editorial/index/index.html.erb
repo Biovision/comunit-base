@@ -1,0 +1,16 @@
+<% content_for :meta_title, t('.title') %>
+<% content_for :breadcrubms do %>
+    <span><%= t('.heading') %></span>
+<% end %>
+
+<article>
+  <h1><%= t('.heading') %></h1>
+
+  <ul class="actions">
+    <li><%= back_icon(admin_path) %></li>
+  </ul>
+
+  <div class="dashboard">
+    <%= render 'navigation' %>
+  </div>
+</article>

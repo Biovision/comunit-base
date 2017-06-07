@@ -4,7 +4,7 @@ module Comunit
       extend ActiveSupport::Concern
 
       included do
-        helper_method :current_user_has_role?, :current_user_has_privilege?
+        helper_method :current_user_has_role?, :current_user_has_privilege?, :current_user_in_group?
         helper_method :current_region
       end
 
@@ -22,6 +22,11 @@ module Comunit
       # @param [Region] region
       def current_user_has_privilege?(privilege_name, region = nil)
         UserPrivilege.user_has_privilege?(current_user, privilege_name, region)
+      end
+
+      # @param [Symbol] group_name
+      def current_user_in_group?(group_name)
+        ::UserPrivilege.user_in_group?(current_user, group_name)
       end
 
       protected
@@ -42,11 +47,10 @@ module Comunit
         end
       end
 
-      # @param [Symbol] name
-      def require_privilege_group(name)
-        unless UserPrivilege.user_in_group?(current_user, name)
-          handle_http_401("Current user has no privilege class #{name}")
-        end
+      # @param [Symbol] group_name
+      def require_privilege_group(group_name)
+        return if current_user_in_group?(group_name)
+        handle_http_401("Current user is not in group #{group_name}")
       end
 
       def set_current_region

@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/Biovision/biovision-base
-  revision: aba93f41a9d88162dd126fb9c94136cbe11f46c5
+  revision: d62c6c824386a56b8cc288bfcba82b7d7263536f
   specs:
-    biovision-base (0.4.170526)
+    biovision-base (0.4.170607)
       bcrypt (~> 3.1.7)
       carrierwave
       carrierwave-bombshelter
@@ -23,7 +23,7 @@ GIT
 PATH
   remote: .
   specs:
-    comunit-base (0.2.170531)
+    comunit-base (0.2.170607)
       bcrypt (~> 3.1.7)
       carrierwave
       carrierwave-bombshelter
@@ -158,14 +158,14 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
     mini_magick (4.7.0)
-    mini_portile2 (2.1.0)
+    mini_portile2 (2.2.0)
     minitest (5.10.2)
     multi_json (1.12.1)
     multipart-post (2.0.0)
     netrc (0.11.0)
     nio4r (2.1.0)
-    nokogiri (1.7.2)
-      mini_portile2 (~> 2.1.0)
+    nokogiri (1.8.0)
+      mini_portile2 (~> 2.2.0)
     pg (0.20.0)
     rack (2.0.3)
     rack-protection (2.0.0)
@@ -223,7 +223,7 @@ GEM
       rspec-mocks (~> 3.6.0)
       rspec-support (~> 3.6.0)
     rspec-support (3.6.0)
-    sidekiq (5.0.0)
+    sidekiq (5.0.2)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
@@ -264,4 +264,4 @@ DEPENDENCIES
   rspec-rails
 
 BUNDLED WITH
-   1.15.0
+   1.15.1

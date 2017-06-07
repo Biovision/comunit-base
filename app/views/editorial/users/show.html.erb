@@ -1,0 +1,106 @@
+<% content_for :meta_title, t('.title', name: @entity.profile_name) %>
+
+<article class="entity-page">
+  <h1><%= @entity.long_slug %></h1>
+  <% if @entity.deleted? %>
+      <div class="alert"><%= t(:deleted_entity) %></div>
+  <% end %>
+  <ul class="actions">
+    <li><%= back_icon editorial_users_path %></li>
+  </ul>
+
+  <table>
+    <tbody>
+    <tr>
+      <td colspan="2">
+        <figure>
+          <%= profile_avatar @entity %>
+        </figure>
+      </td>
+    </tr>
+    <% unless @entity.notice.blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.user.notice') %></th>
+          <td><%= @entity.notice %></td>
+        </tr>
+    <% end %>
+    <tr>
+      <th><%= t('activerecord.attributes.user.slug') %></th>
+      <td><%= @entity.slug %></td>
+    </tr>
+    <% unless @entity.site.nil? %>
+        <tr>
+          <th><%= t('activerecord.attributes.user.site_id') %></th>
+          <td><%= @entity.site.name %></td>
+        </tr>
+    <% end %>
+    <tr>
+      <th><%= t('activerecord.attributes.user.screen_name') %></th>
+      <td><%= @entity.screen_name %> (<%= user_link @entity %>)</td>
+    </tr>
+    <% unless @entity.surname.blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.user.surname') %></th>
+          <td><%= @entity.surname %></td>
+        </tr>
+    <% end %>
+    <% unless @entity.name.blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.user.name') %></th>
+          <td><%= @entity.name %></td>
+        </tr>
+    <% end %>
+    <% unless @entity.patronymic.blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.user.patronymic') %></th>
+          <td><%= @entity.patronymic %></td>
+        </tr>
+    <% end %>
+    <% unless @entity.email.blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.user.email') %></th>
+          <td><%= link_to @entity.email, "mailto:#{@entity.email}" %></td>
+        </tr>
+    <% end %>
+    <% unless @entity.phone.blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.user.phone') %></th>
+          <td><%= link_to @entity.phone, "tel:#{@entity.phone}" %></td>
+        </tr>
+    <% end %>
+    <tr>
+      <th><%= t('activerecord.attributes.user.gender') %></th>
+      <td><%= @entity.gender.blank? ? t(:not_selected) : t("activerecord.attributes.user.genders.#{@entity.gender}") %></td>
+    </tr>
+    <% unless @entity.ip.blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.user.ip') %></th>
+          <td><%= @entity.ip %></td>
+        </tr>
+    <% end %>
+    <tr>
+      <th><%= t(:created_at) %></th>
+      <td><%= time_tag @entity.created_at %></td>
+    </tr>
+    <tr>
+      <th><%= t(:updated_at) %></th>
+      <td><%= time_tag @entity.updated_at %></td>
+    </tr>
+    <% unless @entity.last_seen.blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.user.last_seen') %></th>
+          <td><%= time_tag @entity.last_seen %></td>
+        </tr>
+    <% end %>
+    </tbody>
+    <% unless @entity.deleted? %>
+        <tfoot>
+        <tr>
+          <td colspan="2">
+            <%= render partial: 'editorial/users/toggleable', locals: { entity: @entity } %>
+          </td>
+        </tr>
+        </tfoot>
+    <% end %>
+  </table>
+</article>

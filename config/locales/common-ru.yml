@@ -32,3 +32,8 @@ ru:
     index:
       title: "О нас"
       heading: "О нас"
+  editorial:
+    index:
+      index:
+        title: "Редакция"
+        heading: "Редакция"

@@ -3,6 +3,11 @@
 </div>
 <div class="data">
   <div><%= admin_user_link(user) %> (<%= user.screen_name %>)</div>
+  <% unless user.site.nil? %>
+  <div class="secondary info">
+    <%= t('activerecord.attributes.user.site_id') %>: <%= user.site.host %>
+  </div>
+  <% end %>
   <% unless user.notice.blank? %>
       <div><%= user.notice %></div>
   <% end %>
