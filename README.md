@@ -17,6 +17,7 @@ Comunit::Base
 
 ```ruby
 gem 'dotenv-rails'
+gem 'jquery-rails'
 
 gem 'autoprefixer-rails', group: :production
 
@@ -49,8 +50,6 @@ end
 
 /spec/examples.txt
 /spec/support/uploads/*
-
-/vendor/assets/javascripts/jquery.min.js
 
 .env
 ```
@@ -92,14 +91,11 @@ SITE_ID=
 В `app/assets/javascripts/application.js` перед `//= require_tree .`
 
 ```
-//= require jquery.min
+//= require jquery3
 //= require biovision/base/biovision
 //= require biovision/vote/biovision-vote
 //= require comunit/base/socialization
 ```
-
-Локально нужно положить актуальную версию `jquery.min.js` 
-в `vendor/assets/javascripts`.
 
 Заменить `app/assets/stylesheets/application.css` на `application.scss` из
 `sample/app/assets/stylesheets/`.
