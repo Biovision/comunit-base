@@ -49,12 +49,12 @@ class Comment < ApplicationRecord
   def visible_to?(user)
     if self.commentable.respond_to? :visible_to?
       if deleted?
-        UserRole.user_has_role?(user, :administrator) && commentable.visible_to?(user)
+        UserPrivilege.user_has_privilege?(user, :administrator) && commentable.visible_to?(user)
       else
         commentable.visible_to?(user)
       end
     else
-      !deleted? || UserRole.user_has_role?(user, :administrator)
+      !deleted? || UserPrivilege.user_has_privilege?(user, :administrator)
     end
   end
 

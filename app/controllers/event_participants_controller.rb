@@ -28,7 +28,7 @@ class EventParticipantsController < ApplicationController
   end
 
   def restrict_access
-    require_role :event_manager
+    require_privilege(:event_manager)
   end
 
   def entity_parameters

@@ -66,7 +66,7 @@ class Entry < ApplicationRecord
 
   # @param [User] user
   def can_be_reposted_by?(user)
-    generally_accessible? && UserRole.user_has_role?(user, :post_editor, :news_editor)
+    generally_accessible? && UserPrivilege.user_in_group?(user, :editors)
   end
 
   # Is entry visible to user?
@@ -103,7 +103,7 @@ class Entry < ApplicationRecord
   end
 
   def editable_by?(user)
-    owned_by?(user) || (UserRole.user_has_role?(user, :administrator) && visible_to?(user))
+    owned_by?(user) || (UserPrivilege.user_has_privilege?(user, :administrator) && visible_to?(user))
   end
 
   # @param [User] user

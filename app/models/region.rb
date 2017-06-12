@@ -35,6 +35,6 @@ class Region < ApplicationRecord
 
   # @param [User] user
   def editable_by?(user)
-    UserRole.user_has_role?(user, :administrator) && !locked?
+    UserPrivilege.user_has_privilege?(user, :administrator) && !locked?
   end
 end

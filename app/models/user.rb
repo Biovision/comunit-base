@@ -105,8 +105,7 @@ class User < ApplicationRecord
     ignored = %w(id external_id site_id agent_id image native_id)
     result  = []
     column_names.each do |column|
-      next if ignored.include?(column)
-      next if column =~ /_count$/
+      next if ignored.include?(column) || column =~ /_count$/
       result << column
     end
     result
@@ -138,30 +137,6 @@ class User < ApplicationRecord
 
   def name_for_letter
     name || profile_name
-  end
-
-  # @param [Array] suitable_roles
-  def has_role?(*suitable_roles)
-    UserRole.user_has_role? self, *suitable_roles
-  end
-
-  # @param [Symbol] role
-  def add_role(role)
-    if UserRole.role_exists? role
-      UserRole.create user: self, role: role unless has_role? role
-    end
-  end
-
-  # @param [Symbol] role
-  def remove_role(role)
-    UserRole.where(user: self, role: UserRole.roles[role]).destroy_all if UserRole.role_exists? role
-  end
-
-  # @param [Hash] roles
-  def roles=(roles)
-    roles.each do |role, flag|
-      flag.to_i > 0 ? add_role(role) : remove_role(role)
-    end
   end
 
   def can_receive_letters?

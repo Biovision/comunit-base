@@ -26,15 +26,6 @@ module Comunit
 
       protected
 
-      # @param [Symbol] role
-      def require_role(*role)
-        if current_user.is_a? User
-          redirect_to root_path, alert: t(:insufficient_role) unless current_user.has_role? *role
-        else
-          redirect_to login_path, alert: t(:please_log_in)
-        end
-      end
-
       # @param [Symbol] privilege_name
       def require_privilege(privilege_name)
         unless current_user_has_privilege?(privilege_name, current_region)
