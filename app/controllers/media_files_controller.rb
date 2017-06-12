@@ -55,6 +55,15 @@ class MediaFilesController < AdminController
   end
 
   def creation_parameters
-    params.require(:media_file).permit(MediaFile.creation_parameters)
+    permitted    = MediaFile.creation_parameters
+    from_request = params.require(:media_file).permit(permitted)
+    from_request.merge(uploading_parameters).merge(owner_for_entity(true))
+  end
+
+  def uploading_parameters
+    {
+      original_name: params.dig(:media_file, :file)&.original_filename,
+      mime_type:     params.dig(:media_file, :file)&.content_type
+    }
   end
 end

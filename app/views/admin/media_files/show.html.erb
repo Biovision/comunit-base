@@ -1,0 +1,34 @@
+<% content_for :meta_title, t('.title', name: @entity.name) %>
+<% content_for :breadcrumbs do %>
+    <%= link_to(t('admin.media_files.nav_item.text'), admin_media_files_path) %>
+    <span><%= @entity.name %></span>
+<% end %>
+
+<article class="entity-page">
+  <h1><%= @entity.name %></h1>
+  <ul class="actions">
+    <li><%= back_icon(admin_media_files_path) %></li>
+    <li><%= edit_icon(edit_media_file_path(@entity.id)) %></li>
+  </ul>
+
+  <dl>
+    <dt><%= t('activerecord.attributes.media_file.file') %></dt>
+    <dd><%= link_to @entity.original_name, @entity.file.url %></dd>
+    <dd><%= @entity.file.url %></dd>
+
+    <dt><%= t(:created_at) %></dt>
+    <dd>
+      <%= time_tag(@entity.created_at) %>,
+      <%= editorial_user_link(@entity.user) %>
+    </dd>
+
+    <dt><%= t('activerecord.attributes.media_file.description') %></dt>
+    <dd><%= @entity.description %></dd>
+
+    <dt><%= t('activerecord.attributes.media_file.mime_type') %></dt>
+    <dd><%= @entity.mime_type %></dd>
+  </dl>
+
+  <%= render partial: 'shared/track', locals: { item: @entity } %>
+
+</article>

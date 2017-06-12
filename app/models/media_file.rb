@@ -32,10 +32,10 @@ class MediaFile < ApplicationRecord
   end
 
   def self.entity_parameters
-    %i(file snapshot name description)
+    %i(snapshot name description)
   end
 
   def self.creation_parameters
-    entity_parameters + %i(media_folder_id)
+    entity_parameters + %i(file media_folder_id)
   end
 end

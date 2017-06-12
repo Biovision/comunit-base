@@ -1,0 +1,33 @@
+<%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+
+<%= form_for entity do |f| %>
+    <dl>
+      <% if entity.id.nil? %>
+          <dt><%= f.label :file %></dt>
+          <dd>
+            <%= f.file_field :file, required: true %>
+          </dd>
+      <% else %>
+          <dt><%= t('activerecord.attributes.media_file.file') %></dt>
+          <dd>
+            <%= link_to entity.file.url, entity.file.url %>
+          </dd>
+      <% end %>
+
+      <dt><%= f.label :name %></dt>
+      <dd>
+        <%= f.text_field :name, size: nil, maxlength: MediaFile::NAME_LIMIT, required: true, placeholder: t('.placeholders.name') %>
+        <div class="guideline"><%= t('.guidelines.name') %></div>
+      </dd>
+
+      <dt><%= f.label :description %></dt>
+      <dd>
+        <%= f.text_field :description, size: nil, maxlength: MediaFile::NAME_LIMIT, required: true, placeholder: t('.placeholders.description') %>
+        <div class="guideline"><%= t('.guidelines.description') %></div>
+      </dd>
+    </dl>
+
+    <div class="buttons">
+      <%= f.button t(:save), type: :submit %>
+    </div>
+<% end %>

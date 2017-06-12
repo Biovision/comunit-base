@@ -1,0 +1,13 @@
+<div class="image">
+  <%= media_spanshot_preview(entity) %>
+</div>
+<div class="data">
+  <div><%= admin_media_file_link(entity) %></div>
+
+  <ul class="actions">
+    <li class="lockable <%= entity.locked? ? 'hidden' : '' %>">
+      <%= edit_icon(edit_media_file_path(entity.id)) %>
+    </li>
+    <%= render partial: 'shared/actions/locks', locals: { entity: entity, path: lock_admin_media_file_path(entity.id) } %>
+  </ul>
+</div>

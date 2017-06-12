@@ -8,6 +8,7 @@
 
     <% if current_user_in_group?(:editors) %>
         <li><%= render 'admin/posts/nav_item' %></li>
+        <li><%= render 'admin/media_files/nav_item' %></li>
     <% end %>
     <% if UserPrivilege.user_in_group?(current_user, :reporters) %>
         <li><%= render 'admin/news/nav_item' %></li>
