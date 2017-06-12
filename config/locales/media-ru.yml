@@ -1,0 +1,94 @@
+ru:
+  media_file_count:
+    zero: "файлов нет"
+    one: "%{count} файл"
+    few: "%{count} файла"
+    many: "%{count} файлов"
+    other: "%{count} файлов"
+  activerecord:
+    models:
+      media_folder: "Папка"
+      media_file: "Файл"
+    attributes:
+      media_folder:
+        user: "Пользователь"
+        user_id: "Пользователь"
+        parent_id: "Родительская папка"
+        flags: "Фалги"
+        uuid: "UUID"
+        snapshot: "Картинка"
+        name: "Название"
+        parents_cache: "Кеш родителей"
+        children_cache: "Кеш дочек"
+      media_file:
+        media_folder: "Папка"
+        media_folder_id: "Папка"
+        user: "Пользователь"
+        user_id: "Пользователь"
+        flags: "Флаги"
+        uuid: "UUID"
+        snapshot: "Картинка"
+        file: "Файл"
+        mime_type: "MIME-тип"
+        original_name: "Оригинальное имя файла"
+        name: "Название"
+        description: "Описание"
+  admin:
+    media_folders:
+      nav_item:
+        text: "Медиахранилище"
+        description: "Управление медиахранилищем"
+      index:
+        title: "Папки"
+        heading: "Медиахранилище"
+      show:
+        title: "Медиахранилище: файлы папки %{name}, страница %{page}"
+    media_files:
+      nav_item:
+        text: "Загруженные файлы"
+        description: "Управление загруженными в хранилище файлами"
+      index:
+        title: "Файлы, страница %{page}"
+        heading: "Файлы в хранилище"
+      show:
+        title: "Файл «%{name}»"
+  media_folders:
+    new:
+      title: "Добавить папку в хранилище"
+      heading: "Добавление папки в хранилище"
+    show:
+      title: "Папка хранилища «%{name}»"
+    edit:
+      title: "Редактирование папки"
+      forbidden: "Редактирование этой папки запрещено"
+    update:
+      success: "Папка успешно изменена"
+    destroy:
+      success: "Папка успешно удалена"
+    form:
+      placeholders:
+        name: "Презентации"
+      guidelines:
+        snapshot: "Картинка в формате JPEG размером до 320×320 для вывода в списке"
+        name: "Название для списка. Максимум 100 символов"
+  media_files:
+    new:
+      title: "Добавить файл в хранилище"
+      heading: "Добавление файла в хранилище"
+    show:
+      title: "Файл «%{name}»"
+    edit:
+      title: "Редактирование файла"
+      forbidden: "Редактирование этого файла запрещено"
+    update:
+      success: "Файл успешно изменён"
+    destroy:
+      success: "Файл успешно удалён"
+    form:
+      placeholders:
+        name: "Общий план действий"
+        description: "Документ с описанием плана дальнейших действий"
+      guidelines:
+        snapshot: "Картинка в формате JPEG размером до 320×320 для вывода в списке"
+        name: "Название для списка. Максимум 250 символов"
+        description: "Описание для списка. Максимум 250 символов"

@@ -22,4 +22,20 @@ class MediaFile < ApplicationRecord
   validates_length_of :description, maximum: DESCRIPTION_LIMIT
   validates_uniqueness_of :name, scope: [:media_folder_id]
   validates_uniqueness_of :uuid
+
+  scope :ordered_by_name, -> { order('name asc') }
+  scope :visible, -> { where(deleted: false) }
+
+  # @param [Integer] page
+  def self.page_for_administration(page = 1)
+    ordered_by_name.page(page).per(PER_PAGE)
+  end
+
+  def self.entity_parameters
+    %i(file snapshot name description)
+  end
+
+  def self.creation_parameters
+    entity_parameters + %i(media_folder_id)
+  end
 end

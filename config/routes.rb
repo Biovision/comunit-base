@@ -27,6 +27,8 @@ Rails.application.routes.draw do
   resources :event_speakers, :event_sponsors, :event_materials, :event_programs, except: [:index, :new, :show]
   resources :event_participants, only: [:create, :destroy]
 
+  resources :media_folders, :media_files, except: [:index, :show]
+
   resources :appeals, except: [:index, :new, :show, :edit, :update]
   get 'feedback' => 'appeals#new'
   post 'feedback' => 'appeals#create'
@@ -144,6 +146,19 @@ Rails.application.routes.draw do
       end
     end
     resources :event_programs, only: [:show]
+
+    resources :media_folders, only: [:index, :show] do
+      member do
+        put 'lock', defaults: { format: :json }
+        delete 'lock', action: :unlock, defaults: { format: :json }
+      end
+    end
+    resources :media_files, only: [:index, :show] do
+      member do
+        put 'lock', defaults: { format: :json }
+        delete 'lock', action: :unlock, defaults: { format: :json }
+      end
+    end
   end
 
   namespace :editorial do
