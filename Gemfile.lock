@@ -24,14 +24,9 @@ PATH
   remote: .
   specs:
     comunit-base (0.2.170612)
-      bcrypt (~> 3.1.7)
-      carrierwave
-      carrierwave-bombshelter
+      biovision-base
       elasticsearch-model
       elasticsearch-persistence
-      mini_magick
-      rails (~> 5.1.1)
-      rails-i18n (~> 5.0.0)
       redis-namespace
       rest-client
       sidekiq
