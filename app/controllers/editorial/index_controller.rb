@@ -6,6 +6,6 @@ class Editorial::IndexController < AdminController
   private
 
   def restrict_access
-    require_user_group(:editors)
+    require_privilege_group(:editors)
   end
 end

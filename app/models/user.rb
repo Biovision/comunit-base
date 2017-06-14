@@ -6,8 +6,10 @@ class User < ApplicationRecord
   OLD_SLUG_PATTERN  = /\A[-a-z0-9_а-яё@&*. ]{3,30}\z/
   PER_PAGE          = 25
 
-  METRIC_REGISTRATION  = 'users.registration.hit'
-  METRIC_AUTHORIZATION = 'users.authorization.hit'
+  METRIC_REGISTRATION            = 'users.registration.hit'
+  METRIC_AUTHENTICATION_SUCCESS  = 'users.authentication.success.hit'
+  METRIC_AUTHENTICATION_FAILURE  = 'users.authentication.failure.hit'
+  METRIC_AUTHENTICATION_EXTERNAL = 'users.authentication.external.hit'
 
   toggleable %i(email_confirmed allow_mail allow_login verified)
 
@@ -55,6 +57,7 @@ class User < ApplicationRecord
   scope :with_email, -> (email) { where 'email ilike ?', email }
   scope :with_privilege, -> (privilege) { joins(:user_privileges).where(user_privileges: { privilege_id: privilege.ids} ) }
   scope :filtered, -> (f) { name_like(f[:name]).surname_like(f[:surname]).email_like(f[:email]).screen_name_like(f[:screen_name]) }
+  scope :search, ->(q) { where("lower(concat_ws(' ', slug, email, surname, name)) like ?", "%#{q.downcase}%") unless q.blank? }
 
   # @param [Integer] page
   # @param [Hash] filter
@@ -114,6 +117,12 @@ class User < ApplicationRecord
   # @param [String] long_slug
   def self.with_long_slug(long_slug)
     find_by slug: long_slug
+  end
+
+  def self.ids_range
+    min = User.minimum(:id).to_i
+    max = User.maximum(:id).to_i
+    (min..max)
   end
 
   def long_slug

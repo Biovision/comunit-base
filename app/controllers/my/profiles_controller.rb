@@ -12,7 +12,7 @@ class My::ProfilesController < ApplicationController
   # post /my/profile
   def create
     if params[:agree]
-      redirect_to root_path
+      redirect_to root_path, alert: t('my.profiles.create.are_you_bot')
     else
       create_user
     end
@@ -44,7 +44,8 @@ class My::ProfilesController < ApplicationController
   def create_user
     @user = User.new creation_parameters
     if @user.save
-      create_token_for_user @user, tracking_for_entity
+      Metric.register(User::METRIC_REGISTRATION)
+      create_token_for_user(@user)
       NetworkManager.new.relink_user(@user) if Rails.env.production?
       redirect_to my_profile_path, notice: t('my.profiles.create.success')
     else
