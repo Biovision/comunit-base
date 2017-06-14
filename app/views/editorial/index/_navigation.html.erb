@@ -13,5 +13,8 @@
     <% if UserPrivilege.user_in_group?(current_user, :reporters) %>
         <li><%= render 'admin/news/nav_item' %></li>
     <% end %>
+    <% if current_user_has_privilege?(:moderator) %>
+        <li><%= render 'admin/comments/nav_item' %></li>
+    <% end %>
   </ul>
 </nav>
