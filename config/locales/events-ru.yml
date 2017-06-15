@@ -92,6 +92,13 @@ ru:
           heading: "Материалы"
         programs:
           heading: "Дни программы"
+    event_participants:
+      index:
+        title: "Участники мероприятий, страница %{page}"
+        heading: "Участники мероприятий"
+      nav_item:
+        text: "Регистрации на мероприятия"
+        description: "Список заявок на участие в мероприятиях"
   events:
     new:
       title: "Добавить мероприятие"

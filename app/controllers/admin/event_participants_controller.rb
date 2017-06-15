@@ -1,6 +1,11 @@
 class Admin::EventParticipantsController < AdminController
   before_action :set_entity
 
+  # get /admin/event_participants
+  def index
+    @collection = EventParticipant.page_for_administration(current_page)
+  end
+
   # get /admin/event_participants/:id
   def show
   end

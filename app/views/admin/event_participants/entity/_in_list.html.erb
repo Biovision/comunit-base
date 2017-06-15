@@ -1,7 +1,7 @@
 <div class="data">
-  <div>
-    <%= entity.full_name %>
-    <%# admin_event_participant_link(entity) %>
+  <div><%= entity.full_name %></div>
+  <div class="secondary info">
+    <%= admin_event_link(entity.event) %>
   </div>
   <% unless entity.notice.blank? %>
       <div class="info">

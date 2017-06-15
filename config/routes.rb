@@ -129,7 +129,7 @@ Rails.application.routes.draw do
         get 'participants'
       end
     end
-    resources :event_participants, only: [:show] do
+    resources :event_participants, only: [:index, :show] do
       member do
         post 'toggle', defaults: { format: :json }
       end

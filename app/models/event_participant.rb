@@ -27,7 +27,7 @@ class EventParticipant < ApplicationRecord
   validates_length_of :notice, maximum: NOTICE_LIMIT
   validates_length_of :company, maximum: COMPANY_LIMIT
 
-  scope :recent, -> { order('id desc') }
+  scope :recent, -> { order('created_at desc') }
   scope :surname_like, ->(val) { where('surname ilike ?', "%#{val}%") unless val.blank? }
   scope :email_like, ->(val) { where('email ilike ?', "#{val}") unless val.blank? }
   scope :filtered, ->(f) { surname_like(f[:name]).email_like(f[:email]) }

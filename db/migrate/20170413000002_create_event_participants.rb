@@ -16,6 +16,8 @@ class CreateEventParticipants < ActiveRecord::Migration[5.0]
         t.string :phone
         t.text :comment
       end
+
+      add_index :event_participants, :created_at
     end
   end
 
