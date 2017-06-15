@@ -145,7 +145,7 @@ class User < ApplicationRecord
   end
 
   def name_for_letter
-    name || profile_name
+    name.blank? ? profile_name : name
   end
 
   def can_receive_letters?

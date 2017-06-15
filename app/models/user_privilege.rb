@@ -1,11 +1,17 @@
 class UserPrivilege < ApplicationRecord
-  include Biovision::UserPrivilegeBase
-
   belongs_to :user
   belongs_to :privilege, counter_cache: :users_count
   belongs_to :region, optional: true
 
   validates_uniqueness_of :privilege_id, scope: [:user_id, :region_id]
+
+  # @param [User] user
+  # @return [Array<Integer>]
+  def self.ids(user)
+    privileges = user&.privileges
+    return [] if privileges.blank?
+    privileges.map(&:ids).flatten.uniq
+  end
 
   # @param [User] user
   # @param [String|Symbol] privilege_name

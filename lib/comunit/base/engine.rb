@@ -5,6 +5,8 @@ module Comunit
         ActiveSupport.on_load(:action_controller) do
           include Comunit::Base::BaseMethods
         end
+
+        require_dependency 'comunit/base/decorators/models/privilege_decorator'
       end
 
       config.assets.precompile << %w(admin.scss)
