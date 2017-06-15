@@ -1,5 +1,7 @@
 class Admin::EventParticipantsController < AdminController
-  before_action :set_entity
+  include ToggleableEntity
+
+  before_action :set_entity, except: [:index]
 
   # get /admin/event_participants
   def index
@@ -8,11 +10,6 @@ class Admin::EventParticipantsController < AdminController
 
   # get /admin/event_participants/:id
   def show
-  end
-
-  # post /api/event_participants/:id/toggle
-  def toggle
-    render json: { data: @entity.toggle_parameter(params[:parameter].to_s) }
   end
 
   protected
