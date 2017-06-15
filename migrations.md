@@ -7,6 +7,10 @@
 Добавление типа кодов
 ---------------------
 
+```bash
+rails g migration update_codes
+```
+
 ```ruby
 class UpdateCodes < ActiveRecord::Migration[5.1]
   def change
