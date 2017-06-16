@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/Biovision/biovision-base
-  revision: d62c6c824386a56b8cc288bfcba82b7d7263536f
+  revision: e4f63ab5ec0341c08a76fe030c3731a3f04224fa
   specs:
-    biovision-base (0.4.170607)
+    biovision-base (0.5.170615)
       bcrypt (~> 3.1.7)
       carrierwave
       carrierwave-bombshelter
@@ -23,7 +23,7 @@ GIT
 PATH
   remote: .
   specs:
-    comunit-base (0.2.170615)
+    comunit-base (0.2.170616)
       biovision-base
       elasticsearch-model
       elasticsearch-persistence
@@ -146,13 +146,13 @@ GEM
     kaminari-core (1.0.1)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
-    mail (2.6.5)
+    mail (2.6.6)
       mime-types (>= 1.16, < 4)
     method_source (0.8.2)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
-    mini_magick (4.7.0)
+    mini_magick (4.7.1)
     mini_portile2 (2.2.0)
     minitest (5.10.2)
     multi_json (1.12.1)
@@ -161,7 +161,7 @@ GEM
     nio4r (2.1.0)
     nokogiri (1.8.0)
       mini_portile2 (~> 2.2.0)
-    pg (0.20.0)
+    pg (0.21.0)
     rack (2.0.3)
     rack-protection (2.0.0)
       rack
