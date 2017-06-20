@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
   category_pattern = /(?!new$|^\d+$)[-_a-z0-9]+[a-z_]/
 
+  scope 'r/:region_slug' do
+    get '/' => 'index#regional', as: :regional_index
+    get 'news' => 'news#regional_index', as: :news_in_region
+    get 'news/:category_slug' => 'news#regional_category', as: :regional_news_category
+    get 'news/:category_slug/:slug' => 'news#regional_news', as: :regional_news_item
+  end
+
   get 'search' => 'search#index'
 
   get 'donate' => 'about#donate'

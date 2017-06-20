@@ -3,9 +3,10 @@
 <% else %>
     <% style = "background: url('#{current_region.header_image.url}') no-repeat center / cover " %>
 <% end %>
+<% home_link = current_region.nil? ? root_path : regional_index_path(region_slug: current_region.long_slug) %>
 <div style="<%= style %>">
   <div class="logo">
-    <%= link_to(image_tag('logo.png', alt: '', srcset: "#{asset_path('logo_2x.png')} 2x"), root_path) %>
+    <%= link_to(image_tag('logo.png', alt: '', srcset: "#{asset_path('logo_2x.png')} 2x"), home_link) %>
   </div>
   <div class="partials">
     <div class="authentication">

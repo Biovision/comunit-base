@@ -40,8 +40,11 @@ module Comunit
       end
 
       def set_current_region
-        region_slug     = request.subdomains.first
-        @current_region = Region.find_by(slug: region_slug)
+        region_slug = param_from_request(:region_slug)
+        if region_slug.blank?
+          region_slug = request.subdomains.first
+        end
+        @current_region = Region.find_by(long_slug: region_slug)
       end
     end
   end

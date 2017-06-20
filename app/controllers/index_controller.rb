@@ -5,6 +5,14 @@ class IndexController < ApplicationController
     collect_regional_news
   end
 
+  # get /r/:region_slug
+  def regional
+    collect_main_news
+    collect_regional_news
+
+    render :index
+  end
+
   # get /main_news
   def main_news
     collect_main_news(current_page)
