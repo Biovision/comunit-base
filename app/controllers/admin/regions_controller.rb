@@ -1,19 +1,18 @@
 class Admin::RegionsController < AdminController
+  include ToggleableEntity
+  include LockableEntity
+
   before_action :restrict_access
   before_action :set_entity, except: [:index]
+  before_action :check_entity_lock, only: [:toggle]
 
   # get /admin/regions
   def index
-    @collection = Region.page_for_administration(current_page)
+    @collection = Region.for_tree
   end
 
   # get /admin/regions/:id
   def show
-  end
-
-  # get /admin/regions/:id/cities
-  def cities
-    @collection = @entity.cities.page_for_administration
   end
 
   private
@@ -25,7 +24,7 @@ class Admin::RegionsController < AdminController
   def set_entity
     @entity = Region.find_by(id: params[:id])
     if @entity.nil?
-      handle_http_404("Cannot find non-deleted region #{params[:id]}")
+      handle_http_404("Cannot find region #{params[:id]}")
     end
   end
 end

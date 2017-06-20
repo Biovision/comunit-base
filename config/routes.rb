@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   end
 
   resources :users, except: [:show]
-  resources :regions, except: [:index, :new, :create, :show, :destroy]
+  resources :regions, except: [:index, :show]
 
   resources :news_categories, :post_categories, except: [:index, :show]
 
@@ -54,7 +54,6 @@ Rails.application.routes.draw do
 
   resources :comments, except: [:index, :new]
 
-  resources :cities, except: [:index, :new, :show]
   resources :themes, except: [:index, :show]
 
   resources :entries do
@@ -70,9 +69,6 @@ Rails.application.routes.draw do
   resources :teams, except: [:index, :show]
 
   namespace :admin do
-    resources :regions, only: [:index, :show] do
-      get 'cities', on: :member
-    end
     resources :news_categories, :post_categories, only: [:index, :show] do
       get 'items', on: :member
     end
@@ -80,7 +76,11 @@ Rails.application.routes.draw do
     resources :posts, :tags, only: [:index, :show]
     resources :comments, only: [:index]
     resources :regions, only: [:index, :show] do
-      get 'cities', on: :member
+      member do
+        post 'toggle', defaults: { format: :json }
+        put 'lock', defaults: { format: :json }
+        delete 'lock', action: :unlock, defaults: { format: :json }
+      end
     end
     resources :themes, only: [:index, :show]
     resources :entries, only: [:index, :show] do
@@ -210,12 +210,6 @@ Rails.application.routes.draw do
     resources :comments, except: [:new, :edit] do
       member do
         post 'toggle'
-        put 'lock'
-        delete 'lock', action: :unlock
-      end
-    end
-    resources :cities, except: [:new, :edit] do
-      member do
         put 'lock'
         delete 'lock', action: :unlock
       end

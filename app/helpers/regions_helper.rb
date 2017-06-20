@@ -9,12 +9,12 @@ module RegionsHelper
     if user.is_a?(User)
       allowed_ids = UserPrivilege.where(user: user).pluck(:region_id).uniq
       if allowed_ids.any?
-        selection = Region.where(id: allowed_ids).ordered_by_name
+        selection = Region.where(id: allowed_ids).for_tree
       else
-        selection = Region.ordered_by_name
+        selection = Region.for_tree
       end
     else
-      selection = Region.ordered_by_name
+      selection = Region.for_tree
     end
     selection.each { |r| options << [r.name, r.id] }
     options

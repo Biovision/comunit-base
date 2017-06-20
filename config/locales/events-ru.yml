@@ -99,6 +99,9 @@ ru:
       nav_item:
         text: "Регистрации на мероприятия"
         description: "Список заявок на участие в мероприятиях"
+    regions:
+      show:
+        children: "Дочерние регионы"
   events:
     new:
       title: "Добавить мероприятие"

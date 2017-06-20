@@ -1,7 +1,7 @@
 <% if collection.any? %>
     <ul class="list-of-entities">
       <% collection.each do |entity| %>
-          <li>
+          <li data-id="<%= entity.id %>">
             <%= render partial: 'admin/regions/entity/in_list', locals: { entity: entity } %>
           </li>
       <% end %>

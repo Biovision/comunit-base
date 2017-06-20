@@ -9,7 +9,7 @@ class Region < ApplicationRecord
   toggleable :visible
 
   belongs_to :parent, class_name: Region.to_s, optional: true, touch: true
-  has_many :children, class_name: Region.to_s, foreign_key: :parent_id
+  has_many :child_regions, class_name: Region.to_s, foreign_key: :parent_id
   has_many :news, dependent: :nullify
   has_many :users, dependent: :nullify
   has_many :albums, dependent: :nullify
@@ -38,7 +38,7 @@ class Region < ApplicationRecord
   end
 
   def self.entity_parameters
-    %i(name slug visible header_image)
+    %i(name slug visible image header_image)
   end
 
   def self.creation_parameters
@@ -70,7 +70,7 @@ class Region < ApplicationRecord
   end
 
   def cache_children!
-    children.order('id asc').each do |child|
+    child_regions.order('id asc').each do |child|
       self.children_cache += [child.id] + child.children_cache
     end
     save!
@@ -83,7 +83,7 @@ class Region < ApplicationRecord
     if parents_cache.blank?
       self.long_slug = slug
     else
-      slugs = Region.where(id: parent_ids).order('id asc').pluck(:slug) + slug
+      slugs = Region.where(id: parent_ids).order('id asc').pluck(:slug) + [slug]
       self.long_slug = slugs.join('-')
     end
   end
