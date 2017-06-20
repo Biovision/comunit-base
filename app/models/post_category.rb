@@ -19,7 +19,8 @@ class PostCategory < ApplicationRecord
   scope :ordered_by_priority, -> { order 'priority asc, name asc' }
   scope :visible, -> { where visible: true, deleted: false }
   scope :for_editor, -> (user) { where(deleted: false, visible: true) }
-  scope :for_tree, -> (parent_id = nil) { where(parent_id: parent_id).ordered_by_priority }
+  scope :for_tree, ->(parent_id = nil) { siblings(parent_id).ordered_by_priority }
+  scope :siblings, ->(parent_id) { where(parent_id: parent_id) }
 
   def self.page_for_administration
     for_tree
@@ -76,20 +77,20 @@ class PostCategory < ApplicationRecord
   # @param [Integer] delta
   def change_priority(delta)
     new_priority = priority + delta
-    adjacent     = PostCategory.find_by(parent_id: parent_id, priority: new_priority)
-    if adjacent.is_a?(PostCategory) && (adjacent.id != id)
+    adjacent     = self.class.find_by(parent_id: parent_id, priority: new_priority)
+    if adjacent.is_a?(self.class) && (adjacent.id != id)
       adjacent.update!(priority: priority)
     end
     self.update(priority: new_priority)
 
-    PostCategory.where(parent_id: parent_id).ordered_by_priority.map { |e| [e.id, e.priority] }.to_h
+    self.class.for_tree(parent_id).map { |e| [e.id, e.priority] }.to_h
   end
 
   private
 
   def set_next_priority
     if id.nil? && priority == 1
-      self.priority = PostCategory.where(parent_id: parent_id).maximum(:priority).to_i + 1
+      self.priority = self.class.siblings(parent_id).maximum(:priority).to_i + 1
     end
   end
 end

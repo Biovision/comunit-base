@@ -11,11 +11,15 @@ ru:
               required: "должен быть указан"
     attributes:
       region:
+        parent_id: "Родительский регион"
         visible: "Показывать"
         name: "Название"
         slug: "Код"
+        long_slug: "Код для пути в URL"
         image: "Герб"
         header_image: "Картинка для шапки"
+        parents_cache: "Кеш родителей"
+        children_cache: "Кеш дочек"
       city:
         region: "Регион"
         region_id: "Регион"
@@ -40,7 +44,7 @@ ru:
     form:
       guidelines:
         header_image: "Картинка в формате JPG или PNG размером 1000×220 (лишнее будет обрезано автоматически)"
-        slug: "Используется в доменном имени."
+        slug: "Используется адресной строке."
   cities:
     update:
       success: "Город успешно изменён"
