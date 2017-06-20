@@ -4,7 +4,7 @@
 <div class="data">
   <div><%= admin_region_link(entity) %></div>
   <div class="info">
-    <div><%= entity.slug %></div>
+    <div><%= entity.long_slug %></div>
     <% unless entity.parents_cache.blank? %>
         <div>
           <%= t('activerecord.attributes.region.parents_cache') %>:

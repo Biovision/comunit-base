@@ -23,7 +23,7 @@ GIT
 PATH
   remote: .
   specs:
-    comunit-base (0.2.170616)
+    comunit-base (0.3.170621)
       biovision-base
       elasticsearch-model
       elasticsearch-persistence
@@ -218,7 +218,7 @@ GEM
       rspec-mocks (~> 3.6.0)
       rspec-support (~> 3.6.0)
     rspec-support (3.6.0)
-    sidekiq (5.0.2)
+    sidekiq (5.0.3)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)

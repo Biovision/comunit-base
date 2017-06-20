@@ -22,6 +22,8 @@ class AddTreeToRegions < ActiveRecord::Migration[5.1]
     add_column :regions, :children_cache, :integer, array: true, default: [], null: false
 
     add_foreign_key :regions, :regions, column: :parent_id, on_update: :cascade, on_delete: :cascade
+
+    Region.order('id asc').each { |r| r.update! long_slug: r.slug }
   end
 end
 ```
