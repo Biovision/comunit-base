@@ -48,7 +48,7 @@ end
 -------------------------------
 
 ```bash
-tails g migration add_votable_to_models
+rails g migration add_votable_to_models
 ```
 
 ```ruby
