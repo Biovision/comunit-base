@@ -1,6 +1,6 @@
 <% content_for :meta_title, t('.title') %>
 
-<%= render partial: 'index/main_post', locals: { post: Post.where(main_post: true).visible.recent.first } %>
+<%= render partial: 'index/main_slider', locals: { collection: Post.where(main_post: true).visible.recent.first(10) } %>
 
 <div id="frontpage-posts">
   <div class="posts">
