@@ -1,0 +1,43 @@
+<% if collection.any? %>
+    <% item_count = collection.count %>
+    <section id="main-slider">
+      <h2>Тема дня</h2>
+
+      <div class="slider">
+        <% collection.each_with_index do |entity, index| %>
+            <%
+              element_id = "main-slider-#{index}"
+              next_id = "main-slider-#{index + 1 == item_count ? 0 : index + 1}"
+              prev_id = "main-slider-#{index == 0 ? item_count - 1 : index - 1}"
+            %>
+            <%= radio_button_tag('main_slider', index, index == 0, id: element_id) %>
+            <div class="container">
+              <label for="<%= prev_id %>" class="prev">&larr;</label>
+              <div class="slide">
+                <div class="heading">
+                  <%= post_link(entity) %>
+                  <%= time_tag(entity.created_at) %>
+                </div>
+                <div class="body">
+                  <% unless entity.image.blank? %>
+                      <figure>
+                        <%= post_link(entity, image_tag(entity.image.small.url, alt: entity.title)) %>
+                      </figure>
+                  <% end %>
+                  <p><%= entity.lead %></p>
+                </div>
+                <div class="footer">
+                  <div><%= post_link entity, 'Читать дальше' %></div>
+                  <div class="post-counters">
+                    <span class="comments"><%= entity.comments_count %></span>
+                    <span class="views"><%= entity.view_count %></span>
+                  </div>
+
+                </div>
+              </div>
+              <label for="<%= next_id %>" class="next">&rarr;</label>
+            </div>
+        <% end %>
+      </div>
+    </section>
+<% end %>
