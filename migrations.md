@@ -43,3 +43,34 @@ class UpdateCodes < ActiveRecord::Migration[5.1]
   end
 end
 ```
+
+Добавление голосования в модели
+-------------------------------
+
+```bash
+tails g migration add_votable_to_models
+```
+
+```ruby
+class AddVotableToModels < ActiveRecord::Migration[5.1]
+  def change
+    add_column :posts, :upvote_count, :integer, default: 0, null: false
+    add_column :posts, :downvote_count, :integer, default: 0, null: false
+    add_column :posts, :vote_result, :integer, default: 0, null: false
+
+    add_column :news, :upvote_count, :integer, default: 0, null: false
+    add_column :news, :downvote_count, :integer, default: 0, null: false
+    add_column :news, :vote_result, :integer, default: 0, null: false
+
+    add_column :entries, :vote_result, :integer, default: 0, null: false
+
+    add_column :users, :upvote_count, :integer, default: 0, null: false
+    add_column :users, :downvote_count, :integer, default: 0, null: false
+    add_column :users, :vote_result, :integer, default: 0, null: false
+
+    add_column :comments, :upvote_count, :integer, default: 0, null: false
+    add_column :comments, :downvote_count, :integer, default: 0, null: false
+    add_column :comments, :vote_result, :integer, default: 0, null: false
+  end
+end
+```
