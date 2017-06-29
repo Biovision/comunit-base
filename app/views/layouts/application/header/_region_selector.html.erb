@@ -1,9 +1,22 @@
 <div id="current-region-selector">
-  <%# label_tag 'current_region', 'Регион' %>
-  <%= select_tag 'current_region', current_region_for_select(current_region&.id) %>
+  <% if current_region.nil? %>
+      <%= select_tag 'current_region', current_region_for_select(nil) %>
+  <% else %>
+      <% parents = current_region.parents %>
+      <% if parents.any? %>
+          <% parents.each do |parent| %>
+             <%= select_tag("current_region_#{parent.parent_id.to_i}", child_regions_for_select(parent.parent_id, parent.id, parent.parent&.long_slug)) %>
+          <% end %>
+      <% end %>
+      <%= select_tag "current_region_#{current_region.parent_id.to_i}", child_regions_for_select(current_region.parent_id, current_region.id, current_region.parent&.long_slug) %>
+      <% if current_region.child_regions.any? %>
+         <%= select_tag "current_region_#{current_region.id}", child_regions_for_select(current_region.id, '', current_region.slug) %>
+      <% end %>
+  <% end %>
   <script>
-      $(function() {
-          $('#current_region').on('change', function() {
+      'use strict';
+      $(function () {
+          $('#current-region-selector').find('select').on('change', function () {
               window.location = $(this).find(':selected').data('url');
           });
       });
