@@ -129,4 +129,23 @@
         </tfoot>
     <% end %>
   </table>
+
+  <% if @entity.user_privileges.any? %>
+      <dl>
+        <dt><%= t('.privileges') %></dt>
+        <dd>
+          <ol>
+            <% @entity.user_privileges.order('privilege_id, region_id asc nulls first').each do |link| %>
+                <li>
+                  <%= link.privilege.name %>
+                  <% unless link.region.nil? %>
+                      (<%= link.region.long_name %>)
+                  <% end %>
+                </li>
+            <% end %>
+          </ol>
+        </dd>
+      </dl>
+  <% end %>
+
 </article>
