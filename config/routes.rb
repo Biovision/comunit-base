@@ -21,7 +21,6 @@ Rails.application.routes.draw do
   end
 
   resources :users, except: [:show]
-  resources :regions, except: [:index, :show]
 
   resources :news_categories, :post_categories, except: [:index, :show]
 
@@ -82,13 +81,6 @@ Rails.application.routes.draw do
     resources :news, only: [:index, :show]
     resources :posts, :tags, only: [:index, :show]
     resources :comments, only: [:index]
-    resources :regions, only: [:index, :show] do
-      member do
-        post 'toggle', defaults: { format: :json }
-        put 'lock', defaults: { format: :json }
-        delete 'lock', action: :unlock, defaults: { format: :json }
-      end
-    end
     resources :themes, only: [:index, :show]
     resources :entries, only: [:index, :show] do
       get 'comments', on: :member

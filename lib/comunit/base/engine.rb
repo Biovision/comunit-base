@@ -3,10 +3,8 @@ module Comunit
     class Engine < ::Rails::Engine
       initializer  "comunit_base.load_base_methods" do
         ActiveSupport.on_load(:action_controller) do
-          include Comunit::Base::BaseMethods
+          include Biovision::Base::PrivilegeMethods
         end
-
-        require_dependency 'comunit/base/decorators/models/privilege_decorator'
       end
 
       config.assets.precompile << %w(admin.scss)

@@ -3,7 +3,6 @@ class AddComunitToPrivileges < ActiveRecord::Migration[5.0]
     unless column_exists?(:privileges, :regional)
       change_table :privileges do |t|
         t.integer :external_id
-        t.boolean :regional, default: false, null: false
       end
 
       insert_records
@@ -15,7 +14,6 @@ class AddComunitToPrivileges < ActiveRecord::Migration[5.0]
 
   def down
     if column_exists?(:privileges, :regional)
-      remove_column :privileges, :regional
       remove_column :privileges, :external_id
     end
   end

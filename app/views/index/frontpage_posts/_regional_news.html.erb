@@ -9,7 +9,7 @@
             <%= render partial: 'index/frontpage_posts/preview', locals: { post: post } %>
         <% end %>
     <% end %>
-    <div class="load-more" data-url="<%= index_regional_news_path(page: 2, region_slug: current_region&.long_slug, region_id: param_from_request(:redion_id)) %>">
+    <div class="load-more" data-url="<%= index_regional_news_path(page: 2, region_slug: current_region.long_slug, region_id: param_from_request(:redion_id)) %>">
       <%= button_tag 'Загрузить ещё', type: :button %>
     </div>
   </div>

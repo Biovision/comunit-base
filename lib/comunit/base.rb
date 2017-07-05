@@ -1,5 +1,4 @@
 require "comunit/base/engine"
-require "comunit/base/base_methods"
 
 module Comunit
   module Base

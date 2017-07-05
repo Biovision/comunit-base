@@ -1,5 +1,5 @@
 <div id="current-region-selector">
-  <% if current_region.nil? %>
+  <% if current_region.id.nil? %>
       <%= select_tag 'current_region', current_region_for_select(nil) %>
   <% else %>
       <% parents = current_region.parents %>

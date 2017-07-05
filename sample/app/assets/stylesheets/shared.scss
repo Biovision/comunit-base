@@ -2,6 +2,8 @@ $main-font-family: "PT Sans", Arial, Verdana, sans-serif;
 
 $content-width: 98rem;
 
+$font-size-normal: 1.4rem;
+
 @mixin heading {
   line-height: 29px;
   font-size: $decreased_font_size;
