@@ -247,6 +247,9 @@ Rails.application.routes.draw do
     scope 'users', controller: :users do
       put ':id' => :synchronize, as: :synchronize_user
     end
+    scope 'regions', controller: :regions do
+      put ':id' => :synchronize, as: :synchronize_region
+    end
   end
 
   namespace :my do

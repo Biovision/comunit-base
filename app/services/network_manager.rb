@@ -9,15 +9,29 @@ class NetworkManager
     site.save!
   end
 
-  # @param [User] user
+  # @param [User] entity
   # @param [Hash] attributes
   # @param [Hash] data
-  def update_user(user, attributes, data = {})
-    user.assign_attributes(attributes)
+  def update_user(entity, attributes, data = {})
+    entity.assign_attributes(attributes)
     unless data[:image_path].blank?
-      user.remote_image_url = "#{MAIN_HOST}#{data[:image_path]}"
+      entity.remote_image_url = "#{MAIN_HOST}#{data[:image_path]}"
     end
-    user.save!
+    entity.save!
+  end
+
+  # @param [Region] entity
+  # @param [Hash] attributes
+  # @param [Hash] data
+  def update_region(entity, attributes, data = {})
+    entity.assign_attributes(attributes)
+    unless data[:image_path].blank?
+      entity.remote_image_url = "#{MAIN_HOST}#{data[:image_path]}"
+    end
+    unless data[:header_image_path].blank?
+      entity.remote_header_image_url = "#{MAIN_HOST}#{data[:header_image_path]}"
+    end
+    entity.save!
   end
 
   # @param [User] user

@@ -5,6 +5,8 @@ module Comunit
         ActiveSupport.on_load(:action_controller) do
           include Biovision::Base::PrivilegeMethods
         end
+
+        require_dependency 'comunit/base/decorators/models/region_decorator'
       end
 
       config.assets.precompile << %w(admin.scss)
