@@ -39,7 +39,7 @@ article.user-profile {
 
       td[colspan] {
         text-align: center;
-        font-size: $large_font_size;
+        font-size: $font-size-large;
         font-weight: bold;
         border-top: solid $secondary_text_color 0.1rem;
       }
@@ -81,7 +81,7 @@ article.new-profile {
       }
 
       .constrain {
-        font-size: $small_font_size;
+        font-size: $font-size-small;
         color: $secondary_text_color;
         font-style: italic;
       }
@@ -111,7 +111,7 @@ article.user {
     flex: 1;
     margin: 0 .4rem 0 0;
     padding: 0;
-    font-size: $decreased_font_size;
+    font-size: $font-size-decreased;
 
     > div {
       margin: 0 0 .8rem 0;
@@ -153,7 +153,7 @@ article.user {
       .header {
 
         .title {
-          font-size: $decreased_font_size;
+          font-size: $font-size-decreased;
           background: #dcebf0 linear-gradient(to top, #dcebf0, #fff);
           text-transform: uppercase;
           padding: .4rem;
@@ -171,11 +171,11 @@ article.user {
 
       .body {
         padding: 0.4rem;
-        font-size: $decreased_font_size;
+        font-size: $font-size-decreased;
       }
 
       .footer {
-        font-size: $small_font_size;
+        font-size: $font-size-small;
         display: flex;
         justify-content: space-between;
         background: #fafafa;
@@ -191,7 +191,7 @@ article.user {
 
   li {
     list-style: none;
-    font-size: $decreased-font-size;
+    font-size: $font-size-decreased;
     margin: 0;
     padding: 0 0 0 .4rem;
   }
@@ -216,7 +216,7 @@ article.user {
     flex: 1;
 
     .name {
-      font-size: $large-font-size;
+      font-size: $font-size-large;
       border-bottom: .1rem solid #f0f0f0;
     }
 

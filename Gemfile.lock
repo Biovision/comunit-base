@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/Biovision/biovision-base
-  revision: 63984f0402c55f316e5b30e4b42afbdff4244ad9
+  revision: dcd18f2a7ad6efbeb2e0477dd46f08eeafe2381a
   specs:
-    biovision-base (0.5.170701)
+    biovision-base (0.7.170709)
       bcrypt (~> 3.1.7)
       carrierwave
       carrierwave-bombshelter
@@ -23,7 +23,7 @@ GIT
 PATH
   remote: .
   specs:
-    comunit-base (0.4.170705)
+    comunit-base (0.4.170709)
       biovision-base
       elasticsearch-model
       elasticsearch-persistence
@@ -130,7 +130,7 @@ GEM
     hashie (3.5.5)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
-    i18n (0.8.4)
+    i18n (0.8.5)
     ice_nine (0.11.2)
     kaminari (1.0.1)
       activesupport (>= 4.1.0)
@@ -152,7 +152,7 @@ GEM
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
-    mini_magick (4.7.2)
+    mini_magick (4.8.0)
     mini_portile2 (2.2.0)
     minitest (5.10.2)
     multi_json (1.12.1)

@@ -1,24 +1,22 @@
 class Admin::NewsController < AdminController
-  before_action :restrict_access
-  before_action :set_entity, except: [:index]
+  include ToggleableEntity
+  include LockableEntity
+
+  before_action :set_entity, except: [:index, :regions]
+  before_action :restrict_locking, only: [:lock, :unlock]
 
   # get /admin/news
   def index
-    @collection = News.page_for_administration current_page
+    @collection = News.page_for_administration(current_page)
   end
 
   # get /admin/news/:id
   def show
   end
 
-  # get /admin/news/:id/news_categories
-  def news_categories
-    @collection = @entity.news_categories.page_for_administration
-  end
-
-  # get /admin/news/:id/post_categories
-  def post_categories
-    @collection = @entity.post_categories.page_for_administration
+  # get /admin/news/regions
+  def regions
+    @collection = Region.visible.for_tree(params[:parent_id])
   end
 
   protected
@@ -27,7 +25,14 @@ class Admin::NewsController < AdminController
     require_privilege_group :reporters
   end
 
+  def restrict_locking
+    require_privilege :chief_editor
+  end
+
   def set_entity
-    @entity = News.find params[:id]
+    @entity = News.find_by(id: params[:id], deleted: false)
+    if @entity.nil?
+      handle_http_404('Cannot find news')
+    end
   end
 end

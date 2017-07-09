@@ -24,7 +24,7 @@
 
         > div {
           display: flex;
-          font-size: $small_font_size;
+          font-size: $font-size-small;
           margin: 1.6rem 0;
 
           label {
@@ -75,7 +75,7 @@
       counter-reset: top-news-counter;
 
       li {
-        font-size: $decreased_font_size;
+        font-size: $font-size-decreased;
 
         a {
           flex: 1;
@@ -109,7 +109,7 @@
 
         .post {
           flex: 1;
-          font-size: $small-font-size;
+          font-size: $font-size-small;
 
           .header {
             align-items: center;

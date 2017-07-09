@@ -2,7 +2,7 @@
 
 html {
   background: #fff; //image_url('bg-main.jpg') no-repeat fixed center / cover;
-  font: 10px $main-font-family;
+  font: 10px $font-family-main;
   margin: 0;
   padding: 0;
   -webkit-text-size-adjust: none;
@@ -25,7 +25,7 @@ body {
   box-shadow: $block-shadow;
   box-sizing: border-box;
   color: $primary_text_color;
-  font-size: $normal_font_size;
+  font-size: $font-size-normal;
   margin: 1.6rem auto;
   padding: .1rem;
   position: relative;
@@ -84,7 +84,7 @@ body {
     .bottom {
       display: flex;
       justify-content: space-between;
-      font-size: $small_font_size;
+      font-size: $font-size-small;
       padding: 0.4rem 0.8rem;
     }
   }

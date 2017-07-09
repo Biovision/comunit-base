@@ -6,7 +6,7 @@
 <div class="data">
   <div>
     <% unless news.region.nil? %>
-        <span class="news-region"><%= news.region.name %>:</span>
+        <span class="news-region"><%= news.region.long_name %>:</span>
     <% end %>
     <cite><%= link_to news.title, admin_news_path(news) %></cite>
     <% unless news.entry.nil? %>
@@ -21,9 +21,9 @@
     <%= time_tag news.created_at %>
   </div>
 
-  <%= render partial: 'admin/news/toggleable', locals: { news: news } %>
+  <%= render partial: 'admin/news/toggleable', locals: { entity: news } %>
   <ul class="actions">
-    <%= render partial: 'shared/actions/locks', locals: { entity: news, path: (current_user_has_privilege?(:chief_editor, current_region) ? lock_api_news_path(news) : '') } %>
+    <%= render partial: 'shared/actions/locks', locals: { entity: news, path: (current_user_has_privilege?(:chief_editor, current_region) ? lock_admin_news_path(news) : '') } %>
     <li class="lockable <%= news.editable_by?(current_user) ? '' : 'hidden' %>">
       <%= edit_icon edit_news_path(news) %>
     </li>

@@ -57,12 +57,12 @@ div.list-of-posts {
       }
 
       .title {
-        font-size: $increased_font_size;
+        font-size: $font-size-increased;
         font-weight: normal;
       }
 
       .time {
-        font-size: $decreased_font_size;
+        font-size: $font-size-decreased;
       }
     }
   }
@@ -100,7 +100,7 @@ div.list-of-posts {
     border-top: solid $secondary_text_color 0.1rem;
     text-align: right;
     padding: 0.8rem 0.8rem 0;
-    font-size: $decreased_font_size;
+    font-size: $font-size-decreased;
   }
 }
 

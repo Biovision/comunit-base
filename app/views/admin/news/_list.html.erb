@@ -7,7 +7,7 @@
                 (<%= entity.title %>)
               </li>
           <% else %>
-              <li>
+              <li data-id="<%= entity.id %>">
                 <%= render partial: 'admin/news/news/in_list', locals: { news: entity } %>
               </li>
           <% end %>

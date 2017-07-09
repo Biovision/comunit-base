@@ -11,6 +11,11 @@ module EntriesHelper
     strip_tags(text).gsub(/(\S{20})/, '\1 ').strip[0..letters] + '…'
   end
 
+  # @param [News] entity
+  def admin_news_link(entity)
+    link_to(entity.title, admin_news_path(entity.id))
+  end
+
   # @param [News] news
   # @param [String] text
   # @param [Hash] options

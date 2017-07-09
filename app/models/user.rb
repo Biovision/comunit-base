@@ -6,6 +6,12 @@ class User < ApplicationRecord
   OLD_SLUG_PATTERN  = /\A[-a-z0-9_а-яё@&*. ]{3,30}\z/
   PER_PAGE          = 25
 
+  SLUG_LIMIT   = 250
+  EMAIL_LIMIT  = 250
+  NAME_LIMIT   = 100
+  NOTICE_LIMIT = 255
+  PHONE_LIMIT  = 50
+
   METRIC_REGISTRATION            = 'users.registration.hit'
   METRIC_AUTHENTICATION_SUCCESS  = 'users.authentication.success.hit'
   METRIC_AUTHENTICATION_FAILURE  = 'users.authentication.failure.hit'
@@ -45,6 +51,14 @@ class User < ApplicationRecord
   validates_uniqueness_of :slug
   validate :slug_should_be_valid
   validate :email_should_be_reasonable
+  validates_length_of :slug, maximum: SLUG_LIMIT
+  validates_length_of :screen_name, maximum: SLUG_LIMIT
+  validates_length_of :name, maximum: NAME_LIMIT
+  validates_length_of :patronymic, maximum: NAME_LIMIT
+  validates_length_of :surname, maximum: NAME_LIMIT
+  validates_length_of :email, maximum: EMAIL_LIMIT
+  validates_length_of :phone, maximum: PHONE_LIMIT
+  validates_length_of :notice, maximum: NOTICE_LIMIT
 
   mount_uploader :image, AvatarUploader
 

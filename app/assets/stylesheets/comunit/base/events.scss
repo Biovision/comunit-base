@@ -10,7 +10,7 @@ article.event {
   .place-and-time {
     background: rgba(288, 143, 22, .25);
     border-radius: .4rem;
-    font-size: $large_font_size;
+    font-size: $font-size-large;
     margin: 1rem 5rem;
     padding: 1rem;
     text-align: center;
@@ -30,7 +30,7 @@ article.event {
     }
 
     em {
-      font-size: $larger_font_size;
+      font-size: $font-size-larger;
       text-transform: uppercase;
     }
 
@@ -75,7 +75,7 @@ article.event {
 
         .position {
           color: $secondary_text_color;
-          font-size: $decreased_font_size;
+          font-size: $font-size-decreased;
           text-align: center;
         }
 
@@ -104,7 +104,7 @@ article.event {
         padding: .8rem;
 
         time {
-          font-size: $large_font_size;
+          font-size: $font-size-large;
           text-align: center;
         }
 

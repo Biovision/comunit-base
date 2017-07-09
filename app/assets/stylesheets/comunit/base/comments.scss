@@ -21,7 +21,7 @@ div.comment {
   position: relative;
 
   .deleted {
-    font-size: $decreased-font-size;
+    font-size: $font-size-decreased;
     font-style: italic;
     padding: 0 .8rem;
 
@@ -64,7 +64,7 @@ div.comment {
     padding: 0 0.8rem;
 
     time {
-      font-size: $decreased_font_size;
+      font-size: $font-size-decreased;
       font-style: italic;
     }
   }
@@ -82,7 +82,7 @@ div.comment {
         list-style: none;
         margin: 0 0.4rem;
         padding: 0;
-        font-size: $small_font_size;
+        font-size: $font-size-small;
         text-align: right;
 
         &:before {

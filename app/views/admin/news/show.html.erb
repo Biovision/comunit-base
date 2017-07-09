@@ -1,12 +1,15 @@
 <% content_for :meta_title, t('.title', title: @entity.title) %>
-<% content_for :hide_sidebar, '1' %>
+<% content_for :breadcrumbs do %>
+    <%= link_to(t('admin.news.nav_item.text'), admin_news_path) %>
+    <span><%= @entity.title %></span>
+<% end %>
 
 <article class="entity-page">
   <h1><%= @entity.title %></h1>
 
   <ul class="actions">
     <li><%= back_icon(admin_news_index_path) %></li>
-    <li><%= news_link(@entity, image_tag('comunit/base/icons/view.svg'), data: { tootik: t(:view) }) %></li>
+    <li><%= news_link(@entity, image_tag('biovision/base/icons/world.svg'), data: { tootik: t(:view) }) %></li>
     <% unless @entity.locked? %>
         <li><%= edit_icon edit_news_path(@entity) %></li>
     <% end %>
@@ -48,7 +51,7 @@
       <td><%= @entity.lead %></td>
     </tr>
     <tr>
-      <td colspan="2"><%= render partial: 'admin/news/toggleable', locals: { news: @entity } %></td>
+      <td colspan="2"><%= render partial: 'admin/news/toggleable', locals: { entity: @entity } %></td>
     </tr>
     <tr>
       <td colspan="2">

@@ -187,10 +187,12 @@ ru:
         title: "Категории публикаций"
         description: "Управление категориями публикаций"
     news:
+      nav_item:
+        text: "Новости"
+        description: "Управление новостями"
       index:
         title: "Ноаости, страница %{page}"
         heading: "Новости"
-        description: "Управление новостями"
       show:
         title: "Новость «%{title}»"
     posts:

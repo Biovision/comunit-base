@@ -48,7 +48,7 @@
     }
 
     .heading {
-      font-size: $decreased_font_size;
+      font-size: $font-size-decreased;
       margin-bottom: 0.8rem;
       width: 100%;
     }
@@ -109,7 +109,7 @@
         order: 1;
 
         textarea {
-          font: $normal_font_size $main-font-family;
+          font: $font-size-normal $font-family-main;
         }
 
         button {

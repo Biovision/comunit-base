@@ -1,11 +1,14 @@
 <% content_for :meta_title, t('.title') %>
-<% content_for :hide_sidebar, '1' %>
+<% content_for :breadcrumbs do %>
+    <%= link_to(t('admin.news.nav_item.text'), admin_news_path) %>
+    <%= admin_news_link(@entity) %>
+    <span><%= t(:edit) %></span>
+<% end %>
 
 <article class="entity-page">
   <h1><%= t('.title') %></h1>
   <ul class="actions">
-    <li><%= return_icon admin_news_index_path %></li>
-    <li><%# detail_icon admin_news_path(@entity) %></li>
+    <li><%= return_icon admin_news_path(@entity.id) %></li>
     <li class="danger"><%= destroy_icon @entity %></li>
   </ul>
 

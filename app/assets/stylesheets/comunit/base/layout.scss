@@ -90,7 +90,7 @@ body {
                 box-sizing: border-box;
                 box-shadow: 0 0 .5rem .5rem rgba(255, 255, 255, .5);
                 display: inline-block;
-                font-size: $normal_font_size;
+                font-size: $font-size-normal;
                 height: 2.8rem;
                 line-height: 2.4rem;
                 margin: 0 .4rem;
@@ -131,7 +131,7 @@ body {
   }
 
   select {
-    font-size: $normal_font_size;
+    font-size: $font-size-normal;
   }
 
   > div {
@@ -185,7 +185,7 @@ body {
     width: 100%;
 
     .current_user {
-      font-size: $small_font_size;
+      font-size: $font-size-small;
       line-height: 2.4rem;
 
       .button {
@@ -206,7 +206,7 @@ body {
     margin: 1.2rem;
     max-width: 22rem;
     padding: 0;
-    font-size: $decreased_font_size;
+    font-size: $font-size-decreased;
 
     .fields {
       flex: 1;
@@ -235,7 +235,7 @@ body {
 form {
   .guideline {
     color: $secondary_text_color;
-    font-size: $decreased_font_size;
+    font-size: $font-size-decreased;
     margin: 0;
 
     &::before {
