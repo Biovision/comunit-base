@@ -1,10 +1,9 @@
 class User < ApplicationRecord
   include Toggleable
 
-  EMAIL_PATTERN     = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z0-9][-a-z0-9]+)\z/i
-  SLUG_PATTERN      = /\A[a-z0-9_]{1,30}\z/
-  OLD_SLUG_PATTERN  = /\A[-a-z0-9_а-яё@&*. ]{3,30}\z/
-  PER_PAGE          = 25
+  EMAIL_PATTERN = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z0-9][-a-z0-9]+)\z/i
+  SLUG_PATTERN  = /\A[a-z0-9_]{1,30}\z/
+  PER_PAGE      = 25
 
   SLUG_LIMIT   = 250
   EMAIL_LIMIT  = 250
@@ -69,7 +68,7 @@ class User < ApplicationRecord
   scope :surname_like, -> (val) { where('surname ilike ?', "%#{val}%") unless val.blank? }
   scope :email_like, -> (val) { where 'email ilike ?', "%#{val}%" unless val.blank? }
   scope :with_email, -> (email) { where 'email ilike ?', email }
-  scope :with_privilege, -> (privilege) { joins(:user_privileges).where(user_privileges: { privilege_id: privilege.ids} ) }
+  scope :with_privilege, -> (privilege) { joins(:user_privileges).where(user_privileges: { privilege_id: privilege.ids }) }
   scope :filtered, -> (f) { name_like(f[:name]).surname_like(f[:surname]).email_like(f[:email]).screen_name_like(f[:screen_name]) }
   scope :search, ->(q) { where("lower(concat_ws(' ', slug, email, surname, name)) like ?", "%#{q.downcase}%") unless q.blank? }
 
@@ -119,7 +118,7 @@ class User < ApplicationRecord
   end
 
   def self.relink_parameters
-    ignored = %w(id external_id site_id agent_id image native_id)
+    ignored = %w(id external_id site_id agent_id image native_id legacy_slug legacy_password)
     result  = []
     column_names.each do |column|
       next if ignored.include?(column) || column =~ /_count$/
@@ -182,7 +181,10 @@ class User < ApplicationRecord
   end
 
   def slug_should_be_valid
-    pattern = legacy_slug? ? OLD_SLUG_PATTERN : SLUG_PATTERN
-    errors.add(:screen_name, I18n.t('activerecord.errors.models.user.attributes.slug.invalid')) unless slug =~ pattern
+    unless foreign_slug?
+      unless slug =~ SLUG_PATTERN
+        errors.add(:screen_name, I18n.t('activerecord.errors.models.user.attributes.slug.invalid'))
+      end
+    end
   end
 end
