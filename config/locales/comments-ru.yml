@@ -14,6 +14,8 @@ ru:
   add_comment: "Добавить комментарий"
   comments_list: "Комментарии"
   activerecord:
+    models:
+      comment: "Комментарий"
     errors:
       models:
         comment:
@@ -30,10 +32,14 @@ ru:
         body: "Текст"
   admin:
     comments:
-      index:
-        heading: "Комментарии"
-        title: "Комментарии, страница %{page}"
+      nav_item:
+        text: "Комментарии"
         description: "Модерация комментариев"
+      index:
+        title: "Комментарии, страница %{page}"
+        heading: "Комментарии"
+      show:
+        title: "Комментарий №%{id}"
   my:
     comments:
       index:

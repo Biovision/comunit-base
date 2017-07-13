@@ -3,8 +3,7 @@
 </div>
 <div class="data">
   <div>
-    <%= entity.commentable.model_name.human %>
-    <cite><%= link_to entity.commentable.title, entity.commentable %></cite>
+    <%= admin_comment_link(entity) %>
 
     <% if entity.deleted? %>
         (<%= t('activerecord.attributes.comment.deleted') %>)
@@ -12,7 +11,7 @@
   </div>
 
   <div class="info">
-    <%= user_link entity.user %>,
+    <%= admin_user_link(entity.user) %>,
     <%= time_tag entity.created_at %>
   </div>
 

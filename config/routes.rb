@@ -89,7 +89,7 @@ Rails.application.routes.draw do
       end
     end
     resources :posts, :tags, only: [:index, :show]
-    resources :comments, only: [:index]
+    resources :comments, only: [:index, :show]
     resources :themes, only: [:index, :show]
     resources :entries, only: [:index, :show] do
       get 'comments', on: :member

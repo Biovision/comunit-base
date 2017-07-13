@@ -1,5 +1,7 @@
 <% content_for :meta_title, t('.title', page: current_page) %>
-<% content_for :hide_sidebar, '1' %>
+<% content_for :breadcrumbs do %>
+    <span><%= t('admin.comments.nav_item.text') %></span>
+<% end %>
 
 <article class="comments">
   <h1><%= t('.heading') %></h1>
@@ -9,6 +11,6 @@
   </ul>
 
   <%= paginate @collection %>
-  <%= render partial: 'list', locals: { collection: @collection } %>
+  <%= render partial: 'shared/admin/list', locals: { collection: @collection } %>
   <%= paginate @collection %>
 </article>

@@ -29,14 +29,15 @@ class AddBiovisionToUsers < ActiveRecord::Migration[5.1]
     add_foreign_key :users, :agents, on_update: :cascade, on_delete: :nullify
     add_foreign_key :users, :regions, on_update: :cascade, on_delete: :nullify
 
-    rename_column :users, :legacy_slug, :foreign_slug
+    User.where(legacy_slug: true).order('id asc').each do |user|
+      user.update! foreign_slug: true
+    end
 
-    add_index :users, :screen_name
+    remove_column :users, :legacy_slug
   end
 
   def down
-    rename_column :users, :foreign_slug, :legacy_slug
-    remove_column :users, :authority
+    add_column :users, :legacy_slug, :boolean, default: false, null: false
     remove_column :users, :balance
   end
 end

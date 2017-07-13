@@ -10,9 +10,9 @@ class CommentsController < ApplicationController
     @entity = Comment.new creation_parameters
     if @entity.save
       notify_participants
-      redirect_to(@entity.commentable || admin_comments_path, notice: t('comments.create.success'))
+      redirect_to(@entity.commentable || admin_comment_path(@entity.id), notice: t('comments.create.success'))
     else
-      render :new
+      render :new, layout: 'application', status: :bad_request
     end
   end
 
@@ -27,9 +27,9 @@ class CommentsController < ApplicationController
   # patch /comments/:id
   def update
     if @entity.update entity_parameters
-      redirect_to @entity, notice: t('comments.update.success')
+      redirect_to admin_comment_path(@entity.id), notice: t('comments.update.success')
     else
-      render :edit
+      render :edit, status: :bad_request
     end
   end
 
@@ -48,7 +48,10 @@ class CommentsController < ApplicationController
   end
 
   def set_entity
-    @entity = Comment.find params[:id]
+    @entity = Comment.find_by(id: params[:id])
+    if @entity.nil?
+      handle_http_404('Cannot find comment')
+    end
   end
 
   def entity_parameters
