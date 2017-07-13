@@ -15,6 +15,7 @@
     <% end %>
     <% if current_user_has_privilege?(:moderator) %>
         <li><%= render 'admin/comments/nav_item' %></li>
+        <li><%= render 'admin/votes/nav_item' %></li>
     <% end %>
   </ul>
 </nav>
