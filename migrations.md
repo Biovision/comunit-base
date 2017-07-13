@@ -16,6 +16,8 @@
 rails g migration add_biovision_to_users
 ```
 
+Один вариант
+
 ```ruby
 class AddBiovisionToUsers < ActiveRecord::Migration[5.1]
   def up
@@ -38,6 +40,41 @@ class AddBiovisionToUsers < ActiveRecord::Migration[5.1]
 
   def down
     add_column :users, :legacy_slug, :boolean, default: false, null: false
+    remove_column :users, :balance
+  end
+end
+```
+
+Другой вариант
+
+```ruby
+class AddBiovisionToUsers < ActiveRecord::Migration[5.1]
+  def up
+    add_column :users, :inviter_id, :integer
+    add_column :users, :native_id, :integer
+    add_column :users, :authority, :integer, default: 0, null: false
+    add_column :users, :balance, :integer, default: 0, null: false
+
+    remove_foreign_key :users, :sites
+    remove_foreign_key :users, :agents
+    remove_foreign_key :users, :regions
+
+    add_foreign_key :users, :sites, on_update: :cascade, on_delete: :nullify
+    add_foreign_key :users, :agents, on_update: :cascade, on_delete: :nullify
+    add_foreign_key :users, :regions, on_update: :cascade, on_delete: :nullify
+    add_foreign_key :users, :users, column: :inviter_id, on_update: :cascade, on_delete: :nullify
+    add_foreign_key :users, :users, column: :native_id, on_update: :cascade, on_delete: :nullify
+
+    rename_column :users, :legacy_slug, :foreign_slug
+
+    add_index :users, :screen_name
+  end
+
+  def down
+    rename_column :users, :foreign_slug, :legacy_slug
+    remove_column :users, :inviter_id
+    remove_column :users, :native_id
+    remove_column :users, :authority
     remove_column :users, :balance
   end
 end
