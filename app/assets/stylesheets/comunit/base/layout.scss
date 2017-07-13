@@ -360,3 +360,7 @@ input.toggle-box {
     }
   }
 }
+
+textarea {
+  max-width: calc(100% - 1rem);
+}
