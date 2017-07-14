@@ -1,41 +1,82 @@
+html {
+  background: $background-html;
+  font: 10px $font-family-main;
+  margin: 0;
+  padding: 0;
+  -webkit-text-size-adjust: none;
+  -moz-text-size-adjust: none;
+  -ms-text-size-adjust: none;
+}
+
+h1, h2, h3, h4, h6, h6 {
+  color: $text-color-heading;
+  font-family: $font-family-heading;
+  font-weight: 500;
+  margin: 0;
+}
+
+a:link,
+a:visited {
+  color: $link-color;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+figure {
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+}
+
 body {
+  background: $background-body;
+  border: none;
+  border-radius: 0.4rem;
+  box-shadow: $block-shadow;
+  box-sizing: border-box;
+  color: $primary_text_color;
+  font-size: $font-size-normal;
+  margin: 1.6rem auto;
+  padding: .1rem;
+  position: relative;
+  min-width: $content-width-min;
+  max-width: $content-width;
+
   > header {
     > div {
-      align-items: stretch;
+      background: $background-header;
       display: flex;
+      flex-direction: column;
       height: 22rem;
 
-      .logo {
-        align-items: center;
+      .authentication {
+        align-content: stretch;
         display: flex;
-        flex-basis: 22rem;
-        height: 100%;
-        justify-content: center;
+        flex: 0 0 3rem;
+        justify-content: flex-end;
 
-        img {
-          max-height: 22rem;
-          max-width: 22rem;
+        > :not(.plate) {
+          a:link,
+          a:visited {
+            @include nav-button;
+          }
         }
-      }
 
-      .partials {
-        display: flex;
-        flex: 1;
-        flex-direction: column;
-        justify-content: space-between;
-
-        .authentication {
+        > div {
+          align-items: center;
+          background: $background-header-transparent;
+          border-radius: .4rem;
           display: flex;
-          justify-content: flex-end;
+          flex: 0;
+          margin: 0 0 0 auto;
 
-          .plate {
-            align-items: center;
-            background: $transparent-block-background;
-            border-radius: 0 .4rem 0 0;
-            display: flex;
-            height: 4rem;
-            padding: 0 .4rem;
-            width: auto;
+          a {
+            margin: 0 .4rem;
           }
 
           .notifications {
@@ -46,74 +87,95 @@ body {
             }
           }
         }
+      }
 
-        .region {
+      .central {
+        align-content: stretch;
+        display: flex;
+        flex: 1;
+
+        .logo {
           align-items: center;
           display: flex;
-          height: 14rem;
-          justify-content: space-between;
-          padding: 0 0 0 .5rem;
-
-          .arms {
-            align-items: center;
-            background: none;
-            display: flex;
-            justify-content: center;
-            height: 10rem;
-            margin: .8rem 1.3rem;
-            max-width: 10rem;
-
-            img {
-              filter: drop-shadow(0 0 2rem $header-background-transparent) saturate(50%);
-              max-height: 100%;
-              max-width: 100%;
-              opacity: .75;
-            }
-          }
+          margin-right: auto;
         }
 
-        .search {
+        .header-content {
+          flex: 1;
+        }
+
+        .arms {
+          align-items: center;
+          background: none;
+          display: flex;
+          flex: 0 0 12rem;
+          justify-content: center;
+          margin: .8rem 1.3rem;
+          overflow: hidden;
+
+          img {
+            filter: drop-shadow(0 0 2rem $header-background-transparent) saturate(50%);
+            opacity: .75;
+            max-height: 100%;
+            max-width: 100%;
+          }
+        }
+      }
+
+      .region-and-search {
+        align-items: center;
+        display: flex;
+        flex: 0 0 3rem;
+        padding: 0 1.6rem;
+
+        form {
           align-items: center;
           display: flex;
-          justify-content: space-between;
+          height: 4rem;
+          margin: 0 0 0 auto;
+          padding: 0 .4rem;
 
-          form {
-            align-items: center;
-            display: flex;
-            height: 4rem;
-            padding: 0 .4rem;
+          > div {
+            input[type=text] {
+              background: #fff image_url('comunit/base/icons/search.svg') no-repeat center right / 2.4rem 2.4rem;
+              border-radius: 1.4rem;
+              box-sizing: border-box;
+              box-shadow: 0 0 .5rem .5rem rgba(255, 255, 255, .5);
+              display: inline-block;
+              font-size: $font-size-normal;
+              height: 2.8rem;
+              line-height: 2.4rem;
+              margin: 0 .4rem;
+              opacity: .85;
+              transition: .125s;
+              width: 2.8rem;
 
-            > div {
-              input[type=text] {
-                background: #fff image_url('comunit/base/icons/search.svg') no-repeat center right / 2.4rem 2.4rem;
-                border-radius: 1.4rem;
-                box-sizing: border-box;
-                box-shadow: 0 0 .5rem .5rem rgba(255, 255, 255, .5);
-                display: inline-block;
-                font-size: $font-size-normal;
-                height: 2.8rem;
-                line-height: 2.4rem;
-                margin: 0 .4rem;
-                opacity: .85;
-                transition: .125s;
-                width: 2.8rem;
+              &:hover {
+                opacity: 1;
+              }
 
-                &:hover {
-                  opacity: 1;
-                }
-
-                &:focus, &:valid {
-                  border-radius: 0;
-                  box-shadow: none;
-                  opacity: 1;
-                  padding: 0 2.6rem 0 0;
-                  width: calc(25ch + 2.6rem);
-                }
+              &:focus,
+              &:valid {
+                border-radius: 0;
+                box-shadow: none;
+                opacity: 1;
+                padding: 0 2.6rem 0 0;
+                width: calc(25ch + 2.6rem);
               }
             }
           }
         }
       }
+    }
+  }
+
+  > footer {
+    .bottom {
+      color: $text-color-secondary;
+      display: flex;
+      font-size: $font-size-decreased;
+      justify-content: space-between;
+      padding: 0.4rem 0.8rem;
     }
   }
 }
@@ -123,7 +185,7 @@ body {
   display: flex;
   height: 4rem;
   justify-content: flex-end;
-  margin: 0 0 0 2rem;
+  margin: 0 auto 0 0;
   padding: 0 .4rem;
 
   label {
@@ -191,14 +253,6 @@ body {
       .button {
         @include nav-button;
       }
-    }
-
-    .login {
-      @include action-button;
-    }
-
-    .join {
-      @include nav-button;
     }
   }
 

@@ -1,5 +1,27 @@
 <header>
-  <%= render 'layouts/main_header' %>
+  <% if current_region.header_image.blank? %>
+      <% style = '' %>
+  <% else %>
+      <% style = "background: url('#{current_region.header_image.url}') no-repeat center / cover " %>
+  <% end %>
+  <div style="<%= style %>">
+    <%= render 'layouts/application/header/authentication' %>
+    <div class="central">
+      <%= render 'layouts/application/header/logo' %>
+      <div class="header-content">
+        <%= render 'layouts/header_content' %>
+      </div>
+      <% unless current_region.image.blank? %>
+          <div class="arms">
+            <%= image_tag(current_region.image.header.url, alt: current_region.name, srcset: "#{current_region.image.url} 2x") %>
+          </div>
+      <% end %>
+    </div>
+    <div class="region-and-search">
+      <%= render 'layouts/application/header/region_selector' %>
+      <%= render 'layouts/application/header/search' %>
+    </div>
+  </div>
   <nav>
     <%= render 'layouts/application/main_navigation' %>
     <%= render 'layouts/application/secondary_navigation' if content_for?(:secondary_navigation) %>

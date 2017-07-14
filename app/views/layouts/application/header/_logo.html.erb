@@ -1,0 +1,4 @@
+<% home_link = current_region.id.nil? ? root_path : regional_index_path(region_slug: current_region.long_slug) %>
+<div class="logo">
+  <%= link_to(image_tag('logo.png', alt: '', srcset: "#{asset_path('logo_2x.png')} 2x"), home_link) %>
+</div>
