@@ -41,7 +41,7 @@ article.user-profile {
         text-align: center;
         font-size: $font-size-large;
         font-weight: bold;
-        border-top: solid $secondary_text_color 0.1rem;
+        border-top: solid $text-color-secondary 0.1rem;
       }
     }
   }
@@ -82,7 +82,7 @@ article.new-profile {
 
       .constrain {
         font-size: $font-size-small;
-        color: $secondary_text_color;
+        color: $text-color-secondary;
         font-style: italic;
       }
     }
@@ -222,7 +222,7 @@ article.user {
 
     .city {
       text-align: right;
-      color: $secondary-text-color;
+      color: $text-color-secondary;
     }
 
     .about {

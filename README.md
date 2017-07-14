@@ -22,9 +22,9 @@ gem 'jquery-rails'
 gem 'autoprefixer-rails', group: :production
 
 gem 'biovision-base', git: 'https://github.com/Biovision/biovision-base'
-# gem 'biovision-base', path: '/Users/maxim/Projects/Biovision/biovision-base'
+# gem 'biovision-base', path: '/Users/maxim/Projects/Biovision/gems/biovision-base'
 gem 'biovision-vote', git: 'https://github.com/Biovision/biovision-vote'
-# gem 'biovision-vote', path: '/Users/maxim/Projects/Biovision/biovision-vote'
+# gem 'biovision-vote', path: '/Users/maxim/Projects/Biovision/gems/biovision-vote'
 gem 'comunit-base', git: 'https://github.com/Biovision/comunit-base'
 # gem 'comunit-base', path: '/Users/maxim/Projects/Biovision/Comunit/comunit-base'
 
@@ -94,7 +94,7 @@ SITE_ID=
 Заменить `app/assets/stylesheets/application.css` на `application.scss` из
 `sample/app/assets/stylesheets/`.
 
-Примеры для `colors`, `shared` и `layout` можно найти там же (просто скопировать
+Примеры для `shared` и `layout` можно найти там же (просто скопировать
 поверх текущих файлов). 
 
 ### Дополнения в `config/*.yml`

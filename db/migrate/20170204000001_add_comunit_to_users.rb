@@ -3,7 +3,6 @@ class AddComunitToUsers < ActiveRecord::Migration[5.0]
     unless column_exists?(:users, :site_id)
       change_table :users do |t|
         t.references :site, foreign_key: true, on_update: :cascade, on_delete: :nullify
-        t.references :city, foreign_key: true, on_update: :cascade, on_delete: :nullify
         t.integer :external_id
         t.integer :redirect_id
         t.boolean :verified, default: false, null: false
@@ -54,7 +53,6 @@ class AddComunitToUsers < ActiveRecord::Migration[5.0]
   def down
     if column_exists?(:users, :site_id)
       remove_column :users, :site_id
-      remove_column :users, :city_id
       remove_column :users, :external_id
       remove_column :users, :redirect_id
       remove_column :users, :verified
