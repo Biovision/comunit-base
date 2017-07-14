@@ -6,6 +6,28 @@
 
 Для правильного изменения нужно применять их «снизу вверх».
 
+Добавление недостающих полей к регионам (< 0.5.170714)
+------------------------------------------------------
+
+```bash
+rails g migration add_biovision_to_regions
+```
+
+```ruby
+class AddBiovisionToRegions < ActiveRecord::Migration[5.1]
+  def up
+    unless column_exists?(:regions, :created_at)
+      add_column :regions, :created_at, :datetime
+      add_column :regions, :updated_at, :datetime
+    end
+  end
+
+  def down
+  #   There is no need to delete added columns
+  end
+end
+```
+
 Добавление к пользователю структуры biovision-base (< 0.5.170713)
 -----------------------------------------------------------------
 

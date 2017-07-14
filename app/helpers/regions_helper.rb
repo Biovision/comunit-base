@@ -20,7 +20,7 @@ module RegionsHelper
     options = [['Центр', '', { data: { url: root_path } }]]
     Region.visible.for_tree.each do |region|
       url = regional_index_path(region_slug: region.long_slug)
-      options << [region.name, region.id, { data: { url: url } }]
+      options << [region.short_name, region.id, { data: { url: url } }]
     end
 
     options_for_select(options, selected_id)
@@ -37,7 +37,7 @@ module RegionsHelper
     end
     Region.visible.for_tree(region_id).each do |region|
       url = regional_index_path(region_slug: region.long_slug)
-      options << [region.name, region.id, { data: { url: url } }]
+      options << [region.short_name, region.id, { data: { url: url } }]
     end
 
     options_for_select(options, selected_id)
