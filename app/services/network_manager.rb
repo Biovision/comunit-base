@@ -14,7 +14,7 @@ class NetworkManager
   # @param [Hash] attributes
   # @param [Hash] data
   def update_user(entity, attributes, data = {})
-    log_event("Updating user #{user.id}:\n\t#{attributes}\n\t#{data}\n")
+    log_event("Updating user #{entity.id}:\n\t#{attributes}\n\t#{data}\n")
     entity.assign_attributes(attributes)
     unless data[:image_path].blank?
       entity.remote_image_url = "#{MAIN_HOST}#{data[:image_path]}"
@@ -26,7 +26,7 @@ class NetworkManager
   # @param [Hash] attributes
   # @param [Hash] data
   def update_region(entity, attributes, data = {})
-    log_event("Updating region #{region.id}:\n\t#{attributes}\n\t#{data}\n")
+    log_event("Updating region #{entity.id}:\n\t#{attributes}\n\t#{data}\n")
     entity.assign_attributes(attributes)
     unless data[:image_path].blank?
       entity.remote_image_url = "#{MAIN_HOST}#{data[:image_path]}"
