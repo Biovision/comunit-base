@@ -39,7 +39,7 @@ body {
   border-radius: 0.4rem;
   box-shadow: $block-shadow;
   box-sizing: border-box;
-  color: $primary_text_color;
+  color: $text-color-primary;
   font-size: $font-size-normal;
   margin: 1.6rem auto;
   padding: .1rem;
@@ -77,6 +77,7 @@ body {
 
           a {
             margin: 0 .4rem;
+            white-space: nowrap;
           }
 
           .notifications {
@@ -288,7 +289,7 @@ body {
 
 form {
   .guideline {
-    color: $secondary_text_color;
+    color: $text-color-secondary;
     font-size: $font-size-decreased;
     margin: 0;
 
