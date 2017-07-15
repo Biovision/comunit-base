@@ -15,7 +15,7 @@
           <td colspan="2">
             <div class="user-actions">
               <%= render partial: 'users/follow_buttons', locals: { user: user, followee: current_user.follows?(user) } %>
-              <div><%= link_to t('user_messages.new.heading'), dialog_my_messages_path(user_slug: user.long_slug), class: 'nav-button' %></div>
+              <div><%= link_to t('user_messages.new.heading'), dialog_my_messages_path(user_slug: user.long_slug), class: 'button-nav' %></div>
             </div>
           </td>
         </tr>
@@ -238,7 +238,7 @@
     <tfoot>
     <tr>
       <td colspan="2">
-        <div><%= link_to "#{t('.followees')} (#{user.followee_count})", user_profile_followees_path(slug: user.long_slug), class: 'nav-button' %></div>
+        <div><%= link_to "#{t('.followees')} (#{user.followee_count})", user_profile_followees_path(slug: user.long_slug), class: 'button-nav' %></div>
       </td>
     </tr>
     </tfoot>

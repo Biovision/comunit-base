@@ -31,9 +31,6 @@ class NetworkManager
     unless data[:image_path].blank?
       entity.remote_image_url = "#{MAIN_HOST}#{data[:image_path]}"
     end
-    unless data[:header_image_path].blank?
-      entity.remote_header_image_url = "#{MAIN_HOST}#{data[:header_image_path]}"
-    end
     entity.save!
   end
 

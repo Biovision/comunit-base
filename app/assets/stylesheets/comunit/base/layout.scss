@@ -63,7 +63,7 @@ body {
         > :not(.plate) {
           a:link,
           a:visited {
-            @include nav-button;
+            @include button-nav;
           }
         }
 
@@ -256,7 +256,7 @@ body {
       line-height: 2.4rem;
 
       .button {
-        @include nav-button;
+        @include button-nav;
       }
     }
   }
@@ -285,7 +285,7 @@ body {
       align-items: center;
 
       a {
-        @include nav-button;
+        @include button-nav;
       }
     }
   }

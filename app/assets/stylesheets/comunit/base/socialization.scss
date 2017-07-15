@@ -3,11 +3,11 @@
   text-align: center;
 
   .follow {
-    @include create-button;
+    @include button-create;
   }
 
   .unfollow {
-    @include destroy-button;
+    @include button-destroy;
   }
 }
 
@@ -19,7 +19,7 @@
     align-items: center;
 
     .hide-request {
-      @include destroy-button;
+      @include button-destroy;
     }
   }
 
@@ -113,7 +113,7 @@
         }
 
         button {
-          @include create-button;
+          @include button-destroy;
         }
       }
 
