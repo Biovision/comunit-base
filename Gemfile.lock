@@ -1,24 +1,25 @@
 GIT
   remote: https://github.com/Biovision/biovision-base
-  revision: dcd18f2a7ad6efbeb2e0477dd46f08eeafe2381a
+  revision: ca328f3258be5761ad86dc497bea091d6c07e3fa
   specs:
-    biovision-base (0.7.170709)
-      bcrypt (~> 3.1.7)
+    biovision-base (0.7.170716)
+      bcrypt (~> 3.1)
       carrierwave
       carrierwave-bombshelter
       kaminari
       mini_magick
-      rails (~> 5.1.0)
-      rails-i18n (~> 5.0.3)
+      rails (~> 5.1)
+      rails-i18n (~> 5.0)
 
 GIT
   remote: https://github.com/Biovision/biovision-vote
-  revision: 534584780ac7497514211552545a0fbd932c985b
+  revision: 43486cc63a3d361edc9fb534ba97b037f548505d
   specs:
-    biovision-vote (0.1.1.170517)
+    biovision-vote (0.1.1.170713)
+      biovision-base
       kaminari
-      rails (~> 5.1.1)
-      rails-i18n (~> 5.0.0)
+      rails (~> 5.1)
+      rails-i18n (~> 5.0)
 
 PATH
   remote: .
@@ -122,7 +123,7 @@ GEM
     factory_girl_rails (4.8.0)
       factory_girl (~> 4.8.0)
       railties (>= 3.0.0)
-    faraday (0.12.1)
+    faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
     fastimage (2.1.0)
     globalid (0.4.0)
@@ -130,7 +131,7 @@ GEM
     hashie (3.5.6)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
-    i18n (0.8.5)
+    i18n (0.8.6)
     ice_nine (0.11.2)
     kaminari (1.0.1)
       activesupport (>= 4.1.0)
@@ -154,7 +155,7 @@ GEM
     mime-types-data (3.2016.0521)
     mini_magick (4.8.0)
     mini_portile2 (2.2.0)
-    minitest (5.10.2)
+    minitest (5.10.3)
     multi_json (1.12.1)
     multipart-post (2.0.0)
     netrc (0.11.0)
@@ -259,4 +260,4 @@ DEPENDENCIES
   rspec-rails
 
 BUNDLED WITH
-   1.15.1
+   1.15.3

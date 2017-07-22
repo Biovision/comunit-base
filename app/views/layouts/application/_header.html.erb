@@ -9,13 +9,13 @@
     <div class="central">
       <%= render 'layouts/application/header/logo' %>
       <div class="header-content">
-        <%= render 'layouts/header_content' %>
+        <%= render 'layouts/application/header_content' %>
       </div>
-      <% unless current_region.image.blank? %>
-          <div class="arms">
+      <div class="arms">
+        <% unless current_region.image.blank? %>
             <%= image_tag(current_region.image.header.url, alt: current_region.name, srcset: "#{current_region.image.url} 2x") %>
-          </div>
-      <% end %>
+        <% end %>
+      </div>
     </div>
     <div class="region-and-search">
       <%= render 'layouts/application/header/region_selector' %>
