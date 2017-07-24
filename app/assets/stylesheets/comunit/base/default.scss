@@ -5,7 +5,23 @@ $background-header-transparent: rgba(255, 255, 255, .5) !default;
 
 $content-width-min: 98rem !default;
 
-$font-size-smaller: 1rem;
+$font-size-smaller: 1rem !default;
+
+$navigation-stripe-background: #333 !default;
+$navigation-stripe-background-active: rgba(127, 127, 127, .6) !default;
+$navigation-stripe-text: #fff !default;
+$navigation-stripe-text-active: #fff !default;
+$navigation-stripe-text-shadow: .1rem .1rem 0 #000 !default;
+
+$navigation-primary-background: #333 !default;
+$navigation-primary-background-active: #222 !default;
+$navigation-primary-text: #fff !default;
+$navigation-primary-text-active: #fff !default;
+
+$navigation-secondary-background: rgba(127, 127, 127, 0.6) !default;
+$navigation-secondary-background-active: rgb(32, 32, 32) !default;
+$navigation-secondary-text: #fff !default;
+$navigation-secondary-text-active: #fff !default;
 
 $category-background: #fff2cc linear-gradient(to top, #fff2cc, #fff9e5) !default;
 
@@ -16,8 +32,6 @@ $heading-text-color: #880015 !default;
 $heading_background: #333 !default;
 $light_background_color: #ffeeaa !default;
 $navigation_main_background: rgba(127, 127, 127, 0.6) !default;
-$navigation_primary_background: #333 !default;
-$navigation_secondary_background: rgba(127, 127, 127, 0.6) !default;
 $block-shadow: 0 0 0.2rem 0.2rem rgba(0, 0, 0, 0.25) !default;
 $transparent-block-background: rgba(255, 255, 255, .75) !default;
 
