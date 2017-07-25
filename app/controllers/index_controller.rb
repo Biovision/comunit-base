@@ -30,6 +30,7 @@ class IndexController < ApplicationController
   end
 
   def collect_regional_news(page = 1)
-    @regional_news = News.regional(params[:region_id].to_s.to_i, current_region).visible.recent.page(page).per(7)
+    region         = Region.find_by(id: params[:region_id].to_s.to_i)
+    @regional_news = News.regional(region, current_region).visible.recent.page(page).per(7)
   end
 end

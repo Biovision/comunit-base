@@ -27,13 +27,12 @@ class News < ApplicationRecord
   validates_presence_of :post_type, :title, :slug, :lead, :body
 
   scope :popular, -> { order 'view_count desc' }
-  scope :in_region, -> (region) { where(region_id: region.id) }
+  scope :in_region, -> (region) { where(region_id: Array(region&.subbranch_ids)) }
   scope :in_category, -> (category) { where(news_category: category) }
   scope :with_category_ids, -> (ids) { where(news_category_id: Array(ids)) }
   scope :of_type, -> (type) { where post_type: News.post_types[type] }
   scope :recent, -> { order 'created_at desc' }
   scope :visible, -> { where visible: true, deleted: false }
-  scope :regional, -> (id = 0, exclude_region = nil) { (id > 0) ? where(region_id: id) : where('region_id != ?', exclude_region&.id.to_i) }
   scope :federal, -> { where region_id: nil }
 
   # @param [Integer] page
@@ -50,6 +49,18 @@ class News < ApplicationRecord
   # @param [Integer] page
   def self.page_for_owner(user, page)
     owned_by(user).where(deleted: false).recent.page(page).per(PER_PAGE)
+  end
+
+  # @param [Region] selected_region
+  # @param [Region] excluded_region
+  def self.regional(selected_region = nil, excluded_region = nil)
+    excluded_ids = Array(excluded_region&.subbranch_ids)
+    if selected_region.nil?
+      chunk = excluded_ids.any? ? where('region_id not in (?)', excluded_ids) : where('region_id is not null')
+    else
+      chunk = where(region_id: selected_region.subbranch_ids - excluded_ids)
+    end
+    chunk
   end
 
   def self.repost_parameters
