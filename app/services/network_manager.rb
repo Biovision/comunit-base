@@ -32,6 +32,7 @@ class NetworkManager
       entity.remote_image_url = "#{MAIN_HOST}#{data[:image_path]}"
     end
     entity.save!
+    entity.parent&.cache_children!
   end
 
   # @param [User] user
