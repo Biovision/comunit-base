@@ -21,11 +21,3 @@ $transparent-block-background: rgba(255, 255, 255, .75);
 
 $header-background-transparent: rgba(142, 60, 46, .6125);
 $header-background-solid: rgba(142, 136, 63, 1);
-
-@mixin heading {
-  line-height: 29px;
-  font-size: $font-size-decreased;
-  color: #ffffff;
-  text-shadow: 1px 1px 0 #2a2a2a;
-  padding: 0 10px;
-}

@@ -1,7 +1,7 @@
-$calendar_heading_weekend_background: #fc605c;
-$calendar_heading_weekend_color: #fc605c;
-$calendar_weekend_color: #ffbfb2;
-$calendar_today: #34c749;
+$calendar_heading_weekend_background: #fc605c !default;
+$calendar_heading_weekend_color: #fc605c !default;
+$calendar_weekend_color: #ffbfb2 !default;
+$calendar_today: #34c749 !default;
 
 table.calendar {
   margin: 0 auto 1.6rem;
@@ -31,7 +31,7 @@ table.calendar {
     > div {
       border: solid #eee 0.1rem;
       padding: 0 0.4rem;
-      line-height: 3.2rem;
+      line-height: 1.5;
     }
   }
 

@@ -320,8 +320,7 @@ article.news {
   margin: 0 0 30px 0;
 
   > header {
-    @include heading;
-    background: $heading_background;
+    @include heading-stripe;
     display: flex;
     justify-content: space-between;
     text-transform: uppercase;
@@ -636,8 +635,7 @@ ul.post-categories {
   padding-bottom: 10px;
 
   > .heading {
-    @include heading;
-    background: $heading_background;
+    @include heading-stripe;
     display: flex;
     justify-content: space-between;
     text-transform: uppercase;

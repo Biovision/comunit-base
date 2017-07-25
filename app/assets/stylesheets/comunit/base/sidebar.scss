@@ -4,8 +4,7 @@
 
   > div {
     .heading {
-      @include heading;
-      background: $heading_background;
+      @include heading-stripe;
     }
   }
 

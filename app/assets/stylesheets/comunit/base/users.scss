@@ -118,8 +118,7 @@ article.user {
     }
 
     .heading {
-      @include heading;
-      background: $heading_background;
+      @include heading-stripe;
     }
 
     nav {
@@ -143,8 +142,7 @@ article.user {
     margin: 0 0 0 .4rem;
 
     > .heading {
-      @include heading;
-      background: $heading_background;
+      @include heading-stripe;
     }
 
     .entry-preview {

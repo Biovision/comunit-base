@@ -227,10 +227,9 @@ body {
     flex: 8;
 
     > .breadcrumbs {
-      @include heading;
-      background: $heading_background;
+      @include heading-stripe;
       text-transform: uppercase;
-      margin: 0 0 20px 0;
+      margin: 0 0 2rem 0;
 
       a:link, a:visited {
         color: #ffffff;
@@ -325,8 +324,7 @@ input.toggle-box {
 
 #main-slider {
   h2 {
-    @include heading;
-    background: $heading_background;
+    @include heading-stripe;
   }
 
   .slider {
