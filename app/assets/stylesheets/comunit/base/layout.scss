@@ -119,7 +119,7 @@ body {
           overflow: hidden;
 
           img {
-            filter: drop-shadow(0 0 2rem $header-background-transparent) saturate(50%);
+            filter: drop-shadow(0 0 2rem $background-header-transparent) saturate(50%);
             opacity: .75;
             max-height: 100%;
             max-width: 100%;

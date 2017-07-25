@@ -7,8 +7,6 @@ $background-header-transparent: rgba(255, 255, 255, .5) !default;
 
 $content-width-min: 98rem !default;
 
-$font-size-smaller: 1rem !default;
-
 // Основное меню: полоска с выпадашками
 $navigation-stripe-background: #333 !default;
 $navigation-stripe-background-active: rgba(127, 127, 127, .6) !default;
@@ -33,14 +31,12 @@ $heading-stripe-background: rgb(232, 232, 232) !default;
 $heading-stripe-text-color: #000 !default;
 $heading-stripe-text-shadow: .1rem .1rem 0 rgb(240, 240, 240) !default;
 
+// Задний фон для списка новостей и самой новости
+$news-background: #fff2cc !default;
+
 $category-background: #fff2cc linear-gradient(to top, #fff2cc, #fff9e5) !default;
 
-$news-background-main: #fff2cc !default;
-
 $transparent-block-background: rgba(255, 255, 255, .75) !default;
-
-$header-background-transparent: rgba(142, 60, 46, .6125) !default;
-$header-background-solid: rgba(142, 136, 63, 1) !default;
 
 @mixin heading-stripe {
   background: $heading-stripe-background;
