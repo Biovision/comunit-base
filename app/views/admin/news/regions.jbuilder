@@ -5,6 +5,6 @@ json.data @collection do |entity|
     json.(entity, :name, :long_slug, :children_cache)
   end
   json.meta do
-    json.html_chunk render(partial: 'admin/news/regions/list_item', formats: [:html], locals: { region: entity })
+    json.html_chunk render(partial: 'admin/news/regions/option', formats: [:html], locals: { region: entity })
   end
 end
