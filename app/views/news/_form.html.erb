@@ -27,7 +27,7 @@
         <%= radio_button_tag 'news[region_id]', '', entity.region.nil?, id: 'news_region_0' %>
         <%= label_tag 'news_region_0', t(:not_set) %><br/>
         <% unless entity.region.nil? %>
-            <%= radio_button_tag 'news[region_id]', '', true, id: 'news_region_default' %>
+            <%= radio_button_tag 'news[region_id]', entity.region_id, true, id: 'news_region_default' %>
             <%= label_tag 'news_region_default', entity.region.long_name %>
         <% end %>
         <%= render partial: 'admin/regions/news_form', locals: { form: f } %>
@@ -113,7 +113,7 @@
     <script src="/ckeditor/4-6-2/ckeditor.js"></script>
     <script>
         $(function () {
-            var editor = document.getElementById('news_body');
+            let editor = document.getElementById('news_body');
 
             CKEDITOR.replace(editor, {
                 filebrowserUploadUrl: '/illustrations',
