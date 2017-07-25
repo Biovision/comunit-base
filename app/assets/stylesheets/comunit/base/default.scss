@@ -9,36 +9,34 @@ $content-width-min: 98rem !default;
 
 $font-size-smaller: 1rem !default;
 
+// Основное меню: полоска с выпадашками
 $navigation-stripe-background: #333 !default;
 $navigation-stripe-background-active: rgba(127, 127, 127, .6) !default;
 $navigation-stripe-text: #fff !default;
 $navigation-stripe-text-active: $navigation-stripe-text !default;
 $navigation-stripe-text-shadow: .1rem .1rem 0 #000 !default;
 
+// Основное меню: выпадашка первого уровня
 $navigation-primary-background: #333 !default;
 $navigation-primary-background-active: #222 !default;
 $navigation-primary-text: #fff !default;
 $navigation-primary-text-active: $navigation-primary-text !default;
 
+// Основное меню: выпадашка второго уровня
 $navigation-secondary-background: rgba(127, 127, 127, 0.6) !default;
 $navigation-secondary-background-active: rgb(32, 32, 32) !default;
 $navigation-secondary-text: #fff !default;
 $navigation-secondary-text-active: $navigation-secondary-text !default;
 
+// Полоса с заголовком типа «тема дня», «популярные сюжеты» и так далее
 $heading-stripe-background: rgb(232, 232, 232) !default;
 $heading-stripe-text-color: #000 !default;
 $heading-stripe-text-shadow: .1rem .1rem 0 rgb(240, 240, 240) !default;
 
 $category-background: #fff2cc linear-gradient(to top, #fff2cc, #fff9e5) !default;
 
-$news-main-bg: #fff2cc !default;
+$news-background-main: #fff2cc !default;
 
-$heading-text-color: #880015 !default;
-
-$heading_background: #333 !default;
-$light_background_color: #ffeeaa !default;
-$navigation_main_background: rgba(127, 127, 127, 0.6) !default;
-$block-shadow: 0 0 0.2rem 0.2rem rgba(0, 0, 0, 0.25) !default;
 $transparent-block-background: rgba(255, 255, 255, .75) !default;
 
 $header-background-transparent: rgba(142, 60, 46, .6125) !default;

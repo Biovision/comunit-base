@@ -19,11 +19,9 @@
       display: none;
 
       & + div {
-        display: none;
-
         > div {
           display: flex;
-          font-size: $font-size-small;
+          font-size: $font-size-decreased;
           margin: 1.6rem 0;
 
           label {
@@ -49,8 +47,8 @@
         }
       }
 
-      &:checked + div {
-        display: block;
+      &:not(:checked) + div {
+        display: none;
       }
     }
 
@@ -108,7 +106,7 @@
 
         .post {
           flex: 1;
-          font-size: $font-size-small;
+          font-size: $font-size-decreased;
 
           .header {
             align-items: center;
