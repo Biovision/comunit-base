@@ -27,7 +27,7 @@ class News < ApplicationRecord
   validates_presence_of :post_type, :title, :slug, :lead, :body
 
   scope :popular, -> { order 'view_count desc' }
-  scope :in_region, -> (region) { where(region_id: Array(region&.subbranch_ids)) }
+  scope :in_region, -> (region) { where(region_id: region.id.nil? ? nil : region&.subbranch_ids) }
   scope :in_category, -> (category) { where(news_category: category) }
   scope :with_category_ids, -> (ids) { where(news_category_id: Array(ids)) }
   scope :of_type, -> (type) { where post_type: News.post_types[type] }
