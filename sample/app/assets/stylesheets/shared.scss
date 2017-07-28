@@ -1,23 +1,32 @@
 @import url('https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i&subset=cyrillic');
 
-$navigation-primary-bg: #ffcc33;
-$navigation-primary-bg-active: #ffeeaa;
-$navigation-primary-color: #880015;
-$navigation-secondary-bg: rgba(127, 127, 127, 0.2);
+// Основное меню: полоска с выпадашками
+//$navigation-stripe-background: #333;
+//$navigation-stripe-background-active: rgba(127, 127, 127, .6);
+//$navigation-stripe-text: #fff;
+//$navigation-stripe-text-active: $navigation-stripe-text;
+//$navigation-stripe-text-shadow: .1rem .1rem 0 #000;
 
-$category-background: #fff2cc linear-gradient(to top, #fff2cc, #fff9e5);
+// Основное меню: выпадашка первого уровня
+//$navigation-primary-background: #333;
+//$navigation-primary-background-active: #222;
+//$navigation-primary-text: #fff;
+//$navigation-primary-text-active: $navigation-primary-text;
 
-$news-main-bg: #fff2cc;
+// Основное меню: выпадашка второго уровня
+//$navigation-secondary-background: rgba(127, 127, 127, 0.6);
+//$navigation-secondary-background-active: rgb(32, 32, 32);
+//$navigation-secondary-text: #fff;
+//$navigation-secondary-text-active: $navigation-secondary-text;
 
-//$heading_background: #ffcc33;
-$heading-text-color: #880015;
+// Полоса с заголовком типа «тема дня», «популярные сюжеты» и так далее
+//$heading-stripe-background: rgb(232, 232, 232);
+//$heading-stripe-text-color: #000;
+//$heading-stripe-text-shadow: .1rem .1rem 0 rgb(240, 240, 240);
 
-$heading_background: #333 no-repeat center / cover;
-$light_background_color: #ffeeaa;
-$navigation_main_background: rgba(127, 127, 127, 0.6);
-$navigation_primary_background: #333 no-repeat center;
-$navigation_secondary_background: rgba(127, 127, 127, 0.6);
-$transparent-block-background: rgba(255, 255, 255, .75);
+// Задний фон для списка новостей и самой новости
+//$news-background: #fff2cc;
 
-$header-background-transparent: rgba(142, 60, 46, .6125);
-$header-background-solid: rgba(142, 136, 63, 1);
+//$category-background: #fff2cc linear-gradient(to top, #fff2cc, #fff9e5);
+
+//$transparent-block-background: rgba(255, 255, 255, .75);

@@ -79,8 +79,9 @@ ul.list-of-figures {
           font-size: $font-size-normal;
           font-weight: bold;
 
-          a:link, a:visited {
-            color: $link-color;
+          a:link,
+          a:visited {
+            color: $news-link-color;
             text-decoration: none;
           }
 
@@ -117,8 +118,8 @@ ul.list-of-figures {
 
             &:first-of-type {
               img {
-                max-width: 150px;
-                max-height: 150px;
+                max-height: 15rem;
+                max-width: 15rem;
               }
             }
           }
@@ -139,7 +140,9 @@ ul.list-of-figures {
 
         .link {
           margin-top: 7px;
-          a:link, a:visited {
+
+          a:link,
+          a:visited {
             //color: $link_color;
             text-decoration: underline;
           }
