@@ -1,8 +1,11 @@
 <%= radio_button_tag 'news[region_id]', '', false, id: 'news_region_other' %>
 <%= label_tag 'news_region_other', 'Новый регион' %>
 
-<div id="news-regions-selector" data-url="<%= regions_admin_news_index_path %>">
+<div id="news-regions-selector" data-url="<%= regions_admin_news_index_path %>" data-filter="<%= RegionManager.new(current_user).filter? ? '1' : '0' %>">
 </div>
+
+<div class="message-box-alert hidden">Нужно выбрать регион</div>
+
 <script>
     'use strict';
 
@@ -10,6 +13,8 @@
         let $container = $('#news-regions-selector');
         let $selector = $('#news_region_other');
         let $label = $selector.find('+ label');
+        let use_filter = parseInt($container.data('filter')) > 0;
+        let $message = $container.find('+ div');
 
         $selector.on('click', function () {
             if ($container.children().length < 1) {
@@ -50,7 +55,37 @@
                         $container.append($children);
                     }
                 }).fail(handle_ajax_failure);
+
+                $message.addClass('hidden');
+            } else {
+                if (use_filter) {
+                    $message.removeClass('hidden');
+                }
             }
         });
+
+        if (use_filter) {
+            let $central_region = $('#news_region_0');
+            let $current_region = $('#news_region_default');
+            let $form = $container.closest('form');
+
+            $central_region.addClass('hidden');
+            $central_region.find('+ label').addClass('hidden');
+
+            if (!$current_region[0]) {
+                $selector.click();
+            }
+
+            $message.removeClass('hidden');
+
+            $form.on('submit', function(e) {
+                let value = $selector.val();
+
+                if (value === "" || parseInt(value) < 1) {
+                    e.preventDefault();
+                    $('html, body').animate({scrollTop: $selector.offset().top}, 500);
+                }
+            });
+        }
     });
 </script>

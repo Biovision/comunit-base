@@ -16,7 +16,7 @@ class Admin::NewsController < AdminController
 
   # get /admin/news/regions
   def regions
-    @collection = Region.visible.for_tree(params[:parent_id])
+    @collection = RegionManager.new(current_user).for_tree(params[:parent_id])
   end
 
   protected
