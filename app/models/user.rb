@@ -21,6 +21,7 @@ class User < ApplicationRecord
   belongs_to :agent, optional: true
   belongs_to :site, optional: true, counter_cache: true
   belongs_to :region, optional: true, counter_cache: true, touch: false
+  has_one :user_profile, dependent: :destroy
   has_many :tokens, dependent: :destroy
   has_many :codes, dependent: :destroy
   has_many :posts, dependent: :destroy
@@ -45,6 +46,8 @@ class User < ApplicationRecord
 
   before_validation { self.screen_name = screen_name.strip unless screen_name.nil? }
   before_validation { self.slug = screen_name.downcase unless screen_name.blank? }
+  before_save :prepare_search_string
+  after_create { UserProfile.create(user: self) }
 
   validates_presence_of :slug
   validates_uniqueness_of :slug
@@ -70,7 +73,7 @@ class User < ApplicationRecord
   scope :with_email, -> (email) { where 'email ilike ?', email }
   scope :with_privilege, -> (privilege) { joins(:user_privileges).where(user_privileges: { privilege_id: privilege.ids }) }
   scope :filtered, -> (f) { name_like(f[:name]).surname_like(f[:surname]).email_like(f[:email]).screen_name_like(f[:screen_name]) }
-  scope :search, ->(q) { where("lower(concat_ws(' ', slug, email, surname, name)) like ?", "%#{q.downcase}%") unless q.blank? }
+  scope :search, ->(q) { where('search_string like ?', "%#{q.downcase}%") unless q.blank? }
 
   # @param [Integer] page
   # @param [Hash] filter
@@ -142,23 +145,24 @@ class User < ApplicationRecord
     slug
   end
 
-  # @param [Boolean] include_patronymic
-  def full_name(include_patronymic = false)
-    parts = [surname, name]
-    parts << patronymic if include_patronymic
-    parts.join(' ').strip
+  def profile
+    user_profile
   end
 
+  # @return [String]
   def profile_name
-    result = full_name(false)
-    if result.blank?
-      result = screen_name || slug
-    end
-    result
+    result = full_name
   end
 
   def name_for_letter
-    name.blank? ? profile_name : name
+    user_profile&.name.blank? ? screen_name : user_profile.name
+  end
+
+  # @param [Boolean] include_patronymic
+  def full_name(include_patronymic = false)
+    result = [user_profile&.surname.to_s.strip, name_for_letter]
+    result << user_profile&.patronymic.to_s.strip if include_patronymic
+    result.compact.join(' ')
   end
 
   def can_receive_letters?
@@ -168,6 +172,10 @@ class User < ApplicationRecord
   # @param [User] user
   def follows?(user)
     UserLink.where(follower: self, followee: user).exists?
+  end
+
+  def native_slug?
+    !foreign_slug?
   end
 
   protected
@@ -186,5 +194,13 @@ class User < ApplicationRecord
         errors.add(:screen_name, I18n.t('activerecord.errors.models.user.attributes.slug.invalid'))
       end
     end
+  end
+
+  def prepare_search_string
+    new_string = "#{slug} #{email}"
+    unless user_profile.nil?
+      new_string << " #{user_profile.search_string}"
+    end
+    self.search_string = new_string.downcase
   end
 end

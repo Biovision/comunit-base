@@ -17,10 +17,13 @@ class UsersController < ApplicationController
 
   # post /users
   def create
-    @entity = User.new creation_parameters
+    parameters = creation_parameters
+    @entity = User.new(parameters)
     if @entity.save
       NetworkManager.new.relink_user(@entity) if Rails.env.production?
-      redirect_to admin_user_path(@entity), notice: t('users.create.success')
+      @entity.user_profile.update(parameters)
+
+      redirect_to admin_user_path(@entity.id), notice: t('users.create.success')
     else
       render :new, status: :bad_request
     end
@@ -32,8 +35,13 @@ class UsersController < ApplicationController
 
   # patch /users/:id
   def update
-    if @entity.update entity_parameters
-      redirect_to admin_user_path(@entity), notice: t('users.update.success')
+    parameters = entity_parameters
+    if @entity.update(parameters)
+      NetworkManager.new.relink_user(@entity) if Rails.env.production?
+
+      @entity.user_profile.update(parameters)
+
+      redirect_to admin_user_path(@entity.id), notice: t('users.update.success')
     else
       render :edit, status: :bad_request
     end
@@ -66,5 +74,9 @@ class UsersController < ApplicationController
 
   def creation_parameters
     params.require(:user).permit(User.creation_parameters).merge(tracking_for_entity)
+  end
+
+  def profile_parameters
+    params.require(:user_profile).permit(UserProfile.entity_parameters)
   end
 end
