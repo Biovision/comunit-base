@@ -28,9 +28,9 @@ class My::ProfilesController < ApplicationController
 
   # patch /my/profile
   def update
-    parameters = user_parameters
-    if current_user.update(parameters)
-      current_user.user_profile.update(parameters)
+    if current_user.update(user_parameters)
+      current_user.user_profile.update(profile_parameters)
+      NetworkManager.new.relink_user(current_user) if Rails.env.production?
       redirect_to my_profile_path, notice: t('my.profiles.update.success')
     else
       render :edit, status: :bad_request
@@ -44,7 +44,7 @@ class My::ProfilesController < ApplicationController
   end
 
   def create_user
-    @user = User.new creation_parameters
+    @user = User.new(creation_parameters)
     if @user.save
       Metric.register(User::METRIC_REGISTRATION)
       create_token_for_user(@user)

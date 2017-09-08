@@ -1,4 +1,5 @@
 <% content_for :meta_title, t('.title', name: @entity.profile_name) %>
+<% profile = @entity.user_profile %>
 
 <article class="entity-page">
   <h1><%= @entity.long_slug %></h1>
@@ -38,22 +39,22 @@
       <th><%= t('activerecord.attributes.user.screen_name') %></th>
       <td><%= @entity.screen_name %> (<%= user_link @entity %>)</td>
     </tr>
-    <% unless @entity.surname.blank? %>
+    <% unless profile.surname.blank? %>
         <tr>
-          <th><%= t('activerecord.attributes.user.surname') %></th>
-          <td><%= @entity.surname %></td>
+          <th><%= t('activerecord.attributes.user_profile.surname') %></th>
+          <td><%= profile.surname %></td>
         </tr>
     <% end %>
-    <% unless @entity.name.blank? %>
+    <% unless profile.name.blank? %>
         <tr>
-          <th><%= t('activerecord.attributes.user.name') %></th>
-          <td><%= @entity.name %></td>
+          <th><%= t('activerecord.attributes.user_profile.name') %></th>
+          <td><%= profile.name %></td>
         </tr>
     <% end %>
-    <% unless @entity.patronymic.blank? %>
+    <% unless profile.patronymic.blank? %>
         <tr>
-          <th><%= t('activerecord.attributes.user.patronymic') %></th>
-          <td><%= @entity.patronymic %></td>
+          <th><%= t('activerecord.attributes.user_profile.patronymic') %></th>
+          <td><%= profile.patronymic %></td>
         </tr>
     <% end %>
     <% unless @entity.email.blank? %>
@@ -69,8 +70,8 @@
         </tr>
     <% end %>
     <tr>
-      <th><%= t('activerecord.attributes.user.gender') %></th>
-      <td><%= @entity.gender.blank? ? t(:not_selected) : t("activerecord.attributes.user.genders.#{@entity.gender}") %></td>
+      <th><%= t('activerecord.attributes.user_profile.gender') %></th>
+      <td><%= profile.gender.blank? ? t(:not_selected) : t("activerecord.attributes.user_profile.genders.#{profile.gender}") %></td>
     </tr>
     <% unless @entity.ip.blank? %>
         <tr>

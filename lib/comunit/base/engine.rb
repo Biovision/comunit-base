@@ -7,6 +7,7 @@ module Comunit
         end
 
         require_dependency 'comunit/base/decorators/models/region_decorator'
+        require_dependency 'comunit/base/decorators/models/user_profile_decorator'
       end
 
       config.assets.precompile << %w(admin.scss)

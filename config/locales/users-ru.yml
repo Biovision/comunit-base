@@ -1,16 +1,4 @@
 ru:
-  user_count:
-    zero: "пользователей нет"
-    one: "%{count} пользователь"
-    few: "%{count} пользователя"
-    many: "%{count} пользователей"
-    other: "%{count} пользователей"
-  code_activation_count:
-    zero: "активаций нет"
-    one: "%{count} активация"
-    few: "%{count} активации"
-    many: "%{count} активаций"
-    other: "%{count} активаций"
   privilege_count:
     zero: "привилегий нет"
     one: "%{count} привилегия"
@@ -23,97 +11,38 @@ ru:
     "-1": "компромиссное"
     "0": "нейтральное"
     "1": "положительное"
-  invalid_code: "Недействительный код"
-  insufficient_role: "Ваша роль не подходит для доступа к странице"
-  insufficient_rights: "Не хватает прав для доступа"
-  could_not_log_in: "Не удалось выполнить вход"
-  please_log_in: "Пожалуйста, выполните вход"
-  logout: "Выйти"
-  email_already_confirmed: "Электронная почта уже подтверждена"
-  anonymous: "Анонимно"
-  view_as_administrator: "Посмотреть в админке"
-  view_as_visitor: "Посмотреть как посетитель"
   activerecord:
     models:
-      user: "Пользователь"
-      code: "Код"
-      privilege: "Привилегия"
-      user_privilege: "Привилегия у пользователя"
       group: "Группа"
       user_group: "Пользователь в группе"
       team: "Команда лиц"
       team_privilege: "Привилегия для команды лиц"
-    errors:
-      models:
-        user:
-          attributes:
-            email:
-              unreasonable: "не выглядит как email"
-            slug:
-              invalid: "должен содержать от 1 до 20 латинских букв, цифр или знаков подчёркивания"
     attributes:
       user:
-        site_id: "Сайт при регистрации"
-        ip: "Адрес при регистрации"
-        agent: "Агент пользователя при регистрации"
-        slug: "Идентификатор"
-        gender: "Пол"
-        birthday: "Дата рождения"
-        bot: "Это бот"
-        allow_login: "Позволить вход"
-        email_confirmed: "Email подтверждён"
-        phone_confirmed: "Телефон подтверждён"
-        allow_mail: "Разрешить email-уведомления"
-        last_seen: "Последняя активность"
-        password: "Пароль"
-        password_confirmation: "Подтверждение пароля"
-        email: "Email"
-        phone: "Телефон"
-        screen_name: "Логин"
-        name: "Имя"
-        patronymic: "Отчество"
-        surname: "Фамилия"
-        notice: "Заметка"
-        image: "Картинка"
-        verified: "Проверен"
-        marital_status: "Семейное положение"
+        allow_posts: "Может писать в блог"
         region_id: "Регион"
-        home_city_name: "Родной город"
-        language_names: "Языки"
-        country_name: "Страна"
-        city_name: "Город"
-        home_address: "Домашний адрес"
-        secondary_phone: "Дополнительный телефон"
-        skype_uid: "Skype"
-        show_email: "Показывать email"
-        show_phone: "Показывать телефон"
-        show_secondary_phone: "Показывать дополинтельный телефон"
-        show_birthday: "Показывать дату рождения"
-        show_patronymic: "Показывать отчество"
-        show_skype_uid: "Показывать skype"
-        show_home_address: "Показывать домашинй адрес"
-        show_about: "Показывать «Кратко о себе»"
+        site_id: "Сайт при регистрации"
+        verified: "Проверен"
+      user_profile:
         about: "Кратко о себе"
         activities: "Деятельность"
-        nationality_name: "Национальность"
-        interests: "Интересы"
-        favorite_music: "Любимая музыка"
-        favorite_movies: "Любимые фильмы"
-        favorite_shows: "Любимые телепередачи"
+        alcohol_attitude: "Отношение к алкоголю"
+        city_name: "Город"
+        country_name: "Страна"
         favorite_books: "Любимые книги"
         favorite_games: "Любимые игры"
+        favorite_movies: "Любимые фильмы"
+        favorite_music: "Любимая музыка"
         favorite_quotes: "Любимые цитаты"
-        political_views: "Политические предпочтения"
-        religion_name: "Религиозные убеждения"
+        favorite_shows: "Любимые телепередачи"
+        home_address: "Домашний адрес"
+        home_city_name: "Родной город"
+        inspiration: "Источники вдохновения"
+        interests: "Интересы"
+        language_names: "Языки"
         main_in_life: "Главное в жизни"
         main_in_people: "Главное в людях"
-        smoking_attitude: "Отношение к курению"
-        alcohol_attitude: "Отношение к алкоголю"
-        inspiration: "Источники вдохновения"
-        allow_posts: "Может писать в блог"
-        genders:
-          female: "Женский"
-          male: "Мужской"
+        marital_status: "Семейное положение"
         marital_statuses:
           male:
             single: "Не женат"
@@ -139,30 +68,20 @@ ru:
             in_love: "Влюблён/влюблена"
             complicated: "Всё сложно"
             in_active_search: "В активном поиске"
-      code:
-        user: "Пользователь"
-        user_id: "Пользователь"
-        category: "Категория"
-        body: "Код"
-        payload: "Полезная нагрузка"
-        quantity: "Количество активаций"
-        categories:
-          confirmation: "Подтверждение почты"
-          recovery: "Сброс пароля"
-          invitation: "Приглашение"
-      privilege:
-        parent_id: "Родительская категория"
-        priority: "Порядок сортировки"
-        regional: "Региональная"
-        name: "Название"
-        slug: "Идентификатор"
-        description: "Описание"
-        parents_cache: "Кеш родителей"
-        children_cache: "Кеш дочерей"
-      user_privilege:
-        privilege: "Привилегия"
-        user: "Пользователь"
-        region: "Регион"
+        nationality_name: "Национальность"
+        political_views: "Политические предпочтения"
+        religion_name: "Религиозные убеждения"
+        secondary_phone: "Дополнительный телефон"
+        show_about: "Показывать «Кратко о себе»"
+        show_birthday: "Показывать дату рождения"
+        show_email: "Показывать email"
+        show_home_address: "Показывать домашинй адрес"
+        show_patronymic: "Показывать отчество"
+        show_phone: "Показывать телефон"
+        show_secondary_phone: "Показывать дополинтельный телефон"
+        show_skype_uid: "Показывать skype"
+        skype_uid: "Skype"
+        smoking_attitude: "Отношение к курению"
       group:
         name: "Название"
         slug: "Идентификатор"
@@ -181,39 +100,6 @@ ru:
         team_id: "Команда"
         privilege_id: "Привилегия"
   admin:
-    users:
-      index:
-        title: "Пользователи, страница %{page}"
-        heading: "Пользователи"
-        description: "Управление пользователями сайта"
-      show:
-        title: "Пользователь %{name}"
-        privileges: "Привилегии"
-      tokens:
-        title: "Жетоны пользователя %{user], страница %{page}"
-      codes:
-        title: "Коды пользователя %{user}, страница %{page}"
-      privileges:
-        title: "Привилегии пользователя %{user}"
-        heading: "Привилегии пользователя"
-    codes:
-      index:
-        title: "Коды, страница %{page}"
-        heading: "Коды"
-      show:
-        title: "Код «%{body}»"
-    privileges:
-      index:
-        title: "Привилегии"
-        heading: "Привилегии пользователей"
-        description: "Управление привилегиями пользователей"
-      show:
-        title: "Привилегия «%{name}»"
-        children: "Дочерние привилегии"
-        add_child: "Добавить дочернюю привилегию"
-      users:
-        title: "Пользователи с привилегией «%{privilege}», страница %{page}"
-        heading: "Пользователи с привилегией"
     groups:
       show:
         title: "Группа «%{name}»"
@@ -293,36 +179,6 @@ ru:
     followees:
       title: "Подписки пользователя %{user}, страница %{page}"
       heading: "Подписки пользователя %{user}"
-  codes:
-    update:
-      success: "Код успешно обновлён"
-    destroy:
-      success: "Код успешно удалён"
-    edit:
-      title: "Редактирование кода"
-    new:
-      title: "Новый код"
-  code_sender:
-    email:
-      subject: "Подтверждение адреса электронной почты"
-    password:
-      subject: "Сброс пароля"
-  privileges:
-    new:
-      title: "Новая привилегия"
-    edit:
-      title: "Редактирование привилегии"
-      forbidden: "Редактирование этой привилегии запрещено"
-    update:
-      success: "Привилегия успешно изменена"
-    destroy:
-      success: "Привилегия успешно удалена"
-    form:
-      guidelines:
-        slug: "Используется в коде для определения наличия привилегии."
-        description: "Краткое пояснение сути привилегии. До 350 символов."
-      placeholders:
-        slug: "administrator"
   groups:
     new:
       title: "Новая группа пользователей"
@@ -356,9 +212,6 @@ ru:
         name: "Совет"
         slug: "council"
   my:
-    index:
-      index:
-        title: "Личный кабинет"
     recoveries:
       create:
         impossible: "Сброс пароля для этого пользователя недоступен"

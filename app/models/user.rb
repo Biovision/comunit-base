@@ -72,7 +72,7 @@ class User < ApplicationRecord
   scope :email_like, -> (val) { where 'email ilike ?', "%#{val}%" unless val.blank? }
   scope :with_email, -> (email) { where 'email ilike ?', email }
   scope :with_privilege, -> (privilege) { joins(:user_privileges).where(user_privileges: { privilege_id: privilege.ids }) }
-  scope :filtered, -> (f) { name_like(f[:name]).surname_like(f[:surname]).email_like(f[:email]).screen_name_like(f[:screen_name]) }
+  scope :filtered, -> (f) { email_like(f[:email]).screen_name_like(f[:screen_name]) }
   scope :search, ->(q) { where('search_string like ?', "%#{q.downcase}%") unless q.blank? }
 
   # @param [Integer] page

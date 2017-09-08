@@ -1,3 +1,4 @@
+<% profile = user.user_profile %>
 <article class="user-profile">
   <h1><%= user.profile_name %></h1>
 
@@ -37,40 +38,40 @@
           <td><%= time_tag user.last_seen %></td>
         </tr>
     <% end %>
-    <% unless user.full_name(user.show_patronymic?).blank? %>
+    <% unless user.full_name(profile.show_patronymic?).blank? %>
         <tr>
-          <th><%= t('activerecord.attributes.user.name') %></th>
-          <td><%= user.full_name(user.show_patronymic?) %></td>
+          <th><%= t('activerecord.attributes.user_profile.name') %></th>
+          <td><%= user.full_name(profile.show_patronymic?) %></td>
         </tr>
     <% end %>
-    <% if user.show_birthday? && !user.birthday.blank? %>
+    <% if profile.show_birthday? && !profile.birthday.blank? %>
         <tr>
-          <th><%= t('activerecord.attributes.user.birthday') %></th>
-          <td><%= time_tag(user.birthday) %></td>
+          <th><%= t('activerecord.attributes.user_profile.birthday') %></th>
+          <td><%= time_tag(profile.birthday) %></td>
         </tr>
     <% end %>
-    <% unless user.gender.blank? %>
+    <% unless profile.gender.blank? %>
         <tr>
-          <th><%= t('activerecord.attributes.user.gender') %></th>
-          <td><%= t("activerecord.attributes.user.genders.#{user.gender}") %></td>
+          <th><%= t('activerecord.attributes.user_profile.gender') %></th>
+          <td><%= t("activerecord.attributes.user_profile.genders.#{profile.gender}") %></td>
         </tr>
     <% end %>
-    <% unless user.marital_status.blank? %>
+    <% unless profile.marital_status.blank? %>
         <tr>
-          <th><%= t('activerecord.attributes.user.marital_status') %></th>
+          <th><%= t('activerecord.attributes.user_profile.marital_status') %></th>
           <td><%= marital_status_for_user(user) %></td>
         </tr>
     <% end %>
-    <% unless user.home_city_name.blank? %>
+    <% unless profile.home_city_name.blank? %>
         <tr>
-          <th><%= t('activerecord.attributes.user.home_city_name') %></th>
-          <td><%= user.home_city_name %></td>
+          <th><%= t('activerecord.attributes.user_profile.home_city_name') %></th>
+          <td><%= profile.home_city_name %></td>
         </tr>
     <% end %>
-    <% unless user.language_names.blank? %>
+    <% unless profile.language_names.blank? %>
         <tr>
-          <th><%= t('activerecord.attributes.user.language_names') %></th>
-          <td><%= user.language_names %></td>
+          <th><%= t('activerecord.attributes.user_profile.language_names') %></th>
+          <td><%= profile.language_names %></td>
         </tr>
     <% end %>
     <tr>
@@ -82,22 +83,22 @@
           <td><%= user.region.name %></td>
         </tr>
     <% end %>
-    <% unless user.country_name.blank? %>
+    <% unless profile.country_name.blank? %>
         <tr>
-          <th><%= t('activerecord.attributes.user.country_name') %></th>
-          <td><%= user.country_name %></td>
+          <th><%= t('activerecord.attributes.user_profile.country_name') %></th>
+          <td><%= profile.country_name %></td>
         </tr>
     <% end %>
-    <% unless user.city_name.blank? %>
+    <% unless profile.city_name.blank? %>
         <tr>
-          <th><%= t('activerecord.attributes.user.city_name') %></th>
-          <td><%= user.city_name %></td>
+          <th><%= t('activerecord.attributes.user_profile.city_name') %></th>
+          <td><%= profile.city_name %></td>
         </tr>
     <% end %>
-    <% if user.show_home_address? && !user.home_address.blank? %>
+    <% if profile.show_home_address? && !profile.home_address.blank? %>
         <tr>
-          <th><%= t('activerecord.attributes.user.home_address') %></th>
-          <td><%= user.home_address %></td>
+          <th><%= t('activerecord.attributes.user_profile.home_address') %></th>
+          <td><%= profile.home_address %></td>
         </tr>
     <% end %>
     <% if user.show_phone? && !user.phone.blank? %>
@@ -106,132 +107,132 @@
           <td><%= user.phone %></td>
         </tr>
     <% end %>
-    <% if user.show_secondary_phone? && !user.secondary_phone.blank? %>
+    <% if profile.show_secondary_phone? && !profile.secondary_phone.blank? %>
         <tr>
-          <th><%= t('activerecord.attributes.user.secondary_phone') %></th>
-          <td><%= user.secondary_phone %></td>
+          <th><%= t('activerecord.attributes.user_profile.secondary_phone') %></th>
+          <td><%= profile.secondary_phone %></td>
         </tr>
     <% end %>
-    <% if user.show_skype_uid? && !user.skype_uid.blank? %>
+    <% if profile.show_skype_uid? && !profile.skype_uid.blank? %>
         <tr>
-          <th><%= t('activerecord.attributes.user.skype_uid') %></th>
-          <td><%= user.skype_uid %></td>
+          <th><%= t('activerecord.attributes.user_profile.skype_uid') %></th>
+          <td><%= profile.skype_uid %></td>
         </tr>
     <% end %>
-    <% if user.show_email? && !user.email.blank? %>
+    <% if profile.show_email? && !user.email.blank? %>
         <tr>
           <th><%= t('activerecord.attributes.user.email') %></th>
           <td><%= user.email %></td>
         </tr>
     <% end %>
-    <% if user.show_about? %>
+    <% if profile.show_about? %>
         <tr>
           <td colspan="2"><%= t('my.profiles.edit.form.about') %></td>
         </tr>
-        <% unless user.about.blank? %>
+        <% unless profile.about.blank? %>
             <tr>
-              <th><%= t('activerecord.attributes.user.about') %></th>
-              <td><%= user.about %></td>
+              <th><%= t('activerecord.attributes.user_profile.about') %></th>
+              <td><%= profile.about %></td>
             </tr>
         <% end %>
-        <% unless user.activities.blank? %>
+        <% unless profile.activities.blank? %>
             <tr>
-              <th><%= t('activerecord.attributes.user.activities') %></th>
-              <td><%= user.activities %></td>
+              <th><%= t('activerecord.attributes.user_profile.activities') %></th>
+              <td><%= profile.activities %></td>
             </tr>
         <% end %>
-        <% unless user.nationality_name.blank? %>
+        <% unless profile.nationality_name.blank? %>
             <tr>
-              <th><%= t('activerecord.attributes.user.nationality_name') %></th>
-              <td><%= user.nationality_name %></td>
+              <th><%= t('activerecord.attributes.user_profile.nationality_name') %></th>
+              <td><%= profile.nationality_name %></td>
             </tr>
         <% end %>
-        <% unless user.interests.blank? %>
+        <% unless profile.interests.blank? %>
             <tr>
-              <th><%= t('activerecord.attributes.user.interests') %></th>
-              <td><%= user.interests %></td>
+              <th><%= t('activerecord.attributes.user_profile.interests') %></th>
+              <td><%= profile.interests %></td>
             </tr>
         <% end %>
-        <% unless user.favorite_music.blank? %>
+        <% unless profile.favorite_music.blank? %>
             <tr>
-              <th><%= t('activerecord.attributes.user.favorite_music') %></th>
-              <td><%= user.favorite_music %></td>
+              <th><%= t('activerecord.attributes.user_profile.favorite_music') %></th>
+              <td><%= profile.favorite_music %></td>
             </tr>
         <% end %>
-        <% unless user.favorite_movies.blank? %>
+        <% unless profile.favorite_movies.blank? %>
             <tr>
-              <th><%= t('activerecord.attributes.user.favorite_movies') %></th>
-              <td><%= user.favorite_movies %></td>
+              <th><%= t('activerecord.attributes.user_profile.favorite_movies') %></th>
+              <td><%= profile.favorite_movies %></td>
             </tr>
         <% end %>
-        <% unless user.favorite_shows.blank? %>
+        <% unless profile.favorite_shows.blank? %>
             <tr>
-              <th><%= t('activerecord.attributes.user.favorite_shows') %></th>
-              <td><%= user.favorite_shows %></td>
+              <th><%= t('activerecord.attributes.user_profile.favorite_shows') %></th>
+              <td><%= profile.favorite_shows %></td>
             </tr>
         <% end %>
-        <% unless user.favorite_books.blank? %>
+        <% unless profile.favorite_books.blank? %>
             <tr>
-              <th><%= t('activerecord.attributes.user.favorite_books') %></th>
-              <td><%= user.favorite_books %></td>
+              <th><%= t('activerecord.attributes.user_profile.favorite_books') %></th>
+              <td><%= profile.favorite_books %></td>
             </tr>
         <% end %>
-        <% unless user.favorite_games.blank? %>
+        <% unless profile.favorite_games.blank? %>
             <tr>
-              <th><%= t('activerecord.attributes.user.favorite_games') %></th>
-              <td><%= user.favorite_games %></td>
+              <th><%= t('activerecord.attributes.user_profile.favorite_games') %></th>
+              <td><%= profile.favorite_games %></td>
             </tr>
         <% end %>
-        <% unless user.favorite_quotes.blank? %>
+        <% unless profile.favorite_quotes.blank? %>
             <tr>
-              <th><%= t('activerecord.attributes.user.favorite_quotes') %></th>
-              <td><%= user.favorite_quotes %></td>
+              <th><%= t('activerecord.attributes.user_profile.favorite_quotes') %></th>
+              <td><%= profile.favorite_quotes %></td>
             </tr>
         <% end %>
     <% end %>
     <tr>
       <td colspan="2"><%= t('my.profiles.edit.form.stand_in_life') %></td>
     </tr>
-    <% unless user.political_views.blank? %>
+    <% unless profile.political_views.blank? %>
         <tr>
-          <th><%= t('activerecord.attributes.user.political_views') %></th>
-          <td><%= user.political_views %></td>
+          <th><%= t('activerecord.attributes.user_profile.political_views') %></th>
+          <td><%= profile.political_views %></td>
         </tr>
     <% end %>
-    <% unless user.religion_name.blank? %>
+    <% unless profile.religion_name.blank? %>
         <tr>
-          <th><%= t('activerecord.attributes.user.religion_name') %></th>
-          <td><%= user.religion_name %></td>
+          <th><%= t('activerecord.attributes.user_profile.religion_name') %></th>
+          <td><%= profile.religion_name %></td>
         </tr>
     <% end %>
-    <% unless user.main_in_life.blank? %>
+    <% unless profile.main_in_life.blank? %>
         <tr>
-          <th><%= t('activerecord.attributes.user.main_in_life') %></th>
-          <td><%= user.main_in_life %></td>
+          <th><%= t('activerecord.attributes.user_profile.main_in_life') %></th>
+          <td><%= profile.main_in_life %></td>
         </tr>
     <% end %>
-    <% unless user.main_in_people.blank? %>
+    <% unless profile.main_in_people.blank? %>
         <tr>
-          <th><%= t('activerecord.attributes.user.main_in_people') %></th>
-          <td><%= user.main_in_people %></td>
+          <th><%= t('activerecord.attributes.user_profile.main_in_people') %></th>
+          <td><%= profile.main_in_people %></td>
         </tr>
     <% end %>
-    <% unless user.smoking_attitude.blank? %>
+    <% unless profile.smoking_attitude.blank? %>
         <tr>
-          <th><%= t('activerecord.attributes.user.smoking_attitude') %></th>
-          <td><%= t("attitudes.#{user.smoking_attitude}") %></td>
+          <th><%= t('activerecord.attributes.user_profile.smoking_attitude') %></th>
+          <td><%= t("attitudes.#{profile.smoking_attitude}") %></td>
         </tr>
     <% end %>
-    <% unless user.alcohol_attitude.blank? %>
+    <% unless profile.alcohol_attitude.blank? %>
         <tr>
-          <th><%= t('activerecord.attributes.user.alcohol_attitude') %></th>
-          <td><%= t("attitudes.#{user.alcohol_attitude}") %></td>
+          <th><%= t('activerecord.attributes.user_profile.alcohol_attitude') %></th>
+          <td><%= t("attitudes.#{profile.alcohol_attitude}") %></td>
         </tr>
     <% end %>
-    <% unless user.inspiration.blank? %>
+    <% unless profile.inspiration.blank? %>
         <tr>
-          <th><%= t('activerecord.attributes.user.inspiration') %></th>
-          <td><%= user.inspiration %></td>
+          <th><%= t('activerecord.attributes.user_profile.inspiration') %></th>
+          <td><%= profile.inspiration %></td>
         </tr>
     <% end %>
     </tbody>

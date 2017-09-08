@@ -8,16 +8,6 @@
       </div>
 
       <div>
-        <div><%= label_tag 'filter_name', t('activerecord.attributes.user.name') %></div>
-        <div><%= search_field_tag 'filter[name]', filter[:name], size: 30, results: 5, autosave: 'name' %></div>
-      </div>
-
-      <div>
-        <div><%= label_tag 'filter_surname', t('activerecord.attributes.user.surname') %></div>
-        <div><%= search_field_tag 'filter[surname]', filter[:surname], size: 30, results: 5, autosave: 'surname' %></div>
-      </div>
-
-      <div>
         <div><%= label_tag 'filter_email', t('activerecord.attributes.user.email') %></div>
         <div><%= search_field_tag 'filter[email]', filter[:email], size: 30, results: 5, autosave: 'email' %></div>
       </div>
