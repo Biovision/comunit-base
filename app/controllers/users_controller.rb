@@ -35,7 +35,7 @@ class UsersController < ApplicationController
   # patch /users/:id
   def update
     if @entity.update(entity_parameters)
-      NetworkManager.new.relink_user(@entity) if Rails.env.production?
+      # NetworkManager.new.relink_user(@entity) if Rails.env.production?
       @entity.user_profile.update(profile_parameters)
 
       redirect_to admin_user_path(@entity.id), notice: t('users.update.success')

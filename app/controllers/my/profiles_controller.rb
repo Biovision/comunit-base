@@ -30,7 +30,7 @@ class My::ProfilesController < ApplicationController
   def update
     if current_user.update(user_parameters)
       current_user.user_profile.update(profile_parameters)
-      NetworkManager.new.relink_user(current_user) if Rails.env.production?
+      # NetworkManager.new.relink_user(current_user) if Rails.env.production?
       redirect_to my_profile_path, notice: t('my.profiles.update.success')
     else
       render :edit, status: :bad_request
