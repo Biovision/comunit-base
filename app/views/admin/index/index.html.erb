@@ -34,6 +34,9 @@
         <% if current_user_has_privilege?(:feedback_manager) %>
             <li><%= render 'admin/appeals/nav_item' %></li>
         <% end %>
+        <% if current_user_in_group?(:poll_managers) %>
+            <li><%= render 'admin/polls/nav_item' %></li>
+        <% end %>
         <%= render 'admin/index/additional' %>
       </ul>
     </nav>
