@@ -54,7 +54,7 @@ class NetworkManager
     end
     unless user.user_profile.nil?
       allowed_in_profile = UserProfile.entity_parameters
-      profile_parameters = user.user_profile.select { |a| allowed_in_profile.include?(a) }
+      profile_parameters = user.user_profile.attributes.select { |a| allowed_in_profile.include?(a) }
       attributes.merge!(profile_parameters)
     end
     data = {

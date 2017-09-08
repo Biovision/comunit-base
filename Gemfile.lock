@@ -37,7 +37,7 @@ GIT
 PATH
   remote: .
   specs:
-    comunit-base (0.4.170728)
+    comunit-base (0.5.170909)
       biovision-base
       biovision-vote
       elasticsearch-model

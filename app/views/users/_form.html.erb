@@ -61,7 +61,7 @@
         <td><%= select_tag 'user_profile[marital_status]', options_for_select(marital_statuses_for_select(profile.gender), profile.marital_status) %></td>
       </tr>
       <tr>
-        <th><%= label_tag :user_profile_birthday, t('activerecord.attributes.user_profile.birthday') %><</th>
+        <th><%= label_tag :user_profile_birthday, t('activerecord.attributes.user_profile.birthday') %></th>
         <td><%= date_field_tag 'user_profile[birthday]', profile.birthday, size: 10 %></td>
       </tr>
       <tr>
