@@ -58,8 +58,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :comments, except: [:index, :new]
-
   resources :themes, except: [:index, :show]
 
   resources :entries do
@@ -89,7 +87,6 @@ Rails.application.routes.draw do
       end
     end
     resources :posts, :tags, only: [:index, :show]
-    resources :comments, only: [:index, :show]
     resources :themes, only: [:index, :show]
     resources :entries, only: [:index, :show] do
       get 'comments', on: :member
@@ -215,13 +212,6 @@ Rails.application.routes.draw do
     end
 
     resources :illustrations, only: [:create, :destroy]
-    resources :comments, except: [:new, :edit] do
-      member do
-        post 'toggle'
-        put 'lock'
-        delete 'lock', action: :unlock
-      end
-    end
     resources :themes, except: [:new, :edit] do
       member do
         put 'lock'
@@ -255,7 +245,6 @@ Rails.application.routes.draw do
   namespace :my do
     resources :posts, :news, :comments, only: [:index]
     resources :entries, only: [:index]
-    resources :comments, only: [:index]
     resources :messages, only: [:index] do
       get '/:user_slug' => :dialog, on: :collection, as: :dialog
     end

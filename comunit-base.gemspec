@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'biovision-base'
   s.add_dependency 'biovision-vote'
+  s.add_dependency 'biovision-comment'
   s.add_dependency 'elasticsearch-model'
   s.add_dependency 'elasticsearch-persistence'
   s.add_dependency 'redis-namespace'

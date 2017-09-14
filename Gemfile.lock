@@ -12,10 +12,20 @@ GIT
       rails-i18n (~> 5.0)
 
 GIT
-  remote: https://github.com/Biovision/biovision-poll
-  revision: 69f0578dd6d3094319f6489462436f240bcdb8b9
+  remote: https://github.com/Biovision/biovision-comment
+  revision: 13c940013806f3a316abb5f76f3af229ddd87107
   specs:
-    biovision-poll (0.0.170908)
+    biovision-comment (0.0.170914)
+      biovision-base
+      kaminari
+      rails (~> 5.1.4)
+      rails-i18n (~> 5.0)
+
+GIT
+  remote: https://github.com/Biovision/biovision-poll
+  revision: 550d24be65f67a2e199af0b5885b3c0469af8cb8
+  specs:
+    biovision-poll (0.0.170911)
       biovision-base
       carrierwave
       carrierwave-bombshelter
@@ -37,8 +47,9 @@ GIT
 PATH
   remote: .
   specs:
-    comunit-base (0.5.170909)
+    comunit-base (0.5.170914)
       biovision-base
+      biovision-comment
       biovision-vote
       elasticsearch-model
       elasticsearch-persistence
@@ -208,7 +219,7 @@ GEM
       method_source
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    rake (12.0.0)
+    rake (12.1.0)
     redis (3.3.3)
     redis-namespace (1.5.3)
       redis (~> 3.0, >= 3.0.4)
@@ -266,6 +277,7 @@ PLATFORMS
 
 DEPENDENCIES
   biovision-base!
+  biovision-comment!
   biovision-poll!
   biovision-vote!
   comunit-base!
