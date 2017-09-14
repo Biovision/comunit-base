@@ -16,3 +16,4 @@ gemspec
 gem 'biovision-base', git: 'https://github.com/Biovision/biovision-base'
 gem 'biovision-vote', git: 'https://github.com/Biovision/biovision-vote'
 gem 'biovision-poll', git: 'https://github.com/Biovision/biovision-poll'
+gem 'biovision-comment', git: 'https://github.com/Biovision/biovision-comment'

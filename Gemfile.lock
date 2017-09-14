@@ -50,6 +50,7 @@ PATH
     comunit-base (0.5.170914)
       biovision-base
       biovision-comment
+      biovision-poll
       biovision-vote
       elasticsearch-model
       elasticsearch-persistence

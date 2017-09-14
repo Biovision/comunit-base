@@ -676,38 +676,48 @@ ul.post-categories {
 
   .body {
     min-height: 11rem;
-    padding: 0 0.8rem;
+    padding: .8rem;
 
-    .title {
-      margin: 1rem 0 0 0;
-      font-weight: bold;
-      text-transform: uppercase;
+    > figure {
+      background: linear-gradient(to top, rgb(200, 200, 200), rgb(255, 255, 255));
+      box-shadow: 0 0 .2rem rgba(0, 0, 0, .5);
+      height: 20rem;
+      overflow: hidden;
+      position: relative;
+      width: 100%;
 
-      a:link, a:visited {
-        text-decoration: none;
+      &:hover {
+        img {
+          filter: grayscale(0);
+        }
       }
 
-      a:hover {
-        text-decoration: underline;
+      img {
+        filter: grayscale(50%);
+        height: 100%;
+        object-fit: contain;
+        transition: .5s;
+        width: 100%;
+      }
+
+      figcaption {
+        background: rgba(255, 255, 255, .75);
+        -webkit-backdrop-filter: blur(.5rem);
+        bottom: 0;
+        font-size: 1.4rem;
+        left: 0;
+        position: absolute;
+        right: 0;
+
+        a {
+          display: block;
+          padding: .8rem;
+        }
       }
     }
 
-    .text {
+    > div {
       padding: 1rem 0;
-      //display: flex;
-      //align-items: center;
-
-      .image {
-        float: left;
-        margin: 0 0.4rem .4rem 0;
-        max-width: 13rem;
-        max-height: 13rem;
-
-        img {
-          max-width: 100%;
-          max-height: 100%;
-        }
-      }
 
       .lead {
         color: #7a7a7a;

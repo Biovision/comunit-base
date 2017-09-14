@@ -15,13 +15,15 @@
     <% end %>
   </div>
   <div class="body">
-    <div class="title"><%= (post.class.to_s == Post.to_s) ? post_link(post) : news_link(post) %></div>
-    <div class="text">
+    <figure>
       <% unless post.image.blank? %>
-          <div class="image"><%= image_tag post.image.preview.url, alt: post.title %></div>
+          <%= image_tag(post.image.medium.url, alt: post.title) %>
       <% end %>
-      <div class="lead"><%= post.lead %></div>
-    </div>
+      <figcaption>
+        <%= (post.class.to_s == Post.to_s) ? post_link(post) : news_link(post) %>
+      </figcaption>
+    </figure>
+    <div><%= post.lead %></div>
   </div>
   <div class="footer">
     <div class="author">

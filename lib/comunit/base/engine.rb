@@ -17,6 +17,9 @@ module Comunit
     end
 
     require 'biovision/base'
+    require 'biovision/vote'
+    require 'biovision/poll'
+    require 'biovision/comment'
     require 'redis-namespace'
     require 'sidekiq'
     require 'carrierwave'
