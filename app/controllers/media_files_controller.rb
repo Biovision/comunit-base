@@ -1,5 +1,6 @@
 class MediaFilesController < AdminController
   before_action :set_entity, except: [:new, :create]
+  before_action :restrict_editing, only: [:edit, :update, :destroy]
 
   # get /media_files/new
   def new
@@ -41,6 +42,12 @@ class MediaFilesController < AdminController
 
   def restrict_access
     require_privilege_group :editors
+  end
+
+  def restrict_editing
+    if @entity.locked? || !@entity.editable_by?(current_user)
+      handle_http_403('Entity is not editable')
+    end
   end
 
   def set_entity

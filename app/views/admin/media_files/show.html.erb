@@ -8,7 +8,9 @@
   <h1><%= @entity.name %></h1>
   <ul class="actions">
     <li><%= back_icon(admin_media_files_path) %></li>
-    <li><%= edit_icon(edit_media_file_path(@entity.id)) %></li>
+    <% if @entity.editable_by?(current_user) && !@entity.locked? %>
+        <li><%= edit_icon(edit_media_file_path(@entity.id)) %></li>
+    <% end %>
   </ul>
 
   <dl>

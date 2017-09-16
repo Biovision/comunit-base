@@ -38,4 +38,8 @@ class MediaFile < ApplicationRecord
   def self.creation_parameters
     entity_parameters + %i(file media_folder_id)
   end
+
+  def editable_by?(user)
+    owned_by?(user) || UserPrivilege.user_has_privilege?(user, :administrator)
+  end
 end
