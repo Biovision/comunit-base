@@ -1,11 +1,7 @@
 module Comunit
   module Base
     class Engine < ::Rails::Engine
-      initializer  "comunit_base.load_base_methods" do
-        ActiveSupport.on_load(:action_controller) do
-          include Biovision::Base::PrivilegeMethods
-        end
-
+      initializer 'comunit_base.load_base_methods' do
         require_dependency 'comunit/base/decorators/models/region_decorator'
         require_dependency 'comunit/base/decorators/models/user_profile_decorator'
       end

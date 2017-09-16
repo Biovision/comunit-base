@@ -2,6 +2,7 @@ class Api::PostsController < ApplicationController
   before_action :restrict_access
   before_action :set_entity
   before_action :restrict_locking, only: [:lock, :unlock]
+  before_action :restrict_editing, only: [:toggle]
 
   # post /api/posts/:id/toggle
   def toggle
@@ -52,5 +53,11 @@ class Api::PostsController < ApplicationController
 
   def restrict_locking
     require_privilege :chief_editor
+  end
+
+  def restrict_editing
+    unless @entity.editable_by?(current_user)
+      handle_http_403('Entity is not editable')
+    end
   end
 end
