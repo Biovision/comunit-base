@@ -10,6 +10,11 @@ module Comunit
       config.assets.precompile << %w(biovision/base/icons/*)
       config.assets.precompile << %w(biovision/base/placeholders/*)
       config.assets.precompile << %w(biovision/vote/icons/*)
+
+      config.generators do |g|
+        g.test_framework :rspec
+        g.fixture_replacement :factory_girl, :dir => 'spec/factories'
+      end
     end
 
     require 'biovision/base'

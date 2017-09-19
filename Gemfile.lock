@@ -1,24 +1,11 @@
 GIT
-  remote: https://github.com/Biovision/biovision-base
-  revision: cabe9556ce96bf37cf4c2f4c0b3ab3518665780b
-  specs:
-    biovision-base (0.7.170907)
-      bcrypt (~> 3.1)
-      carrierwave
-      carrierwave-bombshelter
-      kaminari
-      mini_magick
-      rails (~> 5.1)
-      rails-i18n (~> 5.0)
-
-GIT
   remote: https://github.com/Biovision/biovision-comment
-  revision: 13c940013806f3a316abb5f76f3af229ddd87107
+  revision: d76f61635ec8aa7c2178bc3218e6a14756c47cf7
   specs:
-    biovision-comment (0.0.170914)
+    biovision-comment (0.1.170914)
       biovision-base
       kaminari
-      rails (~> 5.1.4)
+      rails (~> 5.1)
       rails-i18n (~> 5.0)
 
 GIT
@@ -47,7 +34,7 @@ GIT
 PATH
   remote: .
   specs:
-    comunit-base (0.5.170914)
+    comunit-base (0.5.170917)
       biovision-base
       biovision-comment
       biovision-poll
@@ -104,6 +91,14 @@ GEM
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
     bcrypt (3.1.11)
+    biovision-base (0.8.170916)
+      bcrypt (~> 3.1)
+      carrierwave
+      carrierwave-bombshelter
+      kaminari
+      mini_magick
+      rails (~> 5.1)
+      rails-i18n (~> 5.0)
     builder (3.2.3)
     carrierwave (1.1.0)
       activemodel (>= 4.0.0)
@@ -180,14 +175,14 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
     mini_magick (4.8.0)
-    mini_portile2 (2.2.0)
+    mini_portile2 (2.3.0)
     minitest (5.10.3)
     multi_json (1.12.2)
     multipart-post (2.0.0)
     netrc (0.11.0)
     nio4r (2.1.0)
-    nokogiri (1.8.0)
-      mini_portile2 (~> 2.2.0)
+    nokogiri (1.8.1)
+      mini_portile2 (~> 2.3.0)
     pg (0.21.0)
     rack (2.0.3)
     rack-protection (2.0.0)
@@ -277,7 +272,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  biovision-base!
   biovision-comment!
   biovision-poll!
   biovision-vote!
