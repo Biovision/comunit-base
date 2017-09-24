@@ -25,6 +25,10 @@ gem 'biovision-base', git: 'https://github.com/Biovision/biovision-base'
 # gem 'biovision-base', path: '/Users/maxim/Projects/Biovision/gems/biovision-base'
 gem 'biovision-vote', git: 'https://github.com/Biovision/biovision-vote'
 # gem 'biovision-vote', path: '/Users/maxim/Projects/Biovision/gems/biovision-vote'
+gem 'biovision-poll', git: 'https://github.com/Biovision/biovision-poll'
+# gem 'biovision-poll', path: '/Users/maxim/Projects/Biovision/gems/biovision-poll'
+gem 'biovision-comment', git: 'https://github.com/Biovision/biovision-comment'
+# gem 'biovision-comment', path: '/Users/maxim/Projects/Biovision/gems/biovision-comment'
 gem 'comunit-base', git: 'https://github.com/Biovision/comunit-base'
 # gem 'comunit-base', path: '/Users/maxim/Projects/Biovision/Comunit/comunit-base'
 
@@ -59,6 +63,8 @@ end
 ```ruby
   mount Biovision::Base::Engine, at: '/'
   mount Biovision::Vote::Engine, at: '/'
+  mount Biovision::Poll::Engine, at: '/'
+  mount Biovision::Comment::Engine, at: '/'
   mount Comunit::Base::Engine, at: '/'
 
   root 'index#index'

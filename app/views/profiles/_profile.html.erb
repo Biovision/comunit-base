@@ -101,7 +101,7 @@
           <td><%= profile.home_address %></td>
         </tr>
     <% end %>
-    <% if user.show_phone? && !user.phone.blank? %>
+    <% if profile.show_phone? && !user.phone.blank? %>
         <tr>
           <th><%= t('activerecord.attributes.user.phone') %></th>
           <td><%= user.phone %></td>

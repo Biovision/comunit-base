@@ -7,9 +7,11 @@ class AddBloggerPrivilege < ActiveRecord::Migration[5.1]
 
     criteria = { privilege_id: privilege.id }
 
-    User.where(verified: true).order('id asc').pluck(:id) do |user_id|
-      criteria[:user_id] = user_id
-      UserPrivilege.find_or_create_by(criteria)
+    if column_exists? :users, :verified
+      User.where(verified: true).order('id asc').pluck(:id) do |user_id|
+        criteria[:user_id] = user_id
+        UserPrivilege.find_or_create_by(criteria)
+      end
     end
   end
 

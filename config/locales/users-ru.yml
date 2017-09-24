@@ -22,7 +22,6 @@ ru:
         allow_posts: "Может писать в блог"
         region_id: "Регион"
         site_id: "Сайт при регистрации"
-        verified: "Проверен"
       user_profile:
         about: "Кратко о себе"
         activities: "Деятельность"

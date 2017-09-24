@@ -7,7 +7,6 @@ class User < ApplicationRecord
 
   SLUG_LIMIT   = 250
   EMAIL_LIMIT  = 250
-  NAME_LIMIT   = 100
   NOTICE_LIMIT = 255
   PHONE_LIMIT  = 50
 
@@ -16,7 +15,7 @@ class User < ApplicationRecord
   METRIC_AUTHENTICATION_FAILURE  = 'users.authentication.failure.hit'
   METRIC_AUTHENTICATION_EXTERNAL = 'users.authentication.external.hit'
 
-  toggleable %i(email_confirmed allow_mail allow_login verified)
+  toggleable %i(email_confirmed allow_mail allow_login)
 
   belongs_to :agent, optional: true
   belongs_to :site, optional: true, counter_cache: true
@@ -55,9 +54,6 @@ class User < ApplicationRecord
   validate :email_should_be_reasonable
   validates_length_of :slug, maximum: SLUG_LIMIT
   validates_length_of :screen_name, maximum: SLUG_LIMIT
-  validates_length_of :name, maximum: NAME_LIMIT
-  validates_length_of :patronymic, maximum: NAME_LIMIT
-  validates_length_of :surname, maximum: NAME_LIMIT
   validates_length_of :email, maximum: EMAIL_LIMIT
   validates_length_of :phone, maximum: PHONE_LIMIT
   validates_length_of :notice, maximum: NOTICE_LIMIT
@@ -67,8 +63,6 @@ class User < ApplicationRecord
   scope :visible, -> { where(deleted: false) }
   scope :bots, -> (flag) { where bot: flag.to_i > 0 unless flag.blank? }
   scope :screen_name_like, -> (val) { where 'screen_name ilike ?', "%#{val}%" unless val.blank? }
-  scope :name_like, -> (val) { where 'name ilike ?', "%#{val}%" unless val.blank? }
-  scope :surname_like, -> (val) { where('surname ilike ?', "%#{val}%") unless val.blank? }
   scope :email_like, -> (val) { where 'email ilike ?', "%#{val}%" unless val.blank? }
   scope :with_email, -> (email) { where 'email ilike ?', email }
   scope :with_privilege, -> (privilege) { joins(:user_privileges).where(user_privileges: { privilege_id: privilege.ids }) }
@@ -84,16 +78,11 @@ class User < ApplicationRecord
   # @param [Integer] page
   # @param [Hash] filter
   def self.page_for_visitors(page, filter = {})
-    visible.filtered(filter).order('surname asc, name asc, slug asc').page(page).per(PER_PAGE)
+    visible.filtered(filter).order('slug asc').page(page).per(PER_PAGE)
   end
 
   def self.profile_parameters
-    basic_data         = %i(image name patronymic surname birthday gender allow_mail marital_status home_city_name language_names)
-    contact_data       = %i(region_id country_name city_name home_address phone secondary_phone skype_uid)
-    about_data         = %i(about activities nationality_name interests favorite_music favorite_movies favorite_shows favorite_books favorite_games favorite_quotes)
-    stand_in_life_data = %i(political_views religion_name main_in_life main_in_people smoking_attitude alcohol_attitude inspiration)
-    flag_data          = %i(show_email show_phone show_secondary_phone show_birthday show_patronymic show_skype_uid show_home_address show_about allow_posts verified)
-    basic_data + contact_data + about_data + stand_in_life_data + flag_data
+    %i(image region_id phone)
   end
 
   def self.sensitive_parameters

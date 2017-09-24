@@ -202,10 +202,6 @@
               <%= f.label :allow_mail %>
             </li>
             <li>
-              <%= f.check_box :verified %>
-              <%= f.label :verified %>
-            </li>
-            <li>
               <%= hidden_field_tag 'user_profile[show_email]', '0', id: :user_profile_show_email_0 %>
               <%= check_box_tag 'user_profile[show_email]', '1', profile.show_email? %>
               <%= label_tag :user_profile_show_email, t('activerecord.attributes.user_profile.show_email') %>
