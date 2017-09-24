@@ -1,7 +1,11 @@
 <% content_for :meta_title, t('.title', category: @entity.full_title, page: current_page) %>
-<% content_for :hide_sidebar, '1' %>
+<% content_for :breadcrumbs do %>
+    <%= link_to(t('admin.post_categories.nav_item.text'), admin_post_categories_path) %>
+    <%= admin_post_category_link(@entity) %>
+    <span><%= t('.heading') %></span>
+<% end %>
 
-<article class="entity-page">
+<article>
   <h1><%= @entity.full_title %></h1>
   <ul class="actions">
     <li><%= return_icon(admin_post_category_path(@entity), t('activerecord.models.post_category')) %></li>
