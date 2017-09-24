@@ -231,8 +231,9 @@ body {
       text-transform: uppercase;
       margin: 0 0 1rem 0;
 
-      a:link, a:visited {
-        color: #ffffff;
+      a:link,
+      a:visited {
+        color: $link-color-breadcrumbs;
         text-decoration: none;
       }
     }
