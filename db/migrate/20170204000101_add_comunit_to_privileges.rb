@@ -17,6 +17,7 @@ class AddComunitToPrivileges < ActiveRecord::Migration[5.0]
     Privilege.create(slug: 'group_manager', name: 'Управляющий группами')
     Privilege.create(slug: 'feedback_manager', name: 'Орготдел')
     Privilege.create(slug: 'teams_manager', name: 'Управляющий «Лицами»')
+    Privilege.create(slug: 'blogger', name: 'Блогер')
 
     privilege = Privilege.create(slug: 'head', name: 'Руководитель')
     editors.add_privilege(privilege)

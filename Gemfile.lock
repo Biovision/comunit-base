@@ -1,4 +1,17 @@
 GIT
+  remote: https://github.com/Biovision/biovision-base
+  revision: 6a660bf818fb59d2f07f3f4bc84f13f8faf3b341
+  specs:
+    biovision-base (0.8.170920)
+      bcrypt (~> 3.1)
+      carrierwave
+      carrierwave-bombshelter
+      kaminari
+      mini_magick
+      rails (~> 5.1)
+      rails-i18n (~> 5.0)
+
+GIT
   remote: https://github.com/Biovision/biovision-comment
   revision: d76f61635ec8aa7c2178bc3218e6a14756c47cf7
   specs:
@@ -34,7 +47,7 @@ GIT
 PATH
   remote: .
   specs:
-    comunit-base (0.5.170917)
+    comunit-base (0.6.170924)
       biovision-base
       biovision-comment
       biovision-poll
@@ -91,14 +104,6 @@ GEM
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
     bcrypt (3.1.11)
-    biovision-base (0.8.170916)
-      bcrypt (~> 3.1)
-      carrierwave
-      carrierwave-bombshelter
-      kaminari
-      mini_magick
-      rails (~> 5.1)
-      rails-i18n (~> 5.0)
     builder (3.2.3)
     carrierwave (1.1.0)
       activemodel (>= 4.0.0)
@@ -272,6 +277,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  biovision-base!
   biovision-comment!
   biovision-poll!
   biovision-vote!

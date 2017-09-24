@@ -180,7 +180,7 @@ class User < ApplicationRecord
 
   def age
     now    = Time.now
-    bd     = birthday || now
+    bd     = user_profile.birthday || now
     result = now.year - bd.year
     result = result - 1 if (bd.month > now.month || (bd.month >= now.month && bd.day > now.day))
     result
