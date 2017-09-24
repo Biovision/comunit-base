@@ -5,7 +5,7 @@
 <article class="entries">
   <h1><%= t('.heading') %></h1>
 
-  <% if current_user&.verified? %>
+  <% if current_user_has_privilege?(:blogger) %>
       <ul class="actions">
         <li><%= create_icon(new_entry_path) %></li>
       </ul>

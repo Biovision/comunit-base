@@ -118,7 +118,7 @@ class EntriesController < ApplicationController
   end
 
   def restrict_adding
-    unless current_user.verified?
+    unless current_user_has_privilege?(:blogger)
       redirect_to entries_path, alert: t('entries.new.restricted')
     end
   end

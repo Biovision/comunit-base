@@ -2,7 +2,7 @@ class AddBloggerPrivilege < ActiveRecord::Migration[5.1]
   def up
     privilege = Privilege.find_by(slug: 'blogger')
     if privilege.nil?
-      privilege = Privilege.create(slug: 'blogger', name: 'Блоггер')
+      privilege = Privilege.create(slug: 'blogger', name: 'Блогер')
     end
 
     criteria = { privilege_id: privilege.id }
