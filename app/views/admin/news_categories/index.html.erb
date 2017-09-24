@@ -1,7 +1,9 @@
 <% content_for :meta_title, t('.title') %>
-<% content_for :hide_sidebar, '1' %>
+<% content_for :breadcrumbs do %>
+    <span><%= t('admin.news_categories.nav_item.text') %></span>
+<% end %>
 
-<article class="entity-page">
+<article>
   <h1><%= t('.heading') %></h1>
 
   <ul class="actions">

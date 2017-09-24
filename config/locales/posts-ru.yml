@@ -65,17 +65,13 @@ ru:
         figure:
           attributes:
             slug:
-              invalid: "должен содержать от 1 до 30 английских букв, цифр или знаков подчёркивания"
+              invalid: "должен содержать от 1 до 30 латинских букв, цифр или знаков подчёркивания"
         post:
           attributes:
-            user:
-              required: "не может быть пустым"
             post_category:
               required: "должна быть выбрана"
         news:
           attributes:
-            user:
-              required: "не может быть пустым"
             news_category:
               required: "должна быть выбрана"
         entry:
@@ -165,6 +161,9 @@ ru:
         slug: "Идентификатор"
   admin:
     news_categories:
+      nav_item:
+        text: "Категории новостей"
+        description: "Управление категориями новостей"
       show:
         title: "Категория новостей «%{name}»"
       items:
@@ -173,7 +172,6 @@ ru:
       index:
         title: "Категории новостей"
         heading: "Категории новостей"
-        description: "Управление категориями новостей"
     post_categories:
       nav_item:
         text: "Категории публикаций"
@@ -377,8 +375,10 @@ ru:
   news_categories:
     new:
       title: "Новая категория новостей"
+      heading: "Новая категория новостей"
     edit:
       title: "Редактирование категории новостей"
+      heading: "Редактирование категории новостей"
       forbidden: "Редактирование этой категории новостей запрещено"
     update:
       success: "Категория новостей успешно изменена"
