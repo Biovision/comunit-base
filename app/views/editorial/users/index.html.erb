@@ -6,7 +6,7 @@
     <li><%= back_icon editorial_path %></li>
   </ul>
 
-  <%= render partial: 'filter', locals: { filter: @filter } %>
+  <%= render partial: 'filter' %>
 
   <%= paginate @collection %>
   <%= render partial: 'list', locals: { collection: @collection } %>

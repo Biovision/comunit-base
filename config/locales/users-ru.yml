@@ -133,6 +133,8 @@ ru:
         heading: "Пользователи"
       show:
         title: "Пользователь %{name}"
+      filter:
+        search: "Искать"
   authentication:
     info:
       logout: "Выйти"

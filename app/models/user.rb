@@ -70,15 +70,15 @@ class User < ApplicationRecord
   scope :search, ->(q) { where('search_string like ?', "%#{q.downcase}%") unless q.blank? }
 
   # @param [Integer] page
-  # @param [Hash] filter
-  def self.page_for_administration(page, filter = {})
-    filtered(filter).order('slug asc').page(page).per(PER_PAGE)
+  # @param [String] search_query
+  def self.page_for_administration(page, search_query = '')
+    search(search_query).order('id desc').page(page).per(PER_PAGE)
   end
 
   # @param [Integer] page
-  # @param [Hash] filter
-  def self.page_for_visitors(page, filter = {})
-    visible.filtered(filter).order('slug asc').page(page).per(PER_PAGE)
+  # @param [String] search_query
+  def self.page_for_visitors(page, search_query = '')
+    visible.search(search_query).order('id desc').page(page).per(PER_PAGE)
   end
 
   def self.profile_parameters

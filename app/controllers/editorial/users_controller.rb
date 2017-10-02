@@ -7,8 +7,8 @@ class Editorial::UsersController < AdminController
   # get /editorial/users
   def index
     site_id     = ENV['SITE_ID'].to_i
-    @filter     = params[:filter] || Hash.new
-    @collection = User.where(site_id: site_id).page_for_administration current_page, @filter
+    @search     = param_from_request(:q)
+    @collection = User.where(site_id: site_id).page_for_administration current_page, @search
   end
 
   # get /editorial/users/:id
