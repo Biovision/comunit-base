@@ -28,7 +28,7 @@
         <%= label_tag 'news_region_0', t(:not_set) %><br/>
         <% unless entity.region.nil? %>
             <%= radio_button_tag 'news[region_id]', entity.region_id, true, id: 'news_region_default' %>
-            <%= label_tag 'news_region_default', entity.region.long_name %><br/>
+            <%= label_tag 'news_region_default', entity.region.branch_name %><br/>
         <% end %>
         <%= render partial: 'admin/regions/news_form', locals: { form: f } %>
         <div class="guideline"><%= t('.guidelines.region_id') %></div>

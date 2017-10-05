@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/Biovision/biovision-base
-  revision: 3b1bccf864de64caca634b4668aca6bbac875f3e
+  revision: 5f7f143c7408db403da61ee63b1ff4acd86f8e26
   specs:
-    biovision-base (0.8.171003)
+    biovision-base (0.8.171006)
       bcrypt (~> 3.1)
       carrierwave
       carrierwave-bombshelter
@@ -100,7 +100,7 @@ GEM
       rails (~> 5.1)
       rails-i18n (~> 5.0)
     builder (3.2.3)
-    carrierwave (1.2.0)
+    carrierwave (1.2.1)
       activemodel (>= 4.0.0)
       activesupport (>= 4.0.0)
       mime-types (>= 1.16)

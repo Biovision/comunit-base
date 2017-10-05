@@ -6,7 +6,7 @@
 <div class="data">
   <div>
     <% unless news.region.nil? %>
-        <span class="news-region"><%= news.region.long_name %>:</span>
+        <span class="news-region"><%= news.region.branch_name %>:</span>
     <% end %>
     <cite><%= link_to news.title, admin_news_path(news) %></cite>
     <% unless news.entry.nil? %>

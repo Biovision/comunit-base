@@ -8,7 +8,7 @@
           <%= regional_news_category_link post.category %>
           <%= time_tag post.created_at %>
         </div>
-        <div class="region"><%= link_to(post.region.long_name, root_path(region_id: post.region.id)) %></div>
+        <div class="region"><%= link_to(post.region.branch_name, root_path(region_id: post.region.id)) %></div>
     <% else %>
         <%= news_category_link post.category %>
         <%= time_tag post.created_at %>
