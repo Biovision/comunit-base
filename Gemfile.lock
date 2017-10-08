@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/Biovision/biovision-base
-  revision: 5f7f143c7408db403da61ee63b1ff4acd86f8e26
+  revision: e5869f61460ae8f0469c1a2926a9a45d89432546
   specs:
-    biovision-base (0.8.171006)
+    biovision-base (0.8.171009)
       bcrypt (~> 3.1)
       carrierwave
       carrierwave-bombshelter
