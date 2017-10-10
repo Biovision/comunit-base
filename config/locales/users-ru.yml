@@ -267,6 +267,7 @@ ru:
           contact: "Контактные данные"
           about: "Кратко о себе"
           stand_in_life: "Жизненная позиция"
+          flags: "Настройки"
     notifications:
       index:
         title: "Уведомления, страница %{page}"
