@@ -31,6 +31,12 @@ module PostsHelper
     end
   end
 
+  # @param [News] entity
+  # @param [String] text
+  def my_news_link(entity, text = entity.title)
+    link_to(text, my_news_path(entity.id))
+  end
+
   # @param [PostCategory] category
   # @param [String] text
   def post_category_link(category, text = category&.name)

@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/Biovision/biovision-base
-  revision: e5869f61460ae8f0469c1a2926a9a45d89432546
+  revision: 71a5d9f3fd14c375051b52434bc5a32a53920f9a
   specs:
-    biovision-base (0.8.171009)
+    biovision-base (0.8.171011)
       bcrypt (~> 3.1)
       carrierwave
       carrierwave-bombshelter
@@ -37,7 +37,7 @@ GIT
 PATH
   remote: .
   specs:
-    comunit-base (0.6.171003)
+    comunit-base (0.6.171011)
       biovision-base
       biovision-comment
       biovision-poll
@@ -139,7 +139,7 @@ GEM
       faraday
       multi_json
     equalizer (0.0.11)
-    erubi (1.6.1)
+    erubi (1.7.0)
     factory_girl (4.8.1)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.8.0)

@@ -228,9 +228,18 @@ ru:
         title: "Комментарии к записи «%{title}», страница %{page}"
   my:
     news:
+      nav_item:
+        text: "Мои новости"
+        description: "Управление вашими новостями"
       index:
         title: "Мои новости, страница %{page}"
         heading: "Мои новости"
+      new:
+        title: "Добавить новость"
+        heading: "Добавить новость"
+      edit:
+        title: "Редактирование новости"
+        heading: "Редактирование новости"
     posts:
       index:
         title: "Мои публикации, страница %{page}"
