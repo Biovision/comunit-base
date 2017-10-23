@@ -19,8 +19,8 @@ class UsersController < ApplicationController
   def create
     @entity = User.new(creation_parameters)
     if @entity.save
-      NetworkManager.new.relink_user(@entity) if Rails.env.production?
       @entity.user_profile.update(profile_parameters)
+      NetworkManager::UserHandler.new.relink_user(@entity) if Rails.env.production?
 
       redirect_to admin_user_path(@entity.id), notice: t('users.create.success')
     else
@@ -35,8 +35,8 @@ class UsersController < ApplicationController
   # patch /users/:id
   def update
     if @entity.update(entity_parameters)
-      # NetworkManager.new.relink_user(@entity) if Rails.env.production?
       @entity.user_profile.update(profile_parameters)
+      NetworkManager::UserHandler.new.sync_user(@entity) if Rails.env.production?
 
       redirect_to admin_user_path(@entity.id), notice: t('users.update.success')
     else

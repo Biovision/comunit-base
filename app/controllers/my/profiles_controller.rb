@@ -30,7 +30,8 @@ class My::ProfilesController < ApplicationController
   def update
     if current_user.update(user_parameters)
       current_user.user_profile.update(profile_parameters)
-      # NetworkManager.new.relink_user(current_user) if Rails.env.production?
+      NetworkManager::UserHandler.new.sync_user(current_user) if Rails.env.production?
+
       redirect_to my_profile_path, notice: t('my.profiles.update.success')
     else
       render :edit, status: :bad_request
@@ -48,7 +49,8 @@ class My::ProfilesController < ApplicationController
     if @user.save
       Metric.register(User::METRIC_REGISTRATION)
       create_token_for_user(@user)
-      NetworkManager.new.relink_user(@user) if Rails.env.production?
+      NetworkManager::UserHandler.new.relink_user(@user) if Rails.env.production?
+
       redirect_to my_profile_path, notice: t('my.profiles.create.success')
     else
       render :new, status: :bad_request
