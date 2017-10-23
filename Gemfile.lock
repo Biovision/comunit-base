@@ -37,7 +37,7 @@ GIT
 PATH
   remote: .
   specs:
-    comunit-base (0.6.171015)
+    comunit-base (0.7.171023)
       biovision-base
       biovision-comment
       biovision-poll
