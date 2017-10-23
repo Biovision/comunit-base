@@ -31,8 +31,8 @@ class NetworkManager::UserHandler < NetworkManager
   # @param [User] user
   def relink_user(user)
     log_event("Relinking user #{user.id}")
-    url     = "#{MAIN_HOST}/network/users/relink"
-    data    = prepare_user_data(user)
+    url  = "#{MAIN_HOST}/network/users/relink"
+    data = prepare_user_data(user)
     unless user.agent.nil?
       data[:data][:agent_name] = user.agent.name
     end
@@ -58,8 +58,12 @@ class NetworkManager::UserHandler < NetworkManager
     data = prepare_user_data(user)
     log_event("Data: #{data.inspect}\n")
 
-    response = RestClient.put(url, JSON.generate(data), request_headers)
-    log_event("Response (#{response.code}):\n#{response.body.inspect}\n")
+    begin
+      response = RestClient.put(url, JSON.generate(data), request_headers)
+      log_event("Response (#{response.code}):\n#{response.body.inspect}\n")
+    rescue RestClient::Exception => e
+      log_event("Failed with #{e.http_code}: #{e}\n#{e.response}")
+    end
   end
 
   private
