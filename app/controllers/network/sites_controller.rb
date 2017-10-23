@@ -1,8 +1,9 @@
 class Network::SitesController < NetworkController
   # put /network/sites/:id
   def synchronize
+    manager = NetworkManager.new
     site = Site.find_by(id: params[:id]) || Site.new(id: params[:id])
-    @manager.update_site(site, sync_parameters, params[:data])
+    manager.update_site(site, sync_parameters, params[:data])
     render json: { data: { site: site.attributes } }
   end
 
