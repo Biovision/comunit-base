@@ -11,7 +11,7 @@
   <%= render partial: 'events/entity/speakers', locals: { collection: @entity.event_speakers.page_for_visitors } %>
 
   <section class="register" id="registration-form">
-    <h2>Зарегистрироваться на мероприятие</h2>
+    <h2>Подать заявку на регистрацию</h2>
 
     <%= render partial: 'event_participants/form', locals: { entity: @entity.event_participants.new } %>
   </section>
