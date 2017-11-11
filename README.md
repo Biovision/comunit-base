@@ -32,7 +32,7 @@ gem 'comunit-base', git: 'https://github.com/Biovision/comunit-base'
 
 group :development, :test do
   gem 'database_cleaner'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'rspec-rails'
 end
 
@@ -184,7 +184,7 @@ end
 
 ```ruby
 RSpec.configure do |config|
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
 end
 ```
 
