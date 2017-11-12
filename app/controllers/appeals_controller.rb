@@ -52,7 +52,7 @@ class AppealsController < ApplicationController
   private
 
   def restrict_access
-    require_privilege :appeal_manager
+    require_privilege :feedback_manager
   end
 
   def set_entity
