@@ -3,9 +3,11 @@ class CreateAppeals < ActiveRecord::Migration[5.0]
     unless Appeal.table_exists?
       create_table :appeals do |t|
         t.timestamps
+        t.references :appeal_type, foreign_key: true, on_update: :cascade, on_delete: :nullify
         t.references :user, foreign_key: true, on_update: :cascade, on_delete: :nullify
         t.references :agent, foreign_key: true, on_update: :cascade, on_delete: :nullify
         t.inet :ip
+        t.integer :responder_id
         t.boolean :processed, default: false, null: false
         t.boolean :deleted, default: false, null: false
         t.string :name, default: '', null: false
@@ -15,7 +17,10 @@ class CreateAppeals < ActiveRecord::Migration[5.0]
         t.string :attachment
         t.string :uuid
         t.text :body, null: false
+        t.text :response
       end
+
+      add_foreign_key :appeals, :users, column: :responder_id, on_update: :cascade, on_delete: :nullify
     end
   end
 

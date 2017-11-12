@@ -1,58 +1,44 @@
 <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
 
-<%= form_for entity, class: 'entry-form' do |f| %>
-    <table>
-      <tbody>
-      <tr>
-        <th>
-          <%= f.label :name %>
-        </th>
-        <td>
-          <%= f.text_field :name, size: 50, required: true %>
-          <div class="guideline"><%= t('.guidelines.name') %></div>
-        </td>
-      </tr>
-      <tr>
-        <th>
-          <%= f.label :email %>
-        </th>
-        <td>
-          <%= f.email_field :email, size: 50 %>
-          <div class="guideline"><%= t('.guidelines.email') %></div>
-        </td>
-      </tr>
-      <tr>
-        <th>
-          <%= f.label :phone %>
-        </th>
-        <td>
-          <%= f.telephone_field :phone, size: 15, maxlength: 30 %>
-          <div class="guideline"><%= t('.guidelines.phone') %></div>
-        </td>
-      </tr>
-      <tr>
-        <th>
-          <%= f.label :subject %>
-        </th>
-        <td>
-          <%= f.text_field :subject, size: 50 %>
-          <div class="guideline"><%= t('.guidelines.subject') %></div>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2">
-          <%= f.label :body %><br />
-          <%= f.text_area :body, cols: 80, rows: 25, required: true %>
-          <div class="guideline"><%= t('.guidelines.body') %></div>
-        </td>
-      </tr>
-      </tbody>
-      <tfoot>
-      <tr>
-        <td colspan="2">
-          <%= f.button t(:submit), type: :submit %>
-        </td>
-      </tr>
-      </tfoot>
-    </table>
+<%= form_for entity do |f| %>
+    <dl>
+      <dt><%= f.label :name %></dt>
+      <dd>
+        <%= f.text_field :name, size: nil, maxlength: Appeal::NAME_LIMIT, required: true %>
+        <div class="guideline"><%= t('.guidelines.name') %></div>
+      </dd>
+
+      <dt><%= f.label :email %></dt>
+      <dd>
+        <%= f.email_field :email, size: nil, maxlength: Appeal::EMAIL_LIMIT %>
+        <div class="guideline"><%= t('.guidelines.email') %></div>
+      </dd>
+
+      <dt><%= f.label :phone %></dt>
+      <dd>
+        <%= f.telephone_field :phone, size: 15, maxlength: Appeal::PHONE_LIMIT %>
+        <div class="guideline"><%= t('.guidelines.phone') %></div>
+      </dd>
+
+      <dt><%= f.label :subject %></dt>
+      <dd>
+        <%= f.text_field :subject, size: nil, maxlength: Appeal::SUBJECT_LIMIT %>
+        <div class="guideline"><%= t('.guidelines.subject') %></div>
+      </dd>
+
+      <dt><%= f.label :body %></dt>
+      <dd>
+        <%= f.text_area :body, cols: 80, rows: 25, maxlength: Appeal::BODY_LIMIT, required: true %>
+        <div class="guideline"><%= t('.guidelines.body') %></div>
+      </dd>
+    </dl>
+
+    <div class="consent">
+      <%= check_box_tag :consent, '1', false, required: true %>
+      <%= label_tag :consent, t('.consent') %>
+    </div>
+
+    <div class="buttons">
+      <%= f.button t(:submit), type: :submit %>
+    </div>
 <% end %>

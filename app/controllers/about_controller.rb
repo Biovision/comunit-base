@@ -8,4 +8,8 @@ class AboutController < ApplicationController
   def donate
     @editable_page = EditablePage.find_by(slug: 'donate')
   end
+
+  def tos
+    @editable_page = EditablePage.find_by(slug: 'tos')
+  end
 end

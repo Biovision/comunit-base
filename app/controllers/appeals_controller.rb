@@ -1,7 +1,7 @@
 class AppealsController < ApplicationController
   before_action :prepare_editable_page, only: [:new, :create]
   before_action :restrict_access, except: [:new, :create]
-  before_action :set_entity, only: [:destroy]
+  before_action :set_entity, only: [:destroy, :update]
 
   layout 'admin', except: [:new, :create]
 
@@ -15,9 +15,28 @@ class AppealsController < ApplicationController
   def create
     @entity = Appeal.new(creation_parameters)
     if @entity.save
-      redirect_to(feedback_path, notice: t('appeals.create.success'))
+      next_page = feedback_path
+      respond_to do |format|
+        format.html { redirect_to(next_page, notice: t('appeals.create.success')) }
+        format.json { render(json: { links: { next: next_page } }) }
+        format.js { render js: "document.location.href = '#{next_page}'" }
+      end
     else
       render :new, status: :bad_request
+    end
+  end
+
+  # patch /appeals/:id
+  def update
+    if @entity.update(entity_parameters)
+      next_page = admin_appeal_path(@entity.id)
+      respond_to do |format|
+        format.html { redirect_to(next_page) }
+        format.json { render(json: { links: { next: next_page } }) }
+        format.js { render js: "document.location.href = '#{next_page}'" }
+      end
+    else
+      render :edit, status: :bad_request
     end
   end
 
@@ -51,6 +70,7 @@ class AppealsController < ApplicationController
   end
 
   def creation_parameters
-    entity_parameters.merge(owner_for_entity(true))
+    parameters = params.require(:appeal).permit(Appeal.creation_parameters)
+    parameters.merge(owner_for_entity(true))
   end
 end

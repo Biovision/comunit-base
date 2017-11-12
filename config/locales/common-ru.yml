@@ -32,6 +32,9 @@ ru:
     index:
       title: "О нас"
       heading: "О нас"
+    tos:
+      title: "Пользовательское соглашение"
+      heading: "Пользовательское соглашение"
   editorial:
     index:
       index:

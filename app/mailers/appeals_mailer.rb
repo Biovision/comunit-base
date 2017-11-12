@@ -1,0 +1,2 @@
+class AppealsMailer < ApplicationMailer
+end
