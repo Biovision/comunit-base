@@ -43,9 +43,25 @@
     <dd>
       <%= simple_format(@entity.body) %>
     </dd>
+
+    <% unless @entity.response.blank? %>
+        <dt><%= t('activerecord.attributes.appeal.response') %></dt>
+        <dd>
+          <%= simple_format(@entity.response) %>
+        </dd>
+
+        <dt><%= t('activerecord.attributes.appeal.responder_id') %></dt>
+        <dd>
+          <%= admin_user_link(@entity.responder) %>
+        </dd>
+    <% end %>
   </dl>
 
   <%= render partial: 'admin/appeals/toggleable', locals: { entity: @entity } %>
+
+  <% if @entity.response.blank? && !@entity.processed? && !@entity.email.blank? %>
+      <%= render partial: 'admin/appeals/form', locals: { entity: @entity } %>
+  <% end %>
 
   <%= render partial: 'shared/track', locals: { item: @entity } %>
 </article>

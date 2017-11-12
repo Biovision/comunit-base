@@ -35,7 +35,7 @@ Rails.application.routes.draw do
 
   resources :media_folders, :media_files, except: [:index, :show]
 
-  resources :appeals, except: [:index, :new, :show, :edit, :update]
+  resources :appeals, except: [:index, :new, :show, :edit]
   get 'feedback' => 'appeals#new'
   post 'feedback' => 'appeals#create'
 

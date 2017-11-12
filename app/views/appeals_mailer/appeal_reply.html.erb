@@ -1,0 +1,10 @@
+<h1>Здравствуйте, <%= @appeal.name %>.</h1>
+
+<p>
+  На ваше обращение от <%= time_tag(@appeal.created_at) %> с темой
+  <cite><%= @appeal.subject %></cite> дан следующий ответ.
+</p>
+
+<blockquote>
+  <%= simple_format(@appeal.response) %>
+</blockquote>

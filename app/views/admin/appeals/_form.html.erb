@@ -1,0 +1,17 @@
+<section>
+  <h2><%= t('.heading') %></h2>
+
+  <%= form_with model: entity, html: { id: 'appeal-form' } do |f| %>
+      <dl>
+        <dt><%= f.label :response %></dt>
+        <dd>
+          <%= f.text_area :response, cols: 80, rows: 25, required: true, id: 'appeal_response' %>
+        </dd>
+      </dl>
+      <div class="buttons">
+        <%= f.button t(:submit), type: :submit %>
+      </div>
+  <% end %>
+
+  <%= render partial: 'shared/forms/default_ajax_handler', locals: { form_id: 'appeal-form' } %>
+</section>

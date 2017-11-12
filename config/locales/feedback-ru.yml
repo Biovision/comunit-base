@@ -13,6 +13,8 @@ ru:
         phone: "Контактный телефон"
         subject: "Тема обращения"
         body: "Сообщение"
+        response: "Ответ"
+        responder_id: "Автор ответа"
   admin:
     appeals:
       nav_item:
@@ -23,6 +25,8 @@ ru:
         heading: "Обращения в приёмную"
       show:
         title: "Обращение «%{subject}»"
+      form:
+        heading: "Написать ответ"
     index:
       index:
         feedback_manager:
@@ -48,3 +52,6 @@ ru:
       consent: "Даю согласие на обработку персональных данных, а также принимаю и обязуюсь соблюдать пользовательское соглашение"
     create:
       success: "Ваше обращение успешно добавлено"
+  appeals_mailer:
+    appeal_reply:
+      subject: "На ваше обращение дан ответ"

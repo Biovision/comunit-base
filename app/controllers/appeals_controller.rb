@@ -35,6 +35,7 @@ class AppealsController < ApplicationController
         format.json { render(json: { links: { next: next_page } }) }
         format.js { render js: "document.location.href = '#{next_page}'" }
       end
+      AppealsMailer.appeal_reply(@entity.id).deliver_later
     else
       render :edit, status: :bad_request
     end
@@ -66,7 +67,8 @@ class AppealsController < ApplicationController
   end
 
   def entity_parameters
-    params.require(:appeal).permit(Appeal.entity_parameters)
+    parameters = params.require(:appeal).permit(Appeal.entity_parameters)
+    parameters.merge(responder_id: current_user.id, processed: true)
   end
 
   def creation_parameters
