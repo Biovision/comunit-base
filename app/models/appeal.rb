@@ -14,7 +14,7 @@ class Appeal < ApplicationRecord
   belongs_to :appeal_type, optional: true, counter_cache: true
   belongs_to :user, optional: true
   belongs_to :agent, optional: true
-  belongs_to :responder, class_name: User.to_s, foreign_key: :responder_id
+  belongs_to :responder, class_name: User.to_s, foreign_key: :responder_id, optional: true
 
   after_initialize { self.uuid = SecureRandom.uuid if uuid.nil? }
   validates_presence_of :subject, :body
