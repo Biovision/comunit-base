@@ -203,10 +203,10 @@ end
 ### Дополнения в `config/environments/production.rb`
 
 Нужно закомментировать строку про `uglifier`, пока не заработает нормальный сбор
-JS на сервере. Это в районе 26 строки (`config.assets.js_compressor`).
+JS на сервере. Это в районе 27 строки (`config.assets.js_compressor`).
 
 Нужно заменить уровень журналирования ошибок с `:debug` на `:warn`. Это в районе
-47 строки (`config.log_level`). 
+52 строки (`config.log_level`). 
 
 Для настройки почты нужно поменять `example.com` на актуальный домен ниже.
 
