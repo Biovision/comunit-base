@@ -32,6 +32,9 @@ ru:
     index:
       title: "О нас"
       heading: "О нас"
+    feedback:
+      title: "Орготдел"
+      heading: "Орготдел"
     tos:
       title: "Пользовательское соглашение"
       heading: "Пользовательское соглашение"
