@@ -320,5 +320,22 @@ ln -s /var/www/shared/import/regions.yml
 bin/rake regions:load
 ```
 
+Занесение сайта в сеть
+----------------------
+
+В консоли `comunit.online`.
+
+```ruby
+site = Site.find(site_id)
+Site.where(active: true).each { |s| NetworkManager.new(s).push_site(site) }
+
+m = NetworkManager.new(site)
+Site.order('id asc').each { |s| m.push_site(s) }
+
+m = NetworkManager::UserHandler.new(Site.last)
+User.order('id asc').each { |u| puts "#{u.id}\t#{u.screen_name}";m.push_user(u) }
+```
+
+
 ## License
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
