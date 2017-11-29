@@ -1,5 +1,16 @@
 <% content_for :meta_title, t('.title') %>
 
+<% event = Event.visible.forthcoming.first %>
+<% unless event.nil? %>
+    <section class="congress2017-block">
+      <h2><%= event.name %></h2>
+      <p><%= event.lead %></p>
+      <p class="button">
+        <%= link_to('Подробнее', event_path(event.id), class: 'nav-button') %>
+      </p>
+    </section>
+<% end %>
+
 <%= render partial: 'index/main_slider', locals: { collection: Post.where(main_post: true).visible.recent.first(10) } %>
 
 <div id="frontpage-posts">

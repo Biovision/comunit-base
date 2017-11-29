@@ -29,6 +29,7 @@ class Event < ApplicationRecord
 
   scope :recent, -> { order('start_date desc, id desc') }
   scope :visible, -> { where(visible: true) }
+  scope :forthcoming, -> { where('start_date >= ?', Time.now) }
 
   # @oaram [Integer] page
   def self.page_for_administration(page = 1)
