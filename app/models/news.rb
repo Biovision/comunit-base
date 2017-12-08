@@ -14,7 +14,7 @@ class News < ApplicationRecord
 
   belongs_to :user
   belongs_to :agent, optional: true
-  belongs_to :region, optional: true, counter_cache: true, touch: false
+  belongs_to :region, optional: true
   belongs_to :news_category, counter_cache: :items_count
   belongs_to :entry, optional: true
   has_many :figures, dependent: :destroy
