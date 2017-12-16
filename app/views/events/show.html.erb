@@ -10,11 +10,13 @@
 
   <%= render partial: 'events/entity/speakers', locals: { collection: @entity.event_speakers.page_for_visitors } %>
 
-  <section class="register" id="registration-form">
-    <h2>Подать заявку на регистрацию</h2>
+  <% if false %>
+    <section class="register" id="registration-form">
+      <h2>Подать заявку на регистрацию</h2>
 
-    <%= render partial: 'event_participants/form', locals: { entity: @entity.event_participants.new } %>
-  </section>
+      <%= render partial: 'event_participants/form', locals: { entity: @entity.event_participants.new } %>
+    </section>
+  <% end %>
 
   <%= render partial: 'events/entity/sponsors', locals: { collection: @entity.event_sponsors.page_for_visitors } %>
 </article>
