@@ -13,6 +13,21 @@ Comunit::Base
 Также нужно добавить в локаль ключ `index.index.title` с заголовком для главной
 страницы.
 
+### Добавления в `.gitignore`
+
+Стоит убрать строки `!log/.keep` и `!tmp/.keep`, так как `log` и `tmp` создаются
+на сервере как ссылки в любом случае.
+
+```
+/public/uploads
+/public/ckeditor
+
+/spec/examples.txt
+/spec/support/uploads/*
+
+.env
+```
+
 ### Дополнения в `Gemfile`
 
 ```ruby
@@ -39,21 +54,6 @@ end
 group :development do
   gem 'mina'
 end
-```
-
-### Добавления в `.gitignore`
-
-Стоит убрать строки `!log/.keep` и `!tmp/.keep`, так как `log` и `tmp` создаются
-на сервере как ссылки в любом случае.
-
-```
-/public/uploads
-/public/ckeditor
-
-/spec/examples.txt
-/spec/support/uploads/*
-
-.env
 ```
 
 ### Добавления в `config/routes.rb`
