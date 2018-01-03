@@ -28,8 +28,14 @@
   <div class="footer">
     <div class="author">
       <% if post.class.to_s != News.to_s || post.show_name? %>
-        <%= profile_avatar(post.user) %>
-        <%= user_link post.user %><br/>
+        <% if post.show_name? %>
+          <% if post.author_name.blank? %>
+            <%= profile_avatar(post.user) %>
+            <%= user_link post.user %>
+          <% else %>
+            <%= post_author_link(post) %>
+          <% end %>
+        <% end %>
       <% end %>
     </div>
     <div class="post-counters">
