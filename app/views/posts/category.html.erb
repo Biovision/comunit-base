@@ -8,7 +8,7 @@
       <% @collection.each do |post| %>
         <div>
           <div class="avatar">
-            <% if post.show_name && !post.author_name.blank? %>
+            <% if post.show_name && post.author_name.blank? %>
               <%= profile_avatar post.user %>
             <% end %>
           </div>
