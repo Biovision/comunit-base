@@ -1,0 +1,10 @@
+<div class="author">
+  <% if entity.show_name? %>
+    <% if entity.author_name.blank? %>
+      <%= user_link entity.user %>
+    <% else %>
+      <%= post_author_link(entity) %>
+    <% end %>
+  <% end %>
+  <%= time_tag entity.created_at %>
+</div>
