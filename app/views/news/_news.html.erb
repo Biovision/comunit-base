@@ -66,5 +66,5 @@
   <%= render partial: 'shared/track', locals: { item: news } %>
 
   <meta itemprop="commentCount" content="<%= news.comments_count %>"/>
-  <%= render partial: 'comments/list', locals: { commentable: news, comments: news.comments } %>
+  <%= render partial: 'comments/list', locals: { commentable: news, comments: news.comments } if news.allow_comments? %>
 </article>

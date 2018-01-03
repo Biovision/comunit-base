@@ -69,7 +69,10 @@ class News < ApplicationRecord
   end
 
   def self.entity_parameters
-    repost_parameters + %i(title body post_type slug visible)
+    for_author = %i(author_name author_title author_url)
+    for_meta   = %i(meta_title meta_keywords meta_description)
+    basic_data = %i(title body post_type slug visible translation)
+    repost_parameters + for_author + for_meta + basic_data
   end
 
   def category

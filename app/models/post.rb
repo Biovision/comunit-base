@@ -1,5 +1,6 @@
 class Post < ApplicationRecord
   include Elasticsearch::Model
+  include Elasticsearch::Model::Callbacks
   include HasOwner
   include Toggleable
 
@@ -51,12 +52,16 @@ class Post < ApplicationRecord
   end
 
   def self.repost_parameters
-    for_image = %i(image image_name image_author_name image_author_link)
-    for_image + %i(lead post_category_id show_name source source_link)
+    for_image  = %i(image image_name image_author_name image_author_link)
+    basic_data = %i(lead post_category_id show_name source source_link)
+    for_image + basic_data
   end
 
   def self.entity_parameters
-    repost_parameters + %i(title body main_post slug)
+    for_author = %i(author_name author_title author_url)
+    for_meta   = %i(meta_title meta_keywords meta_description)
+    basic_data = %i(title body main_post slug translation)
+    repost_parameters + for_author + for_meta + basic_data
   end
 
   def tags_string

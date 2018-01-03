@@ -1,15 +1,13 @@
 <article class="post" itemscope itemtype="http://schema.org/Article">
   <% if post.editable_by? current_user %>
-      <ul class="actions">
-        <li><%= edit_icon edit_post_path(post) %></li>
-      </ul>
+    <ul class="actions">
+      <li><%= edit_icon edit_post_path(post) %></li>
+    </ul>
   <% end %>
   <header>
-    <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <span itemprop="name"><%= user_link post.user %></span>
-    </div>
+    <%= render partial: 'posts/entity/author', locals: { entity: post } %>
     <div class="post-counters">
-      <meta itemprop="commentCount" content="<%= post.comments_count %>" />
+      <meta itemprop="commentCount" content="<%= post.comments_count %>"/>
       <span class="comments"><%= post.comments_count %></span>
       <span class="views"><%= post.view_count %></span>
     </div>
@@ -19,7 +17,7 @@
   <div class="body" itemprop="articleBody">
     <div class="lead">
       <% unless post.image.blank? %>
-          <figure><%= image_tag(post.image.big.url, alt: post.title, itemprop: 'image') %></figure>
+        <figure><%= image_tag(post.image.big.url, alt: post.title, itemprop: 'image') %></figure>
       <% end %>
       <p><%= post.lead %></p>
     </div>
@@ -42,5 +40,5 @@
   <%= render 'shared/pluso' %>
   <%= render partial: 'shared/track', locals: { item: post } %>
 
-  <%= render partial: 'comments/list', locals: { commentable: post, comments: post.comments } %>
+  <%= render partial: 'comments/list', locals: { commentable: post, comments: post.comments } if post.allow_comments? %>
 </article>

@@ -95,6 +95,12 @@ ru:
         parents_cache: "Кеш родителей"
         children_cache: "Кеш дочек"
       news:
+        author_name: "Имя автора"
+        author_title: "Титул автора"
+        author_url: "URL автора"
+        meta_description: "Описание для метатэга"
+        meta_keywords: "Ключевые слова для метатэга"
+        meta_title: "Название для заголовка окна"
         user: "Пользователь"
         show_name: "Показывать автора"
         news_category: "Категория"
@@ -119,6 +125,12 @@ ru:
           comment: "Комментарий"
           topic: "Сюжет"
       post:
+        author_name: "Имя автора"
+        author_title: "Титул автора"
+        author_url: "URL автора"
+        meta_description: "Описание для метатэга"
+        meta_keywords: "Ключевые слова для метатэга"
+        meta_title: "Название для заголовка окна"
         user: "Пользователь"
         post_category: "Категория"
         post_category_id: "Категория"
@@ -284,6 +296,9 @@ ru:
       message: "Новость не найдена или была удалена"
     form:
       guidelines:
+        author_name: "Если указать, будет отображаться вместо текущего пользователя"
+        author_title: "Например, должность или звание"
+        author_url: "Если указать, имя автора будет ссылкой сюда"
         image: "Максимальный размер — 3000×3000, формат — JPG или PNG."
         author_link: "Будет открываться при нажатии на имя автора"
         author_name: "ФИО или название организации. Будет отображаться в подписи к картинке."

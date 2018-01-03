@@ -1,0 +1,9 @@
+<div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <% if entity.show_name? %>
+    <% if entity.author_name.blank? %>
+      <span itemprop="name"><%= user_link entity.user %></span>
+    <% else %>
+      <span><%= post_author_link(entity) %></span>
+    <% end %>
+  <% end %>
+</div>

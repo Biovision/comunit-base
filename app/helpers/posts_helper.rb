@@ -9,6 +9,19 @@ module PostsHelper
     link_to(category.full_title, admin_post_category_path(category.id))
   end
 
+  # @param [Post|News] entity
+  # @param [Hash] options
+  def post_author_link(entity, options = {})
+    if entity.author_url.blank?
+      entity.author_name
+    else
+      link_options = {
+        rel: 'external nofollow noopener noreferrer'
+      }
+      link_to(entity.author_name, entity.author_url, link_options.merge(options))
+    end
+  end
+
   # @param [NewsCategory] category
   # @param [String] text
   def news_category_link(category, text = category&.name)
