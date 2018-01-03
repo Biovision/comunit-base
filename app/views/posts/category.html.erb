@@ -4,35 +4,45 @@
 
 <article>
   <% if @collection.any? %>
-      <div class="posts-in-category">
-        <% @collection.each do |post| %>
-            <div>
-              <div class="avatar"><%= profile_avatar post.user %></div>
-              <div class="post">
-                <div class="header">
+    <div class="posts-in-category">
+      <% @collection.each do |post| %>
+        <div>
+          <div class="avatar">
+            <% if post.show_name && !post.author_name.blank? %>
+              <%= profile_avatar post.user %>
+            <% end %>
+          </div>
+          <div class="post">
+            <div class="header">
+              <% if post.show_name? %>
+                <% if post.author_name.blank? %>
                   <%= user_link post.user %>
-                  <span><%= post.category&.full_title %></span>
-                </div>
-                <div class="title"><%= post_link post %></div>
-                <div class="body">
-                  <% unless post.image.blank? %>
-                      <%= image_tag post.image.preview.url, alt: post.title %>
-                  <% end %>
-                  <%= post.lead %>
-                </div>
-                <div class="footer">
-                  <div><%= post_link post, t('index.main_post.continue_reading') %></div>
-                  <div class="post-counters">
-                    <span class="comments"><%= post.comments_count %></span>
-                    <span class="views"><%= post.view_count %></span>
-                  </div>
-                </div>
+                <% else %>
+                  <%= post_author_link(post) %>
+                <% end %>
+              <% end %>
+              <span><%= post.category&.full_title %></span>
+            </div>
+            <div class="title"><%= post_link post %></div>
+            <div class="body">
+              <% unless post.image.blank? %>
+                <%= image_tag post.image.preview.url, alt: post.title %>
+              <% end %>
+              <%= post.lead %>
+            </div>
+            <div class="footer">
+              <div><%= post_link post, t('index.main_post.continue_reading') %></div>
+              <div class="post-counters">
+                <span class="comments"><%= post.comments_count %></span>
+                <span class="views"><%= post.view_count %></span>
               </div>
             </div>
-        <% end %>
-      </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
   <% else %>
-      <%= render 'shared/nothing_found' %>
+    <%= render 'shared/nothing_found' %>
   <% end %>
   <%= paginate @collection %>
 </article>
