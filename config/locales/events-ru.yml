@@ -102,6 +102,10 @@ ru:
     regions:
       show:
         children: "Дочерние регионы"
+    index:
+      dashboard:
+        event_manager:
+          heading: "Мероприятия"
   events:
     new:
       title: "Добавить мероприятие"
