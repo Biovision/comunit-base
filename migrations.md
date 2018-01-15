@@ -140,7 +140,7 @@ rails g migration update_codes
 class UpdateCodes < ActiveRecord::Migration[5.1]
   def change
     remove_column :codes, :category, :integer, limit: 2
-    add_reference :codes, :code_type, foreign_key: true, on_update: :cascade, on_delete: :cascade
+    add_reference :codes, :code_type, foreign_key: { on_update: :cascade, on_delete: :cascade }
   end
 end
 ```

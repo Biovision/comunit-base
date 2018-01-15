@@ -3,9 +3,9 @@ class CreateEventParticipants < ActiveRecord::Migration[5.0]
     unless EventParticipant.table_exists?
       create_table :event_participants do |t|
         t.timestamps
-        t.references :event, foreign_key: true, null: false, on_update: :cascade, on_delete: :cascade
-        t.references :user, foreign_key: true, on_update: :cascade, on_delete: :nullify
-        t.references :agent, foreign_key: true, on_update: :cascade, on_delete: :nullify
+        t.references :event, foreign_key: { on_update: :cascade, on_delete: :cascade }, null: false
+        t.references :user, foreign_key: { on_update: :cascade, on_delete: :nullify }
+        t.references :agent, foreign_key: { on_update: :cascade, on_delete: :nullify }
         t.inet :ip
         t.boolean :processed, default: false, null: false
         t.string :notice

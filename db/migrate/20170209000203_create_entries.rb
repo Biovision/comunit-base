@@ -4,8 +4,8 @@ class CreateEntries < ActiveRecord::Migration[5.0]
       create_table :entries do |t|
         t.timestamps
         t.integer :external_id
-        t.references :user, foreign_key: true, on_update: :cascade, on_delete: :cascade
-        t.references :agent, foreign_key: true, on_update: :cascade, on_delete: :nullify
+        t.references :user, foreign_key: { on_update: :cascade, on_delete: :cascade }
+        t.references :agent, foreign_key: { on_update: :cascade, on_delete: :nullify }
         t.inet :ip
         t.integer :community_id
         t.boolean :deleted, default: false, null: false

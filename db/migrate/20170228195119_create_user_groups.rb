@@ -3,8 +3,8 @@ class CreateUserGroups < ActiveRecord::Migration[5.0]
     unless UserGroup.table_exists?
       create_table :user_groups do |t|
         t.timestamps
-        t.references :user, foreign_key: true, null: false, on_update: :cascade, on_delete: :cascade
-        t.references :group, foreign_key: true, null: false, on_update: :cascade, on_delete: :cascade
+        t.references :user, foreign_key: { on_update: :cascade, on_delete: :cascade }, null: false
+        t.references :group, foreign_key: { on_update: :cascade, on_delete: :cascade }, null: false
       end
     end
   end

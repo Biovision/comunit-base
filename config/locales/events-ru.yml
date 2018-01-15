@@ -106,6 +106,8 @@ ru:
       dashboard:
         event_manager:
           heading: "Мероприятия"
+        feedback_manager:
+          heading: "Орготдел"
   events:
     new:
       title: "Добавить мероприятие"

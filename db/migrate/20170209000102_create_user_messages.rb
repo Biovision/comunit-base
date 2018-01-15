@@ -3,7 +3,7 @@ class CreateUserMessages < ActiveRecord::Migration[5.0]
     unless UserMessage.table_exists?
       create_table :user_messages do |t|
         t.timestamps
-        t.references :agent, foreign_key: true, on_update: :cascade, on_delete: :cascade
+        t.references :agent, foreign_key: { on_update: :cascade, on_delete: :cascade }
         t.inet :ip
         t.integer :sender_id
         t.integer :receiver_id

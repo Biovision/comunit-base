@@ -4,9 +4,9 @@ class CreatePosts < ActiveRecord::Migration[5.0]
       create_table :posts do |t|
         t.timestamps
         t.integer :external_id
-        t.references :user, foreign_key: true, on_update: :cascade, on_delete: :nullify
-        t.references :post_category, foreign_key: true, on_update: :cascade, on_delete: :nullify
-        t.references :agent, foreign_key: true, on_update: :cascade, on_delete: :nullify
+        t.references :user, foreign_key: { on_update: :cascade, on_delete: :nullify }
+        t.references :post_category, foreign_key: { on_update: :cascade, on_delete: :nullify }
+        t.references :agent, foreign_key: { on_update: :cascade, on_delete: :nullify }
         t.inet :ip
         t.boolean :visible, default: true, null: false
         t.boolean :locked, default: false, null: false

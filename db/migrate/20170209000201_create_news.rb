@@ -4,10 +4,10 @@ class CreateNews < ActiveRecord::Migration[5.0]
       create_table :news do |t|
         t.timestamps
         t.integer :external_id
-        t.references :user, foreign_key: true, on_update: :cascade, on_delete: :nullify
-        t.references :news_category, foreign_key: true, on_update: :cascade, on_delete: :nullify
-        t.references :region, foreign_key: true, on_update: :cascade, on_delete: :nullify
-        t.references :agent, foreign_key: true, on_update: :cascade, on_delete: :nullify
+        t.references :user, foreign_key: { on_update: :cascade, on_delete: :nullify }
+        t.references :news_category, foreign_key: { on_update: :cascade, on_delete: :nullify }
+        t.references :region, foreign_key: { on_update: :cascade, on_delete: :nullify }
+        t.references :agent, foreign_key: { on_update: :cascade, on_delete: :nullify }
         t.inet :ip
         t.boolean :visible, default: true, null: false
         t.boolean :locked, default: false, null: false

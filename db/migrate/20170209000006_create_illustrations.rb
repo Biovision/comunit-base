@@ -3,7 +3,7 @@ class CreateIllustrations < ActiveRecord::Migration[5.0]
     unless Illustration.table_exists?
       create_table :illustrations do |t|
         t.timestamps
-        t.references :user, foreign_key: true, on_update: :cascade, on_delete: :nullify
+        t.references :user, foreign_key: { on_update: :cascade, on_delete: :nullify }
         t.string :name
         t.string :image
       end

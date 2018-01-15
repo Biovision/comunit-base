@@ -2,7 +2,7 @@ class AddComunitToUsers < ActiveRecord::Migration[5.0]
   def up
     unless column_exists?(:users, :site_id)
       change_table :users do |t|
-        t.references :site, foreign_key: true, on_update: :cascade, on_delete: :nullify
+        t.references :site, foreign_key: { on_update: :cascade, on_delete: :nullify }
         t.integer :external_id
         t.integer :redirect_id
         t.integer :news_count, default: 0, null: false

@@ -3,7 +3,7 @@ class CreateUserLinks < ActiveRecord::Migration[5.0]
     unless UserLink.table_exists?
       create_table :user_links do |t|
         t.timestamps
-        t.references :agent, foreign_key: true, on_update: :cascade, on_delete: :nullify
+        t.references :agent, foreign_key: { on_update: :cascade, on_delete: :nullify }
         t.inet :ip
         t.integer :follower_id, null: false
         t.integer :followee_id, null: false

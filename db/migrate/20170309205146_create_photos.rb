@@ -3,7 +3,7 @@ class CreatePhotos < ActiveRecord::Migration[5.0]
     unless Photo.table_exists?
       create_table :photos do |t|
         t.timestamps
-        t.references :album, foreign_key: true, on_update: :cascade, on_delete: :cascade
+        t.references :album, foreign_key: { on_update: :cascade, on_delete: :cascade }
         t.integer :priority, limit: 2, default: 1, null: false
         t.string :uuid, null: false
         t.string :name
