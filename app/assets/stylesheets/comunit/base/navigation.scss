@@ -21,13 +21,15 @@ ul.main-navigation {
       background: $navigation-stripe-background-active;
 
       > a:link,
-      > a:visited {
+      > a:visited,
+      > span {
         color: $navigation-stripe-text-active;
       }
     }
 
     > a:link,
-    > a:visited {
+    > a:visited,
+    > span {
       color: $navigation-stripe-text;
       font-weight: bold;
       font-size: $font-size-normal;
