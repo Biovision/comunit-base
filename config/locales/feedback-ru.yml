@@ -28,7 +28,7 @@ ru:
       form:
         heading: "Написать ответ"
     index:
-      index:
+      dashboard:
         feedback_manager:
           heading: "Орготдел"
   appeals:
