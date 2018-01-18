@@ -16,7 +16,7 @@ class Post < ApplicationRecord
   belongs_to :agent, optional: true
   belongs_to :post_category, counter_cache: :items_count
   belongs_to :entry, optional: true
-  has_many :figures, dependent: :destroy
+  # has_many :figures, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
 
   validates_presence_of :title, :lead, :body
