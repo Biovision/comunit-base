@@ -3,14 +3,9 @@
     Главные новости
   </div>
   <div class="posts">
-    <% if posts.to_a.any? %>
-        <% posts.each do |post| %>
-            <% next if post.category.blank? %>
-            <%= render partial: 'index/frontpage_posts/preview', locals: { post: post } %>
-        <% end %>
-    <% end %>
+    <%= render partial: 'posts/list', locals: { collection: posts } %>
     <div class="load-more" data-url="<%= index_main_news_path(page: 2, region_slug: current_region.long_slug) %>">
-      <%= button_tag 'Загрузить ещё', type: :button %>
+      <%= button_tag 'Загрузить ещё', type: :button, class: 'button-action' %>
     </div>
   </div>
 </div>

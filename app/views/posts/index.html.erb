@@ -1,5 +1,8 @@
 <% content_for :meta_title, t('.title', page: current_page) %>
 <% content_for :posts_selected, '1' %>
+<% content_for :breadcrumbs do %>
+  <span><%= t('posts.nav_item.text') %></span>
+<% end %>
 
 <article>
   <h1><%= t('.heading') %></h1>

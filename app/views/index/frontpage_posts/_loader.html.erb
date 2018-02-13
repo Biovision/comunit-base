@@ -2,8 +2,9 @@
     'use strict';
     $(function () {
         $('.load-more button').on('click', function() {
-            var $button = $(this);
-            var $container = $button.parent();
+            const $button = $(this);
+            const $container = $button.parent();
+            const list = this.closest('.posts').querySelector('ul');
 
             $button.prop('disabled', true);
             $container.addClass('wait');
@@ -12,17 +13,16 @@
                     if (result['data'].length < 1) {
                         $button.hide();
                     } else {
-                        var entry;
-                        for (var i in result['data']) {
-                            if (result['data'].hasOwnProperty(i)) {
-                                entry = result['data'][i];
-                                $container.before($(entry['html']));
-                            }
-                        }
+                        let entry;
+                        result.data.forEach(function(entity) {
+                            const li = document.createElement('li');
+                            li.innerHTML = entity.meta.html;
+                            list.append(li);
+                        });
                     }
                 }
                 if (result.hasOwnProperty('links')) {
-                    var next_url = result['links']['next'];
+                    const next_url = result['links']['next'];
                     $container.data('url', next_url);
                     $container.attr('data-url', next_url);
                 }

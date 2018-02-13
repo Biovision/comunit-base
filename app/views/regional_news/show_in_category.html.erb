@@ -11,9 +11,9 @@
 <% content_for :meta_image, (request.protocol + request.host_with_port + @entity.image.url) if @entity.image.url %>
 <% content_for :hide_sidebar, '1' %>
 <% content_for :breadcrumbs do %>
-    <%= link_to t(:home), root_path %> /
-    <%= link_to t('news.index.title'), regional_news_index_path %> /
+    <%= link_to t('regional_news.index.title'), regional_news_index_path %>
     <%= link_to @category.name, category_regional_news_index_path(@category.slug) %>
+  <span><%= @entity.title %></span>
 <% end %>
 
 <div>

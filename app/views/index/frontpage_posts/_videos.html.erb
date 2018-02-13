@@ -2,12 +2,8 @@
   <div class="heading">
     Видео
   </div>
-  <% posts = Theme.where(slug: 'video').first&.entries(2) %>
-  <% if posts.to_a.any? %>
-      <div class="posts">
-        <% posts.each do |post| %>
-            <%= render partial: 'index/frontpage_posts/preview', locals: { post: post } %>
-        <% end %>
-      </div>
-  <% end %>
+  <div class="posts">
+    <% posts = Theme.where(slug: 'video').first&.entries(2) %>
+    <%= render partial: 'posts/list', locals: { collection: posts } %>
+  </div>
 </div>

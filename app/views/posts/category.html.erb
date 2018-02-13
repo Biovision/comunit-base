@@ -1,48 +1,18 @@
 <% content_for :meta_title, t('.title', category: @category.name, page: current_page) %>
 <% content_for :posts_selected, '1' %>
 <% content_for :selected_item, 'pc' + (@category.parents.first&.id || @category.id).to_s %>
+<% content_for :breadcrumbs do %>
+  <%= link_to(t('posts.nav_item.text'), posts_path) %>
+  <% @category.parents.each do |parent| %>
+    <%= post_category_link(parent) %>
+  <% end %>
+  <span><%= @category.name %></span>
+<% end %>
 
 <article>
-  <% if @collection.any? %>
-    <div class="posts-in-category">
-      <% @collection.each do |post| %>
-        <div>
-          <div class="avatar">
-            <% if post.show_name && post.author_name.blank? %>
-              <%= profile_avatar post.user %>
-            <% end %>
-          </div>
-          <div class="post">
-            <div class="header">
-              <% if post.show_name? %>
-                <% if post.author_name.blank? %>
-                  <%= user_link post.user %>
-                <% else %>
-                  <%= post_author_link(post) %>
-                <% end %>
-              <% end %>
-              <span><%= post.category&.full_title %></span>
-            </div>
-            <div class="title"><%= post_link post %></div>
-            <div class="body">
-              <% unless post.image.blank? %>
-                <%= image_tag post.image.preview.url, alt: post.title %>
-              <% end %>
-              <%= post.lead %>
-            </div>
-            <div class="footer">
-              <div><%= post_link post, t('index.main_post.continue_reading') %></div>
-              <div class="post-counters">
-                <span class="comments"><%= post.comments_count %></span>
-                <span class="views"><%= post.view_count %></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  <% else %>
-    <%= render 'shared/nothing_found' %>
-  <% end %>
+  <h1><%= t('.heading', category: @category.full_title) %></h1>
+
+  <%= paginate @collection %>
+  <%= render partial: 'posts/list', locals: { collection: @collection } %>
   <%= paginate @collection %>
 </article>

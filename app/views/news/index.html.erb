@@ -3,7 +3,7 @@
 <% content_for :news_selected, '1' %>
 <% content_for :selected_item, 'news' %>
 <% content_for :breadcrumbs do %>
-    <%= link_to t(:home), root_path %> / <span><%= t('.title') %></span>
+    <span><%= t('.title') %></span>
 <% end %>
 
 <% categories = NewsCategory.visible.ordered_by_priority %>

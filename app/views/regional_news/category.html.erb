@@ -3,8 +3,7 @@
 <% content_for :news_selected, '1' %>
 <% content_for :selected_item, 'news' %>
 <% content_for :breadcrumbs do %>
-    <%= link_to t(:home), root_path %> /
-    <%= link_to t('news.index.title'), regional_news_index_path %> /
+    <%= link_to t('regional_news.index.title'), regional_news_index_path %>
     <span><%= @category.name %></span>
 <% end %>
 

@@ -182,6 +182,20 @@ body {
   }
 }
 
+.breadcrumbs {
+  padding: 1.2rem .8rem;
+
+  a {
+    background: image_url('biovision/base/icons/breadcrumb.svg') no-repeat bottom .1rem right / .6rem 1.2rem;
+    padding-right: 1rem;
+    transition: background .25s;
+
+    &:hover {
+      background-image: image_url('biovision/base/icons/breadcrumb-hover.svg');
+    }
+  }
+}
+
 #current-region-selector {
   align-items: center;
   display: flex;
@@ -208,7 +222,7 @@ body {
 }
 
 #main {
-  padding: 2.3rem 0;
+  padding: 0 0 2.3rem;
   display: flex;
   justify-content: space-between;
 
@@ -222,18 +236,6 @@ body {
 
   .content {
     flex: 8;
-
-    > .breadcrumbs {
-      @include heading-stripe;
-      text-transform: uppercase;
-      margin: 0 0 1rem 0;
-
-      a:link,
-      a:visited {
-        color: $link-color-breadcrumbs;
-        text-decoration: none;
-      }
-    }
 
     article {
       position: relative;

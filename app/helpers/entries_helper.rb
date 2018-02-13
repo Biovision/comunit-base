@@ -36,15 +36,26 @@ module EntriesHelper
     end
   end
 
-  # @param [Post] post
+  # @param [Post] entity
   # @param [String] text
-  def post_link(post, text = post&.title)
-    if post.class.to_s == Post.to_s
-      if post.post_category.class.to_s == PostCategory.to_s
-        parameters = { category_slug: post.post_category.slug, slug: post.slug }
+  def post_link(entity, text = entity&.title, options = {})
+    if entity.class.to_s == Post.to_s
+      if entity.post_category.class.to_s == PostCategory.to_s
+        parameters = { category_slug: entity.post_category.slug, slug: entity.slug }
         link_to text, post_in_category_posts_path(parameters)
       else
         text
+      end
+    elsif entity.class.to_s == News.to_s
+      parameters = { category_slug: entity.news_category&.slug, slug: entity.slug }
+      if entity.news_category.nil?
+        text
+      else
+        if entity.regional?
+          link_to text, news_in_category_regional_news_index_path(parameters), options
+        else
+          link_to text, news_in_category_news_index_path(parameters), options
+        end
       end
     else
       '—'

@@ -1,17 +1,46 @@
-<div class="post-preview">
-  <div class="heading"><%= link_to post.title, post %></div>
-  <div class="body">
-    <% unless post.image.blank? %>
-      <div class="image"><%= image_tag post.image.small.url %></div>
-      <div class="lead"><%= post.lead %></div>
+<div class="body">
+  <figure role="group">
+    <div class="proportional-container r-3x2">
+      <% unless entity.image.blank? %>
+        <%= image_tag(entity.image.medium.url, alt: entity.title) %>
+      <% end %>
+    </div>
+    <figcaption>
+      <%= post_link(entity) %>
+    </figcaption>
+  </figure>
+  <div class="lead"><%= entity.lead %></div>
+</div>
+<div class="category">
+  <div>
+    <%= entity.category&.full_title %>
+    <%= time_tag entity.created_at %>
+  </div>
+  <div class="region">
+    <% if entity.respond_to?(:region) %>
+      <%= entity.region&.branch_name || raw('&nbsp;') %>
+    <% else %>
+      &nbsp;
     <% end %>
   </div>
-  <div class="footer">
-    <%= render partial: 'posts/entity/preview_author', locals: { entity: post } %>
-    <% if post.tags_cache.any? %>
-      <div class="tags">
-        <%= t('posts.form.tags') %>: <%= post.tags_string %>
-      </div>
+</div>
+<div class="footer">
+  <div class="author">
+    <% if entity.class.to_s != News.to_s || entity.show_name? %>
+      <% if entity.show_name? %>
+        <% if entity.author_name.blank? %>
+          <%= profile_avatar(entity.user) %>
+          <%= user_link entity.user %>
+        <% else %>
+          <%= post_author_link(entity) %>
+        <% end %>
+      <% end %>
     <% end %>
+  </div>
+  <div class="post-counters">
+    <% if entity.allow_comments? %>
+      <span class="comments"><%= entity.comments_count %></span>
+    <% end %>
+    <span class="views"><%= entity.view_count %></span>
   </div>
 </div>

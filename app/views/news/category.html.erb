@@ -2,8 +2,7 @@
 <% content_for :hide_sidebar, '1' %>
 <% content_for :news_selected, '1' %>
 <% content_for :breadcrumbs do %>
-    <%= link_to t(:home), root_path %> /
-    <%= link_to t('news.index.title'), news_index_path %> /
+    <%= link_to t('news.index.title'), news_index_path %>
     <span><%= @category.name %></span>
 <% end %>
 

@@ -34,6 +34,10 @@ class NewsCategory < ApplicationRecord
     news.news_category == self
   end
 
+  def full_title
+    name
+  end
+
   # @param [Integer] delta
   def change_priority(delta)
     new_priority = priority + delta

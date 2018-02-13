@@ -335,6 +335,8 @@ ru:
       most_recent:
         heading: "Последние новости"
   posts:
+    nav_item:
+      text: "Публикации"
     update:
       success: "Публикация успешно обновлена"
     destroy:
@@ -360,6 +362,7 @@ ru:
       year: "за %{year} год"
     category:
       title: "Публикации в категории «%{category}», страница %{page}"
+      heading: "Публикации: %{category}"
     not_found:
       title: "Публикация не найдена"
       heading: "Публикация не найдена"
