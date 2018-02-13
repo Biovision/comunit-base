@@ -64,13 +64,6 @@ body {
         flex: 0 0 3rem;
         justify-content: flex-end;
 
-        > :not(.plate) {
-          a:link,
-          a:visited {
-            @include button-nav;
-          }
-        }
-
         > div {
           align-items: center;
           background: $background-header-transparent;
@@ -258,10 +251,6 @@ body {
     .current_user {
       font-size: $font-size-small;
       line-height: 2.4rem;
-
-      .button {
-        @include button-nav;
-      }
     }
   }
 
@@ -287,10 +276,6 @@ body {
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-
-      a {
-        @include button-nav;
-      }
     }
   }
 }

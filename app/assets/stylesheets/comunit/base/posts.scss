@@ -756,10 +756,6 @@ ul.post-categories {
     &.wait {
       filter: grayscale(50%);
     }
-
-    button {
-      @include button-action;
-    }
   }
 }
 

@@ -1,6 +1,7 @@
 module Comunit
   module Base
     require 'biovision/base'
+    require 'biovision/regions'
     require 'biovision/vote'
     require 'biovision/poll'
     require 'biovision/comment'
@@ -15,13 +16,18 @@ module Comunit
 
     class Engine < ::Rails::Engine
       initializer 'comunit_base.load_base_methods' do
+        require_dependency 'biovision/regions/privilege_methods'
         require_dependency 'comunit/base/decorators/models/region_decorator'
         require_dependency 'comunit/base/decorators/models/user_profile_decorator'
+
+        ActiveSupport.on_load(:action_controller) do
+          include Biovision::Regions::PrivilegeMethods
+        end
       end
 
       config.assets.precompile << %w(admin.scss)
-      config.assets.precompile << %w(biovision/base/icons/*)
-      config.assets.precompile << %w(biovision/base/placeholders/*)
+      config.assets.precompile << %w(biovision/base/**/*)
+      config.assets.precompile << %w(biovision/regions/placeholders/*)
       config.assets.precompile << %w(biovision/vote/icons/*)
 
       config.generators do |g|

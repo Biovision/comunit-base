@@ -186,13 +186,6 @@ Rails.application.routes.draw do
         post 'toggle'
       end
     end
-    resources :regions, except: [:new, :edit] do
-      member do
-        post 'toggle'
-        put 'lock'
-        delete 'lock', action: :unlock
-      end
-    end
     resources :news_categories, :post_categories, except: [:new, :edit] do
       member do
         put 'lock'

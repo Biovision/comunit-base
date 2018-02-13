@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
   s.add_dependency 'biovision-base'
+  s.add_dependency 'biovision-regions'
   s.add_dependency 'biovision-vote'
   s.add_dependency 'biovision-poll'
   s.add_dependency 'biovision-comment'

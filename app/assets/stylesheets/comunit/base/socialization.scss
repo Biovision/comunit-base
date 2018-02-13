@@ -1,14 +1,6 @@
 .follow-user-buttons {
   margin: 0.8rem;
   text-align: center;
-
-  .follow {
-    @include button-create;
-  }
-
-  .unfollow {
-    @include button-destroy;
-  }
 }
 
 .list-of-entities {
@@ -17,10 +9,6 @@
     flex-wrap: wrap;
     align-content: center;
     align-items: center;
-
-    .hide-request {
-      @include button-destroy;
-    }
   }
 
   .follow-user-buttons {
@@ -110,10 +98,6 @@
 
         textarea {
           font: $font-size-normal $font-family-main;
-        }
-
-        button {
-          @include button-destroy;
         }
       }
 
