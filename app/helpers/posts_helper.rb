@@ -50,12 +50,25 @@ module PostsHelper
     link_to(text, my_news_path(entity.id))
   end
 
-  # @param [PostCategory] category
+  # @param [Post|News|PostCategory|NewsCategory] entity
   # @param [String] text
-  def post_category_link(category, text = category&.name)
-    if category.is_a? PostCategory
-      parameters = { category_slug: category.slug }
-      link_to text, category_posts_path(parameters)
+  def post_category_link(entity, text = nil)
+    if entity.is_a?(Post)
+      parameters = { category_slug: entity.category.slug }
+      link_to((text || entity.category.full_title), category_posts_path(parameters))
+    elsif entity.is_a?(News)
+      parameters = { category_slug: entity.category.slug }
+      if entity.region_id
+        link_to((text || entity.category.full_title), category_regional_news_index_path(parameters))
+      else
+        link_to((text || entity.category.full_title), category_news_index_path(parameters))
+      end
+    elsif entity.is_a?(PostCategory)
+      parameters = { category_slug: entity.slug }
+      link_to((text || entity.full_title), category_posts_path(parameters))
+    elsif entity.is_a?(NewsCategory)
+      parameters = { category_slug: entity.slug }
+      link_to((text || entity.name), category_posts_path(parameters))
     else
       ''
     end
@@ -126,7 +139,7 @@ module PostsHelper
     if entity.image.blank?
       image_tag('biovision/base/placeholders/image.svg')
     else
-      versions = ''#"#{entity.image.preview_2x.url} 2x"
+      versions = '' #"#{entity.image.preview_2x.url} 2x"
       image_tag(entity.image.medium.url, alt: entity.title, srcset: versions)
     end
   end
@@ -136,7 +149,7 @@ module PostsHelper
     if entity.image.blank?
       image_tag('biovision/base/placeholders/image.svg')
     else
-      versions = ''#"#{entity.image.preview_2x.url} 2x"
+      versions = '' #"#{entity.image.preview_2x.url} 2x"
       image_tag(entity.image.preview.url, alt: entity.title, srcset: versions)
     end
   end

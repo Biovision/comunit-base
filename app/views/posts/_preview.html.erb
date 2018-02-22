@@ -13,12 +13,12 @@
 </div>
 <div class="category">
   <div>
-    <%= entity.category&.full_title %>
+    <%= post_category_link(entity) %>
     <%= time_tag entity.created_at %>
   </div>
   <div class="region">
-    <% if entity.respond_to?(:region) %>
-      <%= entity.region&.branch_name || raw('&nbsp;') %>
+    <% if entity.respond_to?(:region) && !entity.region.nil? %>
+      <%= link_to(entity.region.branch_name, regional_index_path(region_slug: entity.region.long_slug)) %>
     <% else %>
       &nbsp;
     <% end %>
