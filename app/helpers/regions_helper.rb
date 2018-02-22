@@ -35,7 +35,7 @@ module RegionsHelper
     else
       options << ['Все', '', { data: { url: regional_index_path(region_slug: slug) } }]
     end
-    Region.visible.for_tree(region_id).each do |region|
+    Region.visible.for_tree(nil, region_id).each do |region|
       url = regional_index_path(region_slug: region.long_slug)
       options << [region.short_name, region.id, { data: { url: url } }]
     end

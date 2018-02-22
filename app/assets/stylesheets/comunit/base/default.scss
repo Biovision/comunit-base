@@ -1,16 +1,10 @@
 $font-family-heading: $font-family-main !default;
 
-$link-color: rgb(20, 127, 255) !default;
-$link-color-visited: rgb(20, 77, 250) !default;
-$link-color-hover: rgb(255, 77, 20) !default;
-$link-color-breadcrumbs: $link-color !default;
+$content-width: 110rem;
 
 $background-html: #fff !default;
 $background-body: #fff !default;
-$background-header: #fff !default;
 $background-header-transparent: rgba(255, 255, 255, .5) !default;
-
-$content-width-min: 98rem !default;
 
 // Основное меню: полоска с выпадашками
 $navigation-stripe-background: #333 !default;
