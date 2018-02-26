@@ -234,16 +234,9 @@ body {
   background: $background-main;
   padding: 0 0 2.3rem;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   width: 100%;
-
-  .no-sidebar {
-    max-width: 100%;
-  }
-
-  .with-sidebar {
-    max-width: 70.5rem;
-  }
 
   .content {
     flex: 8;

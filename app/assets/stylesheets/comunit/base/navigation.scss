@@ -1,7 +1,7 @@
 ul.main-navigation {
   background: $navigation-stripe-background;
   display: flex;
-  height: 3.1rem;
+  flex-wrap: wrap;
   margin: 0;
   padding: 0;
 
@@ -74,7 +74,7 @@ ul.main-navigation {
         }
 
         &.parent {
-          background: image_url('comunit/base/icons/right-arrow') no-repeat center right .4rem / 1.6rem 1.6rem;
+          background: image_url('comunit/base/icons/right-arrow.svg') no-repeat center right .4rem / 1.6rem 1.6rem;
         }
 
         > ul {

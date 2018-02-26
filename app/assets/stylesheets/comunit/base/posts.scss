@@ -506,6 +506,7 @@ article.news {
 
 #frontpage-posts {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
 
   > div {
