@@ -23,6 +23,8 @@
     </div>
   </div>
   <nav>
+    <input type="checkbox" id="top-nav-control" class="visually-hidden" />
+    <label for="top-nav-control"><%= image_tag('icons/hamburger.svg') %></label>
     <%= render 'layouts/application/main_navigation' %>
     <%= render 'layouts/application/secondary_navigation' if content_for?(:secondary_navigation) %>
   </nav>

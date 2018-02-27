@@ -139,3 +139,82 @@ body {
     }
   }
 }
+
+@media screen and(min-width: 600px) {
+  #main-header {
+    label {
+      display: none;
+    }
+  }
+}
+
+@media screen and(max-width: 599px) {
+  #main-header {
+    nav {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 3.6rem;
+
+      label {
+        cursor: pointer;
+        display: inline-block;
+        height: 2.8rem;
+        padding: .2rem .4rem;
+
+        img {
+          height: 100%;
+        }
+      }
+    }
+  }
+
+  #top-nav-control {
+    &:focus {
+      + label {
+        filter: drop-shadow(0 0 .8rem rgba(255, 255, 255, .75));
+      }
+    }
+
+    &:not(:checked) {
+      ~ ul {
+        display: none;
+      }
+    }
+
+    &:checked {
+      ~ ul.main-navigation {
+        box-shadow: .4rem .4rem .4rem rgba(0, 0, 0, .25);
+        display: block;
+        left: 0;
+        top: 2.8rem;
+        position: absolute;
+        z-index: 10;
+
+        > li {
+          > ul {
+            display: block;
+            min-width: initial;
+            padding: 0;
+            position: initial;
+            top: initial;
+
+            li {
+              a:link,
+              a:visited {
+                padding-left: 2rem;
+              }
+
+              > ul {
+                left: 2rem;
+                right: 0;
+                top: 100%;
+                z-index: 11;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

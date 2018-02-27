@@ -72,6 +72,8 @@ body {
 }
 
 #main-header {
+  position: relative;
+
   > div {
     background: $background-header;
     display: flex;
@@ -423,7 +425,7 @@ input.toggle-box {
       .slide {
         display: flex;
         flex-direction: column;
-        height: 21rem;
+        //height: 21rem;
         margin: 0;
 
         .heading {
