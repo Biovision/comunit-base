@@ -1,9 +1,14 @@
 <footer>
   <div class="navigation">
-    <%= render 'layouts/application/main_navigation' %>
+    <%# render 'layouts/application/main_navigation' %>
   </div>
   <div class="bottom">
     &copy; <%= t(:copyright) %>
-    <%= link_to(t('about.tos.heading'), tos_path) %>
+    <div>
+      <%= link_to(t('about.tos.heading'), tos_path) %><br/>
+      <% if UserPrivilege.user_has_any_privilege?(current_user) %>
+        <%= link_to(t('admin.index.index.heading'), admin_path) %>
+      <% end %>
+    </div>
   </div>
 </footer>
