@@ -1,14 +1,17 @@
 class User < ApplicationRecord
   include Toggleable
 
-  EMAIL_PATTERN = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z0-9][-a-z0-9]+)\z/i
-  SLUG_PATTERN  = /\A[a-z0-9_]{1,30}\z/
-  PER_PAGE      = 25
+  EMAIL_PATTERN            = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z0-9][-a-z0-9]+)\z/i
+  SLUG_PATTERN             = /\A[a-z0-9_]{1,30}\z/
+  SCREEN_NAME_LIMIT        = 30
+  SCREEN_NAME_PATTERN      = /\A[a-z0-9_]{1,30}\z/i
+  SCREEN_NAME_PATTERN_HTML = '^[a-zA-Z0-9_]{1,30}$'
+  SLUG_LIMIT               = 250
+  EMAIL_LIMIT              = 250
+  NOTICE_LIMIT             = 255
+  PHONE_LIMIT              = 50
 
-  SLUG_LIMIT   = 250
-  EMAIL_LIMIT  = 250
-  NOTICE_LIMIT = 255
-  PHONE_LIMIT  = 50
+  PER_PAGE = 25
 
   METRIC_REGISTRATION            = 'users.registration.hit'
   METRIC_AUTHENTICATION_SUCCESS  = 'users.authentication.success.hit'
