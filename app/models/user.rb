@@ -51,10 +51,11 @@ class User < ApplicationRecord
   before_save :prepare_search_string
   after_create { UserProfile.create(user: self) }
 
-  validates_presence_of :slug
-  validates_uniqueness_of :slug
-  validate :slug_should_be_valid
-  validate :email_should_be_reasonable
+  validates_presence_of :screen_name, :email
+  validates_format_of :screen_name, with: SCREEN_NAME_PATTERN, if: :native_slug?
+  validates_format_of :email, with: EMAIL_PATTERN
+  validates :screen_name, uniqueness: { case_sensitive: false }
+  validates :email, uniqueness: { case_sensitive: false }
   validates_length_of :slug, maximum: SLUG_LIMIT
   validates_length_of :screen_name, maximum: SLUG_LIMIT
   validates_length_of :email, maximum: EMAIL_LIMIT
