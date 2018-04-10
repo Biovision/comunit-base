@@ -1,17 +1,17 @@
 module EventsHelper
   # @param [Event] entity
   def admin_event_link(entity)
-    link_to(entity.name, admin_event_path(entity.id))
+    link_to(entity.name, admin_event_path(id: entity.id))
   end
 
   # @param [EventParticipant] entity
   def admin_event_participant_link(entity)
-    link_to(entity.full_name, admin_event_participant_path(entity.id))
+    link_to(entity.full_name, admin_event_participant_path(id: entity.id))
   end
 
   # @param [EventProgram] entity
   def admin_event_program_link(entity)
-    link_to(entity.name, admin_event_program_path(entity.id))
+    link_to(entity.name, admin_event_program_path(id: entity.id))
   end
 
   # @param [Event] entity

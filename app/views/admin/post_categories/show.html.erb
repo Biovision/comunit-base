@@ -9,7 +9,7 @@
   <ul class="actions">
     <li><%= back_icon(admin_post_categories_path) %></li>
     <% unless @entity.locked? %>
-        <li><%= edit_icon(edit_post_category_path(@entity.id)) %></li>
+        <li><%= edit_icon(edit_post_category_path(id: @entity.id)) %></li>
     <% end %>
   </ul>
 
@@ -18,7 +18,7 @@
     <% unless @entity.parent.nil? %>
         <tr>
           <th><%= t('activerecord.attributes.post_category.parent_id') %></th>
-          <td><%= link_to @entity.parent.name, admin_post_category_path(@entity.parent) %></td>
+          <td><%= link_to @entity.parent.name, admin_post_category_path(id: @entity.parent_id) %></td>
         </tr>
     <% end %>
     <tr>
@@ -44,7 +44,7 @@
     </tr>
     <tr>
       <td colspan="2">
-        <%= link_to t(:post, count: @entity.items_count), items_admin_post_category_path(@entity) %>
+        <%= link_to t(:post, count: @entity.items_count), items_admin_post_category_path(id: @entity.id) %>
       </td>
     </tr>
     </tbody>

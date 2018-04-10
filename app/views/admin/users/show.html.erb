@@ -14,7 +14,7 @@
     <li><%= back_icon admin_users_path %></li>
     <li><%= create_icon new_user_path %></li>
     <% unless @entity.deleted? %>
-        <li><%= edit_icon edit_user_path(@entity) %></li>
+        <li><%= edit_icon edit_user_path(id: @entity) %></li>
     <% end %>
   </ul>
 
@@ -110,11 +110,11 @@
     <tr>
       <td colspan="2">
         <ul>
-          <li><%= link_to t('admin.users.privileges.heading'), privileges_admin_user_path(@entity.id) %></li>
-          <li><%= link_to t('admin.tokens.index.heading'), tokens_admin_user_path(@entity) %></li>
-          <li><%= link_to t('admin.codes.index.heading'), codes_admin_user_path(@entity) %></li>
+          <li><%= link_to t('admin.users.privileges.heading'), privileges_admin_user_path(id: @entity.id) %></li>
+          <li><%= link_to t('admin.tokens.index.heading'), tokens_admin_user_path(id: @entity) %></li>
+          <li><%= link_to t('admin.codes.index.heading'), codes_admin_user_path(id: @entity) %></li>
           <% unless @entity == current_user %>
-              <li><%= link_to t('.authenticate'), authenticate_admin_user_path(@entity.id), method: :post %></li>
+              <li><%= link_to t('.authenticate'), authenticate_admin_user_path(id: @entity.id), method: :post %></li>
           <% end %>
         </ul>
       </td>
@@ -124,7 +124,7 @@
         <tfoot>
         <tr>
           <td colspan="2">
-            <%= render partial: 'shared/admin/toggleable', locals: { entity: @entity, url: toggle_admin_user_path(@entity.id) } %>
+            <%= render partial: 'shared/admin/toggleable', locals: { entity: @entity, url: toggle_admin_user_path(id: @entity.id) } %>
           </td>
         </tr>
         </tfoot>

@@ -4,8 +4,8 @@
 <article class="entity-page">
   <h1><%= @entity.name %></h1>
   <ul class="actions">
-    <li><%= back_icon(photos_admin_album_path(@entity.album_id)) %></li>
-    <li><%= edit_icon(edit_photo_path(@entity.id)) %></li>
+    <li><%= back_icon(photos_admin_album_path(id: @entity.album_id)) %></li>
+    <li><%= edit_icon(edit_photo_path(id: @entity.id)) %></li>
   </ul>
 
   <table>

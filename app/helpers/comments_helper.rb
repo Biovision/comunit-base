@@ -1,7 +1,7 @@
 module CommentsHelper
   # @param [Comment] entity
   def admin_comment_link(entity)
-    link = link_to(entity.commentable.title, admin_comment_path(entity.id))
+    link = link_to(entity.commentable.title, admin_comment_path(id: entity.id))
 
     raw "#{entity.commentable.model_name.human} <cite>#{link}</cite>"
   end

@@ -8,7 +8,7 @@
 <article>
   <h1><%= @entity.name %></h1>
   <ul class="actions">
-    <li><%= return_icon(admin_news_category_path(@entity), t('activerecord.models.news_category')) %></li>
+    <li><%= return_icon(admin_news_category_path(id: @entity.id), t('activerecord.models.news_category')) %></li>
   </ul>
 
   <section>

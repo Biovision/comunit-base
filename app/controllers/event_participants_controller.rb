@@ -6,7 +6,7 @@ class EventParticipantsController < ApplicationController
     @entity = EventParticipant.new(creation_parameters)
     if @entity.save
       Metric.register(EventParticipant::METRIC_CREATED)
-      redirect_to event_path(@entity.event_id), notice: t('event_participants.create.success')
+      redirect_to event_path(id: @entity.event_id), notice: t('event_participants.create.success')
     else
       render :new, status: :bad_request
     end
@@ -15,7 +15,7 @@ class EventParticipantsController < ApplicationController
   # delete /event_participants/:id
   def destroy
     @entity.destroy
-    redirect_to admin_event_path(@entity.event_id)
+    redirect_to admin_event_path(id: @entity.event_id)
   end
 
   private

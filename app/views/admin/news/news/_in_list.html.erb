@@ -8,7 +8,7 @@
     <% unless news.region.nil? %>
         <span class="news-region"><%= news.region.branch_name %>:</span>
     <% end %>
-    <cite><%= link_to news.title, admin_news_path(news) %></cite>
+    <cite><%= link_to news.title, admin_news_path(id: news.id) %></cite>
     <% unless news.entry.nil? %>
         <div class="repost">
           <%= admin_user_link(news.entry.user) %>
@@ -23,9 +23,9 @@
 
   <%= render partial: 'admin/news/toggleable', locals: { entity: news } %>
   <ul class="actions">
-    <%= render partial: 'shared/actions/locks', locals: { entity: news, path: (current_user_has_privilege?(:chief_editor, current_region) ? lock_admin_news_path(news) : '') } %>
+    <%= render partial: 'shared/actions/locks', locals: { entity: news, path: (current_user_has_privilege?(:chief_editor, current_region) ? lock_admin_news_path(id: news.id) : '') } %>
     <li class="lockable <%= news.editable_by?(current_user) ? '' : 'hidden' %>">
-      <%= edit_icon edit_news_path(news) %>
+      <%= edit_icon edit_news_path(id: news.id) %>
     </li>
     <li class="lockable <%= news.editable_by?(current_user) ? '' : 'hidden' %> danger">
       <%= destroy_icon(news) %>

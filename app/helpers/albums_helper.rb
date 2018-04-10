@@ -1,22 +1,22 @@
 module AlbumsHelper
   # @param [Album] entity
   def admin_album_link(entity)
-    link_to(entity.name, admin_album_path(entity.id))
+    link_to(entity.name, admin_album_path(id: entity.id))
   end
 
   # @param [Photo] entity
   def admin_photo_link(entity)
-    link_to(entity.name, admin_photo_path(entity.id))
+    link_to(entity.name, admin_photo_path(id: entity.id))
   end
 
   # @param [Album] entity
   def album_link(entity)
-    link_to(entity.name, album_path(entity.id))
+    link_to(entity.name, album_path(id: entity.id))
   end
 
   # @param [Photo] entity
   def photo_link(entity)
-    link_to(entity.name, photo_path(entity.id))
+    link_to(entity.name, photo_path(id: entity.id))
   end
 
   # @param [Album] entity

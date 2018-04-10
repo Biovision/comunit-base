@@ -29,7 +29,7 @@ class AppealsController < ApplicationController
   # patch /appeals/:id
   def update
     if @entity.update(entity_parameters)
-      next_page = admin_appeal_path(@entity.id)
+      next_page = admin_appeal_path(id: @entity.id)
       respond_to do |format|
         format.html { redirect_to(next_page) }
         format.json { render(json: { links: { next: next_page } }) }

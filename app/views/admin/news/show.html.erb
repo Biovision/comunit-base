@@ -11,7 +11,7 @@
     <li><%= back_icon(admin_news_index_path) %></li>
     <li><%= news_link(@entity, image_tag('biovision/base/icons/world.svg'), data: { tootik: t(:view) }) %></li>
     <% unless @entity.locked? %>
-        <li><%= edit_icon edit_news_path(@entity) %></li>
+        <li><%= edit_icon edit_news_path(id: @entity.id) %></li>
     <% end %>
   </ul>
   <table>
@@ -37,7 +37,7 @@
     <% unless @entity.region.nil? %>
         <tr>
           <th><%= t('activerecord.attributes.news.region_id') %></th>
-          <td><%= link_to @entity.region.name, admin_region_path(@entity.region_id) %></td>
+          <td><%= link_to @entity.region.name, admin_region_path(id: @entity.region_id) %></td>
         </tr>
     <% end %>
     <% unless @entity.news_category.nil? %>

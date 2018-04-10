@@ -10,7 +10,7 @@
 
   <% unless entity.locked? %>
       <ul class="actions">
-        <li><%= edit_icon(edit_event_material_path(entity.id)) %></li>
+        <li><%= edit_icon(edit_event_material_path(id: entity.id)) %></li>
       </ul>
   <% end %>
 </div>

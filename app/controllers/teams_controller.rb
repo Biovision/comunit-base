@@ -10,7 +10,7 @@ class TeamsController < AdminController
   def create
     @entity = Team.new(entity_parameters)
     if @entity.save
-      redirect_to(admin_team_path(@entity))
+      redirect_to(admin_team_path(id: @entity.id))
     else
       render :new, status: :bad_request
     end
@@ -23,7 +23,7 @@ class TeamsController < AdminController
   # patch /teams/:id
   def update
     if @entity.update(entity_parameters)
-      redirect_to admin_team_path(@entity), notice: t('teams.update.success')
+      redirect_to admin_team_path(id: @entity.id), notice: t('teams.update.success')
     else
       render :edit, status: :bad_request
     end

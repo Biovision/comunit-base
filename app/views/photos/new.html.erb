@@ -6,7 +6,7 @@
 
   <% unless @entity.album.nil? %>
       <ul class="actions">
-        <li><%= return_icon(photos_admin_album_path(@entity.album_id)) %></li>
+        <li><%= return_icon(photos_admin_album_path(id: @entity.album_id)) %></li>
       </ul>
   <% end %>
 

@@ -5,12 +5,12 @@
   <h1><%= @entity.name %></h1>
   <ul class="actions">
     <li><%= return_icon(admin_albums_path) %></li>
-    <li><%= edit_icon(edit_album_path(@entity.id)) %></li>
+    <li><%= edit_icon(edit_album_path(id: @entity.id)) %></li>
   </ul>
 
   <nav>
     <ul>
-      <li><%= link_to(t(:photo_count, count: @entity.photos_count), photos_admin_album_path(@entity.id)) %></li>
+      <li><%= link_to(t(:photo_count, count: @entity.photos_count), photos_admin_album_path(id: @entity.id)) %></li>
     </ul>
   </nav>
 

@@ -7,7 +7,7 @@
           <% unless entity.parent_id.nil? %>
               <tr>
                 <th><%= t('activerecord.attributes.post_category.parent_id') %></th>
-                <td><%= link_to entity.parent.name, admin_post_category_path(entity.parent) %></td>
+                <td><%= link_to entity.parent.name, admin_post_category_path(id: entity.parent_id) %></td>
               </tr>
           <% end %>
       <% end %>

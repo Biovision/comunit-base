@@ -7,7 +7,7 @@
   <ul class="actions">
     <li><%= back_icon(admin_posts_path) %></li>
     <% unless @entity.locked? %>
-        <li><%= edit_icon(edit_post_path(@entity.id)) %></li>
+        <li><%= edit_icon(edit_post_path(id: @entity.id)) %></li>
     <% end %>
   </ul>
   <table>

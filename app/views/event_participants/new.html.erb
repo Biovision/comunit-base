@@ -5,7 +5,7 @@
 
   <% unless @entity.event_id.nil? %>
       <ul class="actions">
-        <li><%= back_icon event_path(@entity.event_id) %></li>
+        <li><%= back_icon event_path(id: @entity.event_id) %></li>
       </ul>
   <% end %>
 

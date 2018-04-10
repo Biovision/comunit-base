@@ -5,7 +5,7 @@
   <h1><%= @entity.name %></h1>
   <ul class="actions">
     <li><%= back_icon(admin_groups_path) %></li>
-    <li><%= edit_icon(edit_group_path(@entity.id)) %></li>
+    <li><%= edit_icon(edit_group_path(id: @entity.id)) %></li>
   </ul>
 
   <section id="group-users">
@@ -16,7 +16,7 @@
     <%= paginate @collection %>
   </section>
 
-  <section data-filter-url="<%= users_admin_group_path(@entity.id) %>">
+  <section data-filter-url="<%= users_admin_group_path(id: @entity.id) %>">
     <h2><%= t('.add_user') %></h2>
 
     <%= render partial: 'users/filter', locals: { filter: {} } %>

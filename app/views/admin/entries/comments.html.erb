@@ -3,7 +3,7 @@
 <article class="entity-page">
   <h1><%= @entity.title %></h1>
   <ul class="actions">
-    <li><%= back_icon admin_entry_path(@entity) %></li>
+    <li><%= back_icon admin_entry_path(id: @entity.id) %></li>
   </ul>
 
   <section>

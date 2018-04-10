@@ -6,7 +6,7 @@
       <h2><%= event.name %></h2>
       <p><%= event.lead %></p>
       <p class="button">
-        <%= link_to('Подробнее', event_path(event.id), class: 'nav-button') %>
+        <%= link_to('Подробнее', event_path(id: event.id), class: 'nav-button') %>
       </p>
     </section>
 <% end %>

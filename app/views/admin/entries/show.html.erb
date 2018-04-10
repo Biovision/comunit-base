@@ -5,9 +5,9 @@
   <h1><%= @entity.title %></h1>
   <ul class="actions">
     <li><%= back_icon admin_entries_path %></li>
-    <li><%= world_icon entry_path(@entity) %></li>
+    <li><%= world_icon entry_path(id: @entity.id) %></li>
     <% if @entity.editable_by? current_user %>
-        <li><%= edit_icon edit_entry_path(@entity) %></li>
+        <li><%= edit_icon edit_entry_path(id: @entity.id) %></li>
         <li class="danger"><%= destroy_icon @entity %></li>
     <% end %>
   </ul>
@@ -40,7 +40,7 @@
       <td colspan="2">
         <nav>
           <ul>
-            <li><%= link_to t(:comment, count: @entity.comments_count), comments_admin_entry_path(@entity) %></li>
+            <li><%= link_to t(:comment, count: @entity.comments_count), comments_admin_entry_path(id: @entity.id) %></li>
           </ul>
         </nav>
       </td>

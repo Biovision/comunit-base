@@ -24,6 +24,6 @@ module UsersHelper
   def editorial_user_link(user)
     return t(:anonymous) if user.nil?
     text = user.profile_name
-    link_to text, editorial_user_path(user.id), class: 'profile'
+    link_to text, editorial_user_path(id: user.id), class: 'profile'
   end
 end

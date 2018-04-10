@@ -1,6 +1,6 @@
 <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
 
-<%= form_tag(create_repost_entry_path(entry.id), method: :post, multipart: true) do %>
+<%= form_tag(create_repost_entry_path(id: entry.id), method: :post, multipart: true) do %>
     <table>
       <tbody>
       <tr>
