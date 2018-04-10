@@ -18,7 +18,7 @@ class AlbumsController < ApplicationController
   def create
     @entity = Album.new(creation_parameters)
     if @entity.save
-      redirect_to(admin_album_path(@entity.id))
+      redirect_to(admin_album_path(id: @entity.id))
     else
       render :new, status: :bad_request
     end
@@ -31,7 +31,7 @@ class AlbumsController < ApplicationController
   # patch /albums/:id
   def update
     if @entity.update(entity_parameters)
-      redirect_to admin_album_path(@entity.id), notice: t('albums.update.success')
+      redirect_to admin_album_path(id: @entity.id), notice: t('albums.update.success')
     else
       render :edit, status: :bad_request
     end

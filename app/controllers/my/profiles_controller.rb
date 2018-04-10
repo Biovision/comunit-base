@@ -29,7 +29,6 @@ class My::ProfilesController < ApplicationController
   # patch /my/profile
   def update
     if current_user.update(user_parameters)
-      current_user.user_profile.update(profile_parameters)
       NetworkManager::UserHandler.new.sync_user(current_user) if Rails.env.production?
 
       redirect_to my_profile_path, notice: t('my.profiles.update.success')
@@ -66,11 +65,13 @@ class My::ProfilesController < ApplicationController
     sensitive  = sensitive_parameters
     editable   = User.profile_parameters + sensitive
     parameters = params.require(:user).permit(editable)
-    filter_parameters parameters, sensitive
+    filter_parameters parameters.merge(profile_parameters), sensitive
   end
 
   def profile_parameters
-    params.require(:user_profile).permit(UserProfile.entity_parameters)
+    permitted = UserProfileHandler.allowed_parameters
+    dirty     = params.require(:user_profile).permit(permitted)
+    { profile_data: UserProfileHandler.clean_parameters(dirty) }
   end
 
   def sensitive_parameters

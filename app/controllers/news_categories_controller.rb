@@ -7,7 +7,7 @@ class NewsCategoriesController < AdminController
   def create
     @entity = NewsCategory.new entity_parameters
     if @entity.save
-      redirect_to admin_news_category_path(@entity)
+      redirect_to admin_news_category_path(id: @entity.id)
     else
       render :new, status: :bad_request
     end
@@ -20,7 +20,7 @@ class NewsCategoriesController < AdminController
   # patch /news_categories/:id
   def update
     if @entity.update entity_parameters
-      redirect_to admin_news_category_path(@entity), notice: t('news_categories.update.success')
+      redirect_to admin_news_category_path(id: @entity.id), notice: t('news_categories.update.success')
     else
       render :edit, status: :bad_request
     end
@@ -49,7 +49,7 @@ class NewsCategoriesController < AdminController
 
   def restrict_editing
     if @entity.locked?
-      redirect_to admin_news_category_path(@entity), alert: t('news_categories.edit.forbidden')
+      redirect_to admin_news_category_path(id: @entity.id), alert: t('news_categories.edit.forbidden')
     end
   end
 

@@ -6,7 +6,7 @@ module VotesHelper
     if entity.is_a?(Comment)
       text << ": #{entity.commentable.model_name.human}"
       text << " <cite>#{entity.commentable.title}</cite>"
-      path = admin_comment_path(entity.id)
+      path = admin_comment_path(id: entity.id)
     end
     link_to(text.html_safe, path)
   end

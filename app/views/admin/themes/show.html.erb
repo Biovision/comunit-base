@@ -6,7 +6,7 @@
   <ul class="actions">
     <li><%= back_icon(admin_themes_path) %></li>
     <% unless @entity.locked? %>
-        <li><%= edit_icon edit_theme_path(@entity) %></li>
+        <li><%= edit_icon edit_theme_path(id: @entity.id) %></li>
         <li class="danger"><%= destroy_icon @entity %></li>
     <% end %>
   </ul>

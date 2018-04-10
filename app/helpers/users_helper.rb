@@ -4,26 +4,34 @@ module UsersHelper
     options + (-2..1).map { |o| [t("attitudes.#{o.to_s}"), o]}
   end
 
-  # @param [String] gender
-  def marital_statuses_for_select(gender)
+  # @param [Integer] gender_key
+  def marital_statuses_for_select(gender_key)
+    options = [[t(:not_selected), '']]
+    options + UserProfileHandler::MARITAL.keys.map { |o| [marital_status_name(gender_key, o), o] }
+  end
+
+  # @param [Integer] gender_key
+  # @param [Integer] key
+  def marital_status_name(gender_key, key)
+    gender = UserProfileHandler::GENDERS[gender_key]
     prefix = 'activerecord.attributes.user_profile.marital_statuses.'
     prefix << (gender.blank? ? 'default' : gender)
-    options = [[t(:not_selected), '']]
-    options + UserProfile.marital_statuses.keys.map { |o| [t("#{prefix}.#{o}"), o] }
+    if UserProfileHandler::MARITAL.key?(key)
+      t("#{prefix}.#{UserProfileHandler::MARITAL[key]}")
+    else
+      t(:not_selected)
+    end
   end
 
   # @param [User] user
   def marital_status_for_user(user)
-    profile = user.profile
-    prefix = 'activerecord.attributes.user_profile.marital_statuses.'
-    prefix << (profile.gender.blank? ? 'default' : profile.gender)
-    t("#{prefix}.#{profile.marital_status}", default: :not_selected)
+    marital_status_name(user.profile_data['gender'], user.profile_data['marital_status'])
   end
 
   # @param [User] user
   def editorial_user_link(user)
     return t(:anonymous) if user.nil?
     text = user.profile_name
-    link_to text, editorial_user_path(user.id), class: 'profile'
+    link_to text, editorial_user_path(id: user.id), class: 'profile'
   end
 end

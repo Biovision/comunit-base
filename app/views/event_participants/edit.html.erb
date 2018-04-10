@@ -4,7 +4,7 @@
   <h1><%= t('.heading') %></h1>
 
   <ul class="actions">
-    <li><%= back_icon participants_admin_event_path(@entity.event_id) %></li>
+    <li><%= back_icon participants_admin_event_path(id: @entity.event_id) %></li>
     <li class="danger"><%= destroy_icon @entity %></li>
   </ul>
 

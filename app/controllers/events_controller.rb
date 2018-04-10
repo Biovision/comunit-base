@@ -18,7 +18,7 @@ class EventsController < ApplicationController
   def create
     @entity = Event.new(entity_parameters)
     if @entity.save
-      redirect_to(admin_event_path(@entity))
+      redirect_to(admin_event_path(id: @entity.id))
     else
       render :new, status: :bad_request
     end
@@ -36,7 +36,7 @@ class EventsController < ApplicationController
   # patch /events/:id
   def update
     if @entity.update(entity_parameters)
-      redirect_to admin_event_path(@entity), notice: t('events.update.success')
+      redirect_to admin_event_path(id: @entity.id), notice: t('events.update.success')
     else
       render :edit, status: :bad_request
     end

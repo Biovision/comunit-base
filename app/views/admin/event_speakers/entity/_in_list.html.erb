@@ -10,8 +10,8 @@
 
   <% unless entity.locked? %>
       <ul class="actions">
-        <li><%= edit_icon(edit_event_speaker_path(entity.id)) %></li>
-        <%= render partial: 'shared/actions/priority_changer', locals: { path: priority_admin_event_speaker_path(entity.id) } %>
+        <li><%= edit_icon(edit_event_speaker_path(id: entity.id)) %></li>
+        <%= render partial: 'shared/actions/priority_changer', locals: { path: priority_admin_event_speaker_path(id: entity.id) } %>
       </ul>
   <% end %>
 </div>

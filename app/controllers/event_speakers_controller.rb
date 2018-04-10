@@ -5,7 +5,7 @@ class EventSpeakersController < AdminController
   def create
     @entity = EventSpeaker.new(creation_parameters)
     if @entity.save
-      redirect_to(admin_event_path(@entity.event_id))
+      redirect_to(admin_event_path(id: @entity.event_id))
     else
       render :new, status: :bad_request
     end
@@ -18,7 +18,7 @@ class EventSpeakersController < AdminController
   # patch /event_speakers/:id
   def update
     if @entity.update(entity_parameters)
-      redirect_to admin_event_path(@entity.event_id), notice: t('event_speakers.update.success')
+      redirect_to admin_event_path(id: @entity.event_id), notice: t('event_speakers.update.success')
     else
       render :edit, status: :bad_request
     end
@@ -29,7 +29,7 @@ class EventSpeakersController < AdminController
     if @entity.destroy
       flash[:notice] = t('event_speakers.destroy.success')
     end
-    redirect_to admin_event_path(@entity.event_id)
+    redirect_to admin_event_path(id: @entity.event_id)
   end
 
   private

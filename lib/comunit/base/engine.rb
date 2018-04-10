@@ -18,7 +18,6 @@ module Comunit
       initializer 'comunit_base.load_base_methods' do
         require_dependency 'biovision/regions/privilege_methods'
         require_dependency 'comunit/base/decorators/models/region_decorator'
-        require_dependency 'comunit/base/decorators/models/user_profile_decorator'
 
         ActiveSupport.on_load(:action_controller) do
           include Biovision::Regions::PrivilegeMethods

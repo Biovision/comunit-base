@@ -2,7 +2,7 @@ class Network::UsersController < NetworkController
   # put /network/users/:id
   def synchronize
     manager = NetworkManager::UserHandler.new
-    attr = params.require(:user).permit(User.relink_parameters + UserProfile.entity_parameters)
+    attr = params.require(:user).permit(User.relink_parameters + UserProfileHandler.allowed_parameters)
     user = User.find_by(external_id: params[:id])
     if user.nil?
       user = User.new(external_id: params[:id])

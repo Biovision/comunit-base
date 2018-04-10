@@ -5,7 +5,7 @@ class EventMaterialsController < AdminController
   def create
     @entity = EventMaterial.new(creation_parameters)
     if @entity.save
-      redirect_to(admin_event_path(@entity.event_id))
+      redirect_to(admin_event_path(id: @entity.event_id))
     else
       render :new, status: :bad_request
     end
@@ -18,7 +18,7 @@ class EventMaterialsController < AdminController
   # patch /event_materials/:id
   def update
     if @entity.update(entity_parameters)
-      redirect_to admin_event_path(@entity.event_id), notice: t('event_materials.update.success')
+      redirect_to admin_event_path(id: @entity.event_id), notice: t('event_materials.update.success')
     else
       render :edit, status: :bad_request
     end
@@ -29,7 +29,7 @@ class EventMaterialsController < AdminController
     if @entity.destroy
       flash[:notice] = t('event_materials.destroy.success')
     end
-    redirect_to admin_event_path(@entity.event_id)
+    redirect_to admin_event_path(id: @entity.event_id)
   end
 
   private

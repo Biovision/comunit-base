@@ -11,7 +11,7 @@ class GroupsController < AdminController
   def create
     @entity = Group.new(entity_parameters)
     if @entity.save
-      redirect_to(admin_group_path(@entity))
+      redirect_to(admin_group_path(id: @entity.id))
     else
       render :new, status: :bad_request
     end
@@ -24,7 +24,7 @@ class GroupsController < AdminController
   # patch /groups/:id
   def update
     if @entity.update(entity_parameters)
-      redirect_to admin_group_path(@entity), notice: t('groups.update.success')
+      redirect_to admin_group_path(id: @entity.id), notice: t('groups.update.success')
     else
       render :edit, status: :bad_request
     end

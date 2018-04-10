@@ -26,7 +26,7 @@ class PostsController < ApplicationController
     @entity = Post.new creation_parameters
     if @entity.save
       # set_dependent_entities
-      redirect_to admin_post_path(@entity)
+      redirect_to admin_post_path(id: @entity.id)
     else
       render :new, status: :bad_request
     end
@@ -65,7 +65,7 @@ class PostsController < ApplicationController
   def update
     if @entity.update entity_parameters
       # set_dependent_entities
-      redirect_to admin_post_path(@entity), notice: t('posts.update.success')
+      redirect_to admin_post_path(id: @entity.id), notice: t('posts.update.success')
     else
       render :edit, status: :bad_request
     end

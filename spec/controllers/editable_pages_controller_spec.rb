@@ -7,8 +7,8 @@ RSpec.describe EditablePagesController, type: :controller do
   let(:valid_update_params) { { id: entity.id, editable_page: { body: 'changed' } } }
   let(:invalid_create_params) { { editable_page: { name: ' ' } } }
   let(:invalid_update_params) { { id: entity.id, editable_page: { name: ' ' } } }
-  let(:path_after_create) { admin_editable_page_path(entity.class.last.id) }
-  let(:path_after_update) { admin_editable_page_path(entity.id) }
+  let(:path_after_create) { admin_editable_page_path(id: entity.class.last.id) }
+  let(:path_after_update) { admin_editable_page_path(id: entity.id) }
   let(:path_after_destroy) { admin_editable_pages_path }
 
   it_behaves_like 'new_entity_with_required_roles'

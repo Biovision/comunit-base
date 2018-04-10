@@ -1,4 +1,4 @@
-<div class="toggleable" data-url="<%= toggle_editorial_user_path(entity.id) %>">
+<div class="toggleable" data-url="<%= toggle_editorial_user_path(id: entity.id) %>">
   <% %i(allow_login).each do |flag| %>
   <span class="<%= entity.attributes[flag.to_s] ? 'active' : 'inactive' %>" data-flag="<%= flag %>">
     <%= t("activerecord.attributes.user.#{flag}") %>

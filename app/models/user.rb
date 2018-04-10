@@ -49,7 +49,6 @@ class User < ApplicationRecord
   before_validation { self.screen_name = screen_name.strip unless screen_name.nil? }
   before_validation { self.slug = screen_name.downcase unless screen_name.blank? }
   before_save :prepare_search_string
-  after_create { UserProfile.create(user: self) }
 
   validates_presence_of :screen_name, :email
   validates_format_of :screen_name, with: SCREEN_NAME_PATTERN, if: :native_slug?
@@ -86,7 +85,7 @@ class User < ApplicationRecord
   end
 
   def self.profile_parameters
-    %i(image region_id phone)
+    %i(image allow_mail birthday consent)
   end
 
   def self.sensitive_parameters
@@ -144,7 +143,7 @@ class User < ApplicationRecord
 
   # @return [String]
   def profile_name
-    result = full_name
+    full_name
   end
 
   def name_for_letter
@@ -173,7 +172,7 @@ class User < ApplicationRecord
 
   def age
     now    = Time.now
-    bd     = user_profile.birthday || now
+    bd     = birthday || now
     result = now.year - bd.year
     result = result - 1 if (bd.month > now.month || (bd.month >= now.month && bd.day > now.day))
     result
@@ -198,10 +197,8 @@ class User < ApplicationRecord
   end
 
   def prepare_search_string
-    new_string = "#{slug} #{email}"
-    unless user_profile.nil?
-      new_string << " #{user_profile.search_string}"
-    end
-    self.search_string = new_string.downcase
+    string = "#{slug} #{email} #{UserProfileHandler.search_string(self)}"
+
+    self.search_string = string.downcase
   end
 end

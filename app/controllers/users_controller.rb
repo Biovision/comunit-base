@@ -19,10 +19,9 @@ class UsersController < ApplicationController
   def create
     @entity = User.new(creation_parameters)
     if @entity.save
-      @entity.user_profile.update(profile_parameters)
       NetworkManager::UserHandler.new.relink_user(@entity) if Rails.env.production?
 
-      redirect_to admin_user_path(@entity.id), notice: t('users.create.success')
+      redirect_to admin_user_path(id: @entity.id), notice: t('users.create.success')
     else
       render :new, status: :bad_request
     end
@@ -35,10 +34,9 @@ class UsersController < ApplicationController
   # patch /users/:id
   def update
     if @entity.update(entity_parameters)
-      @entity.user_profile.update(profile_parameters)
       NetworkManager::UserHandler.new.sync_user(@entity) if Rails.env.production?
 
-      redirect_to admin_user_path(@entity.id), notice: t('users.update.success')
+      redirect_to admin_user_path(id: @entity.id), notice: t('users.update.success')
     else
       render :edit, status: :bad_request
     end
@@ -66,14 +64,21 @@ class UsersController < ApplicationController
   end
 
   def entity_parameters
-    params.require(:user).permit(User.entity_parameters)
+    parameters = params.require(:user).permit(User.entity_parameters)
+    parameters.merge(profile_parameters)
   end
 
   def creation_parameters
-    params.require(:user).permit(User.creation_parameters).merge(tracking_for_entity)
+    entity_parameters.merge(tracking_for_entity).merge(consent: true)
   end
 
   def profile_parameters
-    params.require(:user_profile).permit(UserProfile.entity_parameters)
+    if params.key?(:user_profile)
+      permitted = UserProfileHandler.allowed_parameters
+      dirty     = params.require(:user_profile).permit(permitted)
+      { profile_data: UserProfileHandler.clean_parameters(dirty) }
+    else
+      {}
+    end
   end
 end

@@ -1,4 +1,4 @@
-<div class="toggleable" data-url="<%= toggle_admin_event_speaker_path(entity) %>">
+<div class="toggleable" data-url="<%= toggle_admin_event_speaker_path(id: entity.id) %>">
   <% EventSpeaker.toggleable_attributes.each do |flag| %>
   <span class="<%= entity.attributes[flag.to_s] ? 'active' : 'inactive' %>" data-flag="<%= flag %>">
     <%= t("activerecord.attributes.event_speaker.#{flag}") %>

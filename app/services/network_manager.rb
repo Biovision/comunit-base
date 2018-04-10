@@ -1,5 +1,5 @@
 class NetworkManager
-  MAIN_HOST = 'http://comunit.online'
+  MAIN_HOST = 'https://comunit.online'
 
   # @param [Site] entity
   # @param [Hash] attributes
@@ -28,7 +28,7 @@ class NetworkManager
   def request_headers
     {
       content_type: :json,
-      signature:    Rails.application.secrets.signature_token
+      signature:    Rails.application.credentials.signature_token
     }
   end
 

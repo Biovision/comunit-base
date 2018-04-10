@@ -1,5 +1,4 @@
 class NetworkManager::UserHandler < NetworkManager
-
   # Обновить данные о пользователе извне
   #
   # Вызывается центральным сайтом при создании или обновлении пользователя
@@ -15,12 +14,11 @@ class NetworkManager::UserHandler < NetworkManager
     unless data[:image_path].blank?
       entity.remote_image_url = "#{MAIN_HOST}#{data[:image_path]}"
     end
+    allowed_for_profile = UserProfileHandler.allowed_parameters
+    profile_attributes  = attributes.select { |a| allowed_for_profile.include?(a.to_s) }
+    entity.profile_data = profile_attributes
 
     entity.save!
-
-    allowed_for_profile = UserProfile.entity_parameters
-    profile_attributes  = attributes.select { |a| allowed_for_profile.include?(a.to_s) }
-    entity.user_profile&.update!(profile_attributes)
   end
 
   # Синхронизировать нового пользователя
@@ -70,17 +68,14 @@ class NetworkManager::UserHandler < NetworkManager
 
   # @param [User] user
   def prepare_user_data(user)
-    allowed = User.relink_parameters
-
+    allowed    = User.relink_parameters
     attributes = user.attributes.select { |a| allowed.include?(a) }
-    unless user.user_profile.nil?
-      allowed_in_profile = UserProfile.entity_parameters
-      profile_parameters = user.user_profile.attributes.select { |a| allowed_in_profile.include?(a) }
-      attributes.merge!(profile_parameters)
-    end
+    attributes.merge!(user.profile_data)
+
     data = {
-      user: attributes,
-      data: Hash.new
+      user:    attributes,
+      profile: user.profile_data,
+      data:    Hash.new
     }
     unless user.image.blank?
       data[:data][:image_path] = user.image.url

@@ -12,7 +12,7 @@ class ThemesController < AdminController
   def create
     @entity = Theme.new entity_parameters
     if @entity.save
-      redirect_to admin_theme_path(@entity)
+      redirect_to admin_theme_path(id: @entity.id)
     else
       render :new, status: :bad_request
     end
@@ -25,7 +25,7 @@ class ThemesController < AdminController
   # patch /themes/:id
   def update
     if @entity.update entity_parameters
-      redirect_to admin_theme_path(@entity), notice: t('themes.update.success')
+      redirect_to admin_theme_path(id: @entity.id), notice: t('themes.update.success')
     else
       render :edit, status: :bad_request
     end
@@ -54,7 +54,7 @@ class ThemesController < AdminController
 
   def restrict_editing
     if @entity.locked?
-      redirect_to admin_theme_path(@entity), alert: t('themes.edit.forbidden')
+      redirect_to admin_theme_path(id: @entity.id), alert: t('themes.edit.forbidden')
     end
   end
 

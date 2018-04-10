@@ -12,7 +12,7 @@
   <%= render partial: 'admin/teams/toggleable', locals: { entity: entity } %>
 
   <ul class="actions">
-    <li><%= edit_icon(edit_team_path(entity)) %></li>
-    <%= render partial: 'shared/actions/priority_changer', locals: { path: priority_admin_team_path(entity) } %>
+    <li><%= edit_icon(edit_team_path(id: entity.id)) %></li>
+    <%= render partial: 'shared/actions/priority_changer', locals: { path: priority_admin_team_path(id: entity.id) } %>
   </ul>
 </div>

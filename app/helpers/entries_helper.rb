@@ -13,7 +13,7 @@ module EntriesHelper
 
   # @param [News] entity
   def admin_news_link(entity)
-    link_to(entity.title, admin_news_path(entity.id))
+    link_to(entity.title, admin_news_path(id: entity.id))
   end
 
   # @param [News] news
@@ -89,7 +89,7 @@ module EntriesHelper
 
   # @param [Entry] entry
   def admin_entry_link(entry)
-    link_to (entry.title || t(:untitled)), admin_entry_path(entry)
+    link_to (entry.title || t(:untitled)), admin_entry_path(id: entry.id)
   end
 
   # @param [String] name

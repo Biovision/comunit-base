@@ -1,12 +1,12 @@
 module PostsHelper
   # @param [NewsCategory] category
   def admin_news_category_link(category)
-    link_to(category.name, admin_news_category_path(category.id))
+    link_to(category.name, admin_news_category_path(id: category.id))
   end
 
   # @param [PostCategory] category
   def admin_post_category_link(category)
-    link_to(category.full_title, admin_post_category_path(category.id))
+    link_to(category.full_title, admin_post_category_path(id: category.id))
   end
 
   # @param [Post|News] entity
@@ -47,7 +47,7 @@ module PostsHelper
   # @param [News] entity
   # @param [String] text
   def my_news_link(entity, text = entity.title)
-    link_to(text, my_news_path(entity.id))
+    link_to(text, my_news_path(id: entity.id))
   end
 
   # @param [Post|News|PostCategory|NewsCategory] entity

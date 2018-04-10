@@ -8,7 +8,7 @@ class PostCategoriesController < AdminController
     @entity = PostCategory.new creation_parameters
     if @entity.save
       cache_relatives
-      redirect_to admin_post_category_path(@entity)
+      redirect_to admin_post_category_path(id: @entity.id)
     else
       render :new, status: :bad_request
     end
@@ -22,7 +22,7 @@ class PostCategoriesController < AdminController
   def update
     if @entity.update entity_parameters
       cache_relatives
-      redirect_to admin_post_category_path(@entity), notice: t('post_categories.update.success')
+      redirect_to admin_post_category_path(id: @entity.id), notice: t('post_categories.update.success')
     else
       render :edit, status: :bad_request
     end
@@ -51,7 +51,7 @@ class PostCategoriesController < AdminController
 
   def restrict_editing
     if @entity.locked?
-      redirect_to admin_post_category_path(@entity), alert: t('post_categories.edit.forbidden')
+      redirect_to admin_post_category_path(id: @entity.id), alert: t('post_categories.edit.forbidden')
     end
   end
 

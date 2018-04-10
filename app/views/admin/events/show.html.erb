@@ -9,17 +9,17 @@
   <ul class="actions">
     <li><%= back_icon(admin_events_path) %></li>
     <% if @entity.visible? %>
-        <li><%= world_icon(event_path(@entity.id)) %></li>
+        <li><%= world_icon(event_path(id: @entity.id)) %></li>
     <% end %>
     <% unless @entity.locked? %>
-        <li><%= edit_icon(edit_event_path(@entity.id)) %></li>
+        <li><%= edit_icon(edit_event_path(id: @entity.id)) %></li>
     <% end %>
   </ul>
 
   <nav>
     <ul>
       <li>
-        <%= link_to(t(:event_participant_count, count: @entity.event_participants_count), participants_admin_event_path(@entity.id)) %>
+        <%= link_to(t(:event_participant_count, count: @entity.event_participants_count), participants_admin_event_path(id: @entity.id)) %>
       </li>
     </ul>
   </nav>

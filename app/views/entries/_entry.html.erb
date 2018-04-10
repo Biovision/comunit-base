@@ -5,10 +5,10 @@
 
   <ul class="actions">
     <% if entry.editable_by? current_user %>
-        <li><%= edit_icon edit_entry_path(entry) %></li>
+        <li><%= edit_icon edit_entry_path(id: entry.id) %></li>
     <% end %>
     <% if entry.can_be_reposted_by? current_user %>
-        <li><%= icon_with_link('comunit/base/icons/repost.svg', new_repost_entry_path(entry.id), 'Репост') %></li>
+        <li><%= icon_with_link('comunit/base/icons/repost.svg', new_repost_entry_path(id: entry.id), 'Репост') %></li>
     <% end %>
   </ul>
 

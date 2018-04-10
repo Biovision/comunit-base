@@ -1,4 +1,4 @@
-<% profile = entity.user_profile %>
+<% profile = entity.profile_data %>
 <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
 
 <%= form_tag my_profile_path, method: :patch, multipart: true, id: 'my-profile-form' do %>
@@ -22,28 +22,28 @@
           <%= label_tag :user_profile_surname, t('activerecord.attributes.user_profile.surname') %>
         </dt>
         <dd>
-          <%= text_field_tag 'user_profile[surname]', profile.surname, size: nil, maxlength: UserProfile::NAME_LIMIT %>
+          <%= text_field_tag 'user_profile[surname]', profile['surname'], size: nil, maxlength: UserProfileHandler::NAME_LIMIT %>
         </dd>
 
         <dt>
           <%= label_tag :user_profile_name, t('activerecord.attributes.user_profile.name') %>
         </dt>
         <dd>
-          <%= text_field_tag 'user_profile[name]', profile.name, size: nil, maxlength: UserProfile::NAME_LIMIT %>
+          <%= text_field_tag 'user_profile[name]', profile['name'], size: nil, maxlength: UserProfileHandler::NAME_LIMIT %>
         </dd>
 
         <dt>
           <%= label_tag :user_profile_patronymic, t('activerecord.attributes.user_profile.patronymic') %>
         </dt>
         <dd>
-          <%= text_field_tag 'user_profile[patronymic]', profile.patronymic, size: nil, maxlength: UserProfile::NAME_LIMIT %>
+          <%= text_field_tag 'user_profile[patronymic]', profile['patronymic'], size: nil, maxlength: UserProfileHandler::NAME_LIMIT %>
         </dd>
 
         <dt>
           <%= label_tag :user_profile_gender, t('activerecord.attributes.user_profile.gender') %>
         </dt>
         <dd>
-          <%= select_tag 'user_profile[gender]', options_for_select(genders_for_select, selected: profile.gender) %>
+          <%= select_tag 'user_profile[gender]', options_for_select(genders_for_select, selected: profile['gender']) %>
         </dd>
       </dl>
     </section>
@@ -55,14 +55,14 @@
           <%= label_tag :user_profile_country_name, t('activerecord.attributes.user_profile.country_name') %>
         </dt>
         <dd>
-          <%= text_field_tag 'user_profile[country_name]', profile.country_name, size: 30 %>
+          <%= text_field_tag 'user_profile[country_name]', profile['country_name'], size: 30 %>
         </dd>
 
         <dt>
           <%= label_tag :user_profile_city_name, t('activerecord.attributes.user_profile.city_name') %>
         </dt>
         <dd>
-          <%= text_field_tag 'user_profile[city_name]', profile.city_name, size: 30 %>
+          <%= text_field_tag 'user_profile[city_name]', profile['city_name'], size: 30 %>
         </dd>
 
         <dt>
@@ -76,7 +76,7 @@
           <%= label_tag :user_profile_home_address, t('activerecord.attributes.user_profile.home_address') %>
         </dt>
         <dd>
-          <%= text_field_tag 'user_profile[home_address]', profile.home_address, size: 30 %>
+          <%= text_field_tag 'user_profile[home_address]', profile['home_address'], size: 30 %>
         </dd>
 
         <dt>
@@ -90,14 +90,14 @@
           <%= label_tag :user_profile_secondary_phone, t('activerecord.attributes.user_profile.secondary_phone') %>
         </dt>
         <dd>
-          <%= telephone_field_tag 'user_profile[secondary_phone]', profile.secondary_phone, size: 20 %>
+          <%= telephone_field_tag 'user_profile[secondary_phone]', profile['secondary_phone'], size: 20 %>
         </dd>
 
         <dt>
           <%= label_tag :user_profile_skype_uid, t('activerecord.attributes.user_profile.skype_uid') %>
         </dt>
         <dd>
-          <%= text_field_tag 'user_profile[skype_uid]', profile.skype_uid, size: 30 %>
+          <%= text_field_tag 'user_profile[skype_uid]', profile['skype_uid'], size: 30 %>
         </dd>
       </dl>
     </section>
@@ -109,70 +109,70 @@
           <%= label_tag :user_profile_about, t('activerecord.attributes.user_profile.about') %>
         </dt>
         <dd>
-          <%= text_area_tag 'user_profile[about]', profile.about, cols: 50, rows: 10 %>
+          <%= text_area_tag 'user_profile[about]', profile['about'], cols: 50, rows: 10 %>
         </dd>
 
         <dt>
           <%= label_tag :user_profile_activities, t('activerecord.attributes.user_profile.activities') %>
         </dt>
         <dd>
-          <%= text_area_tag 'user_profile[activities]', profile.activities, cols: 50, rows: 10 %>
+          <%= text_area_tag 'user_profile[activities]', profile['activities'], cols: 50, rows: 10 %>
         </dd>
 
         <dt>
           <%= label_tag :user_profile_nationality_name, t('activerecord.attributes.user_profile.nationality_name') %>
         </dt>
         <dd>
-          <%= text_field_tag 'user_profile[nationality_name]', profile.nationality_name, size: 30 %>
+          <%= text_field_tag 'user_profile[nationality_name]', profile['nationality_name'], size: 30 %>
         </dd>
 
         <dt>
           <%= label_tag :user_profile_interests, t('activerecord.attributes.user_profile.interests') %>
         </dt>
         <dd>
-          <%= text_area_tag 'user_profile[interests]', profile.interests, cols: 50, rows: 5 %>
+          <%= text_area_tag 'user_profile[interests]', profile['interests'], cols: 50, rows: 5 %>
         </dd>
 
         <dt>
           <%= label_tag :user_profile_favorite_music, t('activerecord.attributes.user_profile.favorite_music') %>
         </dt>
         <dd>
-          <%= text_area_tag 'user_profile[favorite_music]', profile.favorite_music, cols: 50, rows: 5 %>
+          <%= text_area_tag 'user_profile[favorite_music]', profile['favorite_music'], cols: 50, rows: 5 %>
         </dd>
 
         <dt>
           <%= label_tag :user_profile_favorite_movies, t('activerecord.attributes.user_profile.favorite_movies') %>
         </dt>
         <dd>
-          <%= text_area_tag 'user_profile[favorite_movies]', profile.favorite_movies, cols: 50, rows: 5 %>
+          <%= text_area_tag 'user_profile[favorite_movies]', profile['favorite_movies'], cols: 50, rows: 5 %>
         </dd>
 
         <dt>
           <%= label_tag :user_profile_favorite_shows, t('activerecord.attributes.user_profile.favorite_shows') %>
         </dt>
         <dd>
-          <%= text_area_tag 'user_profile[favorite_shows]', profile.favorite_shows, cols: 50, rows: 5 %>
+          <%= text_area_tag 'user_profile[favorite_shows]', profile['favorite_shows'], cols: 50, rows: 5 %>
         </dd>
 
         <dt>
           <%= label_tag :user_profile_favorite_books, t('activerecord.attributes.user_profile.favorite_books') %>
         </dt>
         <dd>
-          <%= text_area_tag 'user_profile[favorite_books]', profile.favorite_books, cols: 50, rows: 5 %>
+          <%= text_area_tag 'user_profile[favorite_books]', profile['favorite_books'], cols: 50, rows: 5 %>
         </dd>
 
         <dt>
           <%= label_tag :user_profile_favorite_games, t('activerecord.attributes.user_profile.favorite_games') %>
         </dt>
         <dd>
-          <%= text_area_tag 'user_profile[favorite_games]', profile.favorite_games, cols: 50, rows: 5 %>
+          <%= text_area_tag 'user_profile[favorite_games]', profile['favorite_games'], cols: 50, rows: 5 %>
         </dd>
 
         <dt>
           <%= label_tag :user_profile_favorite_quotes, t('activerecord.attributes.user_profile.favorite_quotes') %>
         </dt>
         <dd>
-          <%= text_area_tag 'user_profile[favorite_quotes]', profile.favorite_quotes, cols: 50, rows: 5 %>
+          <%= text_area_tag 'user_profile[favorite_quotes]', profile['favorite_quotes'], cols: 50, rows: 5 %>
         </dd>
       </dl>
     </section>
@@ -184,49 +184,49 @@
           <%= label_tag :user_profile_political_views, t('activerecord.attributes.user_profile.political_views') %>
         </dt>
         <dd>
-          <%= text_field_tag 'user_profile[political_views]', profile.political_views, size: 30 %>
+          <%= text_field_tag 'user_profile[political_views]', profile['political_views'], size: 30 %>
         </dd>
 
         <dt>
           <%= label_tag :user_profile_religion_name, t('activerecord.attributes.user_profile.religion_name') %>
         </dt>
         <dd>
-          <%= text_field_tag 'user_profile[religion_name]', profile.religion_name, size: 30 %>
+          <%= text_field_tag 'user_profile[religion_name]', profile['religion_name'], size: 30 %>
         </dd>
 
         <dt>
           <%= label_tag :user_profile_main_in_life, t('activerecord.attributes.user_profile.main_in_life') %>
         </dt>
         <dd>
-          <%= text_area_tag 'user_profile[main_in_life]', profile.main_in_life, cols: 50, rows: 5 %>
+          <%= text_area_tag 'user_profile[main_in_life]', profile['main_in_life'], cols: 50, rows: 5 %>
         </dd>
 
         <dt>
           <%= label_tag :user_profile_main_in_people, t('activerecord.attributes.user_profile.main_in_people') %>
         </dt>
         <dd>
-          <%= text_area_tag 'user_profile[main_in_people]', profile.main_in_people, cols: 50, rows: 5 %>
+          <%= text_area_tag 'user_profile[main_in_people]', profile['main_in_people'], cols: 50, rows: 5 %>
         </dd>
 
         <dt>
           <%= label_tag :user_profile_smoking_attitude, t('activerecord.attributes.user_profile.smoking_attitude') %>
         </dt>
         <dd>
-          <%= select_tag 'user_profile[smoking_attitude]', options_for_select(attitudes_for_select, selected: profile.smoking_attitude) %>
+          <%= select_tag 'user_profile[smoking_attitude]', options_for_select(attitudes_for_select, selected: profile['smoking_attitude']) %>
         </dd>
 
         <dt>
           <%= label_tag :user_profile_alcohol_attitude, t('activerecord.attributes.user_profile.alcohol_attitude') %>
         </dt>
         <dd>
-          <%= select_tag 'user_profile[alcohol_attitude]', options_for_select(attitudes_for_select, selected: profile.alcohol_attitude) %>
+          <%= select_tag 'user_profile[alcohol_attitude]', options_for_select(attitudes_for_select, selected: profile['alcohol_attitude']) %>
         </dd>
 
         <dt>
           <%= label_tag :user_profile_inspiration, t('activerecord.attributes.user_profile.inspiration') %>
         </dt>
         <dd>
-          <%= text_area_tag 'user_profile[inspiration]', profile.inspiration, cols: 50, rows: 5 %>
+          <%= text_area_tag 'user_profile[inspiration]', profile['inspiration'], cols: 50, rows: 5 %>
         </dd>
       </dl>
     </section>
@@ -280,48 +280,48 @@
         </li>
         <li>
           <%= hidden_field_tag 'user_profile[show_email]', '0', id: :user_profile_show_email_0 %>
-          <%= check_box_tag 'user_profile[show_email]', '1', profile.show_email? %>
+          <%= check_box_tag 'user_profile[show_email]', '1', profile['show_email'] %>
           <%= label_tag :user_profile_show_email, t('activerecord.attributes.user_profile.show_email') %>
         </li>
         <li>
           <%= hidden_field_tag 'user_profile[show_phone]', '0', id: :user_profile_show_phone_0 %>
-          <%= check_box_tag 'user_profile[show_phone]', '1', profile.show_phone? %>
+          <%= check_box_tag 'user_profile[show_phone]', '1', profile['show_phone'] %>
           <%= label_tag :user_profile_show_phone, t('activerecord.attributes.user_profile.show_phone') %>
         </li>
         <li>
           <%= hidden_field_tag 'user_profile[show_secondary_phone]', '0', id: :user_profile_show_secondary_phone_0 %>
-          <%= check_box_tag 'user_profile[show_secondary_phone]', '1', profile.show_secondary_phone? %>
+          <%= check_box_tag 'user_profile[show_secondary_phone]', '1', profile['show_secondary_phone'] %>
           <%= label_tag :user_profile_show_secondary_phone, t('activerecord.attributes.user_profile.show_secondary_phone') %>
         </li>
         <li>
           <%= hidden_field_tag 'user_profile[show_birthday]', '0', id: :user_profile_show_birthday_0 %>
-          <%= check_box_tag 'user_profile[show_birthday]', '1', profile.show_birthday? %>
+          <%= check_box_tag 'user_profile[show_birthday]', '1', profile['show_birthday'] %>
           <%= label_tag :user_profile_show_birthday, t('activerecord.attributes.user_profile.show_birthday') %>
         </li>
         <li>
           <%= hidden_field_tag 'user_profile[show_patronymic]', '0', id: :user_profile_show_patronymic_0 %>
-          <%= check_box_tag 'user_profile[show_patronymic]', '1', profile.show_patronymic? %>
+          <%= check_box_tag 'user_profile[show_patronymic]', '1', profile['show_patronymic'] %>
           <%= label_tag :user_profile_show_patronymic, t('activerecord.attributes.user_profile.show_patronymic') %>
         </li>
         <li>
           <%= hidden_field_tag 'user_profile[show_skype_uid]', '0', id: :user_profile_show_skype_uid_0 %>
-          <%= check_box_tag 'user_profile[show_skype_uid]', '1', profile.show_skype_uid? %>
+          <%= check_box_tag 'user_profile[show_skype_uid]', '1', profile['show_skype_uid'] %>
           <%= label_tag :user_profile_show_skype_uid, t('activerecord.attributes.user_profile.show_skype_uid') %>
         </li>
         <li>
           <%= hidden_field_tag 'user_profile[show_home_address]', '0', id: :user_profile_show_home_address_0 %>
-          <%= check_box_tag 'user_profile[show_home_address]', '1', profile.show_home_address? %>
+          <%= check_box_tag 'user_profile[show_home_address]', '1', profile['show_home_address'] %>
           <%= label_tag :user_profile_show_home_address, t('activerecord.attributes.user_profile.show_home_address') %>
         </li>
         <li>
           <%= hidden_field_tag 'user_profile[show_about]', '0', id: :user_profile_show_about_0 %>
-          <%= check_box_tag 'user_profile[show_about]', '1', profile.show_about? %>
+          <%= check_box_tag 'user_profile[show_about]', '1', profile['show_about'] %>
           <%= label_tag :user_profile_show_about, t('activerecord.attributes.user_profile.show_about') %>
         </li>
       </ul>
     </section>
 
     <div class="buttons">
-      <%= button_tag t('.update'), type: :submit %>
+      <%= button_tag t('.update'), type: :submit, class: 'button-save' %>
     </div>
 <% end %>
