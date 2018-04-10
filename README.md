@@ -56,33 +56,18 @@ group :development do
 end
 ```
 
-### Добавления в `config/routes.rb`
-
-```ruby
-  mount Biovision::Base::Engine, at: '/'
-  mount Biovision::Vote::Engine, at: '/'
-  mount Biovision::Poll::Engine, at: '/'
-  mount Biovision::Comment::Engine, at: '/'
-  mount Comunit::Base::Engine, at: '/'
-
-  root 'index#index'
-```
-
 ### Пример `.env`
 
 ```
 RAILS_MAX_THREADS=5
-SECRET_KEY_BASE=
 DATABASE_PASSWORD=
 MAIL_PASSWORD=
-SIGNATURE_TOKEN=
 SITE_ID=
 ```
 
-Параметр `SECRET_KEY_BASE` создаётся через `rails secret` в консоли.
-`DATABASE_PASSWORD` — через random.org, `MAIL_PASSWORD` — или через интерфейс
-внешнего почтовика, или через тот же random.org.
-`SIGNATURE_TOKEN` и `SITE_ID` берутся из админки comunit.
+`DATABASE_PASSWORD` создаётся через random.org, `MAIL_PASSWORD` — или через 
+интерфейс внешнего почтовика, или через тот же random.org.
+`SITE_ID` берётся из админки comunit.
 
 ### Добавления в `app/assets/`
 
@@ -109,53 +94,23 @@ SITE_ID=
  * Наличие `host: localhost` в разделе `production`
  * Правильный ключ в `ENV` в `production.password` (`DATABASE_PASSWORD`), 
    такой же, как в `.env`
+   
+### Добавление жетона для работы с API
 
-В `secrets.yml` нужно добавить параметр:
+В версии рельсов `5.2` вместо `secrets.yml` используется `credentials.yml`.
+Для работы с ним нужно запустить в консоли `EDITOR=vim rails credentials:edit`.
+В список необходимо добавить этот параметр:
 
 ```yaml
-  signature_token: <%= ENV["SIGNATURE_TOKEN"] %>
+  signature_token: ...
 ```
 
-### Дополнения в `config/application.rb`
+Значение для `signature_token` берётся из админки на центральном сайте. 
+Структура — `<site_id>:<token>`.
+
+### Изменения в `config/initializers/comunit_base.rb`
 
 _Нужно поменять `example` на соответствующее название проекта!_
-
-```ruby
-  class Application < Rails::Application
-    config.time_zone = 'Moscow'
-
-    config.i18n.enforce_available_locales = true
-    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
-    config.i18n.default_locale = :ru
-
-    %w(app/services lib).each do |path|
-      config.autoload_paths << config.root.join(path).to_s
-    end
-
-    config.active_job.queue_adapter = :sidekiq
-
-    config.news_index_name  = 'example_news'
-    config.post_index_name  = 'example_posts'
-    config.entry_index_name = 'example_entries'
-  end
-```
-
-### Добавить файл `config/initializers/sidekiq.rb`
-
-_Нужно поменять `example` на соответствующее название проекта!_
-
-```ruby
-redis_uri = 'redis://localhost:6379/0'
-app_name  = 'example'
-
-Sidekiq.configure_server do |config|
-  config.redis = { url: redis_uri, namespace: app_name }
-end
-
-Sidekiq.configure_client do |config|
-  config.redis = { url: redis_uri, namespace: app_name }
-end
-```
 
 ### Дополнения в `config/puma.rb`
 
@@ -202,8 +157,11 @@ end
 
 ### Дополнения в `config/environments/production.rb`
 
-Нужно закомментировать строку про `uglifier`, пока не заработает нормальный сбор
-JS на сервере. Это в районе 27 строки (`config.assets.js_compressor`).
+Нужно раскомментировать строку `config.require_master_key = true` (19 на момент
+написания).
+
+Нужно поменять строку про `uglifier`, на `Uglifier.new(harmony: true)`, это
+26 строка на момент написания.
 
 Нужно заменить уровень журналирования ошибок с `:debug` на `:warn`. Это в районе
 52 строки (`config.log_level`). 

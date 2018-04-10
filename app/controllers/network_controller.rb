@@ -6,7 +6,7 @@ class NetworkController < ApplicationController
 
   def validate_signature
     signature = request.headers['HTTP_SIGNATURE'].to_s
-    if signature != Rails.application.secrets.signature_token
+    if signature != Rails.application.credentials.signature_token
       render json: { errors: { signature: 'invalid'}}, status: :unauthorized
     end
   end
