@@ -27,7 +27,7 @@ class AddComunitToPrivileges < ActiveRecord::Migration[5.0]
     editors.add_privilege(privilege)
     reporters.add_privilege(privilege)
 
-    privilege = Privilege.find_by(slug: 'chief_editor')
+    privilege = Privilege.find_by(slug: 'chief_editor') || Privilege.create!(slug: 'chief_editor', name: 'Главный редактор центра')
     privilege.update! name: 'Главный редактор центра'
     reporters.add_privilege(privilege)
 

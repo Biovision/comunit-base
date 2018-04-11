@@ -23,7 +23,7 @@ class User < ApplicationRecord
   belongs_to :agent, optional: true
   belongs_to :site, optional: true, counter_cache: true
   belongs_to :region, optional: true, counter_cache: true, touch: false
-  has_one :user_profile, dependent: :destroy
+  # has_one :user_profile, dependent: :destroy
   has_many :tokens, dependent: :destroy
   has_many :codes, dependent: :destroy
   has_many :posts, dependent: :destroy
@@ -138,7 +138,7 @@ class User < ApplicationRecord
   end
 
   def profile
-    user_profile
+    profile_data
   end
 
   # @return [String]
@@ -147,13 +147,13 @@ class User < ApplicationRecord
   end
 
   def name_for_letter
-    user_profile&.name.blank? ? screen_name : user_profile.name
+    profile_data['name'].blank? ? screen_name : profile_data['name']
   end
 
   # @param [Boolean] include_patronymic
   def full_name(include_patronymic = false)
-    result = [user_profile&.surname.to_s.strip, name_for_letter]
-    result << user_profile&.patronymic.to_s.strip if include_patronymic
+    result = [profile_data['surname'].to_s.strip, name_for_letter]
+    result << profile_data['patronymic'].to_s.strip if include_patronymic
     result.compact.join(' ')
   end
 

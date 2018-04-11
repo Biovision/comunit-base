@@ -6,7 +6,7 @@ class My::ProfilesController < ApplicationController
 
   # get /my/profile/new
   def new
-    @user = User.new
+    @entity = User.new
   end
 
   # post /my/profile
@@ -31,9 +31,9 @@ class My::ProfilesController < ApplicationController
     if current_user.update(user_parameters)
       NetworkManager::UserHandler.new.sync_user(current_user) if Rails.env.production?
 
-      redirect_to my_profile_path, notice: t('my.profiles.update.success')
+      form_processed_ok(my_path)
     else
-      render :edit, status: :bad_request
+      form_processed_with_error(:edit)
     end
   end
 
@@ -44,15 +44,15 @@ class My::ProfilesController < ApplicationController
   end
 
   def create_user
-    @user = User.new(creation_parameters)
-    if @user.save
+    @entity = User.new(creation_parameters)
+    if @entity.save
       Metric.register(User::METRIC_REGISTRATION)
-      create_token_for_user(@user)
-      NetworkManager::UserHandler.new.relink_user(@user) if Rails.env.production?
+      create_token_for_user(@entity)
+      NetworkManager::UserHandler.new.relink_user(@entity) if Rails.env.production?
 
-      redirect_to my_profile_path, notice: t('my.profiles.create.success')
+      redirect_after_creation
     else
-      render :new, status: :bad_request
+      form_processed_with_error(:new)
     end
   end
 
@@ -87,5 +87,15 @@ class My::ProfilesController < ApplicationController
     parameters[:email_confirmed] = false if parameters[:email] && parameters[:email] != current_user.email
     parameters[:phone_confirmed] = false if parameters[:phone] && parameters[:phone] != current_user.phone
     parameters
+  end
+
+  def redirect_after_creation
+    return_path = cookies['return_path'].to_s
+    return_path = my_profile_path unless return_path[0] == '/'
+    cookies.delete 'return_path', domain: :all
+
+    flash[:notice] = t('my.profiles.create.success')
+
+    form_processed_ok(return_path)
   end
 end
