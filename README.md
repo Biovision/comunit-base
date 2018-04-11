@@ -218,6 +218,7 @@ end
 ---------------
 
 ```bash
+bundle binstubs bundler --force
 bundle binstub puma
 bundle binstub sidekiq
 rails db:create
@@ -239,7 +240,7 @@ require 'mina/rbenv'
 
 #...
 set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp', 'public/uploads', 'public/ckeditor')
-set :shared_files, fetch(:shared_files, []).push('.env')
+set :shared_files, fetch(:shared_files, []).push('.env', 'config/master.key')
 
 # В том месте, где task :environment, сразу после
 task :environment do
@@ -253,6 +254,7 @@ end
 mkdir -p shared/tmp/puma
 mkdir -p shared/public/uploads
 mkdir -p shared/tmp/import
+mkdir -p shared/config
 cd shared/public
 ln -s /var/www/ckeditor
 ```
@@ -275,7 +277,7 @@ ln -s /var/www/shared/import/regions.yml
 В папке проекта (`current`):
 
 ```bash
-bin/rake regions:load
+bin/rails regions:import
 ```
 
 Занесение сайта в сеть
