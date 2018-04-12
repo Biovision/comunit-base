@@ -54,7 +54,7 @@ class User < ApplicationRecord
   validates_format_of :screen_name, with: SCREEN_NAME_PATTERN, if: :native_slug?
   validates_format_of :email, with: EMAIL_PATTERN
   validates :screen_name, uniqueness: { case_sensitive: false }
-  validates :email, uniqueness: { case_sensitive: false }
+  # validates :email, uniqueness: { case_sensitive: false }
   validates_length_of :slug, maximum: SLUG_LIMIT
   validates_length_of :screen_name, maximum: SLUG_LIMIT
   validates_length_of :email, maximum: EMAIL_LIMIT

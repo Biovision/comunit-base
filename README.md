@@ -38,6 +38,8 @@ gem 'autoprefixer-rails', group: :production
 
 gem 'biovision-base', git: 'https://github.com/Biovision/biovision-base'
 # gem 'biovision-base', path: '/Users/maxim/Projects/Biovision/gems/biovision-base'
+gem 'biovision-regions', git: 'https://github.com/Biovision/biovision-regions'
+# gem 'biovision-regions', path: '/Users/maxim/Projects/Biovision/gems/biovision-regions'
 gem 'biovision-poll', git: 'https://github.com/Biovision/biovision-poll'
 # gem 'biovision-poll', path: '/Users/maxim/Projects/Biovision/gems/biovision-poll'
 gem 'biovision-comment', git: 'https://github.com/Biovision/biovision-comment'
