@@ -18,6 +18,8 @@ Rails.application.configure do
 
   config.active_job.queue_adapter = :sidekiq
 
+  config.exceptions_app = self.routes
+
   config.news_index_name  = "#{app_name}_news"
   config.post_index_name  = "#{app_name}_posts"
   config.entry_index_name = "#{app_name}_entries"
