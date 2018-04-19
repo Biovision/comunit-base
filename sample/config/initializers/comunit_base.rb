@@ -24,4 +24,3 @@ Rails.application.configure do
   config.post_index_name  = "#{app_name}_posts"
   config.entry_index_name = "#{app_name}_entries"
 end
-

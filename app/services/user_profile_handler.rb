@@ -52,7 +52,7 @@ class UserProfileHandler
       output[parameter] = input.key?(parameter) ? input[parameter].to_s : nil
     end
     flags.each do |flag|
-      output[flag] = flag.is_a?(Boolean) ? flag : (flag.to_i > 0)
+      output[flag] = (flag.is_a?(TrueClass) || flag.is_a?(FalseClass)) ? flag : (flag.to_i > 0)
     end
     output
   end
