@@ -497,6 +497,14 @@ input.toggle-box {
   }
 }
 
+#my-index {
+  figure {
+    img {
+      width: 28rem;
+    }
+  }
+}
+
 @media screen and(max-width: 600px) {
   #main-header {
     > div {
