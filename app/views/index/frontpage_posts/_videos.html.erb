@@ -3,7 +3,7 @@
     Видео
   </div>
   <div class="posts">
-    <% posts = Theme.where(slug: 'video').first&.entries(2) %>
+    <% posts = Theme.where(slug: 'video').first&.entries(2) || [] %>
     <%= render partial: 'posts/list', locals: { collection: posts } %>
   </div>
 </div>
