@@ -1,0 +1,18 @@
+<% content_for :meta_title, t('.title') %>
+<% content_for :breadcrumbs do %>
+  <%= link_to(t('admin.promo_blocks.nav_item.text'), admin_promo_blocks_path) %>
+  <% unless @entity.promo_block.nil? %>
+    <%= admin_promo_block_link(@entity.promo_block) %>
+  <% end %>
+  <span><%= t('.nav_text') %></span>
+<% end %>
+
+<article>
+  <h1><%= t('.title') %></h1>
+
+  <ul class="actions">
+    <li><%= back_icon(admin_promo_block_path(id: @entity.promo_block_id)) %></li>
+  </ul>
+
+  <%= render partial: 'form', locals: { entity: @entity } %>
+</article>

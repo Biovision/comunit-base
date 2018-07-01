@@ -28,6 +28,7 @@ class PromoItem < ApplicationRecord
   scope :ordered_by_views, -> { order('view_count desc') }
   scope :visible, -> { where(visible: true) }
   scope :list_for_administration, -> { order('id desc') }
+  scope :list_for_visitors, -> { visible }
 
   def self.entity_parameters
     %i[code image image_alt_text lead name promo_block_id title url]

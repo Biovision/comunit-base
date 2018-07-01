@@ -1,0 +1,10 @@
+<% unless entity.nil? %>
+  <div id="promo-block-<%= entity.slug %>" class="promo-block">
+    <% item = entity.item_for_visitors %>
+    <% unless item.nil? %>
+      <div class="image">
+        <%= link_to(promo_image_medium(item), item.url) %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

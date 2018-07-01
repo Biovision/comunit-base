@@ -14,6 +14,9 @@
       <%= entity.description %>
     </div>
   <% end %>
+  <div class="secondary info">
+    <%= t(:promo_item_count, count: entity.promo_items_count) %>
+  </div>
 
   <%=
     render(

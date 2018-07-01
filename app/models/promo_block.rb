@@ -23,7 +23,25 @@ class PromoBlock < ApplicationRecord
   scope :visible, -> { where(visible: true) }
   scope :list_for_administration, -> { ordered_by_slug }
 
+  # @param [String] slug
+  # @param [String] language_code
+  def self.localized_block(slug, language_code)
+    language = Language.find_by(code: language_code)
+    criteria = { visible: true, slug: slug }
+    find_by(criteria.merge(language: language)) || find_by(criteria)
+  end
+
   def self.entity_parameters
     %i[description language_id name slug visible]
+  end
+
+  # @param [User] user
+  def editable_by?(user)
+    UserPrivilege.user_has_privilege?(user, :promo_manager)
+  end
+
+  # @return [PromoItem]
+  def item_for_visitors
+    promo_items.list_for_visitors.order('random()').first
   end
 end

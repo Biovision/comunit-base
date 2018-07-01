@@ -15,7 +15,7 @@ class PromoItemsController < AdminController
 
   # post /promo_items
   def create
-    @entity = PromoItem.new(entity_parameters)
+    @entity = PromoItem.new(creation_parameters)
     if @entity.save
       form_processed_ok(admin_promo_item_path(id: @entity.id))
     else
@@ -60,5 +60,9 @@ class PromoItemsController < AdminController
 
   def entity_parameters
     params.require(:promo_item).permit(PromoItem.entity_parameters)
+  end
+
+  def creation_parameters
+    entity_parameters.merge(owner_for_entity(true))
   end
 end

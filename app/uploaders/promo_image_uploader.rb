@@ -1,7 +1,5 @@
 class PromoImageUploader < CarrierWave::Uploader::Base
-  # Include RMagick or MiniMagick support:
-  # include CarrierWave::RMagick
-  # include CarrierWave::MiniMagick
+  include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
   storage :file
@@ -21,23 +19,31 @@ class PromoImageUploader < CarrierWave::Uploader::Base
   #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
   # end
 
-  # Process files as they are uploaded:
-  # process scale: [200, 300]
-  #
-  # def scale(width, height)
-  #   # do something
-  # end
+  version :large do
+    resize_to_fit(1280, 1280)
+  end
 
-  # Create different versions of your uploaded files:
-  # version :thumb do
-  #   process resize_to_fit: [50, 50]
-  # end
+  version :medium, from_version: :large do
+    resize_to_fit(640, 640)
+  end
+
+  version :small, from_version: :medium do
+    resize_to_fit(320, 320)
+  end
+
+  version :preview_2x, from_version: :small do
+    resize_to_fit(160, 160)
+  end
+
+  version :preview, from_version: :preview_2x do
+    resize_to_fit(80, 80)
+  end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
-  # def extension_whitelist
-  #   %w(jpg jpeg gif png)
-  # end
+  def extension_whitelist
+    %w(jpg jpeg gif png)
+  end
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.

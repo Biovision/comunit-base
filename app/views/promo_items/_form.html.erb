@@ -1,0 +1,132 @@
+<% model_name = entity.class.to_s.underscore %>
+<%=
+  form_with(
+      model: entity,
+      html:  {
+          id:   "#{model_name}-form",
+          data: { check_url: check_promo_items_path }
+      }
+  ) do |f|
+%>
+  <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+
+  <dl>
+    <dt><%= f.label :name %></dt>
+    <dd>
+      <%=
+        f.text_field(
+            :name,
+            id:        "#{model_name}_name",
+            size:      nil,
+            maxlength: PromoItem::NAME_LIMIT,
+            required: true,
+            data: {
+                check: :name
+            }
+        )
+      %>
+      <div class="check-result-error hidden" data-field="name"></div>
+      <div class="guideline"><%= t('.guidelines.name') %></div>
+    </dd>
+
+    <dt><%= f.label :image, for: "#{model_name}_image" %></dt>
+    <dd>
+      <figure class="preview" role="group" id="<%= model_name %>-image">
+        <% if entity.image.blank? %>
+          <%= f.label :image, image_tag('biovision/base/placeholders/image.svg'), for: "#{model_name}_image" %>
+        <% else %>
+          <%= f.label :image, image_tag(entity.image.url), for: "#{model_name}_image" %>
+        <% end %>
+        <figcaption>
+          <%=
+            f.file_field(
+                :image,
+                id:     "#{model_name}_image",
+                accept: 'image/jpeg,image/png,image/svg+xml',
+                data:   { image: "#{model_name}-image" }
+            )
+          %>
+        </figcaption>
+      </figure>
+      <div class="guideline"><%= t('.guidelines.image') %></div>
+    </dd>
+
+    <dt><%= f.label :image_alt_text %></dt>
+    <dd>
+      <%=
+        f.text_field(
+            :image_alt_text,
+            id:        "#{model_name}_image_alt_text",
+            size:      nil,
+            maxlength: PromoItem::META_LIMIT,
+            data:      {
+                check: :image_alt_text
+            }
+        )
+      %>
+      <div class="check-result-error hidden" data-field="image_alt_text"></div>
+      <div class="guideline"><%= t('.guidelines.image_alt_text') %></div>
+    </dd>
+
+    <!--
+    <dt><%= f.label :title %></dt>
+    <dd>
+      <%=
+        f.text_field(
+            :title,
+            id:        "#{model_name}_title",
+            size:      nil,
+            maxlength: PromoItem::TITLE_LIMIT,
+            data:      {
+                check: :title
+            }
+        )
+      %>
+      <div class="check-result-error hidden" data-field="title"></div>
+      <div class="guideline"><%= t('.guidelines.title') %></div>
+    </dd>
+
+    <dt><%= f.label :lead %></dt>
+    <dd>
+      <%=
+        f.text_field(
+            :lead,
+            id:        "#{model_name}_lead",
+            size:      nil,
+            maxlength: PromoItem::TITLE_LIMIT,
+            data:      {
+                check: :lead
+            }
+        )
+      %>
+      <div class="check-result-error hidden" data-field="lead"></div>
+      <div class="guideline"><%= t('.guidelines.lead') %></div>
+    </dd>
+    -->
+
+    <dt><%= f.label :url %></dt>
+    <dd>
+      <%=
+        f.text_field(
+            :url,
+            id:        "#{model_name}_url",
+            size:      nil,
+            maxlength: PromoItem::URL_LIMIT,
+            data:      {
+                check: :button_url
+            }
+        )
+      %>
+      <div class="check-result-error hidden" data-field="url"></div>
+      <div class="guideline"><%= t('.guidelines.url') %></div>
+    </dd>
+
+    <%= render partial: 'shared/forms/entity_flags', locals: { f: f } %>
+  </dl>
+
+  <div class="buttons">
+    <%= f.hidden_field :promo_block_id if entity.id.nil? %>
+    <%= hidden_field_tag :entity_id, entity.id %>
+    <%= f.button t(:save), type: :submit, class: 'button-save' %>
+  </div>
+<% end %>

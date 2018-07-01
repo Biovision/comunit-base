@@ -3,7 +3,7 @@
 
   <%=
     render(
-        partial: 'shared/admin/list_with_priority',
+        partial: 'shared/admin/list',
         locals: {
             collection: entity.promo_items.list_for_administration
         }
@@ -14,7 +14,7 @@
 <section>
   <h2><%= t('.new_item') %></h2>
 
-  <%#=
+  <%=
     render(
         partial: 'promo_items/form',
         locals: { entity: entity.promo_items.new }
