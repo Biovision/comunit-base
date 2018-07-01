@@ -13,6 +13,7 @@ class CreatePromoItems < ActiveRecord::Migration[5.2]
         t.integer :click_count, default: 0, null: false
         t.string :name
         t.string :image
+        t.string :image_alt_text
         t.string :url
         t.string :title
         t.string :lead

@@ -5,6 +5,7 @@ class PromoItem < ApplicationRecord
 
   CODE_LIMIT  = 5000
   LEAD_LIMIT  = 250
+  META_LIMIT  = 250
   NAME_LIMIT  = 50
   TITLE_LIMIT = 100
   URL_LIMIT   = 250
@@ -29,6 +30,6 @@ class PromoItem < ApplicationRecord
   scope :list_for_administration, -> { order('id desc') }
 
   def self.entity_parameters
-    %i(code image lead name promo_block_id title url)
+    %i[code image image_alt_text lead name promo_block_id title url]
   end
 end

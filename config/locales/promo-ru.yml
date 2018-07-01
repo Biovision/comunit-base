@@ -1,0 +1,99 @@
+ru:
+  promo_link_count:
+    zero: "ссылок нет"
+    one: "%{count} ссылка"
+    few: "%{count} ссылки"
+    many: "%{count} ссылок"
+    other: "%{count} ссылок"
+  activerecord:
+    models:
+      promo_block: "Рекламный блок"
+      promo_item: "Рекламная ссылка"
+    attributes:
+      promo_block:
+        description: "Описание"
+        language: "Язык"
+        language_id: "Язык"
+        name: "Название"
+        promo_items_count: "Количество ссылок"
+        slug: "Идентификатор"
+        visible: "Показывать"
+      promo_item:
+        click_count: "Количество кликов"
+        code: "Код"
+        item_type: "Тип ссылки"
+        name: "Название"
+        image: "Картинка"
+        image_alt_text: "Альтернативный текст для картинки"
+        lead: "Сопроводительный текст"
+        settings: "Настройки"
+        title: "Название"
+        promo_block: "Рекламный блок"
+        promo_block_id: "Рекламный блок"
+        url: "URL"
+        user: "Создатель"
+        view_count: "Количество показлов"
+        visible: "Показывать"
+  admin:
+    promo_items:
+      show:
+        title: "Рекламная ссылка «%{title}»"
+    promo_blocks:
+      index:
+        heading: "Рекламные блоки"
+        title: "Рекламные блоки"
+      nav_item:
+        description: "Управление рекламными блоками"
+        text: "Рекламные блоки"
+      show:
+        title: "Рекламный блок «%{slug}»"
+      entity:
+        items:
+          heading: "Ссылки"
+          new_item: "Добавить ссылку"
+    index:
+      dashboard:
+        promo_manager:
+          heading: "Рекламные блоки"
+  promo_items:
+    new:
+      heading: "Новая рекламная ссылка"
+      nav_text: "Добавить ссылку"
+      title: "Добавление рекламной ссылки"
+    edit:
+      heading: "Редактирование рекламной ссылки"
+      nav_text: "Редактировать"
+      title: "Редактирование рекламной ссылки"
+    destroy:
+      success: "Рекламная ссылка успешно удалена"
+    update:
+      success: "Рекламная ссылка успешно отредактирована"
+    form:
+      guidelines:
+        body: "Максимум 5000 символов."
+        button_text: "Максимум 50 символов"
+        button_url: "Максимум 250 символов"
+        image: "Картинка размером в районе 320×320, формат — SVG, JPG или PNG."
+        image_alt_text: "Максимум 255 символов."
+        slug: "Только латинские буквы, цифры, дефис или подчёркивание (кроме начала и конца). 2–50 символов."
+        title: "Максимум 250 символов."
+    list:
+      more: "Подробнее"
+  promo_blocks:
+    new:
+      title: "Добавление рекламного блока"
+      heading: "Добавить рекламный блок"
+      nav_text: "Создать"
+    edit:
+      heading: "Редактирование рекламного блока"
+      title: "Редактирование рекламного блока"
+      nav_text: "Редактировать"
+    destroy:
+      success: "Рекламный блок удалён"
+    form:
+      guidelines:
+        description: "Выводится в админке в списке. Максимум 250 символов."
+        slug: "Используется для вставки на страницых. Только латинские буквы, цифры, дефис или подчёркивание (кроме начала и конца). 2–50 символов."
+        name: "Выводится в админке в списке. Максимум 50 символов."
+    update:
+      success: "Рекламный блок успешно отредактирован"

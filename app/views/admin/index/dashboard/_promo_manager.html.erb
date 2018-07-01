@@ -1,0 +1,10 @@
+<% if current_user_has_privilege?(:promo_manager) %>
+  <nav>
+    <div class="heading" id="promo-manager-heading">
+      <%= t('.heading') %>
+    </div>
+    <ul aria-labelledby="promo-manager-heading">
+      <li><%= render 'admin/promo_blocks/nav_item' %></li>
+    </ul>
+  </nav>
+<% end %>

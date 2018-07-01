@@ -1,0 +1,52 @@
+<% content_for :meta_title, t('.title', slug: @entity.slug) %>
+<% content_for :breadcrumbs do %>
+  <%= link_to(t('admin.promo_blocks.nav_item.text'), admin_promo_blocks_path) %>
+  <span><%= @entity.slug %></span>
+<% end %>
+
+<article>
+  <h1><%= @entity.slug %></h1>
+
+  <ul class="actions">
+    <li><%= back_icon(admin_promo_blocks_path) %></li>
+    <li><%= edit_icon(edit_promo_block_path(id: @entity.id)) %></li>
+  </ul>
+
+  <dl>
+    <% unless @entity.language.nil? %>
+      <dt><%= t('activerecord.attributes.promo_block.language') %></dt>
+      <dd><%= language_name(@entity.language) %></dd>
+    <% end %>
+
+    <dt><%= t('activerecord.attributes.promo_block.slug') %></dt>
+    <dd><%= @entity.slug %></dd>
+
+    <% unless @entity.name.blank? %>
+      <dt><%= t('activerecord.attributes.promo_block.name') %></dt>
+      <dd><%= @entity.name %></dd>
+    <% end %>
+
+    <% unless @entity.description.blank? %>
+      <dt><%= t('activerecord.attributes.promo_block.description') %></dt>
+      <dd><%= @entity.description %></dd>
+    <% end %>
+
+    <dt><%= t(:created_at) %></dt>
+    <dd><%= time_tag(@entity.created_at) %></dd>
+
+    <dt><%= t(:updated_at) %></dt>
+    <dd><%= time_tag(@entity.updated_at) %></dd>
+  </dl>
+
+  <%=
+    render(
+        partial: 'shared/admin/toggleable',
+        locals: {
+            entity: @entity,
+            url: toggle_admin_promo_block_path(id: @entity.id)
+        }
+    )
+  %>
+
+  <%= render partial: 'admin/promo_blocks/entity/items', locals: { entity: @entity } %>
+</article>

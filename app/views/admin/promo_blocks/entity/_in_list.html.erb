@@ -1,0 +1,31 @@
+<div class="data">
+  <div><%= admin_promo_block_link(entity) %></div>
+  <div class="info">
+    <%= entity.slug %>
+  </div>
+  <% unless entity.language.nil? %>
+    <div class="secondary info">
+      <%= t('activerecord.attributes.promo_block.language') %>:
+      <%= language_name(entity.language) %>
+    </div>
+  <% end %>
+  <% unless entity.description.blank? %>
+    <div class="secondary info">
+      <%= entity.description %>
+    </div>
+  <% end %>
+
+  <%=
+    render(
+        partial: 'shared/admin/toggleable',
+        locals:  {
+            entity: entity,
+            url:    toggle_admin_promo_block_path(id: entity.id)
+        }
+    )
+  %>
+
+  <ul class="actions">
+    <li><%= edit_icon(edit_promo_block_path(id: entity.id)) %></li>
+  </ul>
+</div>

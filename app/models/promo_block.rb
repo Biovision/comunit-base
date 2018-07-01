@@ -11,6 +11,7 @@ class PromoBlock < ApplicationRecord
 
   toggleable :visible
 
+  belongs_to :language, optional: true
   has_many :promo_items, dependent: :destroy
 
   before_validation { self.slug = slug.downcase unless slug.nil? }
@@ -23,6 +24,6 @@ class PromoBlock < ApplicationRecord
   scope :list_for_administration, -> { ordered_by_slug }
 
   def self.entity_parameters
-    %i(description name slug visible)
+    %i[description language_id name slug visible]
   end
 end

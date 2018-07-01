@@ -16,6 +16,8 @@ Rails.application.routes.draw do
 
   resources :groups, :teams, only: [:update, :destroy]
 
+  resources :promo_blocks, :promo_items, only: [:update, :destroy]
+
   scope '(:locale)', constraints: { locale: /ru|en/ } do
     root 'index#index'
 
@@ -85,6 +87,12 @@ Rails.application.routes.draw do
 
     resources :groups, except: [:index, :show, :update, :destroy]
     resources :teams, except: [:index, :show, :update, :destroy]
+
+    resources :promo_blocks, :promo_items, only: %i[new create edit] do
+      collection do
+        post 'check', defaults: { format: :json }
+      end
+    end
 
     namespace :admin do
       resources :news_categories, :post_categories, only: [:index, :show] do
@@ -176,6 +184,17 @@ Rails.application.routes.draw do
         member do
           put 'lock', defaults: { format: :json }
           delete 'lock', action: :unlock, defaults: { format: :json }
+        end
+      end
+
+      resources :promo_blocks, only: [:index, :show] do
+        member do
+          post 'toggle', defaults: { format: :json }
+        end
+      end
+      resources :promo_blocks, :promo_items, only: [:show] do
+        member do
+          post 'toggle', defaults: { format: :json }
         end
       end
     end
