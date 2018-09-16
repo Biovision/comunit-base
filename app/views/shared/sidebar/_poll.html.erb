@@ -48,7 +48,12 @@
             <div class="title"><%= question.text %></div>
             <ul>
               <% question.poll_answers.ordered_by_priority.each do |answer| %>
-                <li><%= answer.text %></li>
+                <li>
+                  <%= answer.text %>
+                  <div class="vote-count">
+                    <%= answer.poll_votes_count %> (<%= '%.2f' % answer.vote_percent %>%)
+                  </div>
+                </li>
               <% end %>
             </ul>
           </div>

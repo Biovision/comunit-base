@@ -141,7 +141,14 @@
 
   li {
     list-style: none;
-    margin: 0 0 0 2rem;
+    margin: 0 0 .4rem 2rem;
     padding: 0;
+  }
+
+  .vote-count {
+    color: $text-color-secondary;
+    font-size: $font-size-decreased;
+    margin-right: 2rem;
+    text-align: right;
   }
 }
