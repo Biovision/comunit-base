@@ -13,7 +13,7 @@ class RegionManager
     if filter?
       filtered_tree(parent_id)
     else
-      Region.visible.for_tree(parent_id)
+      Region.visible.for_tree(nil, parent_id)
     end
   end
 
@@ -21,7 +21,7 @@ class RegionManager
     if parent_id.to_i < 1
       available_regions.ordered_by_name
     else
-      Region.where(id: available_region_ids).visible.for_tree(parent_id)
+      Region.where(id: available_region_ids).visible.for_tree(nil, parent_id)
     end
   end
 
