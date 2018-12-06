@@ -166,7 +166,7 @@ end
 26 строка на момент написания.
 
 Нужно заменить уровень журналирования ошибок с `:debug` на `:warn`. Это в районе
-52 строки (`config.log_level`). 
+54 строки (`config.log_level`). 
 
 Для настройки почты нужно поменять `example.com` на актуальный домен ниже.
 
@@ -245,7 +245,7 @@ set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp', 'public/uploads', '
 set :shared_files, fetch(:shared_files, []).push('.env', 'config/master.key')
 
 # В том месте, где task :environment, сразу после
-task :environment do
+task :remote_environment do
   invoke :'rbenv:load'
 end
 ```
