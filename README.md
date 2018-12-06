@@ -270,7 +270,89 @@ ln -s /var/www/ckeditor
 Для начала нужно создать базу данных.
 Это делается руками через Postgres.
 
+Через random.org (https://www.random.org/passwords/) сгенерировать один пароль длиной около 12 символов.
+
+Этот пароль нужно прописать в файле ```bash .env ``` в отвечающем за БД параметре (его можно посмотреть в config/database.yml в разделе production, он называется или DATABASE_PASSWORD, или с приставкой в начале).
+
+В общем случае там должно быть примерно это:
+```bash
+RAILS_MAX_THREADS=5
+DATABASE_PASSWORD=<сюда вписать пароль>
+MAIL_PASSWORD=<сюда вписать пароль>
+```
+
+Далее манипуляции с базой данных.
+
+
+```bash
+sudo su postgres
+```
+
+Дальше нужно создать пользователя и БД для проекта. Данные берутся из ```bash config/database.yml ``` из раздела production (пароль был сгенерирован и скопирован в ```bash .env ```, его стоит взять оттуда). Для примера указан пользователь example и база тоже example
+
+```bash
+createuser -d -P example
+```
+
+Далее заходим под этим пользователем в постгрес:
+
+```bash
+psql -h localhost -U example postgres
+```
+
+создаем базу с правильными параметрами (внимательно с кавычками):
+
+```bash
+create database example template template0 encoding='UTF8' LC_COLLATE='ru_RU.UTF-8' LC_CTYPE='ru_RU.UTF-8';
+```
+
+Выходим из базы (^D). Возвращаемся в предыдущего пользователя (^D).
+
+В папке проекта разместить файл конфигурации nginx ```bash host.conf ```
+
+Далее: 
+
+```bash
+cd /etc/nginx/sites-enabled
+sudo ln -s /var/www/example.com/host.conf example.com
+cd /etc/logrotate.d
+```
+
+Нужно скопировать ротацию логов любого соседнего проекта на новый и внести соответствующие правки
+
+```bash
+sudo cp example.org example.com
+sudo vim example.com
+:%s/example\.org/example.com/g
+:wq
+```
+
+Проверяем конфиг nginx
+
+```bash
+sudo /etc/init.d/nginx configtest
+```
+
+Если есть ошибки, они дописываются в ```bash /var/log/nginx/error.log ```
+Если всё хорошо, то
+
+```bash
+sudo /etc/init.d/nginx reload
+```
+
+Дальше снова локально.
+Нужно убедиться, что в репозитории всё актуально, и выполнить ```bash mina setup ```
+
+```bash
+mina deploy
+```
+
+Если всё прошло хорошо, то снова зайти по ssh как developer и запустить пуму.
+
+Добавить параметры для запуска пумы при перезагрузке сервера (sudo /etc/puma.conf) по аналогии с тем, что там указано.
+
 Нужно импортировать регионы
+----------------------
 
 В папке `tmp/import`:
 
