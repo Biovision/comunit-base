@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
-  before_action :restrict_access, except: [:index]
+  before_action :restrict_access, except: %i[check index]
   before_action :set_entity, only: [:edit, :update, :destroy]
 
-  layout 'admin', except: [:index]
+  layout 'admin', except: %i[check index]
 
   # get /users
   def index
@@ -10,9 +10,14 @@ class UsersController < ApplicationController
     @collection = User.page_for_visitors(current_page, @filter)
   end
 
+  # post /users/check
+  def check
+    @entity = User.new(creation_parameters)
+  end
+
   # get /users/new
   def new
-    @entity = User.new
+    @entity = User.new(consent: true)
   end
 
   # post /users
@@ -21,9 +26,9 @@ class UsersController < ApplicationController
     if @entity.save
       NetworkManager::UserHandler.new.relink_user(@entity) if Rails.env.production?
 
-      redirect_to admin_user_path(id: @entity.id), notice: t('users.create.success')
+      form_processed_ok(admin_user_path(id: @entity.id))
     else
-      render :new, status: :bad_request
+      form_processed_with_error(:new)
     end
   end
 
@@ -36,9 +41,9 @@ class UsersController < ApplicationController
     if @entity.update(entity_parameters)
       NetworkManager::UserHandler.new.sync_user(@entity) if Rails.env.production?
 
-      redirect_to admin_user_path(id: @entity.id), notice: t('users.update.success')
+      form_processed_ok(admin_user_path(id: @entity.id))
     else
-      render :edit, status: :bad_request
+      form_processed_with_error(:edit)
     end
   end
 
@@ -57,7 +62,7 @@ class UsersController < ApplicationController
   end
 
   def set_entity
-    @entity = User.find_by(id: params[:id], deleted: false)
+    @entity = User.find_by(id: params[:id])
     if @entity.nil?
       handle_http_404('Cannot find user')
     end
@@ -65,7 +70,7 @@ class UsersController < ApplicationController
 
   def entity_parameters
     parameters = params.require(:user).permit(User.entity_parameters)
-    parameters.merge(profile_parameters)
+    parameters.merge(data: @entity.data.merge(profile: profile_parameters))
   end
 
   def creation_parameters
@@ -76,7 +81,7 @@ class UsersController < ApplicationController
     if params.key?(:user_profile)
       permitted = UserProfileHandler.allowed_parameters
       dirty     = params.require(:user_profile).permit(permitted)
-      { profile_data: UserProfileHandler.clean_parameters(dirty) }
+      UserProfileHandler.clean_parameters(dirty)
     else
       {}
     end

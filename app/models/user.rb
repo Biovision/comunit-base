@@ -138,7 +138,7 @@ class User < ApplicationRecord
   end
 
   def profile
-    profile_data
+    data['profile']
   end
 
   # @return [String]
@@ -147,13 +147,13 @@ class User < ApplicationRecord
   end
 
   def name_for_letter
-    profile_data['name'].blank? ? screen_name : profile_data['name']
+    data.dig('profile', 'name').blank? ? screen_name : data.dig('profile', 'name')
   end
 
   # @param [Boolean] include_patronymic
   def full_name(include_patronymic = false)
-    result = [profile_data['surname'].to_s.strip, name_for_letter]
-    result << profile_data['patronymic'].to_s.strip if include_patronymic
+    result = [data.dig('profile', 'surname').to_s.strip, name_for_letter]
+    result << data.dig('patronymic').to_s.strip if include_patronymic
     result.compact.join(' ')
   end
 

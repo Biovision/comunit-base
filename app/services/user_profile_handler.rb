@@ -59,7 +59,7 @@ class UserProfileHandler
 
   # @param [User] user
   def self.search_string(user)
-    "#{user.profile_data['surname']} #{user.profile_data['name']}"
+    "#{user.data.dig('profile', 'surname')} #{user.data.dig('profile', 'name')}"
   end
 end
 

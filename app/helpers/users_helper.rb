@@ -25,7 +25,7 @@ module UsersHelper
 
   # @param [User] user
   def marital_status_for_user(user)
-    marital_status_name(user.profile_data['gender'], user.profile_data['marital_status'])
+    marital_status_name(user.data.dig('profile', 'gender'), user.data.dig('profile', 'marital_status'))
   end
 
   # @param [User] user

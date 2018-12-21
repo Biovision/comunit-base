@@ -1,8 +1,15 @@
 class My::ProfilesController < ApplicationController
   include Authentication
 
-  before_action :redirect_authorized_user, only: [:new, :create]
-  before_action :restrict_anonymous_access, except: [:new, :create]
+  before_action :redirect_authorized_user, only: %i[new create]
+  before_action :restrict_anonymous_access, except: %i[check new create]
+
+  # layout 'profile', only: %i[show edit]
+
+  # post /my/profile/check
+  def check
+    @entity = User.new(creation_parameters)
+  end
 
   # get /my/profile/new
   def new
@@ -48,6 +55,7 @@ class My::ProfilesController < ApplicationController
     if @entity.save
       Metric.register(User::METRIC_REGISTRATION)
       create_token_for_user(@entity)
+      cookies.delete('r', domain: :all)
       NetworkManager::UserHandler.new.relink_user(@entity) if Rails.env.production?
 
       redirect_after_creation
@@ -58,20 +66,28 @@ class My::ProfilesController < ApplicationController
 
   def creation_parameters
     parameters = params.require(:user).permit(User.new_profile_parameters)
-    parameters.merge(tracking_for_entity)
+    parameters.merge!(tracking_for_entity)
+    parameters[:super_user] = User.count < 1
+    if cookies['r']
+      parameters[:inviter] = User.find_by(referral_link: cookies['r'])
+    end
+
+    parameters
   end
 
   def user_parameters
     sensitive  = sensitive_parameters
     editable   = User.profile_parameters + sensitive
     parameters = params.require(:user).permit(editable)
-    filter_parameters parameters.merge(profile_parameters), sensitive
+    new_data   = @entity.data.merge(profile: profile_parameters)
+
+    filter_parameters(parameters.merge(data: new_data), sensitive)
   end
 
   def profile_parameters
     permitted = UserProfileHandler.allowed_parameters
     dirty     = params.require(:user_profile).permit(permitted)
-    { profile_data: UserProfileHandler.clean_parameters(dirty) }
+    UserProfileHandler.clean_parameters(dirty)
   end
 
   def sensitive_parameters

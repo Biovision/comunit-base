@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'biovision-poll'
   s.add_dependency 'biovision-comment'
   s.add_dependency 'elasticsearch-model', '~> 5.1'
-  s.add_dependency 'elasticsearch-persistence'
+  s.add_dependency 'elasticsearch-persistence', '~> 5.1'
   s.add_dependency 'redis-namespace'
   s.add_dependency 'rest-client'
   s.add_dependency 'sidekiq'

@@ -4,7 +4,7 @@
     <span><%= @entity.profile_name %></span>
 <% end %>
 
-<% profile = @entity.profile_data %>
+<% profile = @entity.data['profile'] %>
 <article class="entity-page">
   <h1><%= @entity.long_slug %></h1>
   <% if @entity.deleted? %>

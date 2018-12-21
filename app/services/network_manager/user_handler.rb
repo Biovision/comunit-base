@@ -16,7 +16,7 @@ class NetworkManager::UserHandler < NetworkManager
     end
     allowed_for_profile = UserProfileHandler.allowed_parameters
     profile_attributes  = attributes.select { |a| allowed_for_profile.include?(a.to_s) }
-    entity.profile_data = profile_attributes
+    entity.data['profile'] = profile_attributes
 
     entity.save!
   end
@@ -70,11 +70,11 @@ class NetworkManager::UserHandler < NetworkManager
   def prepare_user_data(user)
     allowed    = User.relink_parameters
     attributes = user.attributes.select { |a| allowed.include?(a) }
-    attributes.merge!(user.profile_data)
+    attributes['data']['profile'].merge!(user.data['profile'])
 
     data = {
       user:    attributes,
-      profile: user.profile_data,
+      profile: user.data['profile'],
       data:    Hash.new
     }
     unless user.image.blank?

@@ -1,5 +1,5 @@
 <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
-<% profile = entity.profile_data %>
+<% profile = entity.data['profile'] %>
 
 <%= form_for entity do |f| %>
     <table>

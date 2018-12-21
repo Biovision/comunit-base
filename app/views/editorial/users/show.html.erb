@@ -1,5 +1,5 @@
 <% content_for :meta_title, t('.title', name: @entity.profile_name) %>
-<% profile = @entity.profile_data %>
+<% profile = @entity.data['profile'] %>
 
 <article class="entity-page">
   <h1><%= @entity.long_slug %></h1>

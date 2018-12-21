@@ -1,4 +1,4 @@
-<% profile = entity.profile_data %>
+<% profile = entity.data['profile'] || {} %>
 <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
 
 <%= form_tag my_profile_path, method: :patch, multipart: true, id: 'my-profile-form' do %>
