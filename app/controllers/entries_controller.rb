@@ -83,7 +83,7 @@ class EntriesController < ApplicationController
     if @entity.nil?
       handle_http_404('Cannot find non-deleted entry')
     end
-    unless @entity.visible_to?(current_user)
+    unless @entity&.visible_to?(current_user)
       handle_http_401("Entity is not visible to user #{current_user&.id}")
     end
   end

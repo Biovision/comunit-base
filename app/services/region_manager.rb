@@ -1,5 +1,5 @@
 class RegionManager
-  PRIVILEGES = %w(head chief_editor deputy_chief_editor reporter civic_reporter)
+  PRIVILEGES = %w[head chief_editor deputy_chief_editor reporter civic_reporter central_reporter]
 
   attr_accessor :user
 

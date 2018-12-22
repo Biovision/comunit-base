@@ -79,7 +79,7 @@ class My::ProfilesController < ApplicationController
     sensitive  = sensitive_parameters
     editable   = User.profile_parameters + sensitive
     parameters = params.require(:user).permit(editable)
-    new_data   = @entity.data.merge(profile: profile_parameters)
+    new_data   = current_user.data.merge(profile: profile_parameters)
 
     filter_parameters(parameters.merge(data: new_data), sensitive)
   end
