@@ -145,6 +145,20 @@ module PostsHelper
   end
 
   # @param [Post|News|Entry] entity
+  # @param [Hash] options
+  def post_image_small(entity, options = {})
+    if entity.image.blank?
+      image_tag('biovision/base/placeholders/image.svg', alt: '')
+    else
+      default = {
+        alt: entity.title,
+        srcset: "#{entity.image.medium.url} 2x"
+      }
+      image_tag(entity.image.small.url, default.merge(options))
+    end
+  end
+
+  # @param [Post|News|Entry] entity
   def post_image_preview(entity)
     if entity.image.blank?
       image_tag('biovision/base/placeholders/image.svg')
