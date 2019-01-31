@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
+# Handler for user profile
 class UserProfileHandler
   NAME_LIMIT = 100
 
-  GENDERS = { 0 => 'female', 1 => 'male' }
+  GENDERS = { 0 => 'female', 1 => 'male' }.freeze
   MARITAL = {
     0 => 'single',
     1 => 'dating',
@@ -10,7 +13,7 @@ class UserProfileHandler
     4 => 'in_love',
     5 => 'complicated',
     6 => 'in_active_search'
-  }
+  }.freeze
 
   def self.allowed_parameters
     %w(
@@ -41,19 +44,22 @@ class UserProfileHandler
       marital = nil
     end
 
-    enums = %w(gender marital_status)
-    flags = %w(
+    enums = %w[gender marital_status]
+    flags = %w[
       show_email show_phone show_secondary_phone show_birthday show_patronymic
       show_skype_uid show_home_address show_about
-    )
+    ]
 
     output = { gender: gender, marital_status: marital }
     (allowed_parameters - enums - flags).each do |parameter|
       output[parameter] = input.key?(parameter) ? input[parameter].to_s : nil
     end
-    flags.each do |flag|
-      output[flag] = [true, false].include?(flag) ? flag : (flag.to_i > 0)
+    flags.each do |flag_name|
+      flag = input[flag_name]
+
+      output[flag_name] = [true, false].include?(flag) ? flag : flag.to_i.positive?
     end
+
     output
   end
 

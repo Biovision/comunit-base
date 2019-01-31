@@ -153,7 +153,7 @@ class User < ApplicationRecord
   # @param [Boolean] include_patronymic
   def full_name(include_patronymic = false)
     result = [data.dig('profile', 'surname').to_s.strip, name_for_letter]
-    result << data.dig('patronymic').to_s.strip if include_patronymic
+    result << data.dig('pforile', 'patronymic').to_s.strip if include_patronymic
     result.compact.join(' ')
   end
 
