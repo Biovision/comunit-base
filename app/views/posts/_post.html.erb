@@ -1,44 +1,110 @@
-<article class="post" itemscope itemtype="http://schema.org/Article">
+<% handler = PostManager.handler(post) %>
+<article class="post" itemscope itemtype="http://schema.org/Article" itemprop="mainEntityOfPage">
+  <h1 itemprop="headline"><%= post.title %></h1>
   <% if post.editable_by? current_user %>
     <ul class="actions">
-      <li><%= edit_icon edit_post_path(id: post.id) %></li>
+      <% if post.owned_by?(current_user) %>
+        <li><%= gear_icon(my_post_path(id: post.id)) %></li>
+      <% elsif UserPrivilege.user_in_group?(current_user, :editors) %>
+        <li><%= gear_icon(admin_post_path(id: post.id)) %></li>
+      <% end %>
+      <% unless post.locked? %>
+        <% if post.owned_by?(current_user) %>
+          <li><%= edit_icon(edit_my_post_path(id: post.id)) %></li>
+        <% else %>
+          <li><%= edit_icon(handler.edit_path) %></li>
+        <% end %>
+      <% end %>
     </ul>
   <% end %>
-  <header>
-    <%= render partial: 'posts/entity/author', locals: { entity: post } %>
-    <div class="post-counters">
-      <meta itemprop="commentCount" content="<%= post.comments_count %>"/>
-      <span class="comments"><%= post.comments_count %></span>
-      <span class="views"><%= post.view_count %></span>
-    </div>
-  </header>
-  <h1 itemprop="name"><%= post.title %></h1>
 
-  <div class="body" itemprop="articleBody">
-    <div class="lead">
-      <% unless post.image.blank? %>
-        <figure><%= image_tag(post.image.big.url, alt: post.title, itemprop: 'image') %></figure>
+  <% unless post.image.blank? %>
+    <figure itemprop="image" itemscope itemtype="http://schema.org/ImageObject" role="group">
+      <%= post_image_large(post, { itemprop: 'about' }) %>
+      <meta itemprop="url" content="<%= request.protocol + request.host_with_port + post.image.url %>"/>
+      <% if post.has_image_data? %>
+        <figcaption>
+          <% unless post.image_name.blank? %>
+            <div class="image_name" itemprop="caption">
+              <%= post.image_name %>
+            </div>
+          <% end %>
+          <% unless post.image_source_name.blank? %>
+            <div class="image_source" itemprop="author">
+              <span><%= t('.image_credit') %></span>
+              <% if post.image_source_link.blank? %>
+                <%= post.image_source_name %>
+              <% else %>
+                <%= link_to(post.image_source_name, post.image_source_link, rel: 'external nofollow noopener noreferrer', itemprop: 'url', target: '_blank') %>
+              <% end %>
+            </div>
+          <% end %>
+        </figcaption>
       <% end %>
-      <p><%= post.lead %></p>
-    </div>
+    </figure>
+  <% end %>
 
-    <%= prepare_post_text post %>
+  <div class="text" itemprop="articleBody mainEntityOfPage">
+    <div class="lead"><%= post.lead %></div>
+
+    <div class="body">
+      <%= raw(post.parsed_body || post.body) %>
+    </div>
   </div>
 
-  <div class="footer">
-    <div class="time">
-      <%= time_tag post.created_at, itemProp: 'datePublished' %>
-    </div>
-    <% unless post.entry.nil? %>
-      <div class="repost">
-        <%= user_link(post.entry.user) %>
-        <cite><%= entry_link(post.entry, current_user) %></cite>
+  <%=
+    render(
+        partial: 'posts/entity/gallery',
+        locals: {
+            collection: post.post_images.list_for_visitors
+        }
+    )
+  %>
+
+  <% if post.tags_cache.any? %>
+    <ul class="tags" aria-label="<%= t('activerecord.attributes.post.tags_cache') %>">
+      <% post.tags_cache.each do |tag_name| %>
+        <li><%= tagged_posts_link(tag_name, post) %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <footer>
+    <% if post.show_owner? %>
+      <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <span itemprop="name" aria-label="<%= t('activerecord.attributes.post.user') %>">
+            <% if post.author_name.blank? %>
+              <%= user_link(post.user) %>
+            <% else %>
+              <%= post_author_link(post) %>
+              <% unless post.author_title.blank? %>
+              <span class="author-title"><%= post.author_title %></span>
+              <% end %>
+            <% end %>
+          </span>
       </div>
     <% end %>
-  </div>
+    <% if post.has_source_data? %>
+      <div class="source">
+        <span><%= t('.source') %>:</span>
+        <% if post.source_link.blank? %>
+          <span itemprop="isBasedOn"><%= post.source_name %></span>
+        <% else %>
+          <%= link_to(post.source_name, post.source_link, rel: 'external nofollow noopener noreferrer', itemprop: 'isBasedOn', target: '_blank') %>
+        <% end %>
+      </div>
+    <% end %>
 
-  <%= render 'shared/pluso' %>
-  <%= render partial: 'shared/track', locals: { item: post } %>
+    <div class="time">
+      <%= time_tag post.publication_time, itemProp: 'datePublished', aria: { label: t('activerecord.attributes.post.created_at') } %>
+    </div>
 
-  <%= render partial: 'comments/list', locals: { commentable: post, comments: post.comments } if post.allow_comments? %>
+    <% unless post.time_required.blank? %>
+      <meta itemprop="timeRequired" content="P<%= post.time_required %>M"/>
+    <% end %>
+    <meta itemprop="commentCount" content="<%= post.comments_count %>"/>
+    <meta itemprop="dateModified" content="<%= post.updated_at.strftime('%Y-%m-%d') %>"/>
+    <%= render partial: 'posts/entity/publisher', locals: { entity: post } %>
+  </footer>
 </article>
+<%= render partial: 'shared/track', locals: { item: post } %>

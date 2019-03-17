@@ -1,13 +1,13 @@
 <% content_for :meta_title, t('.title', page: current_page) %>
-<% content_for :posts_selected, '1' %>
+<% content_for :alternate_links do %>
+  <link rel="alternate" type="application/rss+xml" href="<%= rss_posts_path %>" />
+<% end %>
 <% content_for :breadcrumbs do %>
-  <span><%= t('posts.nav_item.text') %></span>
+  <span><%= t('posts.index.nav_text') %></span>
 <% end %>
 
 <article>
   <h1><%= t('.heading') %></h1>
 
-  <%= paginate @collection %>
-  <%= render partial: 'list', locals: { collection: @collection } %>
-  <%= paginate @collection %>
+  <%= render partial: 'posts/collection', locals: { collection: @collection } %>
 </article>

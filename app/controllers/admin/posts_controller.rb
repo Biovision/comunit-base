@@ -1,31 +1,55 @@
+# frozen_string_literal: true
+
+# Administrative part for posts management
 class Admin::PostsController < AdminController
-  before_action :restrict_access
-  before_action :set_entity, except: [:index]
+  include LockableEntity
+  include ToggleableEntity
+
+  before_action :set_entity, except: %i[index regions search]
 
   # get /admin/posts
   def index
-    @collection = Post.page_for_administration current_page
+    @collection = Post.page_for_administration(current_page)
   end
 
   # get /admin/posts/:id
   def show
   end
 
-  # get /admin/posts/:id/post_categories
-  def post_categories
-    @collection = @entity.post_categories.page_for_administration
+  # get /admin/posts/:id/images
+  def images
+    @collection = @entity.post_images.list_for_administration
+  end
+
+  # get /admin/posts/search?q=
+  def search
+    @collection = params.key?(:q) ? search_posts(param_from_request(:q)) : []
+  end
+
+  # get /admin/posts/regions
+  def regions
+    @collection = RegionManager.new(current_user).for_tree(params[:parent_id])
   end
 
   private
+
+  def set_entity
+    @entity = Post.find_by(id: params[:id])
+    if @entity.nil?
+      handle_http_404('Cannot find post')
+    end
+  end
 
   def restrict_access
     require_privilege_group :editors
   end
 
-  def set_entity
-    @entity = Post.find_by(id: params[:id], deleted: false)
-    if @entity.nil?
-      handle_http_404('Cannot find post')
+  # @param [String] q
+  def search_posts(q)
+    if Post.respond_to?(:search)
+      Post.search(q).records.first(50)
+    else
+      Post.where('title ilike ?', "%#{q}%").list_for_administration.first(50)
     end
   end
 end

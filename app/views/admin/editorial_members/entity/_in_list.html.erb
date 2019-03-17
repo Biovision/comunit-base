@@ -1,0 +1,37 @@
+<div class="image">
+  <%= profile_avatar(entity.user) %>
+</div>
+<div class="data">
+  <div><%= admin_editorial_member_link(entity) %></div>
+  <div class="info">
+    <%= entity.title %>
+  </div>
+  <% unless entity.lead.blank? %>
+    <div class="secondary info">
+      <%= entity.lead %>
+    </div>
+  <% end %>
+
+  <%=
+    render(
+        partial: 'shared/admin/toggleable',
+        locals:  {
+            entity: entity,
+            url:    toggle_admin_editorial_member_path(id: entity.id)
+        }
+    )
+  %>
+
+  <ul class="actions">
+    <% if entity.visible? %>
+      <li><%= world_icon(author_path(slug: entity.screen_name)) %></li>
+    <% end %>
+    <li><%= edit_icon(edit_editorial_member_path(id: entity.id)) %></li>
+    <%=
+      render(
+          partial: 'shared/actions/priority_changer',
+          locals:  { path: priority_admin_editorial_member_path(id: entity.id) }
+      )
+    %>
+  </ul>
+</div>

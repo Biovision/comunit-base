@@ -1,227 +1,226 @@
 ru:
+  date:
+    nominative_month_names: [~, январь, февраль, март, апрель, май, июнь, июль, август, сентябрь, октябрь, ноябрь, декабрь]
   post_count:
     zero: "публикаций нет"
     one: "%{count} публикация"
     few: "%{count} публикации"
     many: "%{count} публикаций"
     other: "%{count} публикаций"
-  post:
-    zero: "публикаций нет"
-    one: "%{count} публикация"
-    few: "%{count} публикации"
-    many: "%{count} публикаций"
-    other: "%{count} публикаций"
-  news_count:
-    zero: "новостей нет"
-    one: "%{count} новость"
-    few: "%{count} новости"
-    many: "%{count} новостей"
-    other: "%{count} новостей"
-  entry_count:
-    zero: "записей нет"
-    one: "%{count} запись"
-    few: "%{count} записи"
-    many: "%{count} записей"
-    other: "%{count} записей"
-  entry:
-    zero: "записей нет"
-    one: "%{count} запись"
-    few: "%{count} записи"
-    many: "%{count} записей"
-    other: "%{count} записей"
   post_category_count:
     zero: "категорий публикаций нет"
     one: "%{count} категория публикаций"
     few: "%{count} категории публикаций"
     many: "%{count} категорий публикаций"
     other: "%{count} категорий публикаций"
-  news_category_count:
-    zero: "категорий новостей нет"
-    one: "%{count} категория новостей"
-    few: "%{count} категории новостей"
-    many: "%{count} категорий новостей"
-    other: "%{count} категорий новостей"
-  view_count:
-    zero: "просмотров нет"
-    one: "%{count} просмотр"
-    few: "%{count} просмотра"
-    many: "%{count} просмотров"
-    other: "%{count} просмотров"
-  archive_year: " за %{year} год"
-  archive_month: " за %{month} %{year} года"
-  read_all: "Читать полностью"
   activerecord:
     models:
-      news_category: "Категория новостей"
-      post_category: "Категория публикаций"
-      news: "Новость"
+      editorial_member: "Член редакции"
+      featured_post: "Избранная публикация"
       post: "Публикация"
-      tag: "Метка"
-      figure: "Иллюстрация"
+      post_category: "Категория публикации"
+      post_image: "Картинка для публикации"
+      post_post_tag: "Метка у публикации"
+      post_tag: "Метка"
+      post_type: "Тип публикации"
+      post_zen_category: "Категория Яндекс.Дзен для публикации"
       theme: "Тема публикаций"
-      entry: "Запись в блоге"
+      zen_category: "Категория Яндекс.Дзен"
     errors:
+      messages:
+        mismatches_post_type: "имеет другой тип публикации"
       models:
-        figure:
+        post_category:
           attributes:
-            slug:
-              invalid: "должен содержать от 1 до 30 латинских букв, цифр или знаков подчёркивания"
-        post:
-          attributes:
-            post_category:
-              required: "должна быть выбрана"
-        news:
-          attributes:
-            news_category:
-              required: "должна быть выбрана"
-        entry:
-          attributes:
-            community_id:
-              unavailable: "вам недоступно"
-            privacy:
-              invalid: "имеет недопустимое значение"
+            parent_id:
+              is_too_deep: "находится слишком глубоко"
     attributes:
-      news_category:
-        visible: "Показывать"
+      editorial_member:
+        about: "Подробное описание"
+        lead: "Краткое описание"
         priority: "Порядок сортировки"
-        name: "Название"
-        slug: "Идентификатор"
-      post_category:
-        parent_id: "Родительская категория"
-        priority: "Порядок сортировки"
-        visible: "Показывать"
-        name: "Название"
-        slug: "Идентификатор"
-        parents_cache: "Кеш родителей"
-        children_cache: "Кеш дочек"
-      news:
-        author_name: "Имя автора"
-        author_title: "Титул автора"
-        author_url: "URL автора"
-        meta_description: "Описание для метатэга"
-        meta_keywords: "Ключевые слова для метатэга"
-        meta_title: "Название для заголовка окна"
+        title: "Титул"
         user: "Пользователь"
-        show_name: "Показывать автора"
-        news_category: "Категория"
-        news_category_id: "Категория"
+        user_id: "Пользователь"
         visible: "Показывать"
-        image: "Картинка"
-        image_name: "Название картинки"
-        image_author_name: "Автор изображения"
-        image_author_link: "Ссылка на автора картинки"
-        title: "Название"
-        slug: "Идентификатор"
-        lead: "Аннотация"
-        body: "Текст"
-        source: "Источник новости"
-        source_link: "Ссылка на источник новости"
-        region_id: "Регион"
-        approved: "Опубликовано"
-        allow_comments: "Разрешить комментарии"
-        post_type: "Тип публикации"
-        post_types:
-          news: "Новость"
-          comment: "Комментарий"
-          topic: "Сюжет"
+      featured_post:
+        language: "Язык"
+        language_id: "Язык"
+        post: "Публикация"
+        post_id: "Публикация"
+        priority: "Порядок сортировки"
       post:
+        allow_comments: "Разрешить комментарии"
+        allow_votes: "Разрешить голосовать"
+        approved: "Одобрено к показу"
         author_name: "Имя автора"
         author_title: "Титул автора"
         author_url: "URL автора"
+        body: "Текст"
+        created_at: "Время публикации"
+        explicit: "Откровенное содержание"
+        image: "Изображение"
+        image_alt_text: "Альтернативный текст для изображения"
+        image_name: "Название изображения"
+        image_source_link: "Ссылка на источник изображения"
+        image_source_name: "Источник изображения"
+        language_id: "Язык"
+        lead: "Аннотация"
         meta_description: "Описание для метатэга"
         meta_keywords: "Ключевые слова для метатэга"
         meta_title: "Название для заголовка окна"
-        user: "Пользователь"
+        original_post_id: "Оригинальная публикация"
+        original_title: "Оригинальное название"
+        privacy: "Видимость"
         post_category: "Категория"
         post_category_id: "Категория"
-        visible: "Показывать"
-        image: "Картинка"
-        title: "Название"
-        slug: "Идентификатор"
-        lead: "Аннотация"
-        body: "Текст"
-        main_post: "Тема дня"
-        show_name: "Показывать автора"
-        approved: "Опубликовано"
-        allow_comments: "Разрешить комментарии"
-      entry:
-        user: "Пользователь"
-        community_id: "Сообщество"
-        privacy: "Видимость"
-        title: "Название"
-        slug: "Идентификатор"
-        body: "Текст"
-        image: "Картинка"
-        image_name: "Название картинки"
-        image_author_name: "Автор изображения"
-        image_author_link: "Ссылка на автора картинки"
-        source: "Источник"
+        post_type: "Тип"
+        post_type_id: "Тип"
+        publication_time: "Время публикации"
+        rating: "Рейтинг"
+        region_id: "Регион"
+        show_owner: "Показывать автора"
+        slug: "Идентификатор для URL"
         source_link: "Ссылка на источник"
-        privacies:
-          generally_accessible: "Для всех"
-          visible_to_community: "Для сообщества"
-          visible_to_followees: "Для добавленных мной"
-          personal: "Только для меня"
-      figure:
-        post: "Публикация"
-        image: "Картинка"
+        source_name: "Название источника"
+        tags_cache: "Метки"
+        time_required: "Время на прочтение"
+        title: "Название"
+        translation: "Перевод"
+        translator_name: "Имя переводчика"
+        user: "Автор"
+        uuid: "UUID"
+        view_count: "Количество просмотров"
+        visible: "Показывать"
+      post_category:
+        children_cache: "Кеш дочек"
+        meta_description: "Описание для тэга meta"
+        name: "Название"
+        parent_id: "Родительская категория"
+        parents_cache: "Кеш родителей"
+        post_type: "Тип публикации"
+        post_type_id: "Тип публикации"
+        priority: "Порядок сортировки"
         slug: "Идентификатор"
-        caption: "Заголовок"
-        alt_text: "Текст атрибута alt"
+        visible: "Показывать"
+      post_image:
+        caption: "Название"
+        description: "Описание"
+        image: "Картинка"
+        image_alt_text: "Текст для атрибута alt у картинки"
+        post: "Публикация"
+        post_id: "Публикация"
+        priority: "Порядок сортировки"
+        source_link: "Ссылка на источник изображения"
+        source_name: "Источник изображения"
+        visible: "Показывать"
+      post_tag:
+        name: "Название"
+        post_type: "Тип публикации"
+        post_type_id: "Тип публикации"
+        posts_count: "Количество публикаций"
+        slug: "Идентификатор"
+      post_type:
+        category_depth: "Глубина категорий"
+        default_category_name: "Название категории по умолчанию"
+        name: "Название"
+        slug: "Идентификатор"
+      post_zen_category:
+        post: "Публикация"
+        post_id: "Публикация"
+        zen_category: "Категория Яндекс.Дзен"
+        zen_category_id: "Категория Яндекс.Дзен"
+      zen_category:
+        name: "Название"
+        posts_count: "Количество публикаций"
       theme:
         name: "Название"
         slug: "Идентификатор"
   admin:
-    news_categories:
+    editorial_members:
       nav_item:
-        text: "Категории новостей"
-        description: "Управление категориями новостей"
-      show:
-        title: "Категория новостей «%{name}»"
-      items:
-        title: "Новости категории «%{category}», страница %{page}"
-        heading: "Новости"
+        description: "Управление публичным составом редакции"
+        text: "Члены редакции"
       index:
-        title: "Категории новостей"
-        heading: "Категории новостей"
-    post_categories:
+        heading: "Члены редакции"
+        title: "Члены редакции"
+      show:
+        heading: "Член редакции"
+        title: "Редакция: %{name}"
+    featured_posts:
       nav_item:
-        text: "Категории публикаций"
-        description: "Управление категориями публикаций"
+        description: "Управление списком избранных публикаций"
+        text: "Избранные публикации"
+      index:
+        add: "Добавить"
+        heading: "Избранные публикации"
+        title: "Избранные публикации"
+    post_categories:
       show:
         title: "Категория публикаций «%{name}»"
         children: "Дочерние категории"
-        add_child: "Добавить дочернюю категорию"
-      items:
-        title: "Публикации категории «%{category}», страница %{page}"
-        heading: "Публикации"
-      index:
-        heading: "Категории публикаций"
-        title: "Категории публикаций"
-    news:
+        new_child: "Добавить дочернюю категорию"
+    post_images:
       nav_item:
-        text: "Новости"
-        description: "Управление новостями"
+        description: "Управление картинками публикаций"
+        text: "Картинки публикаций"
       index:
-        title: "Ноаости, страница %{page}"
-        heading: "Новости"
+        heading: "Картинки публикаций"
+        title: "Картинки публикаций, страница %{page}"
       show:
-        title: "Новость «%{title}»"
-    posts:
-      index:
-        title: "Публикации, страница %{page}"
-        heading: "Публикации"
-        description: "Управление публикациями"
-      show:
-        title: "Публикация «%{title}»"
-    tags:
-      index:
-        title: "Метки, страница %{page}"
-        heading: "Метки"
+        title: "Картинка публикации «%{caption}»"
+    post_tags:
+      nav_item:
         description: "Управление метками публикаций"
+        text: "Метки публикаций"
+      index:
+        heading: "Метки публикаций"
+        title: "Метки публикаций, страница %{page}"
       show:
+        title: "Метка публикаций «%{name}»"
+      posts:
+        heading: "Публикации"
+        nav_text: "Публикации"
         title: "Публикации с меткой «%{name}», страница %{page}"
-        posts: "Публикации"
+    post_types:
+      nav_item:
+        description: "Управление типами и категориями публикаций"
+        text: "Типы публикаций"
+      index:
+        heading: "Типы публикаций"
+        title: "Типы публикаций"
+      show:
+        title: "Тип публикаций «%{name}»"
+        children: "Дочерние типы"
+      post_categories:
+        heading: "Категории публикаций"
+        nav_text: "Категории"
+        title: "Категории типа публикаций «%{name}»"
+      post_tags:
+        heading: "Метки публикаций"
+        nav_text: "Метки"
+        title: "Метки публикаций типа «%{name}», страница %{page}"
+      new_post:
+        title: "Новая публикация типа «%{name}»"
+        heading: "Добавить публикацию"
+    posts:
+      nav_item:
+        description: "Управление публикациями"
+        text: "Публикации"
+      index:
+        heading: "Публикации"
+        title: "Публикации, страница %{page}"
+      show:
+        title: "Публикация «%{name}»"
+        images: "Картинки"
+      images:
+        heading: "Картинки"
+        nav_text: "Картинки"
+        title: "Картинки к публикации «%{post}»"
+      entity:
+        links:
+          heading: "Связанные публикации"
+          search: "Искать"
     themes:
       index:
         title: "Темы группировки публикаций"
@@ -229,157 +228,145 @@ ru:
         description: "Управление темами группировки публикаций и новостей на главной"
       show:
         title: "Тема группировки публикаций «%{name}»"
-    entries:
-      index:
-        title: "Записи, страница %{page}"
-        heading: "Записи в блогах"
-        description: "Записи пользователей в блогах"
-      show:
-        title: "Запись «%{title}»"
-      comments:
-        title: "Комментарии к записи «%{title}», страница %{page}"
-  my:
-    news:
-      nav_item:
-        text: "Мои новости"
-        description: "Управление вашими новостями"
-      index:
-        title: "Мои новости, страница %{page}"
-        heading: "Мои новости"
-      new:
-        title: "Добавить новость"
-        heading: "Добавить новость"
-      edit:
-        title: "Редактирование новости"
-        heading: "Редактирование новости"
-    posts:
-      index:
-        title: "Мои публикации, страница %{page}"
-        heading: "Мои публикации"
-    entries:
-      index:
-        title: "Мои записи, страница %{page}"
-        heading: "Мои записи"
-        description: "Просмотр ваших записей в блоге"
-  news:
-    update:
-      success: "Новость успешно обновлена"
-    destroy:
-      success: "Новость успешно удалена"
     index:
-      title: "Новости"
-      heading: "Все новости"
-      main: "Главное"
+      dashboard:
+        biovision_post:
+          heading: "Модуль публикаций"
+        posts_component:
+          heading: "Редакция"
+  editorial_members:
     new:
-      title: "Добавить новость"
+      heading: "Добавление члена редакции"
+      nav_text: "Добавить пользователя"
+      title: "Новый член редакции"
     edit:
-      title: "Редактирование новости"
-    preview:
-      read: "Читать полностью"
-    archive:
-      title: "Архив новостей"
-      year: "за %{year} год"
-    category:
-      title: "Новости: %{category}"
-    news:
-      back_to_list: "Возврат к списку"
-    previews:
-      comments:
-        heading: "Комментарии"
-      topics:
-        heading: "Сюжеты"
-      most_recent:
-        heading: "Последние новости"
-    not_found:
-      title: "Новость не найдена"
-      heading: "Новость не найдена"
-      message: "Новость не найдена или была удалена"
+      heading: "Редактирование члена редакции"
+      nav_text: "Редактировать"
+      title: "Редактирование члена редакции"
+    update:
+      success: "Член редакции успешно отредактирован"
+    destroy:
+      success: "Член редакции успешно удалён"
+    form:
+      guidelines:
+        about: "Максимум 5000 символов."
+        lead: "Максимум 170 символов."
+        title: "Максимум 150 символов."
+  post_categories:
+    new:
+      title: "Новая категория публикаций"
+      heading: "Добавление категории публикаций"
+    edit:
+      title: "Редактирование категории публикаций"
+      heading: "Редактирование категории публикаций"
+      forbidden: "Редактирование этой категории публикации запрещено"
+    update:
+      success: "Категория публикаций успешно изменена"
+    destroy:
+      success: "Категория публикаций успешно удалена"
+    form:
+      guidelines:
+        meta_description: "Максимум 250 символов."
+        name: "Максимум 50 символов."
+        slug: "Используется в URL. Только латинские буквы, цифры и дефис (кроме первого и последнего символа), максимум 50 символов."
+  post_tags:
+    new:
+      heading: "Добавление метки публикаций"
+      nav_text: "Добавить"
+      title: "Новая метка публикаций"
+    edit:
+      heading: "Редактирование метки публикаций"
+      nav_text: "Редактировать"
+      title: "Редактирование метки публикаций"
+    update:
+      success: "Метки публикаций отредактирована"
+    destroy:
+      success: "Метка публикаций удалена"
+    form:
+      guidelines:
+        name: "Максимум 50 символов."
+  post_images:
+    new:
+      heading: "Добавление картинки к публикации"
+      nav_text: "Добавить картинку"
+      title: "Новая картинка публикации"
+    edit:
+      heading: "Редактирование изображения публикации"
+      nav_text: "Редактировать"
+      title: "Редактирование изображения публикации"
+    update:
+      success: "Изображение публикации отредактировано"
+    destroy:
+      success: "Изображение публикации удалено"
+    form:
+      guidelines:
+        caption: "Максимум 255 символов."
+        description: "Максимум 5000 символов."
+        image: "Максимальный размер — 3000×3000, формат — JPG или PNG."
+        image_alt_text: "Краткое описание того, что происходит на картинке. До 200 символов."
+        source_link: "Будет открываться при нажатии на имя автора картинки."
+        source_name: "ФИО или название организации. Будет отображаться в подписи к картинке."
+      placeholders:
+        source_link: "https://example.org/user42"
+  posts:
+    edit:
+      title: "Редактирование публикации"
+      heading: "Редактирование публикации"
+    destroy:
+      success: "Публикация успешно удалена"
     form:
       guidelines:
         author_name: "Если указать, будет отображаться вместо текущего пользователя"
         author_title: "Например, должность или звание"
         author_url: "Если указать, имя автора будет ссылкой сюда"
         image: "Максимальный размер — 3000×3000, формат — JPG или PNG."
-        author_link: "Будет открываться при нажатии на имя автора"
-        author_name: "ФИО или название организации. Будет отображаться в подписи к картинке."
+        image_alt_text: "Краткое описание того, что происходит на картинке. До 200 символов."
         image_name: "Будет отображаться в качестве подписи к картинке."
-        news_category_id: "Выберите категорию, которая лучше всего подходит."
-        region_id: "Если новость региональная, укажите регион. Если регион не указывать, новость будет в разделе «новости центра»."
-        title: "Максимум 200 символов"
-        slug: "Используется в адресной строке. Может содержать только английские буквы, знаки подчёркивания и цифры."
-        lead: "Краткий анонс длиной до 350 символов."
-        source: "Название источника новости (агентство и т.п.)"
+        image_source_link: "Будет открываться при нажатии на имя автора картинки."
+        image_source_name: "ФИО или название организации. Будет отображаться в подписи к картинке."
+        language_id: "Язык"
+        lead: "Краткая суть, максимум 5000 символов."
+        meta_description: "50–55 слов. Максимум 250 символов."
+        meta_keywords: "Максимум 250 символов."
+        meta_title: "Если указать, будет отображаться в заголовке окна вместо названия. Максимум 250 символов."
+        original_title: "Название в том виде, в котором оно было у источника. Максимум 250 символов."
+        slug: "Только латинские буквы, цифры, точки, дефисы и подчёркивания. Максимум 200 символов."
+        source: "Название источника публикации (агентство и т.п.)"
         source_link: "Будет открываться при нажатии на название источника"
+        time_required: "Задаётся в минутах"
+        title: "Максимум 255 символов."
       placeholders:
-        image_author_link: "//example.com/user42"
-        source_link: "//example.org/news/123"
-  regional_news:
-    index:
-      title: "Региональные новости"
-      heading: "Все региональные новости"
-      main: "Главное"
-    preview:
-      read: "Читать полностью"
-    archive:
-      title: "Архив региональных новостей"
-      year: "за %{year} год"
-    category:
-      title: "Региональные новости: %{category}"
-    news:
-      back_to_list: "Возврат к списку"
-    previews:
-      comments:
-        heading: "Комментарии"
-      topics:
-        heading: "Сюжеты"
-      most_recent:
-        heading: "Последние новости"
-  posts:
-    nav_item:
-      text: "Публикации"
-    update:
-      success: "Публикация успешно обновлена"
-    destroy:
-      success: "Публикация успешно удалена"
+        image_source_link: "https://example.com/user42"
+        source_link: "https://example.org/posts/123"
+      tags: "Метки"
+      gallery:
+        heading: "Галерея картинок"
+        add_image: "Добавить изображение"
+    post:
+      source: "Источник"
+      image_credit: "Источник изображения"
     index:
       title: "Публикации, страница %{page}"
       heading: "Публикации"
-    new:
-      title: "Добавить публикацию"
-    edit:
-      title: "Редактирование публикации"
-    form:
-      tags: "Метки"
-      figures: "Иллюстрации"
-      add_figure: "Добавить иллюстрацию"
-    preview:
-      read: "Читать полностью"
+      nav_text: "Публикации"
     tagged:
-      title: "Публикации с меткой «%{tag}», страница %{page}"
-      heading: "Публикации с меткой «%{tag}»"
-    archive:
+      title: "Публикации с меткой «%{tag_name}», страница %{page}"
+    entity:
+      linked_posts:
+        heading: "Читайте также"
+      gallery:
+        heading: "Галерея"
+    rss:
+      title: "Публикации сайта на Comunit CMS"
+      description: "RSS-канал сайта на Comunit CMS"
+    archive_day:
       title: "Архив публикаций"
-      year: "за %{year} год"
-    category:
-      title: "Публикации в категории «%{category}», страница %{page}"
-      heading: "Публикации: %{category}"
-    not_found:
-      title: "Публикация не найдена"
-      heading: "Публикация не найдена"
-      message: "Публикация не существует или была удалена"
-  tags:
-    update:
-      success: "Метка успешно обновлена"
-    destroy:
-      success: "Метка успешно удалена"
-    index:
-      title: "Метки, страница %{page}"
-      heading: "Метки"
-    new:
-      title: "Добавить метку"
-    edit:
-      title: "Редактирование метки"
-      forbidden: "Редактирование этой метки запрещено"
+    calendar:
+      heading: "Архив"
+    search:
+      title: "Поиск публикаций"
+      nav_text: "Поиск публикаций"
+      heading: "Поиск публикаций"
   themes:
     update:
       success: "Тема группировки успешно обновлена"
@@ -390,61 +377,85 @@ ru:
     edit:
       title: "Редактирование темы группировки"
       forbidden: "Редактирование этой темы группировки запрещено"
-  figures:
-    show:
-      title: "Иллюстрация «%{figure}» к публикации «%{post}»"
-    edit:
-      title: "Редактирование иллюстрации"
-  shared:
-    sidebar:
-      selected_categories:
-        all_posts: "Все публикации"
-  news_categories:
-    new:
-      title: "Новая категория новостей"
-      heading: "Новая категория новостей"
-    edit:
-      title: "Редактирование категории новостей"
-      heading: "Редактирование категории новостей"
-      forbidden: "Редактирование этой категории новостей запрещено"
-    update:
-      success: "Категория новостей успешно изменена"
-    destroy:
-      success: "Категория новостей успешно удалена"
-  post_categories:
-    new:
-      title: "Новая категория публикаций"
-      heading: "Новая категория публикаций"
-    edit:
-      title: "Редактирование категории публикаций"
-      heading: "Редактирование категории публикаций"
-      forbidden: "Редактирование этой категории публикаций запрещено"
-    update:
-      success: "Категория публикаций успешно изменена"
-    destroy:
-      success: "Категория публикаций успешно удалена"
   index:
-    main_post:
-      heading: "Тема дня"
-      continue_reading: "Читать далее…"
-  entries:
+    dashboard:
+      biovision_post:
+        heading: "Недавние публикации"
+        more: "Ещё"
+  articles:
     index:
-      title: "Блоги, страница %{page}"
-      heading: "Блоги"
-    update:
-      success: "Запись успешно изменена"
-    destroy:
-      success: "Запись успешно удалена"
-    new:
-      title: "Добавить запись"
-      restricted: "Только проверенные пользователи могут добавлять записи"
-    edit:
-      title: "Редактирование записи"
+      title: "Статьи, страница %{page}"
+      heading: "Статьи"
+      nav_text: "Статьи"
+    category:
+      title: "Статьи в категории «%{category}», страница %{page}"
+    tagged:
+      title: "Статьи с меткой «%{tag_name}», страница %{page}"
+  blog_posts:
+    index:
+      title: "Записи в блоге, страница %{page}"
+      heading: "Записи в блоге"
+      nav_text: "Блог"
+    category:
+      title: "Записи в блоге в категории «%{category}», страница %{page}"
+    tagged:
+      title: "Записи в блоге с меткой «%{tag_name}», страница %{page}"
+  news:
+    index:
+      title: "Новости, страница %{page}"
+      heading: "Новости"
+      nav_text: "Новости"
+    category:
+      title: "Новости в категории «%{category}», страница %{page}"
+    tagged:
+      title: "Новости с меткой «%{tag_name}», страница %{page}"
+  authors:
+    index:
+      nav_text: "Авторы"
+      title: "Авторы"
+      heading: "Авторы"
+    list:
+      no_authors: "Список авторов пуст"
     show:
-      title: "Запись «%{title}»"
-    archive:
-      title: "Архив записей в блоге"
-      year: "За %{year} год"
-    new_repost:
-      forbidden: "Репосты этой публикации запрещены настройками видимости"
-      title: "Разместить как публикацию"
+      heading: "Авторы"
+  my:
+    index:
+      dashboard:
+        biovision_post:
+          heading: "Мои публикации"
+    posts:
+      articles:
+        heading: "Мои статьи"
+        nav_text: "Статьи"
+        title: "Мои статьи, страница %{page}"
+      blog_posts:
+        heading: "Мой блог"
+        nav_text: "Блог"
+        title: "Мой блог, страница %{page}"
+      index:
+        heading: "Мои публикации"
+        nav_text: "Все публикации"
+        title: "Мои публикации, страница %{page}"
+      new_article:
+        heading: "Новая статья"
+        nav_text: "Написать статью"
+        title: "Добавление статьи"
+      new_blog_post:
+        heading: "Новая запись в блоге"
+        nav_text: "Написать в блоге"
+        title: "Добавление записи в блоге"
+      new_news:
+        heading: "Новая новость"
+        nav_text: "Добавить новость"
+        title: "Добавление новости"
+      news_index:
+        heading: "Мои новости"
+        nav_text: "Новости"
+        title: "Мои новости, страница %{page}"
+      new:
+        title: "Добавление публикации"
+        heading: "Добавление публикации"
+      edit:
+        title: "Редактирование моей публикации"
+        nav_text: "Редактировать"
+        heading: "Редактирование публикации"

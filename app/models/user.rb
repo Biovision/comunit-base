@@ -64,11 +64,13 @@ class User < ApplicationRecord
   mount_uploader :image, AvatarUploader
 
   scope :visible, -> { where(deleted: false) }
+  scope :ordered_by_screen_name, -> { order('screen_name asc') }
   scope :bots, -> (flag) { where bot: flag.to_i > 0 unless flag.blank? }
   scope :screen_name_like, -> (val) { where 'screen_name ilike ?', "%#{val}%" unless val.blank? }
   scope :email_like, -> (val) { where 'email ilike ?', "%#{val}%" unless val.blank? }
   scope :with_email, -> (email) { where 'email ilike ?', email }
   scope :with_privilege, -> (privilege) { joins(:user_privileges).where(user_privileges: { privilege_id: privilege.ids }) }
+  scope :with_privilege_ids, ->(privilege_ids) { joins(:user_privileges).where(user_privileges: { privilege_id: privilege_ids }) }
   scope :filtered, -> (f) { email_like(f[:email]).screen_name_like(f[:screen_name]) }
   scope :search, ->(q) { where('search_string like ?', "%#{q.downcase}%") unless q.blank? }
 

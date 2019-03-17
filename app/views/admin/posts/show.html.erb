@@ -1,89 +1,189 @@
-<% content_for :meta_title, t('.title', title: @entity.title) %>
-<% content_for :hide_sidebar, '1' %>
+<% content_for :meta_title, t('.title', name: @entity.title) %>
+<% content_for :breadcrumbs do %>
+  <%= link_to(t('admin.posts.nav_item.text'), admin_posts_path) %>
+  <span><%= @entity.title %></span>
+<% end %>
 
-<article class="entity-page">
+<% handler = PostManager.handler(@entity) %>
+
+<article>
   <h1><%= @entity.title %></h1>
+
+  <nav>
+    <%=
+      link_to(
+          t('admin.posts.images.nav_text'),
+          images_admin_post_path(id: @entity.id),
+          class: 'button-nav'
+      )
+    %>
+  </nav>
 
   <ul class="actions">
     <li><%= back_icon(admin_posts_path) %></li>
-    <% unless @entity.locked? %>
-        <li><%= edit_icon(edit_post_path(id: @entity.id)) %></li>
+    <% if @entity.visible? %>
+      <li><%= world_icon(handler.post_path) %></li>
+    <% end %>
+    <% if @entity.editable_by?(current_user) && !@entity.locked? %>
+      <li><%= edit_icon(handler.edit_path) %></li>
+      <li class="danger"><%= destroy_icon(@entity) %></li>
     <% end %>
   </ul>
-  <table>
-    <tbody>
-    <% unless @entity.image.blank? %>
-        <tr>
-          <td colspan="2">
-            <figure>
-              <%= image_tag @entity.image.small.url %>
-              <figcaption><%= t(:current_image) %></figcaption>
-            </figure>
-          </td>
-        </tr>
+
+  <dl>
+    <dt><%= t('activerecord.attributes.post.post_type') %></dt>
+    <dd><%= admin_post_type_link(@entity.post_type) %></dd>
+
+    <% unless @entity.original_title.blank? %>
+      <dt><%= t('activerecord.attributes.post.original_title') %></dt>
+      <dd><%= @entity.original_title %></dd>
     <% end %>
-    <tr>
-      <th><%= t('activerecord.attributes.post.user') %></th>
-      <td><%= user_link @entity.user %></td>
-    </tr>
+
+    <dt><%= t('activerecord.attributes.post.slug') %></dt>
+    <dd><%= @entity.slug %></dd>
+
     <% unless @entity.post_category.nil? %>
-        <tr>
-          <th>Категория</th>
-          <td><%= admin_post_category_link(@entity.post_category) %></td>
-        </tr>
+      <dt><%= t('activerecord.attributes.post.post_category') %></dt>
+      <dd>
+        <% if current_user_has_privilege?(:chief_editor) %>
+          <%= admin_post_category_link(@entity.post_category, @entity.post_category.full_title) %>
+        <% else %>
+          <%= @entity.post_category.full_title %>
+        <% end %>
+      </dd>
     <% end %>
-    <tr>
-      <th><%= t(:created_at) %></th>
-      <td><%= time_tag @entity.created_at %></td>
-    </tr>
-    <tr>
-      <th><%= t(:updated_at) %></th>
-      <td><%= time_tag @entity.updated_at %></td>
-    </tr>
-    <tr>
-      <th><%= t('activerecord.attributes.post.slug') %></th>
-      <td><%= @entity.slug %></td>
-    </tr>
-    <tr>
-      <th><%= t('activerecord.attributes.post.lead') %></th>
-      <td><%= @entity.lead %></td>
-    </tr>
-    <tr>
-      <td colspan="2"><%= render partial: 'admin/posts/toggleable', locals: { post: @entity } %></td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <%= t(:view_count, count: @entity.view_count) %>
-      </td>
-    </tr>
-    </tbody>
-  </table>
 
-  <div><%= prepare_post_text(@entity) %></div>
+    <dt><%= t(:created_at) %></dt>
+    <dd><%= time_tag(@entity.created_at) %></dd>
+
+    <dt><%= t(:updated_at) %></dt>
+    <dd><%= time_tag(@entity.updated_at) %></dd>
+
+    <dt><%= t('activerecord.attributes.post.publication_time') %></dt>
+    <dd><%= time_tag(@entity.publication_time) %></dd>
+
+    <dt><%= t('activerecord.attributes.post.user') %></dt>
+    <dd><%= admin_user_link(@entity.user) %></dd>
+
+    <% unless @entity.author_name.blank? %>
+      <dt><%= t('activerecord.attributes.post.author_name') %></dt>
+      <dd><%= @entity.author_name %></dd>
+    <% end %>
+
+    <% unless @entity.author_title.blank? %>
+      <dt><%= t('activerecord.attributes.post.author_title') %></dt>
+      <dd><%= @entity.author_title %></dd>
+    <% end %>
+
+    <% unless @entity.author_url.blank? %>
+      <dt><%= t('activerecord.attributes.post.author_url') %></dt>
+      <dd><%= @entity.author_url %></dd>
+    <% end %>
+
+    <% unless @entity.image.blank? %>
+      <dt><%= t('activerecord.attributes.post.image') %></dt>
+      <dd>
+        <figure role="group" class="preview">
+          <%= link_to(post_image_small(@entity), @entity.image.url) %>
+          <figcaption><%= @entity.image_alt_text %></figcaption>
+        </figure>
+      </dd>
+    <% end %>
+
+    <% unless @entity.image_name.blank? %>
+      <dt><%= t('activerecord.attributes.post.image_name') %></dt>
+      <dd><%= @entity.image_name %></dd>
+    <% end %>
+
+    <% unless @entity.image_source_name.blank? %>
+      <dt><%= t('activerecord.attributes.post.image_source_name') %></dt>
+      <dd><%= @entity.image_source_name %></dd>
+    <% end %>
+
+    <% unless @entity.image_source_link.blank? %>
+      <dt><%= t('activerecord.attributes.post.image_source_link') %></dt>
+      <dd><%= @entity.image_source_link %></dd>
+    <% end %>
+
+    <% unless @entity.lead.blank? %>
+      <dt><%= t('activerecord.attributes.post.lead') %></dt>
+      <dd><%= @entity.lead %></dd>
+    <% end %>
+
+    <% unless @entity.time_required.blank? %>
+      <dt><%= t('activerecord.attributes.post.time_required') %></dt>
+      <dd><%= @entity.time_required %> min</dd>
+    <% end %>
+
+    <dt><%= t('activerecord.attributes.post.body') %></dt>
+    <dd>
+      <div class="text">
+        <%= raw(@entity.parsed_body) %>
+      </div>
+    </dd>
+
+    <% unless @entity.source_name.blank? %>
+      <dt><%= t('activerecord.attributes.post.source_name') %></dt>
+      <dd><%= @entity.source_name %></dd>
+    <% end %>
+
+    <% unless @entity.source_link.blank? %>
+      <dt><%= t('activerecord.attributes.post.source_link') %></dt>
+      <dd><%= @entity.source_link %></dd>
+    <% end %>
+
+    <dt><%= t('activerecord.attributes.post.rating') %></dt>
+    <dd><%= @entity.rating %></dd>
+
+    <% if @entity.translation? %>
+      <dt><%= t('activerecord.attributes.post.translation') %></dt>
+      <dd>
+        <%= @entity.translator_name.blank? ? '✓' : @entity.translator_name %>
+      </dd>
+    <% end %>
+
+    <% if @entity.post_tags.any? %>
+      <dt><%= t('posts.form.tags') %></dt>
+      <dd>
+        <ul>
+          <% @entity.post_tags.each do |post_tag| %>
+            <li><%= admin_post_tag_link(post_tag) %></li>
+          <% end %>
+        </ul>
+      </dd>
+    <% end %>
+
+    <% if @entity.post_images.any? %>
+      <dt><%= link_to(t('.images'), images_admin_post_path(id: @entity.id)) %></dt>
+      <dd>
+        <ul class="image-previews">
+          <% @entity.post_images.list_for_administration.each do |post_image| %>
+            <li><%= post_image_preview(post_image) %></li>
+          <% end %>
+        </ul>
+      </dd>
+    <% end %>
+  </dl>
+
+  <%=
+    render(
+        partial: 'shared/admin/toggleable',
+        locals:  {
+            entity: @entity,
+            url:    toggle_admin_post_path(id: @entity.id)
+        }
+    )
+  %>
+
+  <%= render partial: 'shared/track', locals: { item: @entity } %>
+
+  <%=
+    render(
+        partial: 'admin/posts/entity/links',
+        locals: {
+            post: @entity,
+            collection: @entity.post_links.list_for_administration
+        }
+    )
+  %>
 </article>
-
-<script>/*<![CDATA[*/
-$(function () {
-    var $category_list = $('#post_category');
-    var $category_setter = $('#category-setter');
-
-    $category_list.on('change', function () {
-        $category_setter.removeClass('hidden');
-    });
-    $category_setter.on('click', function () {
-        var url = $(this).closest('td').data('url');
-        var data = {
-            category_id: $category_list.val()
-        };
-
-        $.ajax({
-            url: url,
-            method: 'put',
-            data: data,
-            success: function () {
-                $category_setter.addClass('hidden');
-            }
-        }).fail(handle_ajax_failure);
-    });
-});
-/*]]>*/</script>

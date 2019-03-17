@@ -1,0 +1,50 @@
+<% content_for :meta_title, t('.title', name: @entity.name) %>
+<% content_for :breadcrumbs do %>
+    <%= link_to(t('admin.post_types.nav_item.text'), admin_post_types_path) %>
+    <span><%= @entity.name %></span>
+<% end %>
+
+<article>
+  <h1><%= @entity.name %></h1>
+
+  <ul class="actions">
+    <li><%= back_icon(admin_post_types_path) %></li>
+    <li><%= create_icon(new_post_admin_post_type_path(id: @entity.id)) %></li>
+  </ul>
+
+  <nav>
+    <%=
+      link_to(
+          t('admin.post_types.post_categories.nav_text'),
+          post_categories_admin_post_type_path(id: @entity.id),
+          class: 'button-nav'
+      )
+    %>
+    <%=
+      link_to(
+          t('admin.post_types.post_tags.nav_text'),
+          post_tags_admin_post_type_path(id: @entity.id),
+          class: 'button-nav'
+      )
+    %>
+  </nav>
+
+  <dl>
+    <dt><%= t('activerecord.attributes.post_type.slug') %></dt>
+    <dd><%= @entity.slug %></dd>
+
+    <dt><%= t('activerecord.attributes.post_type.default_category_name') %></dt>
+    <dd><%= @entity.default_category_name %></dd>
+
+    <dt><%= t('activerecord.attributes.post_type.category_depth') %></dt>
+    <dd><%= @entity.category_depth %></dd>
+  </dl>
+
+  <section>
+    <h2><%= t(:post_count, count: @entity.posts_count) %></h2>
+
+    <%= paginate @collection %>
+    <%= render partial: 'shared/admin/list', locals: { collection: @collection } %>
+    <%= paginate @collection %>
+  </section>
+</article>

@@ -1,50 +1,87 @@
-<%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+<% model_name = entity.class.to_s.underscore %>
+<%= form_with(model: entity, html: { id: "#{model_name}-form" }) do |f| %>
+  <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
 
-<%= form_for entity do |f| %>
-    <table>
-      <tbody>
-      <% unless entity.id.nil? %>
-          <% unless entity.parent_id.nil? %>
-              <tr>
-                <th><%= t('activerecord.attributes.post_category.parent_id') %></th>
-                <td><%= link_to entity.parent.name, admin_post_category_path(id: entity.parent_id) %></td>
-              </tr>
-          <% end %>
+  <dl>
+    <% unless entity.id.nil? %>
+      <dt><%= t('activerecord.attributes.post_category.post_type_id') %></dt>
+      <dd>
+        <%= admin_post_type_link(entity.post_type) %>
+      </dd>
+      <% unless entity.parent_id.nil? %>
+        <dt><%= t('activerecord.attributes.post_category.parent_id') %></dt>
+        <dd>
+          <%= admin_post_category_link(entity.parent) %>
+        </dd>
       <% end %>
-      <tr>
-        <th><%= f.label :name %></th>
-        <td><%= f.text_field :name, size: 25, required: true %></td>
-      </tr>
-      <% unless entity.id.nil? %>
-          <tr>
-            <th><%= f.label :slug %></th>
-            <td><%= f.text_field :slug, size: 25, required: true %></td>
-          </tr>
-      <% end %>
-      <tr>
-        <th><%= f.label :priority %></th>
-        <td><%= f.number_field :priority, in: (1..10000), required: true %></td>
-      </tr>
-      <tr>
-        <td colspan="2" class="flags">
-          <ul>
-            <li>
-              <%= f.check_box :visible %>
-              <%= f.label :visible %>
-            </li>
-          </ul>
-        </td>
-      </tr>
-      </tbody>
-      <tfoot>
-      <tr>
-        <td colspan="2">
-          <% if entity.id.nil? %>
-              <%= f.hidden_field :parent_id %>
-          <% end %>
-          <%= f.button t(:save), type: :submit %>
-        </td>
-      </tr>
-      </tfoot>
-    </table>
+    <% end %>
+
+    <dt><%= f.label :name %></dt>
+    <dd>
+      <%=
+        f.text_field(
+            :name,
+            id: "#{model_name}_name",
+            size: nil,
+            maxlength: PostCategory::NAME_LIMIT,
+            required: true,
+            data: {
+                transliterate: "#{model_name}_slug"
+            }
+        )
+      %>
+      <div class="guideline"><%= t('.guidelines.name') %></div>
+    </dd>
+
+    <dt><%= f.label :slug %></dt>
+    <dd>
+      <%=
+        f.text_field(
+            :slug,
+            id: "#{model_name}_slug",
+            size: nil,
+            maxlength: PostCategory::SLUG_LIMIT,
+            required: true
+        )
+      %>
+      <div class="guideline"><%= t('.guidelines.slug') %></div>
+    </dd>
+
+    <dt><%= f.label :meta_description %></dt>
+    <dd>
+      <%=
+        f.text_field(
+            :meta_description,
+            id: "#{model_name}_meta_description",
+            size: nil,
+            maxlength: PostCategory::META_LIMIT
+        )
+      %>
+      <div class="guideline"><%= t('.guidelines.meta_description') %></div>
+    </dd>
+
+    <dt><%= f.label :priority %></dt>
+    <dd>
+      <%=
+        f.number_field(
+            :priority,
+            id: "#{model_name}_priority",
+            in: PostCategory::PRIORITY_RANGE,
+            required: true
+        )
+      %>
+    </dd>
+
+    <%= render partial: 'shared/forms/entity_flags', locals: { f: f } %>
+  </dl>
+
+  <%= render 'shared/forms/state_container' %>
+
+  <div class="buttons">
+    <% if entity.id.nil? %>
+      <%= f.hidden_field :post_type_id %>
+      <%= f.hidden_field :parent_id %>
+    <% end %>
+    <%= f.button t(:save), type: :submit, class: 'button-save' %>
+  </div>
 <% end %>

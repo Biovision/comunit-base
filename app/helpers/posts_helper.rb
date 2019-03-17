@@ -1,123 +1,69 @@
 module PostsHelper
-  # @param [NewsCategory] category
-  def admin_news_category_link(category)
-    link_to(category.name, admin_news_category_path(id: category.id))
+  # @param [PostType] entity
+  # @param [String] text
+  def admin_post_type_link(entity, text = entity.name)
+    link_to(text, admin_post_type_path(id: entity.id))
   end
 
-  # @param [PostCategory] category
-  def admin_post_category_link(category)
-    link_to(category.full_title, admin_post_category_path(id: category.id))
+  # @param [PostCategory] entity
+  # @param [String] text
+  def admin_post_category_link(entity, text = entity.name)
+    link_to(text, admin_post_category_path(id: entity.id))
   end
 
-  # @param [Post|News] entity
+  # @param [Post] entity
+  # @param [String] text
+  def admin_post_link(entity, text = entity.title)
+    link_to(text, admin_post_path(id: entity.id))
+  end
+
+  # @param [PostTag] entity
+  # @param [String] text
+  def admin_post_tag_link(entity, text = entity.name)
+    link_to(text, admin_post_tag_path(id: entity.id))
+  end
+
+  # @param [PostImage] entity
+  # @param [String] text
+  def admin_post_image_link(entity, text = entity.name)
+    link_to(text, admin_post_image_path(id: entity.id))
+  end
+
+  # @param [EditorialMember] entity
+  # @param [String] text
+  def admin_editorial_member_link(entity, text = entity.name)
+    link_to(text, admin_editorial_member_path(id: entity.id))
+  end
+
+  # @param [Post] entity
+  # @param [String] text
   # @param [Hash] options
-  def post_author_link(entity, options = {})
-    if entity.author_url.blank?
-      entity.author_name
-    else
-      link_options = {
-        rel: 'external nofollow noopener noreferrer'
-      }
-      link_to(entity.author_name, entity.author_url, link_options.merge(options))
+  def my_post_link(entity, text = entity.title, options = {})
+    link_to(text, my_post_path(id: entity.id), options)
+  end
+
+  # @param [User] entity
+  # @param [String] text
+  # @param [Hash] options
+  def author_link(entity, text = entity&.profile_name, options = {})
+    if EditorialMember.user?(entity)
+      link_to(text, author_path(slug: entity.screen_name), options)
+    elsif entity.is_a?(User)
+      user_link(entity)
     end
   end
 
-  # @param [NewsCategory] category
-  # @param [String] text
-  def news_category_link(category, text = category&.name)
-    if category.is_a? NewsCategory
-      parameters = { category_slug: category.slug }
-      link_to text, category_news_index_path(parameters)
-    else
-      ''
-    end
-  end
-
-  # @param [NewsCategory] category
-  # @param [String] text
-  def regional_news_category_link(category, text = category&.name)
-    if category.is_a? NewsCategory
-      parameters = { category_slug: category.slug }
-      link_to text, category_regional_news_index_path(parameters)
-    else
-      ''
-    end
-  end
-
-  # @param [News] entity
-  # @param [String] text
-  def my_news_link(entity, text = entity.title)
-    link_to(text, my_news_path(id: entity.id))
-  end
-
-  # @param [Post|News|PostCategory|NewsCategory] entity
-  # @param [String] text
-  def post_category_link(entity, text = nil)
-    if entity.is_a?(Post)
-      parameters = { category_slug: entity.category.slug }
-      link_to((text || entity.category.full_title), category_posts_path(parameters))
-    elsif entity.is_a?(News)
-      parameters = { category_slug: entity.category.slug }
-      if entity.region_id
-        link_to((text || entity.category.full_title), category_regional_news_index_path(parameters))
-      else
-        link_to((text || entity.category.full_title), category_news_index_path(parameters))
-      end
-    elsif entity.is_a?(PostCategory)
-      parameters = { category_slug: entity.slug }
-      link_to((text || entity.full_title), category_posts_path(parameters))
-    elsif entity.is_a?(NewsCategory)
-      parameters = { category_slug: entity.slug }
-      link_to((text || entity.name), category_posts_path(parameters))
-    else
-      ''
-    end
-  end
-
-  def post_types_for_select
-    News.post_types.keys.map { |post_type| [t("activerecord.attributes.news.post_types.#{post_type}"), post_type] }
-  end
-
-  # @param [PostCategory] selected_category
-  def post_categories_for_site(selected_category)
-    options = [[t(:not_set), '']]
-    PostCategory.for_tree.each do |category|
+  # @param [Integer] post_type_id
+  # @param [String] first_item
+  def post_categories_for_select(post_type_id, first_item = t(:not_set))
+    options = [[first_item, '']]
+    PostCategory.for_tree(post_type_id).each do |category|
       options << [category.name, category.id]
-      if category.children.any?
-        PostCategory.for_tree(category).each do |subcategory|
+      if category.child_categories.any?
+        PostCategory.for_tree(post_type_id, category.id).each do |subcategory|
           options << ["-#{subcategory.name}", subcategory.id]
-          if subcategory.children.any?
-            PostCategory.for_tree(subcategory).each do |deep_category|
-              options << ["--#{deep_category.name}", deep_category.id]
-            end
-          end
-        end
-      end
-    end
-    selected = selected_category.nil? ? nil : selected_category.id
-    options_for_select(options, selected)
-  end
-
-  # @param [NewsCategory] selected_category
-  def news_categories_for_site(selected_category)
-    options = [[t(:not_set), '']]
-    NewsCategory.ordered_by_priority.each do |category|
-      options << [category.name, category.id]
-    end
-    selected = selected_category.nil? ? nil : selected_category.id
-    options_for_select(options, selected)
-  end
-
-  # @param [PostCategory] selected_category
-  def post_categories_for_select(user)
-    options = []
-    PostCategory.for_tree.for_editor(user).each do |category|
-      options << [category.name, category.id]
-      if category.children.for_editor(user).any?
-        PostCategory.for_tree(category).for_editor(user).each do |subcategory|
-          options << ["-#{subcategory.name}", subcategory.id]
-          if subcategory.children.for_editor(user).any?
-            PostCategory.for_tree(subcategory).for_editor(user).each do |deep_category|
+          if subcategory.child_categories.any?
+            PostCategory.for_tree(post_type_id, subcategory.id).each do |deep_category|
               options << ["--#{deep_category.name}", deep_category.id]
             end
           end
@@ -127,44 +73,106 @@ module PostsHelper
     options
   end
 
-  # @param [User] user
-  def news_categories_for_select(user)
-    NewsCategory.for_editor(user).each.map do |category|
-      [category.name, category.id]
-    end
-  end
-
-  # @param [Post|News|Entry] entity
-  def post_image_medium(entity)
-    if entity.image.blank?
-      image_tag('biovision/base/placeholders/image.svg')
-    else
-      versions = '' #"#{entity.image.preview_2x.url} 2x"
-      image_tag(entity.image.medium.url, alt: entity.title, srcset: versions)
-    end
-  end
-
-  # @param [Post|News|Entry] entity
+  # @param [Post] entity
+  # @param [String] text
   # @param [Hash] options
-  def post_image_small(entity, options = {})
-    if entity.image.blank?
-      image_tag('biovision/base/placeholders/image.svg', alt: '')
+  def post_link(entity, text = entity.title, options = {})
+    link_to(text, PostManager.handler(entity, locale).post_path, options)
+  end
+
+  # @param [Post] entity
+  def post_category_link(entity)
+    handler = PostManager.handler(entity)
+    if entity.post_category.nil?
+      link_to(entity.post_type.default_category_name, handler.empty_category_path)
     else
-      default = {
-        alt: entity.title,
-        srcset: "#{entity.image.medium.url} 2x"
-      }
-      image_tag(entity.image.small.url, default.merge(options))
+      link_to(entity.post_category.name, handler.category_path(entity.post_category))
     end
   end
 
-  # @param [Post|News|Entry] entity
-  def post_image_preview(entity)
-    if entity.image.blank?
-      image_tag('biovision/base/placeholders/image.svg')
+  # @param [Post] entity
+  # @param [Hash] options
+  def post_author_link(entity, options = {})
+    if entity.author_url.blank?
+      raw("<span>#{entity.author_name}</span>")
     else
-      versions = '' #"#{entity.image.preview_2x.url} 2x"
-      image_tag(entity.image.preview.url, alt: entity.title, srcset: versions)
+      link_options = {
+        rel: 'external nofollow noopener noreferrer'
+      }
+      link_to(entity.author_name, entity.author_url, link_options.merge(options))
     end
+  end
+
+  # @param [String] tag_name
+  # @param [Post] entity
+  def tagged_posts_link(tag_name, entity = nil)
+    if entity.nil?
+      link_to(tag_name, tagged_posts_path(tag_name: tag_name), rel: 'tag')
+    else
+      handler = PostManager.handler(entity, locale)
+      link_to(tag_name, handler.tagged_path(tag_name), rel: 'tag')
+    end
+  end
+
+  # Post image preview for displaying in "administrative" lists
+  #
+  # @param [Post] entity
+  def post_image_preview(entity)
+    return '' if entity.image.blank?
+
+    alt_text = entity.image_alt_text
+    versions = "#{entity.image.preview_2x.url} 2x"
+    image_tag(entity.image.preview.url, alt: alt_text, srcset: versions)
+  end
+
+  # Small post image for displaying in lists of posts and feeds
+  #
+  # @param [Post] entity
+  # @param [Hash] add_options
+  def post_image_small(entity, add_options = {})
+    return '' if entity.image.blank?
+
+    alt_text = entity.image_alt_text.to_s
+    versions = "#{entity.image.medium.url} 2x"
+    options  = { alt: alt_text, srcset: versions }.merge(add_options)
+    image_tag(entity.image.small.url, options)
+  end
+
+  # Medium post image for displaying on post page
+  #
+  # @param [Post] entity
+  # @param [Hash] add_options
+  def post_image_medium(entity, add_options = {})
+    return '' if entity.image.blank?
+
+    alt_text = entity.image_alt_text.to_s
+    versions = "#{entity.image.big.url} 2x"
+    options  = { alt: alt_text, srcset: versions }.merge(add_options)
+    image_tag(entity.image.medium.url, options)
+  end
+
+  # Large post image for displaying on post page
+  #
+  # @param [Post] entity
+  # @param [Hash] add_options
+  def post_image_large(entity, add_options = {})
+    return '' if entity.image.blank?
+
+    alt_text = entity.image_alt_text.to_s
+    versions = "#{entity.image.hd.url} 2x"
+    options  = { alt: alt_text, srcset: versions }.merge(add_options)
+    image_tag(entity.image.big.url, options)
+  end
+
+  # Larger post image for displaying on post page
+  #
+  # @param [Post] entity
+  # @param [Hash] add_options
+  def post_image_hd(entity, add_options = {})
+    return '' if entity.image.blank?
+
+    alt_text = entity.image_alt_text.to_s
+    options  = { alt: alt_text }.merge(add_options)
+    image_tag(entity.image.hd.url, options)
   end
 end

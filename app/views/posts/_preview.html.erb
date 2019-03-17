@@ -1,46 +1,40 @@
-<div class="body">
-  <figure role="group">
-    <div class="proportional-container r-3x2">
-      <% unless entity.image.blank? %>
-        <%= image_tag(entity.image.medium.url, alt: entity.title) %>
-      <% end %>
-    </div>
-    <figcaption>
-      <%= post_link(entity) %>
-    </figcaption>
-  </figure>
-  <div class="lead"><%= entity.lead %></div>
-</div>
-<div class="category">
-  <div>
-    <%= post_category_link(entity) %>
-    <%= time_tag entity.created_at %>
+<div class="post-preview" role="group">
+  <div class="image">
+    <%= post_link(entity, post_image_small(entity), class: 'covered proportional-container r-16x9') %>
   </div>
-  <div class="region">
-    <% if entity.respond_to?(:region) && !entity.region.nil? %>
-      <%= link_to(entity.region.branch_name, regional_index_path(region_slug: entity.region.long_slug)) %>
-    <% else %>
-      &nbsp;
-    <% end %>
+  <div class="text">
+    <div class="title"><%= post_link(entity) %></div>
+    <div class="lead"><%= post_link(entity, entity.lead!) %></div>
   </div>
-</div>
-<div class="footer">
-  <div class="author">
-    <% if entity.class.to_s != News.to_s || entity.show_name? %>
-      <% if entity.show_name? %>
+  <div class="meta">
+    <div class="time-and-author">
+      <% if entity.show_owner? %>
         <% if entity.author_name.blank? %>
-          <%= profile_avatar(entity.user) %>
-          <%= user_link entity.user %>
+          <%= user_link(entity.user) %>
         <% else %>
           <%= post_author_link(entity) %>
         <% end %>
       <% end %>
+      <%= time_tag(entity.publication_time.to_date, format: :default) %>
+    </div>
+    <div class="category" aria-label="<%= t('activerecord.attributes.post.post_category_id') %>">
+      <%= post_category_link(entity) %>
+    </div>
+    <% if entity.tags_cache.any? %>
+      <ul class="tags">
+        <% entity.tags_cache.each do |tag_name| %>
+          <li><%= tagged_posts_link(tag_name, entity) %></li>
+        <% end %>
+      </ul>
     <% end %>
   </div>
-  <div class="post-counters">
-    <% if entity.allow_comments? %>
-      <span class="comments"><%= entity.comments_count %></span>
+  <div class="counters">
+    <span class="view_count"><%= entity.view_count %></span>
+    <% if entity.allow_comments? && 'CommentableItem'.safe_constantize %>
+      <span class="comment_count"><%= entity.comments_count %></span>
     <% end %>
-    <span class="views"><%= entity.view_count %></span>
+    <% if entity.time_required.to_i.positive? %>
+      <div class="time_required"><%= entity.time_required %> min</div>
+    <% end %>
   </div>
 </div>

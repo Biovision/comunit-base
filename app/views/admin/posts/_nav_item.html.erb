@@ -1,9 +1,2 @@
-<div>
-  <%= link_to t('admin.posts.index.heading'), admin_posts_path %>
-</div>
-<div class="description">
-  <%= t('admin.posts.index.description') %>
-</div>
-<ul class="actions">
-  <li><%= create_icon(new_post_path) %></li>
-</ul>
+<div><%= link_to(t('.text'), admin_posts_path) %></div>
+<div class="description"><%= t('.description') %></div>

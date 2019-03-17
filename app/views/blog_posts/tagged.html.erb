@@ -1,0 +1,14 @@
+<% content_for :meta_title, t('.title', tag_name: params[:tag_name], page: current_page) %>
+<% content_for :breadcrumbs do %>
+  <span><%= t('blog_posts.index.nav_text') %></span>
+<% end %>
+
+<%=
+  render(
+      partial: 'posts/post_type/tagged',
+      locals: {
+          heading: params[:tag_name],
+          collection: @collection
+      }
+  )
+%>

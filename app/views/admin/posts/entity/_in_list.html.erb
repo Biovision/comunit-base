@@ -1,0 +1,84 @@
+<div class="image">
+  <%= post_image_preview(entity) %>
+</div>
+<div class="data">
+  <div>
+    <%= entity.post_type&.name %> <cite><%= admin_post_link(entity) %></cite>
+  </div>
+  <div class="info">
+    <%= admin_user_link(entity.user) %>,
+    <%= time_tag(entity.created_at) %>
+  </div>
+  <% unless entity.language.nil? %>
+    <div class="secondary info">
+      <%= t('activerecord.attributes.post.language_id') %>:
+      <%= language_name(entity.language) %>
+    </div>
+  <% end %>
+  <div class="secondaty info">
+    <div><%= t(:created_at) %>: <%= time_tag(entity.created_at) %></div>
+    <div><%= t(:updated_at) %>: <%= time_tag(entity.updated_at) %></div>
+    <div>
+      <%= t('activerecord.attributes.post.publication_time') %>:
+      <%= time_tag(entity.publication_time) %>
+    </div>
+    <% unless entity.post_category.nil? %>
+      <div>
+        <%= t('activerecord.attributes.post.post_category') %>:
+        <%= entity.post_category.full_title %>
+      </div>
+    <% end %>
+    <% unless entity.author_name.blank? %>
+      <%= t('activerecord.attributes.post.author_name') %>:
+      <%= entity.author_name %>
+    <% end %>
+    <div>
+      <%= t('activerecord.attributes.post.rating') %>: <%= entity.rating %>
+    </div>
+  </div>
+  <% unless entity.lead.blank? %>
+    <div class="secondary info">
+      <%= entity.lead %>
+    </div>
+  <% end %>
+  <% if entity.post_images.any? %>
+    <div class="secondary info">
+      <% entity.post_images.list_for_administration.each do |post_image| %>
+        <%= post_image_preview(post_image) %>
+      <% end %>
+    </div>
+  <% end %>
+  <% if entity.tags_cache.any? %>
+    <div class="secondary info">
+      <%= t('posts.form.tags') %>: <%= entity.tags_cache.join(', ') %>
+    </div>
+  <% end %>
+
+  <%=
+    render(
+        partial: 'shared/admin/toggleable',
+        locals:  {
+            entity: entity,
+            url:    toggle_admin_post_path(id: entity.id)
+        }
+    )
+  %>
+
+  <ul class="actions">
+    <%=
+      render(
+          partial: 'shared/actions/locks',
+          locals:  {
+              entity: entity,
+              path:   (current_user_has_privilege?(:chief_editor) ? lock_admin_post_path(id: entity.id) : '')
+          }
+      )
+    %>
+    <li class="lockable <%= entity.editable_by?(current_user) ? '' : 'hidden' %>">
+      <%= edit_icon(edit_post_path(id: entity.id)) %>
+    </li>
+    <li class="lockable <%= entity.editable_by?(current_user) ? '' : 'hidden' %> danger">
+      <%= destroy_icon(entity) %>
+    </li>
+  </ul>
+</div>

@@ -1,13 +1,20 @@
-class AddComunitToPrivileges < ActiveRecord::Migration[5.0]
-  def up
-    insert_records
+# frozen_string_literal: true
 
-    Privilege.order('id asc').each { |privilege| privilege.cache_parents! }
-    Privilege.order('id desc').each { |privilege| privilege.cache_children! }
+# Add regional flag to privileges and privileges for common site
+class AddComunitToPrivileges < ActiveRecord::Migration[5.2]
+  def up
+    add_regional_flag unless column_exists?(:privileges, :regional)
+    insert_records
   end
 
   def down
-    # Добавленные привилегии можно не удалять
+    # No rollback needed
+  end
+
+  private
+
+  def add_regional_flag
+    add_column :privileges, :regional, :boolean, default: false, null: false
   end
 
   def insert_records

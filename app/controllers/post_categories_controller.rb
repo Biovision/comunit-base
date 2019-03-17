@@ -1,16 +1,19 @@
 class PostCategoriesController < AdminController
-  before_action :restrict_access
   before_action :set_entity, only: [:edit, :update, :destroy]
   before_action :restrict_editing, only: [:edit, :update, :destroy]
 
+  # get /post_categories/new
+  def new
+    @entity = PostCategory.new
+  end
+
   # post /post_categories
   def create
-    @entity = PostCategory.new creation_parameters
+    @entity = PostCategory.new(creation_parameters)
     if @entity.save
-      cache_relatives
-      redirect_to admin_post_category_path(id: @entity.id)
+      form_processed_ok(admin_post_category_path(id: @entity.id))
     else
-      render :new, status: :bad_request
+      form_processed_with_error(:new)
     end
   end
 
@@ -21,37 +24,36 @@ class PostCategoriesController < AdminController
   # patch /post_categories/:id
   def update
     if @entity.update entity_parameters
-      cache_relatives
-      redirect_to admin_post_category_path(id: @entity.id), notice: t('post_categories.update.success')
+      form_processed_ok(admin_post_category_path(id: @entity.id))
     else
-      render :edit, status: :bad_request
+      form_processed_with_error(:edit)
     end
   end
 
   # delete /post_categories/:id
   def destroy
-    if @entity.update deleted: true
+    if @entity.destroy
       flash[:notice] = t('post_categories.destroy.success')
     end
-    redirect_to admin_post_categories_path
+    redirect_to(post_categories_admin_post_type_path(id: @entity.post_type_id))
   end
 
-  private
+  protected
 
   def restrict_access
-    require_privilege :administrator
-  end
-
-  def set_entity
-    @entity = PostCategory.find_by(id: params[:id], deleted: false)
-    if @entity.nil?
-      handle_http_404('Cannot find post category')
-    end
+    require_privilege :chief_editor
   end
 
   def restrict_editing
     if @entity.locked?
       redirect_to admin_post_category_path(id: @entity.id), alert: t('post_categories.edit.forbidden')
+    end
+  end
+
+  def set_entity
+    @entity = PostCategory.find_by(id: params[:id])
+    if @entity.nil?
+      handle_http_404('Cannot find post_category')
     end
   end
 
@@ -61,14 +63,5 @@ class PostCategoriesController < AdminController
 
   def creation_parameters
     params.require(:post_category).permit(PostCategory.creation_parameters)
-  end
-
-  def cache_relatives
-    @entity.cache_parents!
-    unless @entity.parent.blank?
-      parent = @entity.parent
-      parent.cache_children!
-      parent.save
-    end
   end
 end

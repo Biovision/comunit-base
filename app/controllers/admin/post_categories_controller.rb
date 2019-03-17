@@ -1,28 +1,25 @@
 class Admin::PostCategoriesController < AdminController
-  before_action :restrict_access
-  before_action :set_entity, except: [:index]
+  include LockableEntity
+  include ToggleableEntity
+  include EntityPriority
 
-  def index
-    @collection = PostCategory.for_tree
-  end
+  before_action :set_entity
 
   # get /admin/post_categories/:id
   def show
+    @collection = @entity.posts.page_for_administration(current_page)
   end
 
-  # get /admin/post_categories/:id/items
-  def items
-    @collection = Post.in_category(@entity).page_for_administration current_page
-  end
-
-  protected
-
-  def restrict_access
-    require_privilege :administrator
-  end
+  private
 
   def set_entity
-    @entity = PostCategory.find params[:id]
-    raise record_not_found if @entity.deleted?
+    @entity = PostCategory.find_by(id: params[:id])
+    if @entity.nil?
+      handle_http_404('Cannot find post category')
+    end
+  end
+
+  def restrict_access
+    require_privilege :chief_editor
   end
 end

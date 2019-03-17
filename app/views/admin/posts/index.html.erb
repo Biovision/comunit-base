@@ -1,13 +1,16 @@
 <% content_for :meta_title, t('.title', page: current_page) %>
-<% content_for :hide_sidebar, '1' %>
+<% content_for :breadcrumbs do %>
+    <span><%= t('admin.posts.nav_item.text') %></span>
+<% end %>
 
-<article class="entity-page">
+<article>
   <h1><%= t('.heading') %></h1>
+
   <ul class="actions">
-    <li><%= create_icon new_post_path %></li>
+    <li><%= back_icon(admin_path) %></li>
   </ul>
 
   <%= paginate @collection %>
-  <%= render partial: 'list', locals: { collection: @collection } %>
+  <%= render partial: 'shared/admin/list', locals: { collection: @collection } %>
   <%= paginate @collection %>
 </article>
