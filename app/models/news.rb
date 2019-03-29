@@ -7,7 +7,7 @@ class News < ApplicationRecord
   PER_PAGE = 20
   LEAD_LIMIT = 350
 
-  index_name Rails.configuration.news_index_name
+  # index_name Rails.configuration.news_index_name
 
   toggleable :visible, :show_name, :approved, :allow_comments
 

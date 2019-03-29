@@ -5,11 +5,7 @@
   <div>
     <ol>
       <% posts[:week].each do |item| %>
-          <% if item.is_a? News %>
-              <li><%= news_link item %></li>
-          <% else %>
-              <li><%= post_link item %></li>
-          <% end %>
+        <li><%= post_link item %></li>
       <% end %>
     </ol>
     <div>

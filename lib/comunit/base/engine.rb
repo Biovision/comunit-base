@@ -6,7 +6,6 @@ module Comunit
     require 'biovision/poll'
     require 'biovision/comment'
     require 'redis-namespace'
-    require 'sidekiq'
     require 'carrierwave'
     require 'elasticsearch/persistence'
     require 'elasticsearch/model'

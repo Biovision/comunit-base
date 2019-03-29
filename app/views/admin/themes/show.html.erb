@@ -14,15 +14,9 @@
   <p><%= @entity.slug %></p>
 
   <section>
-    <h2><%= t('admin.post_categories.index.heading') %></h2>
+    <h2>Категории<%#= t('admin.post_categories.index.heading') %></h2>
 
-    <%= render partial: 'admin/themes/entity/post_categories', locals: { categories: PostCategory.for_tree, theme: @entity, ids: @entity.post_category_ids } %>
-  </section>
-
-  <section>
-    <h2><%= t('admin.news_categories.index.heading') %></h2>
-
-    <%= render partial: 'admin/themes/entity/news_categories', locals: { categories: NewsCategory.page_for_administration, theme: @entity, ids: @entity.news_category_ids } %>
+    <%= render partial: 'admin/themes/entity/post_categories', locals: { categories: PostCategory.ordered_by_priority, theme: @entity, ids: @entity.post_category_ids } %>
   </section>
 </article>
 

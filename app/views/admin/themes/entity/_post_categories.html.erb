@@ -7,9 +7,9 @@
           <%= check_box_tag field_id, 1, ids.include?(category.id), data: { url: change_url } %>
           <%= label_tag field_id, category.name %>
         </div>
-        <% if category.children.any? %>
-            <%= render partial: 'admin/themes/entity/post_categories', locals: { categories: PostCategory.for_tree(category.id), ids: ids, theme: theme } %>
-        <% end %>
+        <%# if category.child_categories.any? %>
+            <%#= render partial: 'admin/themes/entity/post_categories', locals: { categories: PostCategory.for_tree(category.id), ids: ids, theme: theme } %>
+        <%# end %>
       </li>
   <% end %>
 </ul>

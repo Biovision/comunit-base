@@ -222,7 +222,6 @@ end
 ```bash
 bundle binstubs bundler --force
 bundle binstub puma
-bundle binstub sidekiq
 rails db:create
 rails railties:install:migrations
 ```
@@ -324,7 +323,8 @@ sudo ln -s /var/www/example.com/host.conf example.com
 cd /etc/logrotate.d
 ```
 
-Нужно скопировать ротацию логов любого соседнего проекта на новый и внести соответствующие правки
+Нужно скопировать ротацию логов любого соседнего проекта на новый и внести 
+соответствующие правки:
 
 ```
 cp example.org example.com
@@ -333,23 +333,25 @@ vim example.com
 :wq
 ```
 
-Проверяем конфиг nginx
+Проверяем конфиг nginx:
 
 ```bash
 sudo /etc/init.d/nginx configtest
 ```
 
 Если есть ошибки, они дописываются в `/var/log/nginx/error.log`
-Если всё хорошо, то
+Если всё хорошо, то:
 
 ```bash
 sudo /etc/init.d/nginx reload
 ```
 
 Дальше снова локально.
-Нужно убедиться, что в репозитории всё актуально, и выполнить `mina setup`
+
+Нужно убедиться, что в репозитории всё актуально, и выполнить:
 
 ```bash
+mina setup
 mina deploy
 ```
 

@@ -5,7 +5,7 @@ class NewsController < ApplicationController
   # get /news
   def index
     post_type   = PostType.find_by(slug: 'news')
-    @collection = post_type.posts.for_language(current_language).page_for_visitors(current_page)
+    @collection = post_type.posts.page_for_visitors(current_page)
     respond_to do |format|
       format.html
       format.json { render('posts/index') }

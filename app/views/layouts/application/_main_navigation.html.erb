@@ -1,17 +1,21 @@
-<% selected_item = content_for(:selected_item) %>
+<%
+  selected_item = content_for(:selected_item)
+  post_type = PostType.find_by(slug: 'article')
+  news_type = PostType.find_by(slug: 'news')
+%>
 <ul class="main-navigation">
   <%= render 'layouts/application/main_navigation/prepend' %>
-  <%= render partial: 'layouts/application/main_navigation/categories', locals: { categories: PostCategory.visible.for_tree } %>
+  <%= render partial: 'layouts/application/main_navigation/categories', locals: { categories: PostCategory.visible.for_tree(post_type) } %>
   <li class="<%= selected_item == 'news' ? 'selected' : '' %>">
     <%= link_to t('news.index.heading'), news_index_path %>
     <ul>
-      <% NewsCategory.page_for_visitors.each do |news_category| %>
-          <li><%= news_category_link(news_category) %></li>
+      <% PostCategory.visible.for_tree(news_type).each do |news_category| %>
+          <li><%= post_category_link(Post.new(post_category: news_category, post_type: news_category.post_type)) %></li>
       <% end %>
     </ul>
   </li>
   <li class="<%= selected_item == 'entries' ? 'selected' : '' %>">
-    <%= link_to t('entries.index.heading'), entries_path %>
+    <%= link_to t('blog_posts.index.nav_text'),blog_posts_path %>
   </li>
   <%= render 'layouts/application/main_navigation/addition' %>
 </ul>

@@ -4,7 +4,7 @@ class Entry < ApplicationRecord
 
   PER_PAGE = 10
 
-  index_name Rails.configuration.entry_index_name
+  # index_name Rails.configuration.entry_index_name
 
   belongs_to :agent, optional: true
   belongs_to :user, optional: true, counter_cache: true, touch: false

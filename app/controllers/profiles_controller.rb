@@ -7,7 +7,7 @@ class ProfilesController < ApplicationController
 
   # get /u/:slug/entries
   def entries
-    @collection = @entity.entries.page_for_visitors(current_user, current_page)
+    @collection = Post.of_type('blog_post').owned_by(@entity).page_for_visitors(current_page)
   end
 
   # get /u/:slug/followees

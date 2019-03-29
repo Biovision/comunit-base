@@ -84,8 +84,10 @@ class Post < ApplicationRecord
   scope :list_for_administration, -> { order('id desc') }
   scope :list_for_owner, ->(user) { owned_by(user).recent }
   scope :tagged, ->(tag) { joins(:post_post_tags).where(post_post_tags: { post_tag_id: PostTag.ids_for_name(tag) }).distinct unless tag.blank? }
+  scope :in_region, -> (region) { where(region_id: region.id.nil? ? nil : region&.subbranch_ids) }
   scope :in_category, ->(slug) { where(post_category_id: PostCategory.ids_for_slug(slug)).distinct unless slug.blank? }
   scope :in_category_branch, ->(category) { where(post_category_id: category.subbranch_ids) }
+  scope :with_category_ids, ->(ids) { where(post_category_id: Array(ids)) }
   scope :authors, -> { User.where(id: Post.author_ids).order('screen_name asc') }
   scope :of_type, ->(slug) { where(post_type: PostType.find_by(slug: slug)) unless slug.blank? }
   scope :archive, -> { f = Arel.sql('date(publication_time)'); distinct.order(f).pluck(f) }
@@ -114,7 +116,7 @@ class Post < ApplicationRecord
     main_data   = %i[body language_id lead original_title post_category_id publication_time region_id slug title]
     image_data  = %i[image image_alt_text image_source_link image_source_name image_name]
     meta_data   = %i[rating source_name source_link meta_title meta_description meta_keywords time_required]
-    flags_data  = %i[allow_comments allow_votes explicit show_owner visible translation]
+    flags_data  = %i[allow_comments allow_votes show_owner visible translation]
     author_data = %i[author_name author_title author_url translator_name]
 
     main_data + image_data + meta_data + author_data + flags_data
@@ -137,6 +139,18 @@ class Post < ApplicationRecord
     dates = Hash.new { |h, k| h[k] = Hash.new { [] } }
     array.each { |date| dates[date.year][date.month] <<= date.day }
     dates
+  end
+
+  # @param [Region] selected_region
+  # @param [Region] excluded_region
+  def self.regional(selected_region = nil, excluded_region = nil)
+    excluded_ids = Array(excluded_region&.subbranch_ids)
+    if selected_region.nil?
+      chunk = excluded_ids.any? ? where('region_id not in (?)', excluded_ids) : where('region_id is not null')
+    else
+      chunk = where(region_id: selected_region.subbranch_ids - excluded_ids)
+    end
+    chunk
   end
 
   # Lead or the first passage of body
