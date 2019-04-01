@@ -1,4 +1,4 @@
-<script src="https://cdn.ckeditor.com/ckeditor5/10.1.0/classic/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/12.0.0/classic/ckeditor.js"></script>
 <script>
     'use strict';
 
@@ -11,7 +11,7 @@
                         toolbar: ['imageTextAlternative']
                     },
                     ckfinder: {
-                        uploadUrl: '/media_files/ckeditor'
+                        uploadUrl: editor.getAttribute('data-upload-url')
                     }
                 })
                 .catch(error => console.error(error));

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  category_pattern = /(?!new$|^\d+$)[-_a-z0-9]+[a-z_]/
+  # category_pattern = /(?!new$|^\d+$)[-_a-z0-9]+[a-z_]/
   category_slug_pattern = /[a-z]+[-_0-9a-z]*[0-9a-z]/
   post_slug_pattern     = /[a-z0-9]+[-_.a-z0-9]*[a-z0-9]+/
   archive_constraints   = { year: /19\d\d|2[01]\d\d/, month: /0[1-9]|1[0-2]/, day: /0[1-9]|[12]\d|3[01]/ }
@@ -62,6 +62,7 @@ Rails.application.routes.draw do
     resources :post_links, only: :create
     resources :editorial_members, only: %i[new create edit]
     resources :featured_posts, only: :create
+    resources :post_illustrations, only: :create
 
     scope :articles, controller: :articles do
       get '/' => :index, as: :articles

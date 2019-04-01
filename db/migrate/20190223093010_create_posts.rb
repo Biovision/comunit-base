@@ -10,9 +10,11 @@ class CreatePosts < ActiveRecord::Migration[5.2]
     create_post_references unless PostReference.table_exists?
     create_post_links unless PostLink.table_exists?
     create_featured_posts unless FeaturedPost.table_exists?
+    create_post_illustrations unless PostIllustration.table_exists?
   end
 
   def down
+    drop_table :post_illustrations if PostIllustration.table_exists?
     drop_table :featured_posts if FeaturedPost.table_exists?
     drop_table :post_links if PostLink.table_exists?
     drop_table :post_references if PostReference.table_exists?
@@ -152,6 +154,17 @@ class CreatePosts < ActiveRecord::Migration[5.2]
       t.references :post, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
       t.timestamps
       t.integer :priority, limit: 2, null: false, default: 1
+    end
+  end
+
+  def create_post_illustrations
+    create_table :post_illustrations, comment: 'Inline post illustration' do |t|
+      t.references :user, foreign_key: { on_update: :cascade, on_delete: :nullify }
+      t.references :agent, foreign_key: { on_update: :cascade, on_delete: :nullify }
+      t.inet :ip
+      t.timestamps
+      t.uuid :uuid
+      t.string :image
     end
   end
 end

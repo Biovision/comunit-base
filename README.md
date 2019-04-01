@@ -21,6 +21,7 @@ Comunit::Base
 ```
 /public/uploads
 /public/ckeditor
+/public/post_illustrations
 
 /spec/examples.txt
 /spec/support/uploads/*
@@ -240,7 +241,7 @@ mina init
 require 'mina/rbenv'
 
 #...
-set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp', 'public/uploads', 'public/ckeditor')
+set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp', 'public/uploads', 'public/ckeditor', 'public/post_illustrations')
 set :shared_files, fetch(:shared_files, []).push('.env', 'config/master.key')
 
 # В том месте, где task :environment, сразу после
@@ -258,6 +259,7 @@ mkdir -p shared/tmp/import
 mkdir -p shared/config
 cd shared/public
 ln -s /var/www/ckeditor
+ln -s /var/www/shared/post_illustrations
 ```
 
 После этого локально можно запустить `mina setup` и настроить остальное 
