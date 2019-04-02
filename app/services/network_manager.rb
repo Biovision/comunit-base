@@ -1,5 +1,10 @@
+# frozen_string_literal: true
+
+# Network manager for interaction with central site
 class NetworkManager
   MAIN_HOST = 'https://comunit.online'
+
+  attr_accessor :entity
 
   # @param [Site] entity
   # @param [Hash] attributes

@@ -119,6 +119,7 @@ class User < ApplicationRecord
     result  = []
     column_names.each do |column|
       next if ignored.include?(column) || column =~ /_count$/
+
       result << column
     end
     result
