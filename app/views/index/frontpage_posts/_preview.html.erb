@@ -1,18 +1,18 @@
 <div>
   <div class="category">
-    <% if post.class.to_s == Post.to_s %>
-        <%= post_category_link post.category %>
+    <%# if post.class.to_s == Post.to_s %>
+        <%= post_category_link post %>
         <%= time_tag post.created_at %>
-    <% elsif post.regional? %>
-        <div>
-          <%= regional_news_category_link post.category %>
-          <%= time_tag post.created_at %>
-        </div>
-        <div class="region"><%= link_to(post.region.branch_name, root_path(region_id: post.region.id)) %></div>
-    <% else %>
-        <%= news_category_link post.category %>
-        <%= time_tag post.created_at %>
-    <% end %>
+    <%# elsif post.regional? %>
+<!--        <div>-->
+          <%#= regional_news_category_link post.post_category %>
+          <%#= time_tag post.created_at %>
+<!--        </div>-->
+<!--        <div class="region"><%#= link_to(post.region.branch_name, root_path(region_id: post.region.id)) %></div>-->
+    <%# else %>
+        <%#= post_category_link post.post_category %>
+        <%#= time_tag post.created_at %>
+    <%# end %>
   </div>
   <div class="body">
     <figure>
@@ -27,8 +27,8 @@
   </div>
   <div class="footer">
     <div class="author">
-      <% if post.class.to_s != News.to_s || post.show_name? %>
-        <% if post.show_name? %>
+      <% if post.class.to_s != News.to_s || post.show_owner? %>
+        <% if post.show_owner? %>
           <% if post.author_name.blank? %>
             <%= profile_avatar(post.user) %>
             <%= user_link post.user %>

@@ -6,8 +6,9 @@
       <%= post_category_link(Post.new(post_category: category, post_type: category.post_type)) %>
       <% if category.child_categories.any? %>
           <ul>
-            <%= render partial: 'layouts/application/main_navigation/categories', locals: { categories: PostCategory.visible.for_tree(category.id) } %>
+            <%= render partial: 'layouts/application/main_navigation/categories', locals: { categories: PostCategory.visible.for_tree(category.post_type_id, category.id) } %>
           </ul>
+        <% else %>
       <% end %>
     </li>
 <% end %>

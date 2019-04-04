@@ -4,7 +4,7 @@
         $('.load-more button').on('click', function() {
             const $button = $(this);
             const $container = $button.parent();
-            const list = this.closest('.posts').querySelector('ul');
+            const list = this.closest('.posts').querySelector('.list');
 
             $button.prop('disabled', true);
             $container.addClass('wait');
@@ -15,9 +15,9 @@
                     } else {
                         let entry;
                         result.data.forEach(function(entity) {
-                            const li = document.createElement('li');
-                            li.innerHTML = entity.meta.html;
-                            list.append(li);
+                            const item = document.createElement("div");
+                            item.innerHTML = entity.meta.html;
+                            list.append(item.firstChild);
                         });
                     }
                 }

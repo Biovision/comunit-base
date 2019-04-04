@@ -9,7 +9,7 @@ class PostCategory < ApplicationRecord
   META_LIMIT     = 250
   NAME_LIMIT     = 50
   SLUG_LIMIT     = 50
-  SLUG_PATTERN   = /\A[a-z][-0-9a-z]*[0-9a-z]\z/i.freeze
+  SLUG_PATTERN   = /\A[a-z][-_0-9a-z]*[0-9a-z]\z/i.freeze
 
   toggleable :visible
 

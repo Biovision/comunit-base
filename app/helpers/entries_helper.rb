@@ -75,12 +75,12 @@ module EntriesHelper
     end
   end
 
-  # @param [Entry] entry
+  # @param [Post] entry
   # @param [User] user
   # @param [String] text
   # @param [Hash] options
   def entry_link(entry, user, text = entry.title, options = {})
-    if entry.visible_to? user
+    if entry.visible?
       link_to (text || t(:untitled)), entry_path({ id: entry.id }.merge(options))
     else
       raw "<span class=\"not-found\">[entry #{entry.id}]</span>"
