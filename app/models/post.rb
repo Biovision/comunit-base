@@ -11,7 +11,7 @@ class Post < ApplicationRecord
   include Toggleable
 
   ALT_LIMIT         = 255
-  BODY_LIMIT        = 512_000
+  BODY_LIMIT        = 16_777_215
   IMAGE_NAME_LIMIT  = 500
   LEAD_LIMIT        = 5000
   META_LIMIT        = 250
