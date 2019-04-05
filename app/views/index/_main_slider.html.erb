@@ -1,10 +1,10 @@
-<% if collection.any? %>
+<% if collection.load.any? %>
     <% item_count = collection.count %>
     <section id="main-slider">
       <h2>Тема дня</h2>
 
       <div class="slider">
-        <% collection.each_with_index do |entity, index| %>
+        <% collection.each_with_index do |link, index| %>
             <%
               element_id = "main-slider-#{index}"
               next_id = "main-slider-#{index + 1 == item_count ? 0 : index + 1}"
@@ -15,22 +15,22 @@
               <label for="<%= prev_id %>" class="prev">&nbsp;</label>
               <div class="slide">
                 <div class="heading">
-                  <%= post_link(entity) %>
-                  <%= time_tag(entity.created_at) %>
+                  <%= post_link(link.post) %>
+                  <%= time_tag(link.post.publication_time) %>
                 </div>
                 <div class="body">
-                  <% unless entity.image.blank? %>
+                  <% unless link.post.image.blank? %>
                       <figure>
-                        <%= post_link(entity, image_tag(entity.image.small.url, alt: entity.title)) %>
+                        <%= post_link(link.post, post_image_small(link.post)) %>
                       </figure>
                   <% end %>
-                  <p><%= entity.lead %></p>
+                  <p><%= link.post.lead %></p>
                 </div>
                 <div class="footer">
-                  <div><%= post_link entity, 'Читать дальше' %></div>
+                  <div><%= post_link link.post, 'Читать дальше' %></div>
                   <div class="post-counters">
-                    <span class="comments"><%= entity.comments_count %></span>
-                    <span class="views"><%= entity.view_count %></span>
+                    <span class="comments"><%= link.post.comments_count %></span>
+                    <span class="views"><%= link.post.view_count %></span>
                   </div>
                 </div>
               </div>

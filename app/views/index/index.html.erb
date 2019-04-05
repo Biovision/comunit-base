@@ -11,7 +11,14 @@
     </section>
 <% end %>
 
-<%#= render partial: 'index/main_slider', locals: { collection: Post.where(main_post: true).visible.recent.first(10) } %>
+<%=
+  render(
+      partial: 'index/main_slider',
+      locals: {
+          collection: FeaturedPost.list_for_language(current_language)
+      }
+  )
+%>
 
 <div id="frontpage-posts">
   <div class="posts">
