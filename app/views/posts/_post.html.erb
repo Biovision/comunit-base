@@ -9,11 +9,7 @@
         <li><%= gear_icon(admin_post_path(id: post.id)) %></li>
       <% end %>
       <% unless post.locked? %>
-        <% if post.owned_by?(current_user) %>
-          <li><%= edit_icon(edit_my_post_path(id: post.id)) %></li>
-        <% else %>
-          <li><%= edit_icon(handler.edit_path) %></li>
-        <% end %>
+        <li><%= edit_icon(edit_post_path(id: post.id)) %></li>
       <% end %>
     </ul>
   <% end %>
