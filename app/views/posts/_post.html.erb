@@ -102,5 +102,6 @@
     <meta itemprop="dateModified" content="<%= post.updated_at.strftime('%Y-%m-%d') %>"/>
     <%= render partial: 'posts/entity/publisher', locals: { entity: post } %>
   </footer>
+
+  <%= render 'shared/pluso' %>
 </article>
-<%= render partial: 'shared/track', locals: { item: post } %>
