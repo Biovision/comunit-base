@@ -111,6 +111,15 @@ SITE_ID=
 Значение для `signature_token` берётся из админки на центральном сайте. 
 Структура — `<site_id>:<token>`.
 
+### Добавление в `config/application.rb`
+
+Чтобы была нормальная временная зона, нужно её задать в `application.rb`
+в блоке конфигурации:
+
+```ruby
+  config.time_zone = 'Moscow'
+```
+
 ### Изменения в `config/initializers/comunit_base.rb`
 
 _Нужно поменять `example` на соответствующее название проекта!_

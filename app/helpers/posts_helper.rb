@@ -103,6 +103,19 @@ module PostsHelper
     end
   end
 
+  # @param [PostAttachment] entity
+  # @param [String] text
+  # @param [Hash] options
+  def post_attachment_link(entity, text = entity.name!, options = {})
+    return '' if entity.file.blank?
+
+    default_options = {
+      target: '_blank'
+    }
+
+    link_to(text, entity.file.url, default_options.merge(options))
+  end
+
   # @param [String] tag_name
   # @param [Post] entity
   def tagged_posts_link(tag_name, entity = nil)

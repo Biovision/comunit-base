@@ -179,6 +179,16 @@
 
   <%=
     render(
+        partial: 'admin/posts/entity/attachments',
+        locals: {
+            post: @entity,
+            collection: @entity.post_attachments.ordered_for_list
+        }
+    )
+  %>
+
+  <%=
+    render(
         partial: 'admin/posts/entity/links',
         locals: {
             post: @entity,

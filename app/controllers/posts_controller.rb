@@ -18,6 +18,7 @@ class PostsController < ApplicationController
     @entity = Post.new(creation_parameters)
     if @entity.save
       apply_post_tags
+      add_attachments if params.key?(:post_attachment)
       form_processed_ok(PostManager.handler(@entity).post_path)
     else
       form_processed_with_error(:new)
@@ -44,6 +45,7 @@ class PostsController < ApplicationController
   def update
     if @entity.update(entity_parameters)
       apply_post_tags
+      add_attachments if params.key?(:post_attachment)
       form_processed_ok(PostManager.handler(@entity).post_path)
     else
       form_processed_with_error(:edit)
@@ -163,5 +165,12 @@ class PostsController < ApplicationController
     else
       Post.where('title ilike ?', "%#{q}%").list_for_visitors.first(50)
     end
+  end
+
+  def add_attachments
+    permitted = PostAttachment.entity_parameters
+    parameters = params.require(:post_attachment).permit(permitted)
+
+    @entity.post_attachments.create(parameters)
   end
 end

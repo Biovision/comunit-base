@@ -14,6 +14,7 @@ class CreatePosts < ActiveRecord::Migration[5.2]
   end
 
   def down
+    drop_table :post_attachments if PostAttachment.table_exists?
     drop_table :post_illustrations if PostIllustration.table_exists?
     drop_table :featured_posts if FeaturedPost.table_exists?
     drop_table :post_links if PostLink.table_exists?
@@ -165,6 +166,15 @@ class CreatePosts < ActiveRecord::Migration[5.2]
       t.timestamps
       t.uuid :uuid
       t.string :image
+    end
+  end
+
+  def create_post_attachments
+    create_table :post_attachments, comment: 'Attachment for post' do |t|
+      t.references :post, foreign_key: { on_update: :cascade, on_delete: :cascade }
+      t.timestamps
+      t.string :name
+      t.string :file
     end
   end
 end

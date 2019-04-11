@@ -1,0 +1,29 @@
+<section class="post-form-attachments">
+  <h2><%= t('.heading') %></h2>
+
+  <% if entity.post_attachments.any? %>
+    <ul>
+      <% entity.post_attachments.each do |post_attachment| %>
+        <li><%= post_attachment.name! %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div>
+    <h3><%= t('.add') %></h3>
+
+    <div>
+      <%=
+        label_tag(
+            'post_attachment_file',
+            t('activerecord.attributes.post_attachment.file')
+        )
+      %>
+      <%=
+        file_field_tag(
+            'post_attachment[file]'
+        )
+      %>
+    </div>
+  </div>
+</section>

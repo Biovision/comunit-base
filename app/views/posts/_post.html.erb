@@ -3,9 +3,7 @@
   <h1 itemprop="headline"><%= post.title %></h1>
   <% if post.editable_by? current_user %>
     <ul class="actions">
-      <% if post.owned_by?(current_user) %>
-        <li><%= gear_icon(my_post_path(id: post.id)) %></li>
-      <% elsif UserPrivilege.user_in_group?(current_user, :editors) %>
+      <% if UserPrivilege.user_in_group?(current_user, :editors) %>
         <li><%= gear_icon(admin_post_path(id: post.id)) %></li>
       <% end %>
       <% unless post.locked? %>
@@ -63,6 +61,21 @@
         <li><%= tagged_posts_link(tag_name, post) %></li>
       <% end %>
     </ul>
+  <% end %>
+
+  <% if post.post_attachments.any? %>
+    <section class="post-attachments">
+      <h3><%= t('.attachments') %></h3>
+
+      <ul>
+        <% post.post_attachments.ordered_for_list.each do |attachment| %>
+          <li>
+            <%= post_attachment_link(attachment) %>
+            (<%= number_to_human_size(attachment.size) %>)
+          </li>
+        <% end %>
+      </ul>
+    </section>
   <% end %>
 
   <footer>

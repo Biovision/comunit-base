@@ -18,6 +18,7 @@ ru:
       editorial_member: "Член редакции"
       featured_post: "Избранная публикация"
       post: "Публикация"
+      post_attachment: "Приложение к публикации"
       post_category: "Категория публикации"
       post_image: "Картинка для публикации"
       post_post_tag: "Метка у публикации"
@@ -92,6 +93,11 @@ ru:
         uuid: "UUID"
         view_count: "Количество просмотров"
         visible: "Показывать"
+      post_attachment:
+        file: "Файл"
+        name: "Название"
+        post: "Публикация"
+        post_id: "Публикация"
       post_category:
         children_cache: "Кеш дочек"
         meta_description: "Описание для тэга meta"
@@ -221,6 +227,8 @@ ru:
         links:
           heading: "Связанные публикации"
           search: "Искать"
+        attachments:
+          heading: "Приложения"
     themes:
       index:
         title: "Темы группировки публикаций"
@@ -342,9 +350,13 @@ ru:
       gallery:
         heading: "Галерея картинок"
         add_image: "Добавить изображение"
+      attachments:
+        heading: "Приложения"
+        add: "Добавить приложение"
     post:
       source: "Источник"
       image_credit: "Источник изображения"
+      attachments: "Приложения"
     index:
       title: "Публикации, страница %{page}"
       heading: "Публикации"

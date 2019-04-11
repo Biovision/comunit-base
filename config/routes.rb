@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   archive_constraints   = { year: /19\d\d|2[01]\d\d/, month: /0[1-9]|1[0-2]/, day: /0[1-9]|[12]\d|3[01]/ }
 
   resources :post_categories, :posts, :post_tags, :post_images, only: %i[update destroy]
-  resources :post_links, only: :destroy
+  resources :post_links, :post_attachments, only: :destroy
   resources :editorial_members, only: %i[update destroy]
   resources :featured_posts, only: :destroy
 

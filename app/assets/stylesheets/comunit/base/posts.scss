@@ -643,6 +643,18 @@ article.post {
     }
   }
 
+  .post-attachments {
+    border-top: $border-secondary;
+    font-size: $font-size-decreased;
+    margin: $spacer-s 0;
+    padding: $spacer-s $spacer-m;
+
+    h3 {
+      color: $text-color-secondary;
+      font-size: $font-size-normal;
+    }
+  }
+
   .footer {
     clear: both;
     align-items: center;

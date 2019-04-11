@@ -373,6 +373,12 @@
     <dt><%= t(:flags) %></dt>
     <dd>
       <ul class="flags">
+        <% if entity.id.nil? && current_user_has_privilege?(:chief_editor) %>
+        <li>
+          <%= check_box_tag :featured, '1' %>
+          <%= label_tag :featured, t('activerecord.models.featured_post') %>
+        </li>
+        <% end %>
         <li>
           <%= f.check_box :visible, id: "#{model_name}_visible" %>
           <%= f.label :visible %>
@@ -413,6 +419,7 @@
   </dl>
 
   <%#= render partial: 'posts/form/gallery', locals: { entity: entity } %>
+  <%= render partial: 'posts/form/attachments', locals: { entity: entity } %>
 
   <%= render 'shared/forms/state_container' %>
 

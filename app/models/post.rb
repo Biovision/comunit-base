@@ -35,11 +35,13 @@ class Post < ApplicationRecord
   belongs_to :post_category, counter_cache: true, optional: true
   belongs_to :language, optional: true
   belongs_to :agent, optional: true
+  has_many :post_attachments, dependent: :delete_all
   has_many :post_references, dependent: :delete_all
   has_many :post_notes, dependent: :delete_all
   has_many :post_links, dependent: :delete_all
   has_many :post_post_tags, dependent: :destroy
   has_many :post_tags, through: :post_post_tags
+  has_many :post_illustrations, dependent: :delete_all
   has_many :post_images, dependent: :destroy
   has_many :post_translations, dependent: :delete_all
   has_many :post_zen_categories, dependent: :destroy
