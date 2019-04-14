@@ -6,7 +6,7 @@ class NetworkManager::PostHandler < NetworkManager
   def create_post(entity)
     log_event("Creating post #{entity.id} (#{entity.uuid})")
     @entity = entity
-    url = "#{MAIN_HOST}/api/posts"
+    url = "#{MAIN_HOST}/network/posts"
     rest_post(url, prepare_entity_data)
   end
 
@@ -14,7 +14,7 @@ class NetworkManager::PostHandler < NetworkManager
   def update_post(entity)
     log_event("Updating post #{entity.id} (#{entity.uuid})")
     @entity = entity
-    url = "#{MAIN_HOST}/api/posts/#{entity.uuid}"
+    url = "#{MAIN_HOST}/network/posts/#{entity.uuid}"
     rest_patch(url, prepare_entity_data)
   end
 
