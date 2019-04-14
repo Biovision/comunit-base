@@ -28,12 +28,51 @@ class NetworkManager
     entity.parent&.cache_children!
   end
 
-  private
+  protected
+
+  # @param [String] url
+  # @param [Hash] data
+  def rest_put(url, data)
+    log_event("PUT #{url}")
+    begin
+      response = RestClient.put(url, JSON.generate(data), request_headers)
+      log_event("Response (#{response.code}):\n#{response.body.inspect}\n")
+      response
+    rescue RestClient::Exception => e
+      log_event("Failed with #{e.http_code}: #{e}\n#{e.response}")
+    end
+  end
+
+  # @param [String] url
+  # @param [Hash] data
+  def rest_patch(url, data)
+    log_event("PATCH #{url}")
+    begin
+      response = RestClient.patch(url, JSON.generate(data), request_headers)
+      log_event("Response (#{response.code}):\n#{response.body.inspect}\n")
+      response
+    rescue RestClient::Exception => e
+      log_event("Failed with #{e.http_code}: #{e}\n#{e.response}")
+    end
+  end
+
+  # @param [String] url
+  # @param [Hash] data
+  def rest_post(url, data)
+    log_event("POST #{url}")
+    begin
+      response = RestClient.post(url, JSON.generate(data), request_headers)
+      log_event("Response (#{response.code}):\n#{response.body.inspect}\n")
+      response
+    rescue RestClient::Exception => e
+      log_event("Failed with #{e.http_code}: #{e}\n#{e.response}")
+    end
+  end
 
   def request_headers
     {
       content_type: :json,
-      signature:    Rails.application.credentials.signature_token
+      signature: Rails.application.credentials.signature_token
     }
   end
 
@@ -41,7 +80,7 @@ class NetworkManager
   def log_event(text)
     file = "#{Rails.root}/log/network_manager.log"
     File.open(file, 'ab') do |f|
-      f.puts "#{Time.now.strftime('%Y-%m-%d %H:%M:%S')}\t#{text}"
+      f.puts "#{Time.now.strftime('%F %T')}\t#{text}"
     end
   end
 end

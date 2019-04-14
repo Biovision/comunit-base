@@ -55,13 +55,7 @@ class NetworkManager::UserHandler < NetworkManager
     url  = "#{MAIN_HOST}/network/users/#{user.external_id}"
     data = prepare_user_data(user)
     log_event("Data: #{data.inspect}\n")
-
-    begin
-      response = RestClient.put(url, JSON.generate(data), request_headers)
-      log_event("Response (#{response.code}):\n#{response.body.inspect}\n")
-    rescue RestClient::Exception => e
-      log_event("Failed with #{e.http_code}: #{e}\n#{e.response}")
-    end
+    rest_put(url, data)
   end
 
   private
