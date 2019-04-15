@@ -41,6 +41,13 @@ class NetworkManager::PostHandler < NetworkManager
               slug: @entity.user&.slug
             }
           },
+          post_type: {
+            id: @entity.post_type_id,
+            type: PostType.table_name,
+            attributes: {
+              slug: @entity.post_type.slug
+            }
+          },
           attachments: []
         },
         meta: {
