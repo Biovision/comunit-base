@@ -8,6 +8,7 @@
 #   name [String]
 #   post_id [Post]
 #   updated_at [DateTime]
+#   uuid [UUID]
 class PostAttachment < ApplicationRecord
   include Checkable
 
@@ -16,6 +17,8 @@ class PostAttachment < ApplicationRecord
   mount_uploader :file, SimpleFileUploader
 
   belongs_to :post
+
+  after_initialize { self.uuid = SecureRandom.uuid if uuid.nil? }
 
   validates_length_of :name, maximum: NAME_LIMIT
 

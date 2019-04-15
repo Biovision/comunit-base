@@ -60,7 +60,7 @@ class NetworkManager::PostHandler < NetworkManager
 
     @entity.post_attachments.each do |attachment|
       data[:data][:relationships][:attachments] << {
-        id: attachment.uuid,
+        id: attachment.id,
         type: attachment.class.table_name,
         attributes: {
           name: attachment.name
