@@ -8,7 +8,7 @@ class NetworkPostUpdaterJob < ApplicationJob
   def perform(post_id)
     @post = Post.find_by(id: post_id)
 
-    return if @post.nil?
+    return if @post.nil? || @post.site_id != ENV['SITE_ID']
 
     NetworkManager::PostHandler.new.update_post(@post)
   end
