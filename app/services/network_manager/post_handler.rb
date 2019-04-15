@@ -21,8 +21,12 @@ class NetworkManager::PostHandler < NetworkManager
   private
 
   def prepare_entity_data
-    ignored = %w[image agent_id user_id comments_count view_count upvote_cound downvote_count vote_result]
-    attributes = @entity.attributes.reject { |a| ignored.include?(a) }
+    ignored = %w[
+      image agent_id user_id comments_count view_count
+      upvote_count downvote_count vote_result
+    ]
+
+    attributes = @entity.attributes.reject { |a, _| ignored.include?(a) }
 
     data = {
       data: {
@@ -41,8 +45,8 @@ class NetworkManager::PostHandler < NetworkManager
         },
         meta: {
           agent_name: @entity.agent&.name
-        },
-      },
+        }
+      }
     }
 
     data[:data][:meta][:image_path] = @entity.image.path unless @entity.image.blank?
