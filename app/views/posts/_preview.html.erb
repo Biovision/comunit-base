@@ -27,6 +27,9 @@
         <% end %>
       </ul>
     <% end %>
+    <% unless entity.region.nil? %>
+      <div class="region"><%= entity.region.long_name %></div>
+    <% end %>
   </div>
   <div class="counters">
     <span class="view_count"><%= entity.view_count %></span>

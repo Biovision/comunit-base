@@ -4,7 +4,7 @@
 class NetworkManager
   MAIN_HOST = 'https://comunit.online'
 
-  attr_accessor :entity
+  attr_accessor :entity, :data
 
   # @param [Site] entity
   # @param [Hash] attributes
