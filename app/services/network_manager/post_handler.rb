@@ -24,7 +24,7 @@ class NetworkManager::PostHandler < NetworkManager
     log_event "Creating post #{uuid}"
 
     @post = Post.new(uuid: uuid)
-    @post.agent = Agent.named(@data.dig(:meta, :agent_name))
+    @post.agent = Agent.named(@data.dig(:meta, :agent_name).to_s)
 
     apply_for_create
 
