@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Common parts for working with Comunit network
 class NetworkController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :validate_signature
