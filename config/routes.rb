@@ -356,6 +356,7 @@ Rails.application.routes.draw do
       scope 'regions', controller: :regions do
         put ':id' => :synchronize, as: :synchronize_region
       end
+      resources :posts, only: :create
     end
 
     namespace :my do
