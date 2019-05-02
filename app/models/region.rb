@@ -23,7 +23,7 @@
 #   users_count [integer]
 #   visible [boolean]
 class Region < ApplicationRecord
-  include FlatPriority
+  include NestedPriority
   include Toggleable
 
   toggleable :visible
