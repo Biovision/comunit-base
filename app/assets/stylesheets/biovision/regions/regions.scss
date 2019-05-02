@@ -1,0 +1,25 @@
+$border-primary: .1rem solid #777 !default;
+
+form {
+  #region-image {
+    img {
+      border: $border-primary;
+      max-height: 11rem;
+      width: 11rem;
+    }
+  }
+}
+
+.privileges {
+  &.regions {
+    margin: 0 0 0 1.2rem;
+    padding: 0;
+    border: none;
+
+    > li {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+  }
+}

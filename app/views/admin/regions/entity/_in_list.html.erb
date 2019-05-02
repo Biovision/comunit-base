@@ -1,0 +1,19 @@
+<div class="image">
+  <%= region_image_preview(entity) %>
+</div>
+<div class="data">
+  <div><%= admin_region_link(entity) %></div>
+  <div class="info">
+    <div><%= entity.long_slug %></div>
+  </div>
+  <div class="secondary info">
+    <%= t(:user_count, count: entity.users_count) %>
+  </div>
+  <%= render partial: 'shared/admin/toggleable', locals: { entity: entity, url: toggle_admin_region_path(id: entity.id) } %>
+
+<!--  <ul class="actions">-->
+<!--    <li class="lockable <%#= (entity.editable_by?(current_user) && !entity.locked?) ? '' : 'hidden' %>">-->
+      <%#= edit_icon edit_region_path(id: entity.id) %>
+<!--    </li>-->
+<!--  </ul>-->
+</div>

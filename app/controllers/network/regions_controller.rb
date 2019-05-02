@@ -1,15 +1,33 @@
+# frozen_string_literal: true
+
+# RPC for network regions
 class Network::RegionsController < NetworkController
-  # put /network/regions/:id
-  def synchronize
-    manager = NetworkManager.new
-    region  = Region.find_by(id: params[:id]) || Region.new(id: params[:id])
-    manager.update_region(region, sync_parameters, params[:data])
-    render json: { data: { region: region.attributes } }
+  before_action :set_handler
+
+  # post /network/regions
+  def create
+    @handler.data = params.require(:data).permit!
+    @entity = @handler.create_region
+    if @entity.persisted?
+      render :show, status: :created
+    else
+      render 'shared/forms/check', status: :bad_request
+    end
+  end
+
+  # patch /network/regions/:id
+  def update
+    @handler.data = params.require(:data).permit!
+    if @handler.update_region
+      head :no_content
+    else
+      head :bad_request
+    end
   end
 
   private
 
-  def sync_parameters
-    params.require(:region).permit(Region.synchronization_parameters)
+  def set_handler
+    @handler = NetworkManager::RegionHandler.new
   end
 end

@@ -1,28 +1,57 @@
 Rails.application.routes.draw do
   # category_pattern = /(?!new$|^\d+$)[-_a-z0-9]+[a-z_]/
   category_slug_pattern = /[a-z]+[-_0-9a-z]*[0-9a-z]/
-  post_slug_pattern     = /[a-z0-9]+[-_.a-z0-9]*[a-z0-9]+/
-  archive_constraints   = { year: /19\d\d|2[01]\d\d/, month: /0[1-9]|1[0-2]/, day: /0[1-9]|[12]\d|3[01]/ }
+  post_slug_pattern = /[a-z0-9]+[-_.a-z0-9]*[a-z0-9]+/
+  archive_constraints = {
+    year: /19\d\d|2[01]\d\d/,
+    month: /0[1-9]|1[0-2]/,
+    day: /0[1-9]|[12]\d|3[01]/
+  }
+
+  concern :check do
+    post :check, on: :collection, defaults: { format: :json }
+  end
+
+  concern :toggle do
+    post :toggle, on: :member, defaults: { format: :json }
+  end
+
+  concern :priority do
+    post :priority, on: :member, defaults: { format: :json }
+  end
+
+  concern :removable_image do
+    delete :image, action: :destroy_image, on: :member, defaults: { format: :json }
+  end
+
+  concern :lock do
+    member do
+      put :lock, defaults: { format: :json }
+      delete :lock, action: :unlock, defaults: { format: :json }
+    end
+  end
 
   resources :post_categories, :posts, :post_tags, :post_images, only: %i[update destroy]
   resources :post_links, :post_attachments, only: :destroy
   resources :editorial_members, only: %i[update destroy]
   resources :featured_posts, only: :destroy
 
-  resources :albums, :photos, only: [:update, :destroy]
+  resources :albums, :photos, only: %i[update destroy]
 
-  resources :events, only: [:update, :destroy]
-  resources :event_speakers, :event_sponsors, :event_materials, :event_programs, only: [:update, :destroy]
-  resources :event_participants, only: [:destroy]
+  resources :events, only: %i[update destroy]
+  resources :event_speakers, :event_sponsors, :event_materials, :event_programs, only: %i[update destroy]
+  resources :event_participants, only: :destroy
 
-  resources :appeals, only: [:update, :destroy]
+  resources :appeals, only: %i[update destroy]
 
-  resources :themes, only: [:update, :destroy]
-  resources :user_messages, only: [:destroy]
+  resources :themes, only: %i[update destroy]
+  resources :user_messages, only: :destroy
 
-  resources :groups, :teams, only: [:update, :destroy]
+  resources :groups, :teams, only: %i[update destroy]
 
-  resources :promo_blocks, :promo_items, only: [:update, :destroy]
+  resources :promo_blocks, :promo_items, only: %i[update destroy]
+
+  resources :regions, only: %i[update destroy]
 
   scope '(:locale)', constraints: { locale: /ru|en/ } do
     root 'index#index'
@@ -42,8 +71,8 @@ Rails.application.routes.draw do
     end
 
     controller :index do
-      get 'index/main_news' => :main_news, as: :index_main_news, defaults: { format: :json}
-      get 'index/regional_news' => :regional_news, as: :index_regional_news, defaults: { format: :json}
+      get 'index/main_news' => :main_news, as: :index_main_news, defaults: { format: :json }
+      get 'index/regional_news' => :regional_news, as: :index_regional_news, defaults: { format: :json }
     end
 
     resources :post_categories, except: %i[index show update destroy]
@@ -93,16 +122,16 @@ Rails.application.routes.draw do
       get ':slug' => :show, as: :author
     end
 
-    resources :illustrations, only: [:create]
+    resources :illustrations, only: :create
 
-    resources :albums, except: [:update, :destroy]
-    resources :photos, except: [:index, :update, :destroy]
+    resources :albums, except: %i[update destroy]
+    resources :photos, except: %i[index update destroy]
 
-    resources :events, except: [:update, :destroy]
-    resources :event_speakers, :event_sponsors, :event_materials, :event_programs, except: [:index, :new, :show, :update, :destroy]
-    resources :event_participants, only: [:create]
+    resources :events, except: %i[update destroy]
+    resources :event_speakers, :event_sponsors, :event_materials, :event_programs, except: %i[index new show update destroy]
+    resources :event_participants, only: :create
 
-    resources :appeals, except: [:index, :new, :show, :edit, :update, :destroy]
+    resources :appeals, except: %i[index new show edit update destroy]
     get 'feedback' => 'appeals#new'
     post 'feedback' => 'appeals#create'
 
@@ -125,7 +154,7 @@ Rails.application.routes.draw do
     #   end
     # end
 
-    resources :themes, except: [:index, :show, :update, :destroy]
+    resources :themes, except: %i[index show update destroy]
 
     # resources :entries, except: [:update, :destroy] do
     #   member do
@@ -134,14 +163,16 @@ Rails.application.routes.draw do
     #   end
     # end
 
-    resources :user_messages, only: [:create]
+    resources :user_messages, only: :create
 
-    resources :groups, except: [:index, :show, :update, :destroy]
-    resources :teams, except: [:index, :show, :update, :destroy]
+    resources :groups, except: %i[index show update destroy]
+    resources :teams, except: %i[index show update destroy]
 
-    resources :promo_blocks, :promo_items, only: %i[new create edit] do
-      collection do
-        post 'check', defaults: { format: :json }
+    resources :promo_blocks, :promo_items, only: %i[new create edit], concerns: :check
+
+    resources :regions, except: %i[update destroy] do
+      member do
+        get 'children', defaults: { format: :json }
       end
     end
 
@@ -153,23 +184,13 @@ Rails.application.routes.draw do
           get :post_tags
         end
       end
-      resources :post_categories, only: :show do
-        member do
-          put 'lock', defaults: { format: :json }
-          delete 'lock', action: :unlock, defaults: { format: :json }
-          post 'priority', defaults: { format: :json }
-          post 'toggle', defaults: { format: :json }
-        end
-      end
-      resources :posts, only: %i[index show] do
+      resources :post_categories, only: :show, concerns: %i[lock priority toggle]
+      resources :posts, only: %i[index show], concerns: %i[lock toggle] do
         collection do
           get 'search'
           get 'regions', defaults: { format: :json }
         end
         member do
-          put 'lock', defaults: { format: :json }
-          delete 'lock', action: :unlock, defaults: { format: :json }
-          post 'toggle', defaults: { format: :json }
           get 'images'
         end
       end
@@ -178,169 +199,87 @@ Rails.application.routes.draw do
           get 'posts'
         end
       end
-      resources :post_images, only: %i[index show] do
-        member do
-          post 'priority', defaults: { format: :json }
-          post 'toggle', defaults: { format: :json }
-        end
-      end
+      resources :post_images, only: %i[index show], concerns: %i[priority toggle]
 
-      resources :editorial_members, only: %i[index show] do
-        member do
-          post 'priority', defaults: { format: :json }
-          post 'toggle', defaults: { format: :json }
-        end
-      end
+      resources :editorial_members, only: %i[index show], concerns: %i[priority toggle]
 
-      resources :featured_posts, only: :index do
-        member do
-          post 'priority', defaults: { format: :json }
-        end
-      end
+      resources :featured_posts, only: :index, concerns: %i[priority]
 
       scope 'post_links', controller: :post_links do
         post ':id/priority' => :priority, as: :priority_post_link, defaults: { format: :json }
       end
 
-      resources :themes, only: [:index, :show]
+      resources :themes, only: %i[index show]
 
-      resources :groups, only: [:index, :show] do
+      resources :groups, only: %i[index show] do
         member do
           get 'users', defaults: { format: :json }
           put 'users/:user_id' => :add_user, as: :user, defaults: { format: :json }
           delete 'users/:user_id' => :remove_user, defaults: { format: :json }
         end
       end
-      resources :teams, only: [:index, :show] do
+      resources :teams, only: %i[index show], concerns: %i[toggle priority] do
         member do
-          post 'toggle', defaults: { format: :json }
-          post 'priority', defaults: { format: :json }
           put 'privileges/:privilege_id' => :add_privilege, as: :privilege, defaults: { format: :json }
           delete 'privileges/:privilege_id' => :remove_privilege, defaults: { format: :json }
         end
       end
 
-      resources :albums, only: [:index, :show] do
+      resources :albums, only: %i[index show], concerns: :toggle do
         member do
-          post 'toggle', defaults: { format: :json }
           get 'photos'
         end
       end
-      resources :photos, only: [:index, :show] do
-        member do
-          post 'priority', defaults: { format: :json }
-        end
-      end
+      resources :photos, only: %i[index show], concerns: :priority
 
-      resources :appeals, only: [:index, :show] do
-        member do
-          post 'toggle', defaults: { format: :json }
-        end
-      end
+      resources :appeals, only: %i[index show], concerns: :toggle
 
-      resources :events, only: [:index, :show] do
+      resources :events, only: %i[index show], concerns: %i[lock toggle] do
         member do
-          post 'toggle', defaults: { format: :json }
-          put 'lock', defaults: { format: :json }
-          delete 'lock', action: :unlock, defaults: { format: :json }
           get 'participants'
         end
       end
-      resources :event_participants, only: [:index, :show] do
-        member do
-          post 'toggle', defaults: { format: :json }
-        end
-      end
-      resources :event_speakers, :event_sponsors, only: [] do
-        member do
-          post 'toggle', defaults: { format: :json }
-          post 'priority', defaults: { format: :json }
-        end
-      end
-      resources :event_materials, only: [] do
-        member do
-          post 'toggle', defaults: { format: :json }
-        end
-      end
-      resources :event_programs, only: [:show]
+      resources :event_participants, only: %i[index show], concerns: :toggle
+      resources :event_speakers, :event_sponsors, only: [], concerns: %i[toggle priority]
+      resources :event_materials, only: [], concerns: :toggle
+      resources :event_programs, only: :show
 
-      resources :media_folders, only: [:index, :show] do
-        member do
-          put 'lock', defaults: { format: :json }
-          delete 'lock', action: :unlock, defaults: { format: :json }
-        end
-      end
-      resources :media_files, only: [:index, :show] do
-        member do
-          put 'lock', defaults: { format: :json }
-          delete 'lock', action: :unlock, defaults: { format: :json }
-        end
-      end
+      resources :media_folders, only: %i[index show], concerns: :lock
+      resources :media_files, only: %i[index show], concerns: :lock
 
-      resources :promo_blocks, only: [:index, :show] do
-        member do
-          post 'toggle', defaults: { format: :json }
-        end
-      end
-      resources :promo_blocks, :promo_items, only: [:show] do
-        member do
-          post 'toggle', defaults: { format: :json }
-        end
-      end
+      resources :promo_blocks, only: %i[index show], concerns: :toggle
+      resources :promo_blocks, :promo_items, only: :show, concerns: :toggle
+
+      resources :regions, only: %i[index show], concerns: %i[priority toggle]
     end
 
     namespace :editorial do
       get '/' => 'index#index'
 
-      resources :users, only: [:index, :show] do
-        member do
-          post 'toggle', defaults: { format: :json }
-        end
-      end
+      resources :users, only: %i[index show], concerns: :toggle
     end
 
     namespace :api, defaults: { format: :json } do
-      resources :users, except: [:new, :edit] do
+      resources :users, except: %i[new edit], concerns: :toggle do
         member do
           put 'follow'
           delete 'follow' => :unfollow
           put 'privileges/:privilege_id' => :grant_privilege, as: :privilege
           delete 'privileges/:privilege_id' => :revoke_privilege
-          post 'toggle'
-        end
-      end
-      resources :news_categories, :post_categories, except: [:new, :edit] do
-        member do
-          put 'lock'
-          delete 'lock', action: :unlock
-          post 'priority'
-          post 'toggle'
         end
       end
 
-      resources :posts, except: [:new, :edit] do
+      resources :illustrations, only: %i[create destroy]
+      resources :themes, except: %i[new edit], concerns: :lock do
         member do
-          post 'toggle'
-          put 'lock'
-          delete 'lock', action: :unlock
-          put 'category'
-        end
-      end
-
-      resources :illustrations, only: [:create, :destroy]
-      resources :themes, except: [:new, :edit] do
-        member do
-          put 'lock'
-          delete 'lock', action: :unlock
           put 'post_categories/:category_id' => :add_post_category, as: :post_category
           delete 'post_categories/:category_id' => :remove_post_category
           put 'news_categories/:category_id' => :add_news_category, as: :news_category
           delete 'news_categories/:category_id' => :remove_news_category
         end
       end
-      resources :user_links, except: [:new, :edit] do
+      resources :user_links, except: %i[new edit], concerns: :toggle do
         member do
-          post 'toggle'
           delete 'hide'
         end
       end
@@ -353,9 +292,7 @@ Rails.application.routes.draw do
       scope 'users', controller: :users do
         put ':id' => :synchronize, as: :synchronize_user
       end
-      scope 'regions', controller: :regions do
-        put ':id' => :synchronize, as: :synchronize_region
-      end
+      resources :regions, only: %i[create update]
       resources :posts, only: :create
     end
 
@@ -369,14 +306,14 @@ Rails.application.routes.draw do
 
       resources :posts, except: :new
 
-      resources :comments, only: [:index]
-      resources :entries, only: [:index]
-      resources :messages, only: [:index] do
+      resources :comments, only: :index
+      resources :entries, only: :index
+      resources :messages, only: :index do
         get '/:user_slug' => :dialog, on: :collection, as: :dialog
       end
-      resources :notifications, only: [:index]
-      resources :followers, :followees, only: [:index]
-      resources :appeals, only: [:index]
+      resources :notifications, only: :index
+      resources :followers, :followees, only: :index
+      resources :appeals, only: :index
     end
 
     scope 'u/:slug', controller: :profiles do

@@ -23,13 +23,9 @@ class User < ApplicationRecord
   belongs_to :agent, optional: true
   belongs_to :site, optional: true, counter_cache: true
   belongs_to :region, optional: true, counter_cache: true, touch: false
-  # has_one :user_profile, dependent: :destroy
   has_many :tokens, dependent: :destroy
   has_many :codes, dependent: :destroy
   has_many :posts, dependent: :destroy
-  has_many :news, dependent: :destroy
-  has_many :illustrations, dependent: :nullify
-  has_many :entries, dependent: :destroy
   has_many :follower_links, class_name: UserLink.to_s, foreign_key: :followee_id, dependent: :destroy
   has_many :followee_links, class_name: UserLink.to_s, foreign_key: :follower_id, dependent: :destroy
   has_many :sent_messages, class_name: UserMessage.to_s, foreign_key: :sender_id, dependent: :destroy
@@ -42,9 +38,6 @@ class User < ApplicationRecord
   has_many :appeals, dependent: :destroy
 
   has_secure_password
-
-  enum gender: [:female, :male]
-  enum marital_status: [:single, :dating, :engaged, :married, :in_love, :complicated, :in_active_search]
 
   before_validation { self.screen_name = screen_name.strip unless screen_name.nil? }
   before_validation { self.slug = screen_name.downcase unless screen_name.blank? }

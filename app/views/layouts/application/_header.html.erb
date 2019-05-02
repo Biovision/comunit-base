@@ -12,9 +12,7 @@
         <%= render 'layouts/application/header_content' %>
       </div>
       <div class="arms">
-        <% unless current_region.image.blank? %>
-            <%= image_tag(current_region.image.header.url, alt: current_region.name, srcset: "#{current_region.image.url} 2x") %>
-        <% end %>
+        <%= region_image_preview(current_region) %>
       </div>
     </div>
     <div class="region-and-search">

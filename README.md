@@ -39,8 +39,6 @@ gem 'autoprefixer-rails', group: :production
 
 gem 'biovision-base', git: 'https://github.com/Biovision/biovision-base'
 # gem 'biovision-base', path: '/Users/maxim/Projects/Biovision/gems/biovision-base'
-gem 'biovision-regions', git: 'https://github.com/Biovision/biovision-regions'
-# gem 'biovision-regions', path: '/Users/maxim/Projects/Biovision/gems/biovision-regions'
 gem 'biovision-poll', git: 'https://github.com/Biovision/biovision-poll'
 # gem 'biovision-poll', path: '/Users/maxim/Projects/Biovision/gems/biovision-poll'
 gem 'biovision-comment', git: 'https://github.com/Biovision/biovision-comment'
@@ -263,12 +261,14 @@ end
 
 ```bash
 mkdir -p shared/tmp/puma
-mkdir -p shared/public/uploads
+mkdir -p shared/public/uploads/region
 mkdir -p shared/tmp/import
 mkdir -p shared/config
 cd shared/public
 ln -s /var/www/ckeditor
 ln -s /var/www/shared/post_illustrations
+cd uploads/region
+ln -s /var/www/shared/uploads/region/image
 ```
 
 После этого локально можно запустить `mina setup` и настроить остальное 

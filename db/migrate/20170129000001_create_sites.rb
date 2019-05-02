@@ -9,6 +9,8 @@ class CreateSites < ActiveRecord::Migration[5.2]
   end
 
   def down
+    remove_column :users, :site_id if column_exists?(:users, :site_id)
+
     drop_table :sites if Site.table_exists?
   end
 

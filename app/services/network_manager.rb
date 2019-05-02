@@ -15,58 +15,36 @@ class NetworkManager
     entity.save!
   end
 
-  # @param [Region] entity
-  # @param [Hash] attributes
-  # @param [Hash] data
-  def update_region(entity, attributes, data = {})
-    log_event("Updating region #{entity.id}:\n\t#{attributes}\n\t#{data}\n")
-    entity.assign_attributes(attributes)
-    unless data[:image_path].blank?
-      entity.remote_image_url = "#{MAIN_HOST}#{data[:image_path]}"
-    end
-    entity.save!
-    entity.parent&.cache_children!
-  end
-
   protected
+
+  # @param [String|Symbol] verb
+  # @param [String] url
+  # @param [Hash] data
+  def rest(verb, url, data)
+    log_event("[I] #{verb.to_s.upcase} #{url}")
+    response = RestClient.send(verb, url, JSON.generate(data), request_headers)
+    log_event("[I] Response (#{response.code}):\n#{response.body.inspect}\n")
+    response
+  rescue RestClient::Exception => e
+    log_event("[E] Failed with #{e.http_code}: #{e}\n#{e.response}")
+  end
 
   # @param [String] url
   # @param [Hash] data
   def rest_put(url, data)
-    log_event("PUT #{url}")
-    begin
-      response = RestClient.put(url, JSON.generate(data), request_headers)
-      log_event("Response (#{response.code}):\n#{response.body.inspect}\n")
-      response
-    rescue RestClient::Exception => e
-      log_event("Failed with #{e.http_code}: #{e}\n#{e.response}")
-    end
+    rest(:put, url, data)
   end
 
   # @param [String] url
   # @param [Hash] data
   def rest_patch(url, data)
-    log_event("PATCH #{url}")
-    begin
-      response = RestClient.patch(url, JSON.generate(data), request_headers)
-      log_event("Response (#{response.code}):\n#{response.body.inspect}\n")
-      response
-    rescue RestClient::Exception => e
-      log_event("Failed with #{e.http_code}: #{e}\n#{e.response}")
-    end
+    rest(:patch, url, data)
   end
 
   # @param [String] url
   # @param [Hash] data
   def rest_post(url, data)
-    log_event("POST #{url}")
-    begin
-      response = RestClient.post(url, JSON.generate(data), request_headers)
-      log_event("Response (#{response.code}):\n#{response.body.inspect}\n")
-      response
-    rescue RestClient::Exception => e
-      log_event("Failed with #{e.http_code}: #{e}\n#{e.response}")
-    end
+    rest(:post, url, data)
   end
 
   def request_headers

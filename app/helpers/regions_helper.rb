@@ -1,4 +1,28 @@
+# frozen_string_literal: true
+
+# Helper methods for handling regions
 module RegionsHelper
+  # @param [Region] entity
+  # @param [String] text
+  # @param [Hash] options
+  def admin_region_link(entity, text = entity.name, options = {})
+    link_to(text, admin_region_path(id: entity.id), options)
+  end
+
+  # @param [Region] entity
+  # @param [Hash] options
+  def region_image_preview(entity, options = {})
+    return '' if entity&.id.nil?
+
+    image_url = entity.data.dig('images', 'preview')
+
+    return '' if image_url.nil?
+
+    default_options = { alt: entity.name }
+
+    image_tag(image_url, default_options.merge(options))
+  end
+
   def regions_for_select(user = nil)
     options = [[t(:not_set), '']]
     if user.is_a?(User)
