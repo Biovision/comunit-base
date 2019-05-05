@@ -2,10 +2,23 @@
 
 # Synchronizing regions with central site
 class NetworkManager::RegionHandler < NetworkManager
-  def create_region
+  # @param [Region] entity
+  def self.relationship_data(entity)
+    return nil if entity.nil?
+
+    {
+      id: entity.id,
+      type: entity.class.table_name,
+      attributes: {
+        slug: entity.slug
+      }
+    }
+  end
+
+  def create_local
     id = @data.dig(:id)
 
-    log_event "[I] Creating region #{id}"
+    log_event "[I] Creating local region #{id}"
 
     @region = Region.new(id: id)
 
@@ -15,10 +28,10 @@ class NetworkManager::RegionHandler < NetworkManager
     @region
   end
 
-  def update_region
+  def update_local
     id = @data.dig(:id)
 
-    log_event "[I] Updating region #{id}"
+    log_event "[I] Updating local region #{id}"
 
     @region = Region.find_by(id: id)
 

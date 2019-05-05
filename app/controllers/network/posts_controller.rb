@@ -7,7 +7,7 @@ class Network::PostsController < NetworkController
   # post /network/posts
   def create
     @handler.data = params.require(:data).permit!
-    @entity = @handler.accept_post
+    @entity = @handler.create_local
     if @entity.persisted?
       render :show, status: :created
     else

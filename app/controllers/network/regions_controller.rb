@@ -7,7 +7,7 @@ class Network::RegionsController < NetworkController
   # post /network/regions
   def create
     @handler.data = params.require(:data).permit!
-    @entity = @handler.create_region
+    @entity = @handler.create_local
     if @entity.persisted?
       render :show, status: :created
     else
@@ -18,7 +18,7 @@ class Network::RegionsController < NetworkController
   # patch /network/regions/:id
   def update
     @handler.data = params.require(:data).permit!
-    if @handler.update_region
+    if @handler.update_local
       head :no_content
     else
       head :bad_request

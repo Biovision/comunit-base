@@ -2,46 +2,52 @@
 
 # Synchronizing posts with central site
 class NetworkManager::PostHandler < NetworkManager
+  REMOTE_URL = "#{MAIN_HOST}/network/posts"
+
+  # Create post on central site
+  #
   # @param [Post] entity
-  def create_post(entity)
-    log_event("Creating post #{entity.id} (#{entity.uuid})")
+  def create_remote(entity)
+    log_event("[I] Creating remote post #{entity.id} (#{entity.uuid})")
     @entity = entity
-    url = "#{MAIN_HOST}/network/posts"
-    rest_post(url, prepare_entity_data)
+    rest(:post, REMOTE_URL, data_for_remote)
   end
 
+  # Update post on central site
+  #
   # @param [Post] entity
-  def update_post(entity)
-    log_event("Updating post #{entity.id} (#{entity.uuid})")
+  def update_remote(entity)
+    log_event("[I] Updating remote post #{entity.id} (#{entity.uuid})")
     @entity = entity
-    url = "#{MAIN_HOST}/network/posts/#{entity.uuid}"
-    rest_patch(url, prepare_entity_data)
+    rest(:patch, "#{REMOTE_URL}/#{entity.uuid}", data_for_remote)
   end
 
-  def accept_post
+  # Create local post from remote data
+  def create_local
     uuid = @data.dig(:id)
 
-    log_event "Creating post #{uuid}"
+    log_event "[I] Creating local post #{uuid}"
 
-    @post = Post.new(uuid: uuid)
-    @post.agent = Agent.named(@data.dig(:meta, :agent_name).to_s)
+    @entity = Post.new(uuid: uuid)
+    @entity.agent = Agent.named(@data.dig(:meta, :agent_name).to_s)
 
     apply_for_create
 
-    log_event "Validation status after create: #{@post.valid?}"
+    log_event "[I] Validation status after create: #{@entity.valid?}"
 
-    @post.save
-    @post
+    @entity.save
+    @entity
   end
 
   private
 
   def apply_for_create
-    apply_owner
+    assign_user_from_data
+    assign_region_from_data
     apply_post_type
     apply_attributes
     apply_attachments
-    apply_image
+    assign_image_from_data
   end
 
   def apply_attributes
@@ -55,7 +61,7 @@ class NetworkManager::PostHandler < NetworkManager
     input = @data.dig(:attributes).to_h
 
     attributes = input.select { |a, _| permitted.include?(a.to_sym) }
-    @post.assign_attributes(attributes)
+    @entity.assign_attributes(attributes)
   end
 
   def apply_post_type
@@ -63,82 +69,65 @@ class NetworkManager::PostHandler < NetworkManager
     slug = type_data.dig(:attributes, :slug)
     type = PostType.find_by(id: type_data[:id]) || PostType.find_by(slug: slug)
 
-    @post.post_type = type
-  end
-
-  def apply_owner
-    user_data = @data.dig(:relationships, :user).to_h
-    slug = user_data.dig(:attributes, :slug)
-    user = User.find_by(uuid: user_data[:id]) || User.find_by(slug: slug)
-
-    @post.user = user
+    @entity.post_type = type
   end
 
   def apply_attachments
     relationships = @data.dig(:relationships).to_h
-    @post.data['comunit'] ||= {}
-    @post.data['comunit']['attachments'] = relationships.dig(:attachments)
+    @entity.data['comunit'] ||= {}
+    @entity.data['comunit']['attachments'] = relationships.dig(:attachments)
   end
 
-  def apply_image
-    image_path = @data.dig(:meta, :image_path)
-
-    return if image_path.blank? || !File.exist?(image_path)
-
-    @post.image = Pathname.new(image_path).open
-  end
-
-  def prepare_entity_data
-    ignored = %w[
-      image agent_id user_id comments_count view_count
-      upvote_count downvote_count vote_result
-    ]
-
-    attributes = @entity.attributes.reject { |a, _| ignored.include?(a) }
-
-    data = {
+  def data_for_remote
+    {
       data: {
         id: @entity.uuid,
         type: @entity.class.table_name,
-        attributes: attributes,
-        relationships: {
-          user: {
-            id: @entity.user&.uuid,
-            type: User.table_name,
-            attributes: {
-              slug: @entity.user&.slug
-            }
-          },
-          post_type: {
-            id: @entity.post_type_id,
-            type: PostType.table_name,
-            attributes: {
-              slug: @entity.post_type.slug
-            }
-          },
-          attachments: []
-        },
-        meta: {
-          agent_name: @entity.agent&.name
-        }
+        attributes: attributes_for_remote,
+        relationships: relationships_for_remote,
+        meta: meta_for_remote
       }
     }
+  end
 
-    data[:data][:meta][:image_path] = @entity.image.path unless @entity.image.blank?
+  # Attributes for remote post create/update
+  #
+  # @return [Hash]
+  def attributes_for_remote
+    ignored = %w[
+      id image agent_id user_id comments_count view_count upvote_count
+      downvote_count vote_result region_id
+    ]
 
-    @entity.post_attachments.each do |attachment|
-      data[:data][:relationships][:attachments] << {
-        id: attachment.id,
-        type: attachment.class.table_name,
-        attributes: {
-          name: attachment.name
-        },
-        meta: {
-          file_path: attachment.file.path
-        }
-      }
+    @entity.attributes.reject { |a, _| ignored.include?(a) }
+  end
+
+  # Relationship data in data.relationships block for remote create/update
+  #
+  # @return [Hash]
+  def relationships_for_remote
+    {
+      user: UserHandler.relationship_data(@entity.user),
+      region: RegionHandler.relationship_data(@entity.region),
+      post_type: PostTypeHandler.relationship_data(@entity.post_type),
+      attachments: attachments_for_remote
+    }
+  end
+
+  # Attachments data in data.relationships block for remote create/update
+  def attachments_for_remote
+    @entity.post_attachments.map do |attachment|
+      PostAttachmentHandler.relationship_data(attachment)
     end
+  end
 
-    data
+  def meta_for_remote
+    result = {
+      agent_name: @entity.agent&.name
+    }
+
+    result[:image_path] = @entity.image.path unless @entity.image.blank?
+
+    result
   end
 end

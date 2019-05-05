@@ -24,7 +24,7 @@ class UsersController < ApplicationController
   def create
     @entity = User.new(creation_parameters)
     if @entity.save
-      NetworkManager::UserHandler.new.relink_user(@entity) if Rails.env.production?
+      NetworkUserSyncJob.perform_later(@entity.id, false)
 
       form_processed_ok(admin_user_path(id: @entity.id))
     else
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
   # patch /users/:id
   def update
     if @entity.update(entity_parameters)
-      NetworkManager::UserHandler.new.sync_user(@entity) if Rails.env.production?
+      NetworkUserSyncJob.perform_later(@entity.id, true)
 
       form_processed_ok(admin_user_path(id: @entity.id))
     else
@@ -49,7 +49,7 @@ class UsersController < ApplicationController
 
   # delete /users/:id
   def destroy
-    if @entity.update(deleted: true)
+    if @entity.destroy #update(deleted: true)
       flash[:notice] = t('users.destroy.success')
     end
     redirect_to admin_users_path

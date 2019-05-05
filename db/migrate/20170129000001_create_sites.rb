@@ -4,13 +4,9 @@
 class CreateSites < ActiveRecord::Migration[5.2]
   def up
     create_sites unless Site.table_exists?
-
-    add_reference_to_users unless column_exists?(:users, :site_id)
   end
 
   def down
-    remove_column :users, :site_id if column_exists?(:users, :site_id)
-
     drop_table :sites if Site.table_exists?
   end
 
@@ -27,9 +23,5 @@ class CreateSites < ActiveRecord::Migration[5.2]
       t.string :image
       t.string :description
     end
-  end
-
-  def add_reference_to_users
-    add_reference :users, :site, foreign_key: { on_update: :cascade, on_delete: :nullify }
   end
 end

@@ -17,6 +17,32 @@ class NetworkManager
 
   protected
 
+  def assign_user_from_data
+    user_data = @data.dig(:relationships, :user).to_h
+
+    slug = user_data.dig(:attributes, :slug)
+    user = User.find_by(uuid: user_data[:id]) || User.find_by(slug: slug)
+
+    @entity.user = user
+  end
+
+  def assign_region_from_data
+    region = @data.dig(:relationships, :region).to_h
+
+    slug = region.dig(:attributes, :long_slug)
+    user = Region.find_by(id: region[:id]) || Region.find_by(long_slug: slug)
+
+    @entity.user = user
+  end
+
+  def assign_image_from_data
+    image_path = @data.dig(:meta, :image_path)
+
+    return if image_path.blank? || !File.exist?(image_path)
+
+    @entity.image = Pathname.new(image_path).open
+  end
+
   # @param [String|Symbol] verb
   # @param [String] url
   # @param [Hash] data
@@ -31,20 +57,9 @@ class NetworkManager
 
   # @param [String] url
   # @param [Hash] data
+  # @deprecated use #rest(:put, url, data)
   def rest_put(url, data)
     rest(:put, url, data)
-  end
-
-  # @param [String] url
-  # @param [Hash] data
-  def rest_patch(url, data)
-    rest(:patch, url, data)
-  end
-
-  # @param [String] url
-  # @param [Hash] data
-  def rest_post(url, data)
-    rest(:post, url, data)
   end
 
   def request_headers

@@ -36,7 +36,7 @@ class My::ProfilesController < ApplicationController
   # patch /my/profile
   def update
     if current_user.update(user_parameters)
-      NetworkManager::UserHandler.new.sync_user(current_user) if Rails.env.production?
+      NetworkUserSyncJob.perform_later(current_user.id, true)
 
       form_processed_ok(my_path)
     else
@@ -56,7 +56,7 @@ class My::ProfilesController < ApplicationController
       Metric.register(User::METRIC_REGISTRATION)
       create_token_for_user(@entity)
       cookies.delete('r', domain: :all)
-      NetworkManager::UserHandler.new.relink_user(@entity) if Rails.env.production?
+      NetworkUserSyncJob.perform_later(@entity.id, false)
 
       redirect_after_creation
     else

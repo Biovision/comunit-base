@@ -7,11 +7,9 @@ class CreateRegions < ActiveRecord::Migration[5.2]
     create_regions unless Region.table_exists?
 
     add_region_to_privileges unless column_exists?(:user_privileges, :region_id)
-    add_region_to_users unless column_exists?(:users, :region_id)
   end
 
   def down
-    remove_column(:users, :region_id) if column_exists?(:users, :region_id)
     remove_column(:user_privileges, :region_id) if column_exists?(:user_privileges, :region_id)
 
     drop_table :regions if Region.table_exists?
@@ -67,9 +65,5 @@ class CreateRegions < ActiveRecord::Migration[5.2]
 
   def add_region_to_privileges
     add_reference :user_privileges, :region, foreign_key: { on_update: :cascade, on_delete: :cascade }
-  end
-
-  def add_region_to_users
-    add_reference :users, :region, foreign_key: { on_update: :cascade, on_delete: :nullify }
   end
 end

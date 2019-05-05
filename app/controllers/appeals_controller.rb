@@ -8,7 +8,7 @@ class AppealsController < ApplicationController
   # get /appeals/new
   def new
     @entity = Appeal.new
-    @entity.apply_user(current_user)
+    @entity.assign_user_from_data(current_user)
   end
 
   # post /appeals

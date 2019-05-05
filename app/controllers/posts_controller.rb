@@ -19,7 +19,7 @@ class PostsController < ApplicationController
     if @entity.save
       apply_post_tags
       add_attachments if params.key?(:post_attachment)
-      NetworkPostPublisherJob.perform_later(@entity.id)
+      NetworkPostSyncJob.perform_later(@entity.id, false)
       form_processed_ok(PostManager.handler(@entity).post_path)
     else
       form_processed_with_error(:new)
@@ -47,7 +47,7 @@ class PostsController < ApplicationController
     if @entity.update(entity_parameters)
       apply_post_tags
       add_attachments if params.key?(:post_attachment)
-      NetworkPostUpdaterJob.perform_later(@entity.id)
+      NetworkPostSyncJob.perform_later(@entity.id, true)
       form_processed_ok(PostManager.handler(@entity).post_path)
     else
       form_processed_with_error(:edit)

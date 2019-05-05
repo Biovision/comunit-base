@@ -33,7 +33,6 @@ class Region < ApplicationRecord
   belongs_to :country, optional: true, counter_cache: true
   belongs_to :parent, class_name: Region.to_s, optional: true
   has_many :child_regions, class_name: Region.to_s, foreign_key: :parent_id
-  has_many :users, dependent: :nullify
 
   validates_presence_of :long_slug, :name, :slug
 

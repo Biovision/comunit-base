@@ -1,13 +1,33 @@
+# frozen_string_literal: true
+
+# RPC for posts
 class Network::UsersController < NetworkController
-  # put /network/users/:id
-  def synchronize
-    manager = NetworkManager::UserHandler.new
-    attr = params.require(:user).permit(User.relink_parameters + UserProfileHandler.allowed_parameters)
-    user = User.find_by(external_id: params[:id])
-    if user.nil?
-      user = User.new(external_id: params[:id])
+  before_action :set_handler
+
+  # post /network/users
+  def create
+    @handler.data = params.require(:data).permit!
+    @entity = @handler.create_local
+    if @entity.persisted?
+      render :show, status: :created
+    else
+      render 'shared/forms/check', status: :bad_request
     end
-    manager.update_user(user, attr, params[:data])
-    render json: { data: { user: user.attributes } }
+  end
+
+  # patch /network/users/:id
+  def update
+    @handler.data = params.require(:data).permit!
+    if @handler.update_local
+      head :no_content
+    else
+      head :bad_request
+    end
+  end
+
+  private
+
+  def set_handler
+    @handler = NetworkManager::UserHandler.new
   end
 end

@@ -1,78 +1,151 @@
+# frozen_string_literal: true
+
+# Synchronizing users with central site
 class NetworkManager::UserHandler < NetworkManager
-  # Обновить данные о пользователе извне
-  #
-  # Вызывается центральным сайтом при создании или обновлении пользователя
+  REMOTE_URL = "#{MAIN_HOST}/network/users"
+
+  # @param [User] entity
+  def self.relationship_data(entity)
+    return nil if entity.nil?
+
+    {
+      id: entity.uuid,
+      type: entity.class.table_name,
+      attributes: {
+        slug: entity.slug
+      }
+    }
+  end
+
+  # @param [Hash] data
+  def self.entity_from_relationship_data(data)
+    return nil if data.blank?
+
+    a = { uuid: data[:id] }
+    b = { slug: data.dig(:attributes, :slug) }
+
+    User.find_by(a) || User.find_by(b)
+  end
+
+  # Create user from remote data
+  def create_local
+    uuid = @data.dig(:id)
+
+    log_event "[I] Creating local user #{uuid}"
+
+    @entity = User.new(uuid: uuid)
+    @entity.agent = Agent.named(@data.dig(:meta, :agent_name).to_s)
+
+    apply_for_create
+
+    log_event "[I] Validation status after create: #{@entity.valid?}"
+
+    @entity.save
+    @entity
+  end
+
+  # Update user from remote data
+  def update_local
+    uuid = @data.dig(:id)
+
+    log_event "[I] Updating local user #{uuid}"
+
+    @entity = self.class.entity_from_relationship_data(@data)
+
+    apply_for_update
+
+    log_event "[I] Validation status after update: #{@entity.valid?}"
+
+    @entity.save
+  end
+
+  # Push user to central site
   #
   # @param [User] entity
-  # @param [Hash] attributes
-  # @param [Hash] data
-  def update_user(entity, attributes, data = {})
-    log_event("Updating user #{entity.id}:\n\t#{attributes}\n\t#{data}\n")
-    allowed_for_user = User.synchronization_parameters
-    user_attributes = attributes.select { |a| allowed_for_user.include?(a.to_s) }
-    entity.assign_attributes(user_attributes)
-    unless data[:image_path].blank?
-      entity.remote_image_url = "#{MAIN_HOST}#{data[:image_path]}"
-    end
-    allowed_for_profile = UserProfileHandler.allowed_parameters
-    profile_attributes = attributes.select { |a| allowed_for_profile.include?(a.to_s) }
-    entity.data['profile'] = profile_attributes
-
-    entity.save!
+  def create_remote(entity)
+    log_event("[I] Creating remote user #{entity.id} (#{entity.uuid})")
+    @entity = entity
+    rest(:post, REMOTE_URL, data_for_remote)
   end
 
-  # Синхронизировать нового пользователя
-  #
-  # Отправляет пользователя в центральный сайт и привязывает его внешний id
-  # и site_id
-  #
-  # @param [User] user
-  def relink_user(user)
-    log_event("Relinking user #{user.id}")
-    url = "#{MAIN_HOST}/network/users/relink"
-    data = prepare_user_data(user)
-    unless user.agent.nil?
-      data[:data][:agent_name] = user.agent.name
-    end
-    log_event("Data: #{data.inspect}\n")
-
-    response = RestClient.post(url, JSON.generate(data), request_headers)
-    log_event("Response (#{response.code}):\n#{response.body.inspect}\n")
-
-    if user.external_id.blank?
-      parsed = JSON.parse(response).dig('data')
-      new_data = {
-        external_id: parsed['user_id'],
-        site_id: parsed['site_id']
-      }
-      user.update!(new_data)
-    end
-  end
-
-  # @param [User] user
-  def sync_user(user)
-    log_event("Syncing user #{user.id}")
-    url = "#{MAIN_HOST}/network/users/#{user.external_id}"
-    data = prepare_user_data(user)
-    log_event("Data: #{data.inspect}\n")
-    rest_put(url, data)
+  # @param [User] entity
+  def update_remote(entity)
+    log_event("[I] Updating remote user #{entity.id} (#{entity.uuid})")
+    @entity = entity
+    rest(:patch, "#{REMOTE_URL}/#{entity.uuid}", data_for_remote)
   end
 
   private
 
-  # @param [User] user
-  def prepare_user_data(user)
-    allowed = User.relink_parameters
-    attributes = user.attributes.select { |a| allowed.include?(a) }
-    attributes['data']['profile'].merge!(user.data['profile'])
+  def apply_for_create
+    assign_region_from_data
+    assign_attributes
+    assign_image_from_data
 
-    data = {
-      user: attributes,
-      profile: user.data['profile'],
-      data: {}
+    r = @data.dig(:relationships)
+    c = self.class
+    @entity.inviter_id = c.entity_from_relationship_data(r[:inviter])&.id
+    @entity.native_id = c.entity_from_relationship_data(r[:native])&.id
+  end
+
+  def apply_for_update
+    assign_region_from_data
+    assign_attributes
+    assign_image_from_data
+  end
+
+  def assign_attributes
+    permitted = %i[
+      birthday bot consent data created_at email email_confirmed foreign_slug ip
+      language_id password_digest phone phone_confirmed screen_name slug
+      super_user updated_at uuid search_string referral_link
+    ]
+
+    input = @data.dig(:attributes).to_h
+
+    attributes = input.select { |a, _| permitted.include?(a.to_sym) }
+    @entity.assign_attributes(attributes)
+  end
+
+  def data_for_remote
+    {
+      data: {
+        id: @entity.uuid,
+        type: @entity.class.table_name,
+        attributes: attributes_for_remote,
+        relationships: relationships_for_remote,
+        meta: meta_for_remote
+      }
     }
-    data[:data][:image_path] = user.image.url unless user.image.blank?
+  end
 
-    data
+  # Attributes for remote post create/update
+  #
+  # @return [Hash]
+  def attributes_for_remote
+    ignored = %w[id agent_id image inviter_id language_id native_id]
+
+    @entity.attributes.reject { |a, _| ignored.include?(a) }
+  end
+
+  # Relationship data in data.relationships block for remote create/update
+  #
+  # @return [Hash]
+  def relationships_for_remote
+    {
+      user: UserHandler.relationship_data(@entity.user),
+      inviter: UserHandler.relationship_data(@entity.inviter),
+      native: UserHandler.relationship_data(User.find_by(id: @entity.native_id))
+    }
+  end
+
+  def meta_for_remote
+    result = {
+      agent_name: @entity.agent&.name
+    }
+
+    result[:image_path] = @entity.image.path unless @entity.image.blank?
+
+    result
   end
 end

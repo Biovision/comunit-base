@@ -78,12 +78,6 @@
     <tr>
       <td colspan="2"><%= t('my.profiles.edit.form.contact') %></td>
     </tr>
-    <% unless user.region.blank? %>
-      <tr>
-        <th><%= t('activerecord.attributes.user.region_id') %></th>
-        <td><%= user.region.name %></td>
-      </tr>
-    <% end %>
     <% unless profile['country_name'].blank? %>
       <tr>
         <th><%= t('activerecord.attributes.user_profile.country_name') %></th>
