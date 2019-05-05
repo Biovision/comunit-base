@@ -137,7 +137,6 @@ class NetworkManager::UserHandler < NetworkManager
   # @return [Hash]
   def relationships_for_remote
     {
-      user: UserHandler.relationship_data(@entity.user),
       inviter: UserHandler.relationship_data(@entity.inviter),
       native: UserHandler.relationship_data(User.find_by(id: @entity.native_id))
     }
