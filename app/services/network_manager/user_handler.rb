@@ -2,7 +2,7 @@
 
 # Synchronizing users with central site
 class NetworkManager::UserHandler < NetworkManager
-  REMOTE_URL = "#{MAIN_HOST}/network/users"
+  PATH = "#{MAIN_HOST}/network/users"
 
   # @param [User] entity
   def self.relationship_data(entity)
@@ -29,7 +29,7 @@ class NetworkManager::UserHandler < NetworkManager
 
   # Create user from remote data
   def create_local
-    uuid = @data.dig(:id)
+    uuid = @data[:id]
 
     log_event "[I] Creating local user #{uuid}"
 
@@ -38,25 +38,25 @@ class NetworkManager::UserHandler < NetworkManager
 
     apply_for_create
 
-    log_event "[I] Validation status after create: #{@entity.valid?}"
-
     @entity.save
     @entity
   end
 
   # Update user from remote data
   def update_local
-    uuid = @data.dig(:id)
+    uuid = @data[:id]
 
     log_event "[I] Updating local user #{uuid}"
 
     @entity = self.class.entity_from_relationship_data(@data)
 
-    apply_for_update
-
-    log_event "[I] Validation status after update: #{@entity.valid?}"
-
-    @entity.save
+    if @entity.nil?
+      log_event "[E] Cannot find user #{uuid}"
+      false
+    else
+      apply_for_update
+      @entity.save
+    end
   end
 
   # Push user to central site
@@ -65,14 +65,14 @@ class NetworkManager::UserHandler < NetworkManager
   def create_remote(entity)
     log_event("[I] Creating remote user #{entity.id} (#{entity.uuid})")
     @entity = entity
-    rest(:post, REMOTE_URL, data_for_remote)
+    rest(:post, PATH, data_for_remote)
   end
 
   # @param [User] entity
   def update_remote(entity)
     log_event("[I] Updating remote user #{entity.id} (#{entity.uuid})")
     @entity = entity
-    rest(:patch, "#{REMOTE_URL}/#{entity.uuid}", data_for_remote)
+    rest(:patch, "#{PATH}/#{entity.uuid}", data_for_remote)
   end
 
   private
@@ -86,12 +86,16 @@ class NetworkManager::UserHandler < NetworkManager
     c = self.class
     @entity.inviter_id = c.entity_from_relationship_data(r[:inviter])&.id
     @entity.native_id = c.entity_from_relationship_data(r[:native])&.id
+
+    log_event "[I] Validation status after create: #{@entity.valid?}"
   end
 
   def apply_for_update
     assign_region_from_data
     assign_attributes
     assign_image_from_data
+
+    log_event "[I] Validation status after update: #{@entity.valid?}"
   end
 
   def assign_attributes

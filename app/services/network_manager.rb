@@ -18,21 +18,23 @@ class NetworkManager
   protected
 
   def assign_user_from_data
-    user_data = @data.dig(:relationships, :user).to_h
+    data = @data.dig(:relationships, :user).to_h
 
-    slug = user_data.dig(:attributes, :slug)
-    user = User.find_by(uuid: user_data[:id]) || User.find_by(slug: slug)
+    slug = data.dig(:attributes, :slug)
+    user = User.find_by(uuid: data[:id]) || User.find_by(slug: slug)
 
     @entity.user = user
   end
 
   def assign_region_from_data
-    region = @data.dig(:relationships, :region).to_h
+    data = @data.dig(:relationships, :region).to_h
 
-    slug = region.dig(:attributes, :long_slug)
-    user = Region.find_by(id: region[:id]) || Region.find_by(long_slug: slug)
+    slug = data.dig(:attributes, :long_slug)
+    region = Region.find_by(id: data[:id]) || Region.find_by(long_slug: slug)
 
-    @entity.user = user
+    @entity.region = region if @entity.respond_to?(:region=)
+    @entity.data['comunit'] ||= {}
+    @entity.data['comunit']['region_id'] = region&.id
   end
 
   def assign_image_from_data
