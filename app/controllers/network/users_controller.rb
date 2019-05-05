@@ -25,6 +25,17 @@ class Network::UsersController < NetworkController
     end
   end
 
+  # put /network/users/:id/uuid
+  def update_uuid
+    user = User.find_by(slug: params[:id])
+    if user.nil?
+      handle_http_404("Cannot find user with slug #{params[:id]}")
+    else
+      user.uuid = param_from_request(:uuid)
+      head(user.save ? :no_content : :bad_request)
+    end
+  end
+
   private
 
   def set_handler

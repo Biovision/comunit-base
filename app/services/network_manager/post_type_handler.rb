@@ -5,7 +5,7 @@ class NetworkManager::PostTypeHandler < NetworkManager
   # @param [PostType] entity
   def self.relationship_data(entity)
     {
-      id: entity.uuid,
+      id: entity.id,
       type: entity.class.table_name,
       attributes: {
         slug: entity.slug

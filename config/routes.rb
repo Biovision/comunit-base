@@ -289,8 +289,8 @@ Rails.application.routes.draw do
       controller :sites do
         put 'sites/:id' => :synchronize, as: :synchronize_site
       end
-      scope 'users', controller: :users do
-        put ':id' => :synchronize, as: :synchronize_user
+      resources :users, only: %i[create update] do
+        put 'uuid' => :update_uuid, on: :member
       end
       resources :regions, only: %i[create update]
       resources :posts, only: :create
