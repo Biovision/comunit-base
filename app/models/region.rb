@@ -109,13 +109,13 @@ class Region < ApplicationRecord
   # @param [Array] new_cache
   def cache_children!(new_cache = [])
     if new_cache.blank?
-      child_regions.order('id asc').each do |child|
-        self.children_cache += [child.id] + child.children_cache
-      end
-
+      new_cache = child_regions.order('id asc').pluck(:id, :children_cache)
     end
 
+    self.children_cache += [new_cache.flatten]
+    self.children_cache.uniq!
+
     save!
-    parent&.cache_children!
+    parent&.cache_children!([id] + children_cache)
   end
 end

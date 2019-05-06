@@ -24,8 +24,9 @@ class NetworkManager::RegionHandler < NetworkManager
 
     apply_for_create
 
-    # @region.parent&.cache_children! if
-    @region.save
+    new_children = [@region.id] + @region.children_cache
+
+    @region.parent&.cache_children!(new_children) if @region.save
     @region
   end
 

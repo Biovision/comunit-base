@@ -11,7 +11,8 @@ User.class_eval do
   has_many :appeals, dependent: :destroy
 
   def profile_name
-    full_name
+    result = full_name
+    screen_name if result.blank?
   end
 
   # @param [TrueClass|FalseClass] include_patronymic
