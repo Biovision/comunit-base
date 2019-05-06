@@ -106,9 +106,13 @@ class Region < ApplicationRecord
     save!
   end
 
-  def cache_children!
-    child_regions.order('id asc').each do |child|
-      self.children_cache += [child.id] + child.children_cache
+  # @param [Array] new_cache
+  def cache_children!(new_cache = [])
+    if new_cache.blank?
+      child_regions.order('id asc').each do |child|
+        self.children_cache += [child.id] + child.children_cache
+      end
+
     end
 
     save!

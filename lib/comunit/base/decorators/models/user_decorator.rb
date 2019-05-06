@@ -16,7 +16,7 @@ User.class_eval do
 
   # @param [TrueClass|FalseClass] include_patronymic
   def full_name(include_patronymic = false)
-    result = [data.dig('profile', 'surname').to_s.strip, name_for_letter]
+    result = [data.dig('profile', 'surname').to_s.strip, data.dig('profile', 'name')]
     result << data.dig('profile', 'patronymic').to_s.strip if include_patronymic
     result.compact.join(' ')
   end
