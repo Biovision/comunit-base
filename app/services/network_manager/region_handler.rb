@@ -16,7 +16,7 @@ class NetworkManager::RegionHandler < NetworkManager
   end
 
   def create_local
-    id = @data.dig(:id)
+    id = @data[:id]
 
     log_event "[I] Creating local region #{id}"
 
@@ -24,12 +24,13 @@ class NetworkManager::RegionHandler < NetworkManager
 
     apply_for_create
 
-    @region.parent&.cache_children! if @region.save
+    # @region.parent&.cache_children! if
+    @region.save
     @region
   end
 
   def update_local
-    id = @data.dig(:id)
+    id = @data[:id]
 
     log_event "[I] Updating local region #{id}"
 
