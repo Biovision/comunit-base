@@ -22,6 +22,7 @@ class CreateRegions < ActiveRecord::Migration[5.2]
     create_table :countries, comment: 'Country' do |t|
       t.integer :priority, limit: 2, default: 1, null: false
       t.boolean :visible, default: true, null: false
+      t.integer :regions_count, default: 0, null: false
       t.timestamps
       t.string :name, null: false
       t.string :short_name
@@ -42,6 +43,7 @@ class CreateRegions < ActiveRecord::Migration[5.2]
       t.timestamps
       t.references :country, foreign_key: { on_update: :cascade, on_delete: :cascade }
       t.integer :parent_id
+      t.integer :priority, limit: 2, default: 1, null: false
       t.integer :users_count, default: 0, null: false
       t.integer :posts_count, default: 0, null: false
       t.boolean :visible, default: true, null: false
