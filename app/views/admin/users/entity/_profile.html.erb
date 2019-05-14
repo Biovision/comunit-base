@@ -1,0 +1,69 @@
+<% prefix = 'activerecord.attributes.user_profile' %>
+<% %w[name patronymic surname].reject { |f| data[f].blank? }.each do |field| %>
+  <dt><%= t("#{prefix}.#{field}") %></dt>
+  <dd><%= data[field] %></dd>
+<% end %>
+
+<dt><%= t("#{prefix}.gender") %></dt>
+<dd><%= gender_name(data['gender']) %></dd>
+
+<dt><%= t("#{prefix}.marital_status") %></dt>
+<dd><%= marital_status_name(data['gender'], data['marital_status']) %></dd>
+
+<!-- Родной город, языки и Контактная информация -->
+<%
+  %w[
+    home_city_name nationality_name language_names country_name city_name
+    home_address secondary_phone skype_uid
+  ].reject { |f| data[f].blank? }.each do |field|
+%>
+  <dt><%= t("#{prefix}.#{field}") %></dt>
+  <dd><%= data[field] %></dd>
+<% end %>
+
+<!-- О себе -->
+<%
+  %w[
+    activities interests favorite_music favorite_movies favorite_shows
+    favorite_books favorite_games favorite_quotes main_in_life main_in_people
+  ].reject { |f| data[f].blank? }.each do |field|
+%>
+  <dt><%= t("#{prefix}.#{field}") %></dt>
+  <dd>
+    <div class="text"><%= simple_format(data[field]) %></div>
+  </dd>
+<% end %>
+
+<!-- Жизненная позиция -->
+<% %w[political_views religion_name].reject { |f| data[f].blank? }.each do |field| %>
+  <dt><%= t("#{prefix}.#{field}") %></dt>
+  <dd><%= data[field] %></dd>
+<% end %>
+
+<% %w[main_in_life main_in_people inspiration].reject { |f| data[f].blank? }.each do |field| %>
+  <dt><%= t("#{prefix}.#{field}") %></dt>
+  <dd>
+    <div class="text"><%= simple_format(data[field]) %></div>
+  </dd>
+<% end %>
+
+<dt><%= t("#{prefix}.smoking_attitude") %></dt>
+<dd><%= t("attitudes.#{data['smoking_attitude']}") %></dd>
+
+<dt><%= t("#{prefix}.alcohol_attitude") %></dt>
+<dd><%= t("attitudes.#{data['alcohol_attitude']}") %></dd>
+
+
+<dt><%= t('users.form.profile_data.confidentiality') %></dt>
+<dd>
+  <ul class="flags">
+    <%
+      %w[
+        show_email show_phone show_secondary_phone show_birthday show_patronymic
+        show_skype_uid show_home_address show_about
+      ].select { |f| data[f] }.each do |flag|
+    %>
+      <li><%= t("#{prefix}.#{flag}") %></li>
+    <% end %>
+  </ul>
+</dd>

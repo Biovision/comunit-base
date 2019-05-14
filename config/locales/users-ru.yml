@@ -159,6 +159,8 @@ ru:
       title: "Добавить пользователя"
     form:
       roles: "Роли"
+      profile_data:
+        confidentiality: "Конфиденциальность"
     user:
       account_data: "Данные аккаунта"
     index:

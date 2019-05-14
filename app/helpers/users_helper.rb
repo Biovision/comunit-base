@@ -1,7 +1,7 @@
 module UsersHelper
   def attitudes_for_select
     options = [[t(:not_selected), '']]
-    options + (-2..1).map { |o| [t("attitudes.#{o.to_s}"), o]}
+    options + (-2..1).map { |o| [t("attitudes.#{o}"), o]}
   end
 
   # @param [Integer] gender_key

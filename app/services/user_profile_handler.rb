@@ -16,7 +16,7 @@ class UserProfileHandler
   }.freeze
 
   def self.allowed_parameters
-    %w(
+    %w[
       gender name patronymic surname show_email show_phone show_secondary_phone
       show_birthday show_patronymic show_skype_uid show_home_address show_about
       marital_status smoking_attitude alcohol_attitude header_image
@@ -25,7 +25,7 @@ class UserProfileHandler
       about activities interests favorite_music favorite_movies favorite_shows
       favorite_books favorite_games favorite_quotes main_in_life main_in_people
       inspiration
-    )
+    ]
   end
 
   # @param [Hash] input
@@ -65,7 +65,10 @@ class UserProfileHandler
 
   # @param [User] user
   def self.search_string(user)
-    "#{user.data.dig('profile', 'surname')} #{user.data.dig('profile', 'name')}"
+    [
+      user.data.dig('profile', 'surname'),
+      user.data.dig('profile', 'name'),
+      user.uuid
+    ].compact.join(' ')
   end
 end
-

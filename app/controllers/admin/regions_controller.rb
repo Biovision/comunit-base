@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Administrative part of regions handler
 class Admin::RegionsController < AdminController
   include ToggleableEntity
   include LockableEntity
@@ -7,7 +10,9 @@ class Admin::RegionsController < AdminController
 
   # get /admin/regions
   def index
-    @collection = Region.for_tree
+    component = Biovision::Components::RegionsComponent
+    country_id = params[:country_id] || component.default_country_id
+    @collection = Region.for_tree(country_id)
   end
 
   # get /admin/regions/:id
@@ -22,8 +27,6 @@ class Admin::RegionsController < AdminController
 
   def set_entity
     @entity = Region.find_by(id: params[:id])
-    if @entity.nil?
-      handle_http_404("Cannot find region #{params[:id]}")
-    end
+    handle_http_404('Cannot find region') if @entity.nil?
   end
 end

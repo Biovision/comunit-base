@@ -12,7 +12,7 @@ User.class_eval do
 
   def profile_name
     result = full_name
-    screen_name if result.blank?
+    result.blank? ? screen_name : full_name
   end
 
   # @param [TrueClass|FalseClass] include_patronymic
@@ -25,5 +25,9 @@ User.class_eval do
   # @param [User] user
   def follows?(user)
     UserLink.where(follower: self, followee: user).exists?
+  end
+
+  def site
+    Site.find_by(id: data.dig('comunit', 'site_id'))
   end
 end
