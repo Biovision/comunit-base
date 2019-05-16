@@ -54,7 +54,7 @@
 
                 $container.html(content);
 
-            }).fail(handle_ajax_failure);
+            }).fail(Biovision.handleAjaxFailure);
         });
 
         $(document).on('click', '.group-user a', function (e) {
@@ -83,7 +83,7 @@
                         $li.remove();
                     }
                 }
-            }).fail(handle_ajax_failure);
+            }).fail(Biovision.handleAjaxFailure);
         });
     })
 </script>

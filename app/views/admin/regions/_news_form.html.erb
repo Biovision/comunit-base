@@ -30,7 +30,7 @@
 
                         $container.append($select);
                     }
-                }).fail(handle_ajax_failure);
+                }).fail(Biovision.handleAjaxFailure);
             }
         });
 
@@ -54,7 +54,7 @@
 
                         $container.append($children);
                     }
-                }).fail(handle_ajax_failure);
+                }).fail(Biovision.handleAjaxFailure);
 
                 $message.addClass('hidden');
             } else {

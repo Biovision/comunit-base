@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 $follow.addClass('hidden');
                 $unfollow.removeClass('hidden');
             }
-        }).fail(Biovision.handle_ajax_failure);
+        }).fail(Biovision.handleAjaxFailure);
     });
 
     $container.find('.unfollow').on('click', function () {
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 $follow.removeClass('hidden');
                 $unfollow.addClass('hidden');
             }
-        }).fail(Biovision.handle_ajax_failure);
+        }).fail(Biovision.handleAjaxFailure);
     });
 
     $('.hide-request').on('click', function () {
@@ -42,6 +42,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 }
             }
-        }).fail(Biovision.handle_ajax_failure);
+        }).fail(Biovision.handleAjaxFailure);
     });
 });

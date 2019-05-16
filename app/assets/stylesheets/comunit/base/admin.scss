@@ -1,2 +1,9 @@
 @import "biovision/vote/vote";
 @import "biovision/comment/comments";
+
+form {
+  .new-region-name:empty::after {
+    color: $text-color-secondary;
+    content: attr(data-blank);
+  }
+}
