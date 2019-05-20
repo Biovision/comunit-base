@@ -39,7 +39,7 @@ class Region < ApplicationRecord
   scope :ordered_by_slug, -> { order('slug asc') }
   scope :ordered_by_name, -> { order('name asc') }
   scope :visible, -> { where(visible: true) }
-  scope :for_tree, ->(country_id = nil, parent_id = nil) { where(country_id: country_id, parent_id: parent_id).ordered_by_priority }
+  scope :for_tree, ->(country_id = nil, parent_id = nil) { where(country_id: country_id, parent_id: parent_id).ordered_by_name }
 
   # @param [Region] item
   def self.siblings(item)
