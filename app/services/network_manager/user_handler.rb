@@ -72,7 +72,7 @@ class NetworkManager::UserHandler < NetworkManager
   def update_remote(entity)
     log_event("[I] Updating remote user #{entity.id} (#{entity.uuid})")
     @entity = entity
-    rest(:patch, "#{PATH}/#{entity.uuid}", data_for_remote)
+    rest(:put, "#{PATH}/#{entity.uuid}", data_for_remote)
   end
 
   private
@@ -86,6 +86,7 @@ class NetworkManager::UserHandler < NetworkManager
     c = self.class
     @entity.inviter_id = c.entity_from_relationship_data(r[:inviter])&.id
     @entity.native_id = c.entity_from_relationship_data(r[:native])&.id
+    @entity.consent = true
 
     log_event "[I] Validation status after create: #{@entity.valid?}"
   end
