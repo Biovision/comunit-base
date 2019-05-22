@@ -32,6 +32,7 @@ class Network::UsersController < NetworkController
       handle_http_404("Cannot find user with slug #{params[:id]}")
     else
       user.uuid = param_from_request(:uuid)
+      user.email = param_from_request(:email) unless user.valid?
       head(user.save ? :no_content : :bad_request)
     end
   end
