@@ -10,16 +10,16 @@ class Post < ApplicationRecord
   include VotableItem
   include Toggleable
 
-  ALT_LIMIT         = 255
-  BODY_LIMIT        = 16_777_215
-  IMAGE_NAME_LIMIT  = 500
-  LEAD_LIMIT        = 5000
-  META_LIMIT        = 250
-  SLUG_LIMIT        = 200
-  SLUG_PATTERN      = /\A[a-z0-9]+[-_.a-z0-9]*[a-z0-9]+\z/.freeze
+  ALT_LIMIT = 255
+  BODY_LIMIT = 16_777_215
+  IMAGE_NAME_LIMIT = 500
+  LEAD_LIMIT = 5000
+  META_LIMIT = 250
+  SLUG_LIMIT = 200
+  SLUG_PATTERN = /\A[a-z0-9]+[-_.a-z0-9]*[a-z0-9]+\z/.freeze
   SLUG_PATTERN_HTML = '^[a-zA-Z0-9]+[-_.a-zA-Z0-9]*[a-zA-Z0-9]+$'
-  TIME_RANGE        = (0..1440).freeze
-  TITLE_LIMIT       = 255
+  TIME_RANGE = (0..1440).freeze
+  TITLE_LIMIT = 255
 
   URL_PATTERN = %r{https?://([^/]+)/?.*}.freeze
 
@@ -95,6 +95,8 @@ class Post < ApplicationRecord
   scope :archive, -> { f = Arel.sql('date(publication_time)'); distinct.order(f).pluck(f) }
   scope :posted_after, ->(time) { where('publication_time >= ?', time) }
   scope :pubdate, ->(date) { where('date(publication_time) = ?', date) }
+  scope :regional, -> { where('region_id is not null') }
+  scope :central, -> { where(region_id: nil) }
 
   # @param [Integer] page
   # @param [Integer] per_page
@@ -115,10 +117,10 @@ class Post < ApplicationRecord
   end
 
   def self.entity_parameters
-    main_data   = %i[body language_id lead original_title post_category_id publication_time region_id slug title]
-    image_data  = %i[image image_alt_text image_source_link image_source_name image_name]
-    meta_data   = %i[rating source_name source_link meta_title meta_description meta_keywords time_required]
-    flags_data  = %i[allow_comments allow_votes show_owner visible translation]
+    main_data = %i[body language_id lead original_title post_category_id publication_time region_id slug title]
+    image_data = %i[image image_alt_text image_source_link image_source_name image_name]
+    meta_data = %i[rating source_name source_link meta_title meta_description meta_keywords time_required]
+    flags_data = %i[allow_comments allow_votes show_owner visible translation]
     author_data = %i[author_name author_title author_url translator_name]
 
     main_data + image_data + meta_data + author_data + flags_data
@@ -174,6 +176,10 @@ class Post < ApplicationRecord
     else
       author_name
     end
+  end
+
+  def text
+    parsed_body.blank? ? body : parsed_body
   end
 
   # Get editorial member instance for this post
