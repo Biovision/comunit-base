@@ -38,6 +38,20 @@ class PostsController < ApplicationController
     end
   end
 
+  # get /news/:category_slug/:slug
+  def show_in_category
+    @entity = Post.list_for_visitors.find_by(slug: params[:slug])
+    if @entity.nil?
+      handle_http_404('Cannot find post')
+    else
+      @entity.increment :view_count
+      @entity.increment :rating, 0.0025
+      @entity.save
+
+      render :show
+    end
+  end
+
   # get /posts/:id/edit
   def edit
   end

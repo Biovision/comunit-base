@@ -84,6 +84,8 @@ Rails.application.routes.draw do
         get 'archive/(:year)(-:month)(-:day)' => :archive, as: :archive, constraints: archive_constraints
         get 'rss/zen.xml' => :zen, defaults: { format: :xml }
         get 'rss.xml' => :rss, as: :rss, defaults: { format: :xml }
+        get ':category_slug' => :category, as: :legacy_posts_category, constraints: { category_slug: category_slug_pattern }
+        get ':category_slug/:slug' => :show_in_category, as: :post_in_category, constraints: { category_slug: category_slug_pattern }
       end
     end
     resources :post_tags, only: :edit
@@ -97,16 +99,17 @@ Rails.application.routes.draw do
       get '/' => :index, as: :articles
       get 'archive/(:year)(-:month)(-:day)' => :archive, as: :articles_archive, constraints: archive_constraints
       get 'tagged/(:tag_name)' => :tagged, as: :tagged_articles, constraints: { tag_name: /[^\/]+?/ }
-      get '/:category_slug' => :category, as: :articles_category, constraints: { category_slug: category_slug_pattern }
-      get '/:post_id-:post_slug' => :show, as: :show_article, constraints: { post_id: /\d+/, post_slug: post_slug_pattern }
+      get ':category_slug' => :category, as: :articles_category, constraints: { category_slug: category_slug_pattern }
+      get ':post_id-:post_slug' => :show, as: :show_article, constraints: { post_id: /\d+/, post_slug: post_slug_pattern }
     end
 
     scope :news, controller: :news do
       get '/' => :index, as: :news_index
       get 'archive/(:year)(-:month)(-:day)' => :archive, as: :news_archive, constraints: archive_constraints
       get 'tagged/(:tag_name)' => :tagged, as: :tagged_news, constraints: { tag_name: /[^\/]+?/ }
-      get '/:category_slug' => :category, as: :news_category, constraints: { category_slug: category_slug_pattern }
-      get '/:post_id-:post_slug' => :show, as: :show_news, constraints: { post_id: /\d+/, post_slug: post_slug_pattern }
+      get ':category_slug' => :category, as: :news_category, constraints: { category_slug: category_slug_pattern }
+      get ':category_slug/:slug' => :show_in_category, as: :news_in_category, constraints: { category_slug: category_slug_pattern }
+      get ':post_id-:post_slug' => :show, as: :show_news, constraints: { post_id: /\d+/, post_slug: post_slug_pattern }
     end
 
     scope :blog_posts, controller: :blog_posts do
@@ -122,6 +125,9 @@ Rails.application.routes.draw do
       get ':slug' => :show, as: :author
     end
 
+    get 'regional_news/:category_slug' => 'news#category', as: :legacy_news_category, constraints: { category_slug: category_slug_pattern }
+    get 'regional_news/:category_slug/:slug' => 'news#show_in_category', as: :legacy_news_in_category, constraints: { category_slug: category_slug_pattern }
+
     resources :illustrations, only: :create
 
     resources :albums, except: %i[update destroy]
@@ -135,12 +141,6 @@ Rails.application.routes.draw do
     get 'feedback' => 'appeals#new'
     post 'feedback' => 'appeals#create'
 
-    # resources :news, except: [:update, :destroy] do
-    #   collection do
-    #     get ':category_slug' => :category, as: :category, constraints: { category_slug: category_pattern }
-    #     get ':category_slug/:slug' => :show_in_category, as: :news_in_category, constraints: { category_slug: category_pattern }
-    #   end
-    # end
     # resources :regional_news, only: [:index] do
     #   collection do
     #     get ':category_slug' => :category, as: :category, constraints: { category_slug: category_pattern }
