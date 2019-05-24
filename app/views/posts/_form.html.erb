@@ -6,6 +6,19 @@
     <% if current_user_has_privilege?(:chief_editor) %>
       <dt><%= t('activerecord.attributes.post.user') %></dt>
       <dd>
+        <% unless entity.id.nil? || entity.user.nil? %>
+          <div>
+            <%=
+              radio_button_tag(
+                  :user_for_entity,
+                  entity.user_id,
+                  true,
+                  id: 'user_for_entity_0'
+              )
+            %>
+            <%= label_tag('user_for_entity_0', entity.user.profile_name) %>
+          </div>
+        <% end %>
         <div>
           <%=
             radio_button_tag(
@@ -18,18 +31,21 @@
           <%= label_tag("user_for_entity_#{current_user.id}", current_user.profile_name) %>
         </div>
         <% PrivilegeGroup.users(:editors).uniq.each do |user| %>
-          <% next if user.id == current_user.id %>
+          <%
+            user_id = user&.id
+            next if user_id == current_user.id
+          %>
           <div>
-            <% element_id = "user_for_entity_#{user.id}" %>
+            <% element_id = "user_for_entity_#{user_id}" %>
             <%=
               radio_button_tag(
                   :user_for_entity,
-                  user.id,
-                  entity.user_id == user.id,
+                  user_id,
+                  entity.user_id == user_id,
                   id: element_id
               )
             %>
-            <%= label_tag(element_id, user.profile_name) %>
+            <%= label_tag(element_id, user&.profile_name) %>
           </div>
         <% end %>
       </dd>
@@ -43,7 +59,7 @@
       <%=
         f.datetime_local_field(
             :publication_time,
-            id:       "#{model_name}_publication_time",
+            id: "#{model_name}_publication_time",
             required: true
         )
       %>
@@ -54,11 +70,11 @@
       <%=
         f.text_field(
             :title,
-            id:        "#{model_name}_title",
-            size:      nil,
+            id: "#{model_name}_title",
+            size: nil,
             maxlength: Post::TITLE_LIMIT,
-            required:  true,
-            data:      { transliterate: "#{model_name}_slug" }
+            required: true,
+            data: { transliterate: "#{model_name}_slug" }
         )
       %>
       <div class="guideline"><%= t('.guidelines.title') %></div>
@@ -69,12 +85,12 @@
       <%=
         f.text_field(
             :slug,
-            id:        "#{model_name}_slug",
-            size:      nil,
+            id: "#{model_name}_slug",
+            size: nil,
             maxlength: Post::SLUG_LIMIT,
-            required:  true,
-            pattern:   Post::SLUG_PATTERN_HTML,
-            title:     t('.guidelines.slug')
+            required: true,
+            pattern: Post::SLUG_PATTERN_HTML,
+            title: t('.guidelines.slug')
         )
       %>
       <div class="guideline"><%= t('.guidelines.slug') %></div>
@@ -92,31 +108,19 @@
       </dd>
     <% end %>
 
-    <% if Region.any? %>
-      <dt><%= f.label :region_id %></dt>
-      <dd>
-        <%= radio_button_tag 'post[region_id]', '', entity.region.nil?, id: 'post_region_0' %>
-        <%= label_tag 'post_region_0', t(:not_set) %><br/>
-        <% unless entity.region.nil? %>
-          <%= radio_button_tag 'post[region_id]', entity.region_id, true, id: 'post_region_default' %>
-          <%= label_tag 'post_region_default', entity.region.branch_name %>
-          <br/>
-        <% end %>
-        <%= render partial: 'admin/regions/post_form', locals: { form: f } %>
-      </dd>
-    <% end %>
+    <%= render partial: 'shared/forms/region_select', locals: { f: f } %>
 
     <dt><%= f.label :lead %></dt>
     <dd>
       <%=
         f.text_area(
             :lead,
-            id:        "#{model_name}_lead",
-            cols:      80,
-            rows:      3,
+            id: "#{model_name}_lead",
+            cols: 80,
+            rows: 3,
             maxlength: Post::LEAD_LIMIT,
-            class:     'auto-expand',
-            data:      {
+            class: 'auto-expand',
+            data: {
                 min_rows: 3,
                 max_rows: 10
             }
@@ -130,11 +134,11 @@
       <%=
         f.text_area(
             :body,
-            id:       "#{model_name}_body",
-            cols:     20,
-            rows:     25,
+            id: "#{model_name}_body",
+            cols: 20,
+            rows: 25,
             required: true,
-            data:     {
+            data: {
                 wysiwyg: 1,
                 upload_url: post_illustrations_path
             }
@@ -154,9 +158,9 @@
       <%=
         f.number_field(
             :time_required,
-            id:   "#{model_name}_time_required",
+            id: "#{model_name}_time_required",
             size: nil,
-            in:   Post::TIME_RANGE
+            in: Post::TIME_RANGE
         )
       %>
       <div class="guideline"><%= t('.guidelines.time_required') %></div>
@@ -167,8 +171,8 @@
       <%=
         f.text_field(
             :author_name,
-            id:        "#{model_name}_author_name",
-            size:      nil,
+            id: "#{model_name}_author_name",
+            size: nil,
             maxlength: Post::META_LIMIT
         )
       %>
@@ -180,8 +184,8 @@
       <%=
         f.text_field(
             :author_title,
-            id:        "#{model_name}_author_title",
-            size:      nil,
+            id: "#{model_name}_author_title",
+            size: nil,
             maxlength: Post::META_LIMIT
         )
       %>
@@ -193,8 +197,8 @@
       <%=
         f.url_field(
             :author_url,
-            id:        "#{model_name}_author_url",
-            size:      nil,
+            id: "#{model_name}_author_url",
+            size: nil,
             maxlength: Post::META_LIMIT
         )
       %>
@@ -214,9 +218,9 @@
           <%=
             f.file_field(
                 :image,
-                id:     "#{model_name}_image",
+                id: "#{model_name}_image",
                 accept: 'image/jpeg,image/png',
-                data:   { image: figure_id }
+                data: { image: figure_id }
             )
           %>
         </figcaption>
@@ -229,8 +233,8 @@
       <%=
         f.text_field(
             :image_alt_text,
-            id:        "#{model_name}_image_alt_text",
-            size:      nil,
+            id: "#{model_name}_image_alt_text",
+            size: nil,
             maxlength: Post::META_LIMIT
         )
       %>
@@ -242,8 +246,8 @@
       <%=
         f.text_field(
             :image_name,
-            id:        "#{model_name}_image_name",
-            size:      nil,
+            id: "#{model_name}_image_name",
+            size: nil,
             maxlength: Post::IMAGE_NAME_LIMIT
         )
       %>
@@ -255,8 +259,8 @@
       <%=
         f.text_field(
             :image_source_name,
-            id:        "#{model_name}_image_source_name",
-            size:      nil,
+            id: "#{model_name}_image_source_name",
+            size: nil,
             maxlength: Post::META_LIMIT
         )
       %>
@@ -268,9 +272,9 @@
       <%=
         f.url_field(
             :image_source_link,
-            id:          "#{model_name}_image_source_link",
-            size:        nil,
-            maxlength:   Post::META_LIMIT,
+            id: "#{model_name}_image_source_link",
+            size: nil,
+            maxlength: Post::META_LIMIT,
             placeholder: t('.placeholders.image_source_link')
         )
       %>
@@ -282,8 +286,8 @@
       <%=
         f.text_field(
             :source_name,
-            id:        "#{model_name}_source_name",
-            size:      nil,
+            id: "#{model_name}_source_name",
+            size: nil,
             maxlength: Post::META_LIMIT
         )
       %>
@@ -295,8 +299,8 @@
       <%=
         f.text_field(
             :original_title,
-            id:        "#{model_name}_original_title",
-            size:      nil,
+            id: "#{model_name}_original_title",
+            size: nil,
             maxlength: Post::META_LIMIT
         )
       %>
@@ -308,9 +312,9 @@
       <%=
         f.url_field(
             :source_link,
-            id:          "#{model_name}_source_link",
-            size:        nil,
-            maxlength:   Post::META_LIMIT,
+            id: "#{model_name}_source_link",
+            size: nil,
+            maxlength: Post::META_LIMIT,
             placeholder: t('.placeholders.source_link')
         )
       %>
@@ -322,8 +326,8 @@
       <%=
         f.text_field(
             :meta_title,
-            id:        "#{model_name}_meta_title",
-            size:      nil,
+            id: "#{model_name}_meta_title",
+            size: nil,
             maxlength: Post::META_LIMIT
         )
       %>
@@ -335,8 +339,8 @@
       <%=
         f.text_field(
             :meta_description,
-            id:        "#{model_name}_meta_description",
-            size:      nil,
+            id: "#{model_name}_meta_description",
+            size: nil,
             maxlength: Post::META_LIMIT
         )
       %>
@@ -348,8 +352,8 @@
       <%=
         f.text_field(
             :meta_keywords,
-            id:        "#{model_name}_meta_keywords",
-            size:      nil,
+            id: "#{model_name}_meta_keywords",
+            size: nil,
             maxlength: Post::META_LIMIT
         )
       %>
@@ -362,7 +366,7 @@
         <%=
           f.number_field(
               :rating,
-              id:   "#{model_name}_rating",
+              id: "#{model_name}_rating",
               step: 0.0000001,
               size: 5
           )
@@ -374,10 +378,10 @@
     <dd>
       <ul class="flags">
         <% if entity.id.nil? && current_user_has_privilege?(:chief_editor) %>
-        <li>
-          <%= check_box_tag :featured, '1' %>
-          <%= label_tag :featured, t('activerecord.models.featured_post') %>
-        </li>
+          <li>
+            <%= check_box_tag :featured, '1' %>
+            <%= label_tag :featured, t('activerecord.models.featured_post') %>
+          </li>
         <% end %>
         <li>
           <%= f.check_box :visible, id: "#{model_name}_visible" %>
@@ -395,8 +399,8 @@
             <%=
               f.text_field(
                   :translator_name,
-                  id:        "#{model_name}_translator_name",
-                  size:      nil,
+                  id: "#{model_name}_translator_name",
+                  size: nil,
                   maxlength: Post::META_LIMIT
               )
             %>
