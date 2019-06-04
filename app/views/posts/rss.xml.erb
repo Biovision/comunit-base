@@ -16,29 +16,30 @@
     <% @collection.each do |post| %>
     <item>
       <title><%= post.title %></title>
-      <link><%= site_link + PostManager.handler(post, locale).post_path %></link>
+      <link><%= site_link + PostManager.new(post, locale).post_path %></link>
       <description><%= post.lead! %></description>
       <guid isPermaLink="false"><%= post.uuid %></guid>
       <pubDate><%= post.publication_time.rfc822 %></pubDate>
 
       <% unless post.image.blank? %>
-      <enclosure
-        url="<%= media_link + post.image.hd.url %>"
-        length="<%= File.size(post.image.hd.current_path) %>"
-        type="<%= post.image.content_type %>"
-      />
+        <enclosure
+          url="<%= media_link + post.image.hd.url %>"
+          length="<%= File.size(post.image.hd.current_path) %>"
+          type="<%= post.image.content_type %>"
+        />
       <% end %>
       <% if post.post_images.any? %>
         <% post.post_images.list_for_visitors.each do |image| %>
-      <enclosure
-        url="<%= media_link + image.image.hd.url %>"
-        length="<%= File.size(image.image.hd.current_path) %>"
-        type="<%= image.image.content_type %>"
-      />
+          <% next if image.nil? %>
+            <enclosure
+              url="<%= media_link + image.image.hd.url %>"
+              length="<%= File.size(image.image.hd.current_path) %>"
+              type="<%= image.image.content_type %>"
+            />
         <% end %>
       <% end %>
       <% unless post.post_category.blank? %>
-      <category><%= post.post_category.full_title %></category>
+        <category><%= post.post_category.full_title %></category>
       <% end %>
     </item>
     <% end %>

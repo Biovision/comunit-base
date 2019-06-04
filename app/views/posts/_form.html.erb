@@ -131,16 +131,27 @@
 
     <dt><%= f.label :body %></dt>
     <dd>
+      <div class="wysiwyg-button-container">
+        <button
+          type="button"
+          class="js-wysiwyg-toggle button-action"
+          data-element="<%= model_name %>_body"
+          data-upload-url="<%= post_illustrations_path %>"
+        >
+          WYSIWYG
+        </button>
+      </div>
       <%=
         f.text_area(
             :body,
             id: "#{model_name}_body",
             cols: 20,
-            rows: 25,
+            rows: 10,
+            class: 'auto-expand',
             required: true,
             data: {
-                wysiwyg: 1,
-                upload_url: post_illustrations_path
+                min_rows: 10,
+                max_rows: 50
             }
         )
       %>
@@ -433,4 +444,4 @@
   </div>
 <% end %>
 
-<%= render partial: 'posts/wysiwyg' %>
+<%= render partial: 'shared/forms/toggle_wysiwyg' %>

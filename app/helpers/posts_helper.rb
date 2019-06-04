@@ -77,12 +77,12 @@ module PostsHelper
   # @param [String] text
   # @param [Hash] options
   def post_link(entity, text = entity.title, options = {})
-    link_to(text, PostManager.handler(entity, locale).post_path, options)
+    link_to(text, PostManager.new(entity, locale).post_path, options)
   end
 
   # @param [Post] entity
   def post_category_link(entity)
-    handler = PostManager.handler(entity)
+    handler = PostManager.new(entity)
     if entity.post_category.nil?
       link_to(entity.post_type.default_category_name, handler.empty_category_path)
     else
@@ -122,7 +122,7 @@ module PostsHelper
     if entity.nil?
       link_to(tag_name, tagged_posts_path(tag_name: tag_name), rel: 'tag')
     else
-      handler = PostManager.handler(entity, locale)
+      handler = PostManager.new(entity, locale)
       link_to(tag_name, handler.tagged_path(tag_name), rel: 'tag')
     end
   end

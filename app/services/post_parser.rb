@@ -12,10 +12,11 @@ class PostParser
     @body = escape_scripts
     @body = convert_video_links
     @body = convert_asides
+    @body = OembedReceiver.convert(@body)
   end
 
   def escape_scripts
-    @body.gsub(/<script/, '&lt;script')
+    @body.gsub(%r{<(/?)script}, '&lt;\1script')
   end
 
   def convert_video_links
