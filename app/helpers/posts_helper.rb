@@ -86,7 +86,7 @@ module PostsHelper
     if entity.post_category.nil?
       link_to(entity.post_type.default_category_name, handler.empty_category_path)
     else
-      link_to(entity.post_category.name, handler.category_path(entity.post_category))
+      link_to(entity.post_category.name, handler.category_path)
     end
   end
 
