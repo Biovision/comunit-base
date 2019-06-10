@@ -196,4 +196,13 @@
         }
     )
   %>
+
+  <%=
+    render(
+        partial: 'admin/posts/entity/additional_data',
+        locals: {
+            entity: @entity
+        }
+    )
+  %>
 </article>
