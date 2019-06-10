@@ -53,6 +53,12 @@
       <%= t('posts.form.tags') %>: <%= entity.tags_cache.join(', ') %>
     </div>
   <% end %>
+  <%=
+    render(
+        partial: 'admin/posts/entity/in_list/additional_data',
+        locals: { entity: entity }
+    )
+  %>
 
   <%=
     render(
