@@ -72,7 +72,7 @@ class Post < ApplicationRecord
   validates_length_of :author_title, maximum: META_LIMIT
   validates_length_of :author_url, maximum: 1000
   validates_length_of :translator_name, maximum: META_LIMIT
-  validates_format_of :slug, with: SLUG_PATTERN
+  # validates_format_of :slug, with: SLUG_PATTERN
   validates_numericality_of :time_required, in: TIME_RANGE, allow_nil: true
   validate :category_consistency
 
