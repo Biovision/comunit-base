@@ -62,7 +62,7 @@ class Post < ApplicationRecord
   validates_length_of :image_alt_text, maximum: ALT_LIMIT
   validates_length_of :image_source_name, maximum: META_LIMIT
   validates_length_of :image_source_link, maximum: META_LIMIT
-  validates_length_of :source_link, maximum: META_LIMIT
+  validates_length_of :source_link, maximum: 1000
   validates_length_of :source_name, maximum: META_LIMIT
   validates_length_of :original_title, maximum: META_LIMIT
   validates_length_of :meta_title, maximum: TITLE_LIMIT
