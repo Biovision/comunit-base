@@ -61,7 +61,7 @@ class Post < ApplicationRecord
   validates_length_of :image_name, maximum: IMAGE_NAME_LIMIT
   validates_length_of :image_alt_text, maximum: ALT_LIMIT
   validates_length_of :image_source_name, maximum: META_LIMIT
-  validates_length_of :image_source_link, maximum: META_LIMIT
+  validates_length_of :image_source_link, maximum: 1000
   validates_length_of :source_link, maximum: 1000
   validates_length_of :source_name, maximum: META_LIMIT
   validates_length_of :original_title, maximum: META_LIMIT
@@ -70,7 +70,7 @@ class Post < ApplicationRecord
   validates_length_of :meta_keywords, maximum: META_LIMIT
   validates_length_of :author_name, maximum: META_LIMIT
   validates_length_of :author_title, maximum: META_LIMIT
-  validates_length_of :author_url, maximum: META_LIMIT
+  validates_length_of :author_url, maximum: 1000
   validates_length_of :translator_name, maximum: META_LIMIT
   validates_format_of :slug, with: SLUG_PATTERN
   validates_numericality_of :time_required, in: TIME_RANGE, allow_nil: true
