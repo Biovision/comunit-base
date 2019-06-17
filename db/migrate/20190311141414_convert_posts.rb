@@ -208,7 +208,11 @@ class ConvertPosts < ActiveRecord::Migration[5.2]
 
   def update_counters_and_language
     PostType.order('id asc').each { |pt| PostType.reset_counters(pt.id, :posts_count) }
-    PostCategory.order('id asc').each { |pc| PostCategory.reset_counters(pc.id, :posts_count) }
+    PostCategory.order('id asc').each do |pc|
+      PostCategory.reset_counters(pc.id, :posts_count)
+      pc.update! long_slug: pc.parent.nil? ? pc.slug : "#{pc.parent.long_slug}_#{pc.slug}"
+    end
     Post.update_all(language_id: Language.active.first&.id)
+    Post.where(publication_time: nil).each { |post| post.update publication_time: post.created_at }
   end
 end
