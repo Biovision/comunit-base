@@ -15,7 +15,7 @@ class Post < ApplicationRecord
   IMAGE_NAME_LIMIT = 500
   LEAD_LIMIT = 5000
   META_LIMIT = 250
-  SLUG_LIMIT = 200
+  SLUG_LIMIT = 500
   SLUG_PATTERN = /\A[a-z0-9]+[-_.a-z0-9]*[a-z0-9]+\z/.freeze
   SLUG_PATTERN_HTML = '^[a-zA-Z0-9]+[-_.a-zA-Z0-9]*[a-zA-Z0-9]+$'
   TIME_RANGE = (0..1440).freeze
@@ -50,7 +50,7 @@ class Post < ApplicationRecord
   after_initialize { self.uuid = SecureRandom.uuid if uuid.nil? }
   after_initialize { self.publication_time = Time.now if publication_time.nil? }
   before_validation { self.slug = Canonizer.transliterate(title.to_s) if slug.blank? }
-  before_validation { self.slug = slug.downcase }
+  before_validation { self.slug = slug.downcase[0...SLUG_LIMIT] }
   before_validation :prepare_source_names
 
   validates_presence_of :uuid, :title, :slug, :body
