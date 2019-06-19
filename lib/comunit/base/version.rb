@@ -2,6 +2,6 @@
 
 module Comunit
   module Base
-    VERSION = '0.23.190617.4'
+    VERSION = '0.23.190619.0'
   end
 end

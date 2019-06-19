@@ -5,7 +5,7 @@ class SearchController < ApplicationController
     if @query.blank?
       @collection = []
     else
-      @collection = Elasticsearch::Model.search(@query, [News, Post]).records.first(20)
+      @collection = Elasticsearch::Model.search(@query, Post).records.first(20)
     end
   end
 end
