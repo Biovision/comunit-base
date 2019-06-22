@@ -1,9 +1,9 @@
-<% content_for :meta_title, t('.title', category: @category.name, page: current_page) %>
+<% content_for :meta_title, t('.title', category: @category&.name, page: current_page) %>
 <% content_for :posts_selected, '1' %>
-<% content_for :selected_item, 'pc' + (@category.parents.first&.id || @category.id).to_s %>
+<% content_for :selected_item, 'pc' + (@category&.parents.first&.id || @category&.id).to_s %>
 <% content_for :breadcrumbs do %>
   <%= link_to(t('posts.nav_item.text'), posts_path) %>
-  <% @category.parents.each do |parent| %>
+  <% @category&.parents.each do |parent| %>
     <%= post_category_link(parent) %>
   <% end %>
   <span><%= @category.name %></span>

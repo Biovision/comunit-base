@@ -49,7 +49,7 @@ class Post < ApplicationRecord
 
   after_initialize { self.uuid = SecureRandom.uuid if uuid.nil? }
   after_initialize { self.publication_time = Time.now if publication_time.nil? }
-  before_validation { self.slug = Canonizer.transliterate(title.to_s) if slug.blank? }
+  before_validation :generate_slug
   before_validation { self.slug = slug.downcase[0...SLUG_LIMIT] }
   before_validation :prepare_source_names
 
@@ -154,6 +154,11 @@ class Post < ApplicationRecord
       chunk = where(region_id: selected_region.subbranch_ids - excluded_ids)
     end
     chunk
+  end
+
+  # @deprecated use #post_category
+  def category
+    post_category
   end
 
   # Lead or the first passage of body
@@ -276,5 +281,12 @@ class Post < ApplicationRecord
     rescue URI::InvalidURIError
       self.source_name = URL_PATTERN.match(source_link)[1]
     end
+  end
+
+  def generate_slug
+    return unless slug.blank?
+
+    postfix = (created_at || Time.now).strftime('%d%m%Y')
+    self.slug = "#{Canonizer.transliterate(title.to_s)}_#{postfix}"
   end
 end

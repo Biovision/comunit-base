@@ -68,6 +68,7 @@
 
       <ul>
         <% post.post_attachments.ordered_for_list.each do |attachment| %>
+          <% next if attachment.file.blank? %>
           <li>
             <%= post_attachment_link(attachment) %>
             (<%= number_to_human_size(attachment.size) %>)
@@ -105,6 +106,16 @@
 
     <div class="time">
       <%= time_tag post.publication_time, itemProp: 'datePublished', aria: { label: t('activerecord.attributes.post.created_at') } %>
+    </div>
+
+    <div class="counters">
+      <span class="view_count"><%= post.view_count %></span>
+      <% if post.allow_comments? && 'CommentableItem'.safe_constantize %>
+        <span class="comment_count"><%= post.comments_count %></span>
+      <% end %>
+      <% if post.time_required.to_i.positive? %>
+        <div class="time_required"><%= post.time_required %> min</div>
+      <% end %>
     </div>
 
     <% unless post.time_required.blank? %>

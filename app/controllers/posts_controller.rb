@@ -3,6 +3,7 @@
 # Posts management
 class PostsController < ApplicationController
   before_action :restrict_access, only: %i[new create]
+  before_action :set_category, only: :category
   before_action :set_entity, only: %i[edit update destroy]
   before_action :restrict_editing, only: %i[edit update destroy]
 
@@ -83,7 +84,7 @@ class PostsController < ApplicationController
 
   # get /posts/:category_slug
   def category
-    @collection = Post.in_category(params[:category_slug]).page_for_visitors(current_page)
+    @collection = Post.in_category_branch(@category).page_for_visitors(current_page)
     respond_to do |format|
       format.html
       format.json { render('posts/index') }
@@ -120,6 +121,11 @@ class PostsController < ApplicationController
   def set_entity
     @entity = Post.find_by(id: params[:id])
     handle_http_404('Cannot find post') if @entity.nil?
+  end
+
+  def set_category
+    @category = PostCategory.find_by(long_slug: params[:category_slug])
+    handle_http_404('Cannot find post category') if @category.nil?
   end
 
   def restrict_access
