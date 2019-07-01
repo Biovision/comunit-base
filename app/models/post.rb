@@ -163,12 +163,7 @@ class Post < ApplicationRecord
 
   # Lead or the first passage of body
   def lead!
-    if lead.blank?
-      pattern = %r{<p>(.+?)</p>}
-      (parsed_body.blank? ? body : parsed_body).match(pattern)[1].to_s[0..499]
-    else
-      lead
-    end
+    lead
   end
 
   # Get the most suitable author name for post
