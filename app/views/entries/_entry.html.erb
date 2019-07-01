@@ -35,5 +35,5 @@
   <%= render 'shared/pluso' %>
   <%= render partial: 'shared/track', locals: { item: entry } %>
 
-  <%= render partial: 'comments/list', locals: { comments: entry.comments.visible.recent, commentable: entry } %>
+  <%= render partial: 'comments/section', locals: { entity: entry } %>
 </article>
