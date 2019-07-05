@@ -29,6 +29,8 @@ class PostAttachment < ApplicationRecord
   end
 
   def name!
+    return '' if file.nil?
+
     name.blank? ? CGI.unescape(File.basename(file.path)) : name
   end
 
