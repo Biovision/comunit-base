@@ -1,11 +1,11 @@
 <div id="sidebar-posts">
   <div class="heading">Блог</div>
-  <% entries = Entry.public_entries.recent.first(5) %>
+  <% entries = Post.of_type(:blog_post).list_for_visitors.first(5) %>
   <% if entries.any? %>
       <div class="posts">
         <% entries.each do |entry| %>
             <div>
-              <div class="title"><%= entry_link(entry, current_user) %></div>
+              <div class="title"><%= post_link(entry) %></div>
               <div class="info">
                 <%= user_link(entry.user) %>
                 <%= time_tag(entry.created_at) %>

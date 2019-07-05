@@ -2,11 +2,11 @@
   <%= profile_avatar entry.user %>
 </div>
 <div class="data">
-  <div><cite><%= admin_entry_link(entry) %></cite></div>
+  <div><cite><%#= admin_entry_link(entry) %></cite></div>
   <div class="info">
     <%= user_link entry.user %>,
     <%= time_tag entry.created_at %>,
-    <%= link_to t(:comment, count: entry.comments_count), comments_admin_entry_path(id: entry.id) %>
+    <%#= link_to t(:comment, count: entry.comments_count), comments_admin_entry_path(id: entry.id) %>
   </div>
   <div class="secondary info"><%= glimpse entry.body, 50 %></div>
 
