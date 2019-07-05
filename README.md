@@ -76,8 +76,12 @@ SITE_ID=
 
 ```
 //= require jquery3
+//= require biovision/base/polyfills
 //= require biovision/base/biovision
+//= require biovision/base/components/video-stretcher
 //= require biovision/vote/biovision-vote
+//= require biovision/comment/biovision-comments
+//= require comunit/base/comunit-base
 //= require comunit/base/socialization
 ```
 
