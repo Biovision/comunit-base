@@ -21,6 +21,7 @@ class PostAttachment < ApplicationRecord
   after_initialize { self.uuid = SecureRandom.uuid if uuid.nil? }
 
   validates_length_of :name, maximum: NAME_LIMIT
+  validates_presence_of :file
 
   scope :ordered_for_list, -> { order('name asc, file asc') }
 
