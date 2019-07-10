@@ -39,6 +39,7 @@ class Region < ApplicationRecord
   scope :ordered_by_slug, -> { order('slug asc') }
   scope :ordered_by_name, -> { order('name asc') }
   scope :visible, -> { where(visible: true) }
+  scope :with_posts, -> { where('posts_count > 0') }
   scope :for_tree, ->(country_id = nil, parent_id = nil) { where(parent_id: parent_id).ordered_by_name }
 
   # @param [Region] item
@@ -56,9 +57,27 @@ class Region < ApplicationRecord
     column_names.reject { |c| ignored.include?(c) }
   end
 
+  # Post moved to other region
+  #
+  # Decrements posts_count for region with old_id and increments for new_id
+  #
+  # @param [Integer|nil] old_id
+  # @param [Integer|nil] new_id
+  def self.update_post_count(old_id, new_id)
+    part = 'update regions set posts_count = posts_count'
+    unless new_id.nil?
+      region = find(new_id)
+      connection.execute("#{part} + 1 where id in (#{region.branch_ids.join(',')})")
+    end
+    return if old_id.nil?
+
+    region = find(old_id)
+    connection.execute("#{part} - 1 where id in (#{region.branch_ids.join(',')})")
+  end
+
   # @param [User] user
   def editable_by?(user)
-    chief   = UserPrivilege.user_has_privilege?(user, :chief_region_manager)
+    chief = UserPrivilege.user_has_privilege?(user, :chief_region_manager)
     manager = UserPrivilege.user_has_privilege?(user, :region_manager, self)
     chief || manager
   end

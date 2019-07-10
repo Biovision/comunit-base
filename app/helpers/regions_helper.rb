@@ -42,7 +42,7 @@ module RegionsHelper
   # @param [Integer] selected_id
   def current_region_for_select(selected_id = 0)
     options = [['Центр', '', { data: { url: root_path } }]]
-    Region.visible.for_tree.each do |region|
+    Region.visible.with_posts.for_tree.each do |region|
       url = regional_index_path(region_slug: region.long_slug)
       options << [region.short_name, region.id, { data: { url: url } }]
     end
@@ -59,7 +59,7 @@ module RegionsHelper
     else
       options << ['Все', '', { data: { url: regional_index_path(region_slug: slug) } }]
     end
-    Region.visible.for_tree(nil, region_id).each do |region|
+    Region.visible.with_posts.for_tree(nil, region_id).each do |region|
       url = regional_index_path(region_slug: region.long_slug)
       options << [region.short_name, region.id, { data: { url: url } }]
     end

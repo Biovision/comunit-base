@@ -52,6 +52,7 @@ class Post < ApplicationRecord
   before_validation :generate_slug
   before_validation { self.slug = slug.downcase[0...SLUG_LIMIT] }
   before_validation :prepare_source_names
+  before_save :track_region_change
 
   validates_presence_of :uuid, :title, :slug, :body
   validates_length_of :title, maximum: TITLE_LIMIT
@@ -283,5 +284,11 @@ class Post < ApplicationRecord
 
     postfix = (created_at || Time.now).strftime('%d%m%Y')
     self.slug = "#{Canonizer.transliterate(title.to_s)}_#{postfix}"
+  end
+
+  def track_region_change
+    return unless region_id_changed?
+
+    Region.update_post_count(*region_id_change)
   end
 end
