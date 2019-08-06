@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'biovision-base'
   s.add_dependency 'biovision-vote'
+  s.add_dependency 'biovision-post'
   # s.add_dependency 'biovision-poll'
   s.add_dependency 'biovision-comment'
   s.add_dependency 'elasticsearch-model', '~> 5.1'

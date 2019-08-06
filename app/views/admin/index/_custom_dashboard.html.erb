@@ -6,21 +6,12 @@
 <!--      <li><%#= render 'admin/news_categories/nav_item' %></li>-->
 <!--      <li><%#= render 'admin/entries/nav_item' %></li>-->
     <% end %>
-    <% if current_user_has_privilege?(:albums_manager) %>
-      <li><%= render 'admin/albums/nav_item' %></li>
-    <% end %>
-    <% if current_user_has_privilege?(:group_manager) %>
-      <li><%= render 'admin/groups/nav_item' %></li>
-    <% end %>
-    <% if current_user_has_privilege?(:teams_manager) %>
-      <li><%= render 'admin/teams/nav_item' %></li>
-    <% end %>
   </ul>
 </nav>
 <%= render 'admin/index/dashboard/promo_manager' %>
 <%= render 'admin/index/additional' %>
 <%= render 'admin/index/dashboard/feedback_manager' %>
-<%= render 'admin/index/dashboard/event_manager' %>
-<%= render 'admin/index/dashboard/posts_component' %>
+<%#= render 'admin/index/dashboard/event_manager' %>
+<%#= render 'admin/index/dashboard/posts_component' %>
 
 <%#= render 'editorial/index/navigation' %>

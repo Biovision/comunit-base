@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 app_name = 'example'
 
 Rails.application.configure do

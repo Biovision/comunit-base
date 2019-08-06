@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 module Comunit
   module Base
     require 'biovision/base'
+    require 'biovision/post'
     require 'biovision/vote'
     # require 'biovision/poll'
     require 'biovision/comment'
@@ -18,16 +21,18 @@ module Comunit
         require_dependency 'comunit/base/decorators/controllers/admin/privileges_controller_decorator'
         require_dependency 'comunit/base/decorators/models/user_decorator'
         require_dependency 'comunit/base/decorators/models/user_privilege_decorator'
+        require_dependency 'comunit/base/decorators/models/post_decorator'
 
         ActiveSupport.on_load(:action_controller) do
           include Comunit::Base::PrivilegeMethods
         end
       end
 
-      config.assets.precompile << %w[admin.scss]
-      config.assets.precompile << %w[biovision/base/**/*]
-      config.assets.precompile << %w[biovision/vote/icons/*]
-      config.assets.precompile << %w[comunit/base/**/*]
+      components = %w[
+        admin.scss biovision/base/**/* biovision/post/**/*
+        biovision/vote/icons/* comunit/base/**/*
+      ]
+      config.assets.precompile << components
 
       config.generators do |g|
         g.test_framework :rspec
