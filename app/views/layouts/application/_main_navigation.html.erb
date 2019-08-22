@@ -10,7 +10,7 @@
     <%= link_to t('news.index.heading'), news_index_path %>
     <ul>
       <% PostCategory.visible.for_tree(news_type).each do |news_category| %>
-          <li><%= post_category_link(Post.new(post_category: news_category, post_type: news_category.post_type)) %></li>
+          <li><%= post_category_link(news_category) %></li>
       <% end %>
     </ul>
   </li>

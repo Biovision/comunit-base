@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Post.class_eval do
+  belongs_to :region, optional: true
+
   before_save :track_region_change
 
   scope :in_region, -> (region) { where(region_id: region&.id.nil? ? nil : region&.subbranch_ids) }
@@ -26,7 +28,7 @@ Post.class_eval do
       self.slug = "#{Canonizer.transliterate(title.to_s)}_#{postfix}"
     end
 
-    slug_limit = SLUG_LIMIT + postfix.length + 1
+    slug_limit = 200 + postfix.length + 1
     self.slug = slug.downcase[0..slug_limit]
   end
 

@@ -1,4 +1,7 @@
-<% model_name = entity.class.to_s.underscore %>
+<%
+  model_name = entity.class.to_s.underscore
+  languages = Language.active
+%>
 <%= form_with model: entity, html: { id: "#{model_name}-form" } do |f| %>
   <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
 
@@ -6,19 +9,6 @@
     <% if current_user_has_privilege?(:chief_editor) %>
       <dt><%= t('activerecord.attributes.post.user') %></dt>
       <dd>
-        <% unless entity.id.nil? || entity.user.nil? %>
-          <div>
-            <%=
-              radio_button_tag(
-                  :user_for_entity,
-                  entity.user_id,
-                  true,
-                  id: 'user_for_entity_0'
-              )
-            %>
-            <%= label_tag('user_for_entity_0', entity.user.profile_name) %>
-          </div>
-        <% end %>
         <div>
           <%=
             radio_button_tag(
@@ -30,29 +20,33 @@
           %>
           <%= label_tag("user_for_entity_#{current_user.id}", current_user.profile_name) %>
         </div>
-        <% PrivilegeGroup.users(:editors).uniq.each do |user| %>
-          <%
-            user_id = user&.id
-            next if user_id == current_user.id
-          %>
+        <% EditorialMember.list_for_administration.each do |editorial_member| %>
+          <% next if editorial_member.user_id == current_user.id %>
           <div>
-            <% element_id = "user_for_entity_#{user_id}" %>
+            <% element_id = "user_for_entity_#{editorial_member.id}" %>
             <%=
               radio_button_tag(
                   :user_for_entity,
-                  user_id,
-                  entity.user_id == user_id,
+                  editorial_member.user_id,
+                  entity.user_id == editorial_member.user_id,
                   id: element_id
               )
             %>
-            <%= label_tag(element_id, user&.profile_name) %>
+            <%= label_tag(element_id, editorial_member.profile_name) %>
           </div>
         <% end %>
       </dd>
     <% end %>
 
-    <dt><%= f.label :language_id %></dt>
-    <dd><%= f.select :language_id, languages_for_select(false) %></dd>
+    <% if languages.count > 1 %>
+      <dt><%= f.label :language_id %></dt>
+      <dd><%= f.select :language_id, languages_for_select(false) %></dd>
+    <% end %>
+
+    <% if PostLayout.any? %>
+      <dt><%= f.label :post_layout_id %></dt>
+      <dd><%= f.select :post_layout_id, post_layouts_for_select %></dd>
+    <% end %>
 
     <dt><%= f.label :publication_time %></dt>
     <dd>
@@ -80,29 +74,36 @@
       <div class="guideline"><%= t('.guidelines.title') %></div>
     </dd>
 
-    <dt><%= f.label :slug %></dt>
-    <dd>
-      <%=
-        f.text_field(
-            :slug,
-            id: "#{model_name}_slug",
-            size: nil,
-            maxlength: Post::SLUG_LIMIT,
-            required: true,
-            pattern: Post::SLUG_PATTERN_HTML,
-            title: t('.guidelines.slug')
-        )
-      %>
-      <div class="guideline"><%= t('.guidelines.slug') %></div>
-    </dd>
-
-    <% if entity.post_type.post_categories.any? %>
-      <dt><%= f.label :post_category_id %></dt>
+    <% if current_user_has_privilege?(:chief_editor) %>
+      <dt><%= f.label :slug %></dt>
       <dd>
         <%=
-          f.select(
-              :post_category_id,
-              post_categories_for_select(entity.post_type_id)
+          f.text_field(
+              :slug,
+              id: "#{model_name}_slug",
+              size: nil,
+              maxlength: Post::SLUG_LIMIT,
+              required: true,
+              pattern: Post::SLUG_PATTERN_HTML,
+              title: t('.guidelines.slug')
+          )
+        %>
+        <div class="guideline"><%= t('.guidelines.slug') %></div>
+      </dd>
+    <% end %>
+
+    <% categories = PostCategory.list_for_tree(entity.post_type_id) %>
+    <% if categories.any? %>
+      <dt><label><%= t('.categories') %></label></dt>
+      <dd>
+        <%=
+          render(
+              partial: 'posts/form/category_links',
+              locals: {
+                  entity: entity,
+                  collection: categories.select { |_, i| i[:parent_id].nil? },
+                  categories: categories
+              }
           )
         %>
       </dd>
@@ -131,39 +132,36 @@
 
     <dt><%= f.label :body %></dt>
     <dd>
-      <div class="wysiwyg-button-container">
-        <button
-          type="button"
-          class="js-wysiwyg-toggle button-action"
-          data-element="<%= model_name %>_body"
-          data-upload-url="<%= post_illustrations_path %>"
-        >
-          WYSIWYG
-        </button>
+      <div>
+        <button type="button" class="js-wysiwyg-toggle" data-element="<%= model_name %>_body">WYSIWYG</button>
+        <div>
+          <%= f.check_box :avoid_parsing, id: "#{model_name}_avoid_parsing" %>
+          <%= f.label :avoid_parsing %>
+        </div>
       </div>
       <%=
         f.text_area(
             :body,
             id: "#{model_name}_body",
             cols: 20,
-            rows: 10,
-            class: 'auto-expand',
+            rows: 25,
             required: true,
             data: {
-                min_rows: 10,
-                max_rows: 50,
-                upload_url: '/media_files/ckeditor'
+                # wysiwyg: 1,
+                upload_url: post_illustrations_path
             }
         )
       %>
     </dd>
 
+<!--
     <dt><%= label_tag(:tags_string, t('.tags')) %></dt>
     <dd>
       <%=
         text_field_tag(:tags_string, entity.tags_string)
       %>
     </dd>
+-->
 
     <dt><%= f.label :time_required %></dt>
     <dd>
@@ -400,6 +398,10 @@
           <%= f.label :visible %>
         </li>
         <li>
+          <%= f.check_box :explicit, id: "#{model_name}_explicit" %>
+          <%= f.label :explicit %>
+        </li>
+        <li>
           <%= f.check_box :show_owner, id: "#{model_name}_show_owner" %>
           <%= f.label :show_owner %>
         </li>
@@ -440,9 +442,13 @@
   <%= render 'shared/forms/state_container' %>
 
   <div class="buttons">
+    <% if languages.count == 1 %>
+      <% entity.language = languages.first %>
+      <%= f.hidden_field :language_id %>
+    <% end %>
     <%= f.hidden_field :post_type_id if entity.id.nil? %>
     <%= f.button t(:save), type: :submit, class: 'button-save' %>
   </div>
 <% end %>
 
-<%= render partial: 'shared/forms/toggle_wysiwyg' %>
+<%= render partial: 'posts/wysiwyg' %>

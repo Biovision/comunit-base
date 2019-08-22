@@ -9,6 +9,7 @@ class Network::PostsController < NetworkController
     @handler.data = params.require(:data).permit!
     @entity = @handler.create_local
     if @entity.persisted?
+      PostBodyParserJob.perform_later(@entity.id)
       render :show, status: :created
     else
       render 'shared/forms/check', status: :bad_request

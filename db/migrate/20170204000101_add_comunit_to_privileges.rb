@@ -3,21 +3,6 @@
 # Add regional flag to privileges and privileges for common site
 class AddComunitToPrivileges < ActiveRecord::Migration[5.2]
   def up
-    add_regional_flag unless column_exists?(:privileges, :regional)
-    insert_records
-  end
-
-  def down
-    # No rollback needed
-  end
-
-  private
-
-  def add_regional_flag
-    add_column :privileges, :regional, :boolean, default: false, null: false
-  end
-
-  def insert_records
     editors   = PrivilegeGroup.find_by(slug: 'editors') || PrivilegeGroup.create!(slug: 'editors', name: 'Редакторы')
     reporters = PrivilegeGroup.create!(slug: 'reporters', name: 'Редакторы новостей')
 
@@ -54,5 +39,9 @@ class AddComunitToPrivileges < ActiveRecord::Migration[5.2]
     editors.add_privilege(child.child_privileges.create(slug: 'regional_editor', name: 'Редактор региона', regional: true))
     reporters.add_privilege(child.child_privileges.create(slug: 'regional_reporter', name: 'Корреспондент региона', regional: true))
     reporters.add_privilege(child.child_privileges.create(slug: 'regional_civic_reporter', name: 'Народный корреспондент региона', regional: true))
+  end
+
+  def down
+    # No rollback needed
   end
 end
