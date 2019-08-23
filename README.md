@@ -405,10 +405,12 @@ Site.where(active: true).each { |s| NetworkManager.new(s).push_site(site) }
 m = NetworkManager.new(site)
 Site.order('id asc').each { |s| m.push_site(s) }
 
-m = NetworkManager::UserHandler.new(Site.last)
-User.order('id asc').each { |u| puts "#{u.id}\t#{u.screen_name}";m.push_user(u) }
-```
+h = NetworkManager::RegionHandler.new(site)
+Region.order('id asc').each { |r| print "\r#{r.id}    "; h.create_remote(r) }; puts
 
+h = NetworkManager::UserHandler.new(site)
+User.order('id asc').each { |u| puts "#{u.id} #{u.slug}"; h.create_remote(u) }
+```
 
 ## License
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).

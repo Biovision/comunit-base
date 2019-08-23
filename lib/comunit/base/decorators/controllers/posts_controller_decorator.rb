@@ -8,6 +8,7 @@ PostsController.class_eval do
       apply_post_tags
       apply_post_categories
       add_attachments if params.key?(:post_attachment)
+      mark_as_featured if params[:featured]
       PostBodyParserJob.perform_later(@entity.id)
       NetworkPostSyncJob.perform_later(@entity.id, false)
       form_processed_ok(PostManager.new(@entity).post_path)
