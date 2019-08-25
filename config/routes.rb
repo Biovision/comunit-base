@@ -54,11 +54,6 @@ Rails.application.routes.draw do
 
     get 'search' => 'search#index'
 
-    get 'donate' => 'about#donate'
-    scope 'about' do
-      get '/' => 'about#index', as: :about
-    end
-
     controller :index do
       get 'index/main_news' => :main_news, as: :index_main_news, defaults: { format: :json }
       get 'index/regional_news' => :regional_news, as: :index_regional_news, defaults: { format: :json }

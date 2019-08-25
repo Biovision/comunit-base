@@ -74,7 +74,7 @@
       <div class="guideline"><%= t('.guidelines.title') %></div>
     </dd>
 
-    <% if current_user_has_privilege?(:chief_editor) %>
+    <% if current_user_has_privilege?(:chief_editor) && !entity.id.nil? %>
       <dt><%= f.label :slug %></dt>
       <dd>
         <%=
