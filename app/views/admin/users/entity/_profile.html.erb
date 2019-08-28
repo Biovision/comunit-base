@@ -47,23 +47,29 @@
   </dd>
 <% end %>
 
-<dt><%= t("#{prefix}.smoking_attitude") %></dt>
-<dd><%= t("attitudes.#{data['smoking_attitude']}") %></dd>
+<% if data.key?('smoking_attitude') %>
+  <dt><%= t("#{prefix}.smoking_attitude") %></dt>
+  <dd><%= t("attitudes.#{data['smoking_attitude']}") %></dd>
+<% end %>
 
-<dt><%= t("#{prefix}.alcohol_attitude") %></dt>
-<dd><%= t("attitudes.#{data['alcohol_attitude']}") %></dd>
+<% if data.key?('alcohol_attitude') %>
+  <dt><%= t("#{prefix}.alcohol_attitude") %></dt>
+  <dd><%= t("attitudes.#{data['alcohol_attitude']}") %></dd>
+<% end %>
 
-
-<dt><%= t('users.form.profile_data.confidentiality') %></dt>
-<dd>
-  <ul class="flags">
-    <%
-      %w[
+<%
+  flags = %w[
         show_email show_phone show_secondary_phone show_birthday show_patronymic
         show_skype_uid show_home_address show_about
-      ].select { |f| data[f] }.each do |flag|
-    %>
-      <li><%= t("#{prefix}.#{flag}") %></li>
-    <% end %>
-  </ul>
-</dd>
+      ].select { |f| data[f] }
+%>
+<% if flags.any? %>
+  <dt><%= t('users.form.profile_data.confidentiality') %></dt>
+  <dd>
+    <ul class="flags">
+      <% flags.each do |flag| %>
+        <li><%= t("#{prefix}.#{flag}") %></li>
+      <% end %>
+    </ul>
+  </dd>
+<% end %>

@@ -398,13 +398,10 @@
           <%= f.label :visible %>
         </li>
         <li>
-          <%= f.check_box :explicit, id: "#{model_name}_explicit" %>
-          <%= f.label :explicit %>
-        </li>
-        <li>
           <%= f.check_box :show_owner, id: "#{model_name}_show_owner" %>
           <%= f.label :show_owner %>
         </li>
+<!--
         <li>
           <%= f.check_box :translation, id: "#{model_name}_translation" %>
           <%= f.label :translation %>
@@ -420,18 +417,15 @@
             %>
           </div>
         </li>
-        <% if Gem.loaded_specs.key?('biovision-comment') %>
-          <li>
-            <%= f.check_box :allow_comments, id: "#{model_name}_allow_comments" %>
-            <%= f.label :allow_comments %>
-          </li>
-        <% end %>
-        <% if Gem.loaded_specs.key?('biovision-vote') %>
-          <li>
-            <%= f.check_box :allow_votes, id: "#{model_name}_allow_votes" %>
-            <%= f.label :allow_votes %>
-          </li>
-        <% end %>
+-->
+        <li>
+          <%= f.check_box :allow_comments, id: "#{model_name}_allow_comments" %>
+          <%= f.label :allow_comments %>
+        </li>
+        <li>
+          <%= f.check_box :allow_votes, id: "#{model_name}_allow_votes" %>
+          <%= f.label :allow_votes %>
+        </li>
       </ul>
     </dd>
   </dl>

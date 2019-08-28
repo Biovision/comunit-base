@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PromoBlock < ApplicationRecord
   include Checkable
   include Toggleable
@@ -6,7 +8,7 @@ class PromoBlock < ApplicationRecord
   DESCRIPTION_LIMIT = 250
   NAME_LIMIT        = 50
   SLUG_LIMIT        = 50
-  SLUG_PATTERN      = /\A[a-z0-9][-_a-z0-9]*[a-z0-9]\z/
+  SLUG_PATTERN      = /\A[a-z0-9][-_a-z0-9]*[a-z0-9]\z/.freeze
   SLUG_PATTERN_HTML = '^[a-zA-Z0-9][-_a-zA-Z0-9]*[a-zA-Z0-9]$'
 
   toggleable :visible
