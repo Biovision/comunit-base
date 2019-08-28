@@ -19,7 +19,6 @@
         </div>
         <div class="posts">
           <% @collection.each do |post| %>
-              <% next if post.category.blank? %>
               <%= render partial: 'index/frontpage_posts/preview', locals: { post: post } %>
           <% end %>
         </div>
