@@ -1,0 +1,11 @@
+<div class="js-biovision-carousel posts-carousel">
+  <button class="prev"></button>
+  <ul class="carousel-container">
+    <% collection.each do |entity| %>
+      <li class="carousel-item">
+        <%= render partial: 'posts/preview', locals: { entity: entity } %>
+      </li>
+    <% end %>
+  </ul>
+  <button class="next"></button>
+</div>
