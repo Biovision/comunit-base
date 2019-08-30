@@ -249,11 +249,22 @@ body {
   width: 100%;
 
   .content {
-    flex: 8;
+    flex: none;
+    width: 75%;
 
     article {
       position: relative;
       padding: 0.8rem;
+    }
+  }
+}
+
+@media (max-width: 960px) {
+  #main {
+    display: block;
+
+    .content {
+      width: 100%;
     }
   }
 }
