@@ -5,8 +5,8 @@ Post.class_eval do
 
   before_save :track_region_change
 
-  scope :in_region, -> (region) { where(region_id: region&.id.nil? ? nil : region&.subbranch_ids) }
-  scope :regional, -> { where('region_id is not null') }
+  scope :in_region, ->(region) { where(region_id: region&.id.nil? ? nil : region&.subbranch_ids) }
+  # scope :regional, -> { where('region_id is not null') }
   scope :central, -> { where(region_id: nil) }
 
   # @param [Region] selected_region
