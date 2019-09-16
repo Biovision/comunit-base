@@ -1,16 +1,5 @@
 <% content_for :meta_title, t('.title') %>
 
-<% event = Event.visible.forthcoming.first %>
-<% unless event.nil? %>
-    <section class="congress2017-block">
-      <h2><%= event.name %></h2>
-      <p><%= event.lead %></p>
-      <p class="button">
-        <%= link_to('Подробнее', event_path(id: event.id), class: 'nav-button') %>
-      </p>
-    </section>
-<% end %>
-
 <%=
   render(
       partial: 'index/main_slider',
@@ -21,11 +10,13 @@
 %>
 
 <div id="frontpage-posts">
-  <div class="posts">
-    <%= render partial: 'index/frontpage_posts/main_news', locals: { posts: @main_news } %>
-  </div>
-  <div class="posts">
-    <%= render partial: 'index/frontpage_posts/regional_news', locals: { posts: @regional_news } %>
-  </div>
+  <%=
+    render(
+        partial: 'index/index/categories',
+        locals: {
+            categories: PostGroupCategory['homepage']
+        }
+    )
+  %>
 </div>
 <%= render 'index/frontpage_posts/loader' %>

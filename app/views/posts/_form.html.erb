@@ -1,12 +1,13 @@
 <%
   model_name = entity.class.to_s.underscore
   languages = Language.active
+  chief = handler.group?(:chief)
 %>
 <%= form_with model: entity, html: { id: "#{model_name}-form" } do |f| %>
   <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
 
   <dl>
-    <% if current_user_has_privilege?(:chief_editor) %>
+    <% if chief %>
       <dt><%= t('activerecord.attributes.post.user') %></dt>
       <dd>
         <div>
@@ -74,7 +75,7 @@
       <div class="guideline"><%= t('.guidelines.title') %></div>
     </dd>
 
-    <% if current_user_has_privilege?(:chief_editor) && !entity.id.nil? %>
+    <% if chief && !entity.id.nil? %>
       <dt><%= f.label :slug %></dt>
       <dd>
         <%=
@@ -132,13 +133,15 @@
 
     <dt><%= f.label :body %></dt>
     <dd>
-      <div>
-        <button type="button" class="js-wysiwyg-toggle" data-element="<%= model_name %>_body">WYSIWYG</button>
+      <% if chief %>
         <div>
-          <%= f.check_box :avoid_parsing, id: "#{model_name}_avoid_parsing" %>
-          <%= f.label :avoid_parsing %>
+          <button type="button" class="js-wysiwyg-toggle" data-element="<%= model_name %>_body">WYSIWYG</button>
+          <div>
+            <%= f.check_box :avoid_parsing, id: "#{model_name}_avoid_parsing" %>
+            <%= f.label :avoid_parsing %>
+          </div>
         </div>
-      </div>
+      <% end %>
       <%=
         f.text_area(
             :body,
@@ -147,19 +150,19 @@
             rows: 25,
             required: true,
             data: {
-                # wysiwyg: 1,
+                wysiwyg: 1,
                 upload_url: post_illustrations_path
             }
         )
       %>
     </dd>
 
-<!--
+    <!--
     <dt><%= label_tag(:tags_string, t('.tags')) %></dt>
     <dd>
       <%=
-        text_field_tag(:tags_string, entity.tags_string)
-      %>
+    text_field_tag(:tags_string, entity.tags_string)
+  %>
     </dd>
 -->
 
@@ -401,20 +404,20 @@
           <%= f.check_box :show_owner, id: "#{model_name}_show_owner" %>
           <%= f.label :show_owner %>
         </li>
-<!--
+        <!--
         <li>
           <%= f.check_box :translation, id: "#{model_name}_translation" %>
           <%= f.label :translation %>
           <div>
             <%= f.label :translator_name %><br/>
             <%=
-              f.text_field(
-                  :translator_name,
-                  id: "#{model_name}_translator_name",
-                  size: nil,
-                  maxlength: Post::META_LIMIT
-              )
-            %>
+        f.text_field(
+            :translator_name,
+            id: "#{model_name}_translator_name",
+            size: nil,
+            maxlength: Post::META_LIMIT
+        )
+      %>
           </div>
         </li>
 -->
@@ -445,4 +448,4 @@
   </div>
 <% end %>
 
-<%= render partial: 'posts/wysiwyg' %>
+<%= render partial: chief ? 'shared/forms/toggle_wysiwyg' : 'shared/forms/wysiwyg' %>

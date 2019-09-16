@@ -1,0 +1,33 @@
+<% region = current_region %>
+<% categories.each do |post_category| %>
+  <% if region.id.nil? %>
+    <% collection = Post.in_category_branch(post_category).distinct.list_for_visitors.first(6) %>
+  <% else %>
+    <% collection = Post.where(region_id: region.subbranch_ids).in_category_branch(post_category).distinct.list_for_visitors.first(6) %>
+  <% end %>
+  <% if collection.any? %>
+    <section class="recent-posts post-category">
+      <h2><%= post_category_link(post_category) %></h2>
+
+      <%= render(partial: 'posts/carousel', locals: { collection: collection }) %>
+    </section>
+  <% end %>
+<% end %>
+
+<section class="recent-posts post-category">
+  <h2><%= link_to('Новости', news_index_path) %></h2>
+
+  <% if region.id.nil? %>
+    <% collection = Post.of_type('news').list_for_visitors.first(6) %>
+  <% else %>
+    <% collection = Post.where(region_id: region.subbranch_ids).of_type('news').list_for_visitors.first(6) %>
+  <% end %>
+  <%=
+    render(
+        partial: 'posts/carousel',
+        locals: {
+            collection: collection
+        }
+    )
+  %>
+</section>

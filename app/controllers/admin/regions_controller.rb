@@ -21,10 +21,6 @@ class Admin::RegionsController < AdminController
 
   private
 
-  def restrict_access
-    require_privilege_group :region_managers
-  end
-
   def set_entity
     @entity = Region.find_by(id: params[:id])
     handle_http_404('Cannot find region') if @entity.nil?

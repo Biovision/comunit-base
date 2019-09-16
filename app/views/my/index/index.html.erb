@@ -14,7 +14,16 @@
         <li><%= render 'my/profiles/nav_item' %></li>
         <li><%= render 'my/tokens/nav_item' %></li>
         <li><%= render 'my/login_attempts/nav_item' %></li>
-        <%= render 'my/index/sidebar/biovision_courses' if Gem.loaded_specs.key?('biovision-courses') %>
+        <% handler = Biovision::Components::BaseComponent.handler('posts', current_user) %>
+        <% if handler.allow_post_type?('article') %>
+          <li><%= link_to('Добавить статью', my_new_article_path) %></li>
+        <% end %>
+        <% if handler.allow_post_type?('news') %>
+          <li><%= link_to('Добавить новость', my_new_news_path) %></li>
+        <% end %>
+        <% if handler.allow_post_type?('blog_post') %>
+          <li><%= link_to('Добавить запись в блог', my_new_blog_post_path) %></li>
+        <% end %>
         <%= render 'my/index/index/custom_sidebar' %>
         <% if UserPrivilege.user_has_any_privilege?(current_user) %>
           <li><%= link_to t('admin.index.index.heading'), admin_path %></li>

@@ -1,14 +1,14 @@
 class IndexController < ApplicationController
   # get /
   def index
-    # collect_main_news
-    # collect_regional_news
+    collect_main_news
+    collect_regional_news
   end
 
   # get /r/:region_slug
   def regional
-    # collect_main_news
-    # collect_regional_news
+    collect_main_news
+    collect_regional_news
 
     render :index
   end
@@ -26,7 +26,13 @@ class IndexController < ApplicationController
   private
 
   def collect_main_news(page = 1)
-    @main_news = Theme.where(slug: 'main-news').first&.entries(7, current_region, page)
+    @main_news = []
+    post_group = PostGroup['main-news']
+    return if post_group.nil?
+
+    categories = post_group.post_category_ids
+
+    @main_news = Post.regional(current_region).with_category_ids(categories).page(page)
   end
 
   def collect_regional_news(page = 1)
