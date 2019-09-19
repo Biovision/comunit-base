@@ -29,6 +29,10 @@ ru:
         short_name: "Центр"
         locative: "в центре"
   admin:
+    countries:
+      nav_item:
+        description: "Просмотр стран и регионов в них"
+        text: "Страны"
     index:
       dashboard:
         biovision_regions:
@@ -77,3 +81,7 @@ ru:
         region: "Регион"
         none: "Регион не выбран"
         new_region: "Другой регион"
+  biovision:
+    components:
+      regions:
+        name: "Регионы"

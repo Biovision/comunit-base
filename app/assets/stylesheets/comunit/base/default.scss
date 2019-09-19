@@ -1,14 +1,14 @@
 @import "comunit/base/sizes";
 
-$font-family-heading: $font-family-main !default;
+$font-family-main: "Arial", "Helvetica Neue", "Helvetica", sans-serif !default;
+$font-family-heading: "Arial Narrow", "Arial", "Helvetica Neue", "Helvetica", sans-serif !default;
 
-$content-width: 110rem;
+$content-width: 110rem !default;
 
 $link-color: #0000ff !default;
 
 $background-html: #fff !default;
 $background-body: #fff !default;
-$background-header-transparent: rgba(255, 255, 255, .5) !default;
 
 // Основное меню: полоска с выпадашками
 $navigation-stripe-background: #333 !default;
@@ -39,6 +39,7 @@ $news-background: #fff2cc !default;
 $news-link-color: $link-color !default;
 
 $category-background: #fff2cc linear-gradient(to top, #fff2cc, #fff9e5) !default;
+$category-color: #fff !default;
 
 $main-color-a: #fff2cc !default;
 

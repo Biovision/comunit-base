@@ -3,6 +3,7 @@
 # Create table for countries and regions
 class CreateRegions < ActiveRecord::Migration[5.2]
   def up
+    create_component
     create_countries unless Country.table_exists?
     create_regions unless Region.table_exists?
 
@@ -17,6 +18,10 @@ class CreateRegions < ActiveRecord::Migration[5.2]
   end
 
   private
+
+  def create_component
+    BiovisionComponent.create(slug: Biovision::Components::RegionsComponent::SLUG)
+  end
 
   def create_countries
     create_table :countries, comment: 'Country' do |t|

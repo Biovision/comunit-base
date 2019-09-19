@@ -18,6 +18,7 @@
 
   .category {
     background: $category-background;
+    color: $category-color;
     margin: auto 0 0 0;
 
     > div {
@@ -902,7 +903,8 @@ $background-post-tag: rgb(248, 248, 248) !default;
 
 .post-category {
   h2 {
-    background: $main-color-a;
+    background: $category-background;
+    color: $category-color;
     display: block;
     font-size: var(--font-size-normal);
     font-weight: 400;
@@ -910,14 +912,13 @@ $background-post-tag: rgb(248, 248, 248) !default;
     text-transform: uppercase;
 
     a {
-      color: $text-color-primary;
+      color: inherit;
 
       &:hover {
         text-decoration: none;
       }
     }
   }
-
 }
 
 .post-preview {

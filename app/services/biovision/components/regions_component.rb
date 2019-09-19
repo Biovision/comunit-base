@@ -4,6 +4,8 @@ module Biovision
   module Components
     # Handler for regions component
     class RegionsComponent < BaseComponent
+      SLUG = 'regions'
+
       def self.default_country_id
         Country.first&.id
       end
