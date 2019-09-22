@@ -66,4 +66,12 @@ module RegionsHelper
 
     options_for_select(options, selected_id)
   end
+
+  # @param [Region] entity
+  def region_image_medium(entity)
+    unless entity.image.blank?
+      versions = "#{entity.image.medium_2x.url} 2x"
+      image_tag(entity.image.medium.url, alt: entity.name, srcset: versions)
+    end
+  end
 end

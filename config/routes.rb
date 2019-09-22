@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   # category_pattern = /(?!new$|^\d+$)[-_a-z0-9]+[a-z_]/
   category_slug_pattern = /[a-z]+[-_0-9a-z]*[0-9a-z]/
@@ -111,8 +113,6 @@ Rails.application.routes.draw do
     end
 
     namespace :admin do
-      resources :themes, only: %i[index show]
-
       resources :groups, only: %i[index show] do
         member do
           get 'users', defaults: { format: :json }
@@ -152,6 +152,7 @@ Rails.application.routes.draw do
       resources :promo_blocks, only: %i[index show], concerns: :toggle
       resources :promo_blocks, :promo_items, only: :show, concerns: :toggle
 
+      resources :countries, only: %i[index show]
       resources :regions, only: %i[index show], concerns: %i[priority toggle]
     end
 

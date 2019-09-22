@@ -1,5 +1,6 @@
 <% content_for :meta_title, t('.title', name: @entity.name) %>
 <% content_for :breadcrumbs do %>
+  <%= admin_biovision_component_link(component_handler.component) %>
   <%= link_to(t('admin.regions.nav_item.text'), admin_regions_path) %>
   <% @entity.parents.each do |parent| %>
     <%= admin_region_link(parent) %>
@@ -12,9 +13,6 @@
 
   <ul class="actions">
     <li><%= back_icon(admin_regions_path) %></li>
-    <% if @entity.editable_by?(current_user) %>
-<!--      <li><%#= edit_icon edit_region_path(id: @entity.id) %></li>-->
-    <% end %>
   </ul>
 
   <% unless @entity.header_image.blank? %>

@@ -40,6 +40,7 @@ class Region < ApplicationRecord
   scope :ordered_by_name, -> { order('name asc') }
   scope :visible, -> { where(visible: true) }
   scope :with_posts, -> { where('posts_count > 0') }
+  scope :only_with_ids, ->(v) { where(id: v) unless v.nil? }
   scope :for_tree, ->(country_id = nil, parent_id = nil) { where(parent_id: parent_id).ordered_by_name }
 
   # @param [Region] item

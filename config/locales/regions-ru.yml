@@ -39,7 +39,7 @@ ru:
           heading: "Региональность"
     regions:
       nav_item:
-        text: "Регионы"
+        text: "Все регионы"
         description: "Управление регионами"
       index:
         title: "Регионы"
@@ -85,3 +85,6 @@ ru:
     components:
       regions:
         name: "Регионы"
+        privileges:
+          manager: "Управляющий"
+          settings: "Управление настройками"
