@@ -5,7 +5,8 @@ class SearchController < ApplicationController
     if @query.blank?
       @collection = []
     else
-      @collection = Post.pg_search(@query).list_for_visitors.first(50)
+      @collection = Elasticsearch::Model.search(@query, Post).records.first(20)
+      # @collection = Post.pg_search(@query).list_for_visitors.first(50)
     end
   end
 end
