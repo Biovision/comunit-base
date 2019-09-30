@@ -30,4 +30,17 @@ PostsController.class_eval do
       form_processed_with_error(:edit)
     end
   end
+
+  def legacy_show
+    @entity = Post.list_for_visitors.find_by(slug: params[:slug])
+    if @entity.nil?
+      handle_http_404("Cannot find non-deleted post #{params[:id]}")
+    else
+      @entity.increment :view_count
+      @entity.increment :rating, 0.0025
+      @entity.save
+
+      render :show
+    end
+  end
 end

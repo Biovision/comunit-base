@@ -18,6 +18,7 @@ module Comunit
     class Engine < ::Rails::Engine
       initializer 'comunit_base.load_base_methods' do
         require_dependency 'comunit/base/privilege_methods'
+        require_dependency 'comunit/base/decorators/controllers/posts_controller_decorator'
         require_dependency 'comunit/base/decorators/controllers/admin/privileges_controller_decorator'
         require_dependency 'comunit/base/decorators/models/user_decorator'
         require_dependency 'comunit/base/decorators/models/user_privilege_decorator'

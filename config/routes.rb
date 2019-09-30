@@ -90,6 +90,8 @@ Rails.application.routes.draw do
     #   end
     # end
 
+    get 'posts/:category_slug/:slug' => 'posts#legacy_show', as: nil, constraints: { category_slug: category_slug_pattern }
+
     resources :themes, except: %i[index show update destroy]
 
     # resources :entries, except: [:update, :destroy] do
