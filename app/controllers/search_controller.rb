@@ -5,7 +5,7 @@ class SearchController < ApplicationController
     if @query.blank?
       @collection = []
     else
-      @collection = Post.pg_search(q).list_for_visitors.first(50)
+      @collection = Post.pg_search(@query).list_for_visitors.first(50)
     end
   end
 end
