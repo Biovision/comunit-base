@@ -1,6 +1,6 @@
 class News < ApplicationRecord
-  include Elasticsearch::Model
-  include Elasticsearch::Model::Callbacks
+  # include Elasticsearch::Model
+  # include Elasticsearch::Model::Callbacks
   include HasOwner
   include Toggleable
 

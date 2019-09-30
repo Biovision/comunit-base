@@ -1,5 +1,5 @@
 class Entry < ApplicationRecord
-  include Elasticsearch::Model
+  # include Elasticsearch::Model
   include HasOwner
 
   PER_PAGE = 10
