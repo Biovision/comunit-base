@@ -3,51 +3,53 @@
   model_name = entity.class.to_s.underscore
   handler = Biovision::Components::BaseComponent.handler('regions', current_user)
 %>
-<dt><%= t('.region') %></dt>
-<dd>
-  <ul class="entity-region js-form-region-select">
-    <li>
-      <% element_id = "#{model_name}_region_id_0" %>
-      <%=
-        radio_button_tag(
-            "#{model_name}[region_id]",
-            '',
-            entity.region.nil?,
-            id: element_id
-        )
-      %>
-      <%= label_tag(element_id, t('.none')) %>
-    </li>
-    <% unless entity.region.nil? %>
+<div>
+  <dt><%= t('.region') %></dt>
+  <dd>
+    <ul class="entity-region js-form-region-select">
       <li>
-        <% element_id = "#{model_name}_region_id_current" %>
-        <%=
-          radio_button_tag(
-              "#{model_name}[region_id]",
-              entity.region_id,
-              true,
-              id: element_id
-          )
-        %>
-        <%= label_tag(element_id, entity.region.long_name) %>
-      </li>
-    <% end %>
-    <% if handler.allow_regions? %>
-      <li>
-        <% element_id = "#{model_name}_region_id_new" %>
+        <% element_id = "#{model_name}_region_id_0" %>
         <%=
           radio_button_tag(
               "#{model_name}[region_id]",
               '',
-              false,
-              id: element_id,
-              class: 'js-set-new-region'
+              entity.region.nil?,
+              id: element_id
           )
         %>
-        <%= label_tag(element_id, t('.new_region')) %>:
-        <span class="new-region-name" data-blank="<%= t('.none') %>"></span>
-        <div class="result-container" data-url="<%= admin_regions_path %>"></div>
+        <%= label_tag(element_id, t('.none')) %>
       </li>
-    <% end %>
-  </ul>
-</dd>
+      <% unless entity.region.nil? %>
+        <li>
+          <% element_id = "#{model_name}_region_id_current" %>
+          <%=
+            radio_button_tag(
+                "#{model_name}[region_id]",
+                entity.region_id,
+                true,
+                id: element_id
+            )
+          %>
+          <%= label_tag(element_id, entity.region.long_name) %>
+        </li>
+      <% end %>
+      <% if handler.allow_regions? %>
+        <li>
+          <% element_id = "#{model_name}_region_id_new" %>
+          <%=
+            radio_button_tag(
+                "#{model_name}[region_id]",
+                '',
+                false,
+                id: element_id,
+                class: 'js-set-new-region'
+            )
+          %>
+          <%= label_tag(element_id, t('.new_region')) %>:
+          <span class="new-region-name" data-blank="<%= t('.none') %>"></span>
+          <div class="result-container" data-url="<%= admin_regions_path %>"></div>
+        </li>
+      <% end %>
+    </ul>
+  </dd>
+</div>

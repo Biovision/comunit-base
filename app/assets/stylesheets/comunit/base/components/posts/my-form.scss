@@ -1,0 +1,29 @@
+.my-post-form {
+  //* { outline: solid pink 1px}
+
+  .fields {
+    > div {
+      margin: 0 0 var(--spacer-xs) 0;
+      padding: var(--spacer-xs) 0;
+    }
+  }
+
+  dt {
+    font-family: $font-family-heading;
+    font-size: var(--font-size-increased);
+  }
+
+  dd {
+    margin: 0;
+  }
+
+  input[type=datetime-local] {
+    width: 19ch;
+  }
+
+  input:not([type=checkbox]),
+  textarea {
+    margin: 0;
+    padding: var(--spacer-xxs) var(--spacer-xs);
+  }
+}

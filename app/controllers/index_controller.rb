@@ -37,6 +37,6 @@ class IndexController < ApplicationController
 
   def collect_regional_news(page = 1)
     region         = Region.find_by(id: params[:region_id].to_s.to_i)
-    @regional_news = Post.of_type('news').regional(region, current_region).visible.recent.page(page).per(7)
+    @regional_news = PostType['news'].posts.regional(region, current_region).visible.recent.page(page).per(7)
   end
 end

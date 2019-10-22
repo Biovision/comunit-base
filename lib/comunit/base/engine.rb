@@ -9,8 +9,8 @@ module Comunit
     require 'biovision/comment'
     require 'redis-namespace'
     require 'carrierwave'
-    require 'elasticsearch/persistence'
-    require 'elasticsearch/model'
+    # require 'elasticsearch/persistence'
+    # require 'elasticsearch/model'
     require 'mini_magick'
     require 'carrierwave-bombshelter'
     require 'rest-client'
@@ -18,8 +18,8 @@ module Comunit
     class Engine < ::Rails::Engine
       initializer 'comunit_base.load_base_methods' do
         require_dependency 'comunit/base/privilege_methods'
-        require_dependency 'comunit/base/decorators/controllers/posts_controller_decorator'
         require_dependency 'comunit/base/decorators/controllers/admin/privileges_controller_decorator'
+        require_dependency 'comunit/base/decorators/controllers/posts_controller_decorator'
         require_dependency 'comunit/base/decorators/models/user_decorator'
         require_dependency 'comunit/base/decorators/models/user_privilege_decorator'
         require_dependency 'comunit/base/decorators/models/post_decorator'
@@ -32,6 +32,7 @@ module Comunit
       components = %w[
         admin.scss biovision/base/**/* biovision/post/**/*
         biovision/vote/icons/* comunit/base/**/*
+        comunit_base_manifest.js
       ]
       config.assets.precompile << components
 

@@ -224,7 +224,7 @@ form {
       font-size: $font-size-normal;
     }
 
-    input:not([type=checkbox]):not([type=radio]):not([type=date]):not([size]),
+    input:not([type=checkbox]):not([type=radio]):not([type=date]):not([type=datetime-local]):not([size]),
     textarea {
       width: 100%;
     }
