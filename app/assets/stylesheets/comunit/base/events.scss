@@ -33,13 +33,13 @@ article.event {
     }
 
     em {
-      font-size: $font-size-larger;
+      font-size: $font-size-increased;
       text-transform: uppercase;
     }
 
     .button {
       a {
-        @include button-nav;
+        //@include button-nav;
       }
     }
 
