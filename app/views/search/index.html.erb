@@ -17,11 +17,7 @@
         <div class="heading">
           Результат поиска
         </div>
-        <div class="posts">
-          <% @collection.each do |post| %>
-              <%= render partial: 'index/frontpage_posts/preview', locals: { post: post } %>
-          <% end %>
-        </div>
+        <%= render partial: 'posts/collection', locals: { collection: @collection } %>
       </div>
   <% end %>
 

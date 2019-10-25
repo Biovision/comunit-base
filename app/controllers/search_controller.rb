@@ -5,6 +5,6 @@ class SearchController < ApplicationController
   # get /search?q=
   def index
     q = param_from_request(:q).to_s[0..100]
-    @collection = q.blank? ? [] : Post.pg_search(q).list_for_visitors.first(50)
+    @collection = q.blank? ? [] : Post.pg_search(q).page_for_visitors(current_page)
   end
 end
