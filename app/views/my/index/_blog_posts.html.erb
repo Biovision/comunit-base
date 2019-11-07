@@ -1,0 +1,21 @@
+<%
+  creation_allowed = handler.allow_post_type?('blog_post')
+%>
+<% if collection.any? || creation_allowed %>
+  <section class="my-profile-posts">
+    <h2>Мои записи в блоге</h2>
+
+    <nav>
+      <% if creation_allowed %>
+        <%= link_to('Добавить запись', my_new_blog_post_path, class: 'button-nav') %>
+      <% end %>
+      <%= link_to('Все записи', my_blog_path, class: 'button-nav') %>
+    </nav>
+
+    <% if collection.any? %>
+      <%= render partial: 'posts/carousel', locals: { collection: collection } %>
+    <% else %>
+      <div class="message-box-warning">Записей пока нет</div>
+    <% end %>
+  </section>
+<% end %>

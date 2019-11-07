@@ -1,0 +1,21 @@
+<%
+  creation_allowed = handler.allow_post_type?('article')
+%>
+<% if collection.any? || creation_allowed %>
+  <section class="my-profile-posts">
+    <h2>Мои статьи</h2>
+
+    <% if creation_allowed %>
+      <nav>
+        <%= link_to('Добавить статью', my_new_article_path, class: 'button-nav') %>
+        <%= link_to('Все статьи', my_articles_path, class: 'button-nav') %>
+      </nav>
+    <% end %>
+
+    <% if collection.any? %>
+      <%= render partial: 'posts/carousel', locals: { collection: collection } %>
+    <% else %>
+      <div class="message-box-warning">Статей пока нет</div>
+    <% end %>
+  </section>
+<% end %>

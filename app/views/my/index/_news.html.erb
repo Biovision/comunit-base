@@ -1,0 +1,21 @@
+<%
+  creation_allowed = handler.allow_post_type?('news')
+%>
+<% if collection.any? || creation_allowed %>
+  <section class="my-profile-posts">
+    <h2>Мои новости</h2>
+
+    <% if creation_allowed %>
+      <nav>
+        <%= link_to('Добавить новость', my_new_news_path, class: 'button-nav') %>
+        <%= link_to('Все новости', my_news_path, class: 'button-nav') %>
+      </nav>
+    <% end %>
+
+    <% if collection.any? %>
+      <%= render partial: 'posts/carousel', locals: { collection: collection } %>
+    <% else %>
+      <div class="message-box-warning">Новостей пока нет</div>
+    <% end %>
+  </section>
+<% end %>

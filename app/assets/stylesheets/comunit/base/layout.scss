@@ -383,6 +383,8 @@ input.toggle-box {
 }
 
 #my-index {
+  display: block;
+
   figure {
     img {
       width: 28rem;
@@ -421,5 +423,15 @@ input.toggle-box {
         }
       }
     }
+  }
+}
+
+.my-profile-posts {
+  border-top: .1rem solid #777;
+  margin-top: var(--spacer-m);
+  padding-top: var(--spacer-s);
+
+  nav {
+    margin: var(--spacer-s) auto;
   }
 }

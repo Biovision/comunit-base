@@ -1,36 +1,61 @@
 <% content_for :meta_title, t('.title') %>
 
-<article id="my-index" class="profile-content">
-  <div>
-    <h1><%= t('my.index.index.heading') %></h1>
+<article id="my-index" class="profile-content my-index">
+  <div class="content-wrapper">
+    <h1><%= t('.heading') %></h1>
 
     <figure role="group">
       <%= user_image_profile(current_user) %>
-      <figcaption><%= current_user.profile_name %></figcaption>
+      <figcaption>
+        <%= link_to(current_user.profile_name, my_profile_path) %>
+      </figcaption>
     </figure>
 
     <nav class="dashboard">
       <ul>
-        <li><%= render 'my/profiles/nav_item' %></li>
-        <li><%= render 'my/tokens/nav_item' %></li>
-        <li><%= render 'my/login_attempts/nav_item' %></li>
-        <% handler = Biovision::Components::BaseComponent.handler('posts', current_user) %>
-        <% if handler.allow_post_type?('article') %>
-          <li><%= link_to('Добавить статью', my_new_article_path) %></li>
-        <% end %>
-        <% if handler.allow_post_type?('news') %>
-          <li><%= link_to('Добавить новость', my_new_news_path) %></li>
-        <% end %>
-        <% if handler.allow_post_type?('blog_post') %>
-          <li><%= link_to('Добавить запись в блог', my_new_blog_post_path) %></li>
-        <% end %>
-        <%= render 'my/index/index/custom_sidebar' %>
+        <li>
+          <%= link_to('Редактировать профиль', edit_my_profile_path, class: 'button-nav') %>
+        </li>
         <% if UserPrivilege.user_has_any_privilege?(current_user) %>
-          <li><%= link_to t('admin.index.index.heading'), admin_path %></li>
+          <li>
+            <%= link_to(t('admin.index.index.heading'), admin_path, class: 'button-nav') %>
+          </li>
         <% end %>
-        <li><%= link_to t(:logout), logout_path, method: :delete %></li>
+<!--        <li><%#= render 'my/tokens/nav_item' %></li>-->
+<!--        <li><%#= render 'my/login_attempts/nav_item' %></li>-->
+        <% handler = Biovision::Components::BaseComponent.handler('posts', current_user) %>
       </ul>
 
     </nav>
+
+    <%=
+      render(
+          partial: 'my/index/articles',
+          locals: {
+              collection: PostType['article'].posts.list_for_owner(current_user).first(10),
+              handler: handler
+          }
+      )
+    %>
+
+    <%=
+      render(
+          partial: 'my/index/news',
+          locals: {
+              collection: PostType['news'].posts.list_for_owner(current_user).first(10),
+              handler: handler
+          }
+      )
+    %>
+
+    <%=
+      render(
+          partial: 'my/index/blog_posts',
+          locals: {
+              collection: PostType['blog_post'].posts.list_for_owner(current_user).first(10),
+              handler: handler
+          }
+      )
+    %>
   </div>
 </article>
