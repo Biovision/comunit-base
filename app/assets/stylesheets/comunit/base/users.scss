@@ -25,28 +25,67 @@ article.authentication {
 }
 
 article.user-profile {
-  table {
-    width: calc(100% - 3.2rem);
-    border-spacing: .8rem;
+  //* { outline: solid pink 1px; }
 
-    figure {
-      text-align: center;
+  nav {
+    display: flex;
+    margin: var(--spacer-s) 0;
+
+    div {
+      padding: var(--spacer-xs);
+    }
+  }
+
+  figure {
+    margin: 0 auto;
+
+    .image {
+      box-shadow: .2rem .2rem .4rem rgba(0, 0, 0, .5), -.4rem -.4rem .8rem rgba(0, 0, 0, .25);
+      height: 28rem;
+      margin: var(--spacer-m) auto var(--spacer-s);
+      overflow: hidden;
+      width: 28rem;
     }
 
-    tbody {
-      th {
-        text-align: right;
-        vertical-align: top;
-        white-space: nowrap;
-      }
-
-      td[colspan] {
-        text-align: center;
-        font-size: $font-size-large;
-        font-weight: bold;
-        border-top: solid $text-color-secondary 0.1rem;
-      }
+    img {
+      height: 100%;
+      object-fit: contain;
+      width: 100%;
     }
+  }
+
+  section {
+    margin: var(--spacer-s) 0 0;
+    padding: var(--spacer-s) var(--spacer-xs);
+  }
+
+  dl {
+    margin: var(--spacer-s) 0 0;
+
+    > div {
+      margin-bottom: var(--spacer-s);
+    }
+  }
+
+  dt {
+    color: #555;
+    font-family: $font-family-heading;
+    font-size: var(--font-size-increased);
+  }
+
+  dd {
+    border-radius: .4rem;
+    box-shadow: -.2rem .2rem .3rem rgba(0, 0, 0, .125);
+    margin: 0 0 0 var(--spacer-xs);
+    padding: var(--spacer-xs);
+  }
+
+  p:first-of-type {
+    margin-top: 0;
+  }
+
+  p:last-of-type {
+    margin-bottom: 0;
   }
 }
 

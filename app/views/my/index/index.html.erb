@@ -5,16 +5,19 @@
     <h1><%= t('.heading') %></h1>
 
     <figure role="group">
-      <%= user_image_profile(current_user) %>
-      <figcaption>
-        <%= link_to(current_user.profile_name, my_profile_path) %>
-      </figcaption>
+      <div class="image">
+        <%= user_image_profile(current_user) %>
+      </div>
+      <figcaption><%= current_user.profile_name %></figcaption>
     </figure>
 
-    <nav class="dashboard">
+    <nav class="profile-dashboard">
       <ul>
         <li>
-          <%= link_to('Редактировать профиль', edit_my_profile_path, class: 'button-nav') %>
+          <%= link_to('Ваш профиль', my_profile_path, class: 'button-nav') %>
+        </li>
+        <li>
+          <%= link_to('Редактировать профиль', edit_my_profile_path, class: 'button-action') %>
         </li>
         <% if UserPrivilege.user_has_any_privilege?(current_user) %>
           <li>
@@ -23,10 +26,10 @@
         <% end %>
 <!--        <li><%#= render 'my/tokens/nav_item' %></li>-->
 <!--        <li><%#= render 'my/login_attempts/nav_item' %></li>-->
-        <% handler = Biovision::Components::BaseComponent.handler('posts', current_user) %>
       </ul>
-
     </nav>
+
+    <% handler = Biovision::Components::BaseComponent.handler('posts', current_user) %>
 
     <%=
       render(
