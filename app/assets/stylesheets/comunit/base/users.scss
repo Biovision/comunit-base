@@ -24,9 +24,8 @@ article.authentication {
   }
 }
 
-article.user-profile {
-  //* { outline: solid pink 1px; }
-
+.profile-edit,
+.user-profile {
   nav {
     display: flex;
     margin: var(--spacer-s) 0;
@@ -74,8 +73,6 @@ article.user-profile {
   }
 
   dd {
-    border-radius: .4rem;
-    box-shadow: -.2rem .2rem .3rem rgba(0, 0, 0, .125);
     margin: 0 0 0 var(--spacer-xs);
     padding: var(--spacer-xs);
   }
@@ -86,6 +83,13 @@ article.user-profile {
 
   p:last-of-type {
     margin-bottom: 0;
+  }
+}
+
+.user-profile {
+  dd {
+    border-radius: .4rem;
+    box-shadow: -.2rem .2rem .3rem rgba(0, 0, 0, .125);
   }
 }
 
