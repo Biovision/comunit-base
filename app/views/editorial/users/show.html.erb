@@ -2,7 +2,7 @@
 <% profile = @entity.data['profile'] %>
 
 <article class="entity-page">
-  <h1><%= @entity.long_slug %></h1>
+  <h1><%= @entity.slug %></h1>
   <% if @entity.deleted? %>
       <div class="alert"><%= t(:deleted_entity) %></div>
   <% end %>

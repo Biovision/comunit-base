@@ -7,7 +7,7 @@ class UserMessagesController < ApplicationController
     @entity = UserMessage.new(creation_parameters)
     if @entity.save
       notify_receiver
-      redirect_to dialog_my_messages_path(user_slug: @entity.receiver.long_slug)
+      redirect_to dialog_my_messages_path(user_slug: @entity.receiver.slug)
     else
       render :new, status: :bad_request
     end

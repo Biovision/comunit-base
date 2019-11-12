@@ -56,10 +56,10 @@ class UserMessage < ApplicationRecord
   def destroy_by_user(user)
     if sender?(user)
       update(deleted_by_sender: true)
-      receiver.long_slug
+      receiver.slug
     elsif receiver?(user)
       update(deleted_by_receiver: true)
-      sender.long_slug
+      sender.slug
     end
   end
 

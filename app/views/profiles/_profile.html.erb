@@ -10,9 +10,9 @@
     <% end %>
     <% if current_user.is_a?(User) && (current_user != user) %>
       <%= render partial: 'users/follow_buttons', locals: { user: user, followee: current_user.follows?(user) } %>
-      <div><%= link_to t('user_messages.new.heading'), dialog_my_messages_path(user_slug: user.long_slug), class: 'button-nav' %></div>
+      <div><%= link_to t('user_messages.new.heading'), dialog_my_messages_path(user_slug: user.slug), class: 'button-nav' %></div>
     <% end %>
-    <div><%= link_to 'Блог', user_profile_entries_path(slug: user.screen_name), class: 'button-nav' %></div>
+    <div><%= link_to 'Блог', user_profile_entries_path(slug: user.slug), class: 'button-nav' %></div>
   </nav>
 
   <% unless user.image.blank? %>

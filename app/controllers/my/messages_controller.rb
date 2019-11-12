@@ -15,7 +15,7 @@ class My::MessagesController < ApplicationController
   private
 
   def set_interlocutor
-    @interlocutor = User.with_long_slug(params[:user_slug])
+    @interlocutor = User.find_by(slug: params[:user_slug])
     if !@interlocutor.is_a?(User) || @interlocutor.deleted?
       render :not_found, status: :not_found
     end

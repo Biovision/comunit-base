@@ -5,7 +5,7 @@
   <div><%= user_link(user) %></div>
   <div class="info">
     <span><%= t('.entries') %></span>:
-    <%= link_to t(:entry, count: user.entries_count), user_profile_entries_path(slug: user.long_slug) %>
+    <%= link_to t(:entry, count: user.entries_count), user_profile_entries_path(slug: user.slug) %>
     <% if current_user.is_a?(User) && current_user != user %>
         <div class="follow-options">
           <% followee = current_user.follows?(user) %>
