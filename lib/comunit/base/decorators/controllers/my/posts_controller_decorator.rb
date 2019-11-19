@@ -6,6 +6,7 @@ My::PostsController.class_eval do
     @entity = Post.new(creation_parameters)
     if component_handler.allow_post_type?(@entity.post_type) && @entity.save
       apply_post_tags
+      apply_post_categories
       PostBodyParserJob.perform_later(@entity.id)
       NetworkPostSyncJob.perform_later(@entity.id, false)
       form_processed_ok(my_post_path(id: @entity.id))
@@ -18,6 +19,7 @@ My::PostsController.class_eval do
   def update
     if @entity.update(entity_parameters)
       apply_post_tags
+      apply_post_categories
       PostBodyParserJob.perform_later(@entity.id)
       NetworkPostSyncJob.perform_later(@entity.id, true)
       form_processed_ok(my_post_path(id: @entity.id))
