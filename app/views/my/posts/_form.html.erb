@@ -1,4 +1,7 @@
-<% model_name = entity.class.to_s.underscore %>
+<%
+  handler ||= Biovision::Components::BaseComponent.handler('post', current_user)
+  model_name = entity.class.to_s.underscore
+%>
 <%=
   form_with(
       model: entity,
@@ -51,9 +54,10 @@
             render(
                 partial: 'posts/form/category_links',
                 locals: {
-                    entity: entity,
+                    categories: categories,
                     collection: categories.select { |_, i| i[:parent_id].nil? },
-                    categories: categories
+                    entity: entity,
+                    handler: handler
                 }
             )
           %>

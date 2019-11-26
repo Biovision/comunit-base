@@ -101,9 +101,10 @@
           render(
               partial: 'posts/form/category_links',
               locals: {
-                  entity: entity,
+                  categories: categories,
                   collection: categories.select { |_, i| i[:parent_id].nil? },
-                  categories: categories
+                  entity: entity,
+                  handler: handler
               }
           )
         %>

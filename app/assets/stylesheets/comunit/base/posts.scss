@@ -1056,6 +1056,10 @@ $background-post-tag: rgb(248, 248, 248) !default;
     margin-left: .8rem;
     padding-left: 1.2rem;
   }
+
+  input:disabled + label {
+    color: #bbb;
+  }
 }
 
 article.post {
