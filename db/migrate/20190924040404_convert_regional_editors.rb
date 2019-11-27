@@ -21,10 +21,6 @@ class ConvertRegionalEditors < ActiveRecord::Migration[5.2]
 
   def convert_region_managers
     handler = Biovision::Components::BaseComponent.handler('regions')
-    manager_privileges = {}
-    Biovision::Components::RegionsComponent.privilege_names.each do |privilege_name|
-      manager_privileges[privilege_name] = true
-    end
 
     %w[chief_region_manager regional_deputy_chief_editor].each do |privilege_slug|
       privilege = Privilege.find_by(slug: privilege_slug)
@@ -32,7 +28,9 @@ class ConvertRegionalEditors < ActiveRecord::Migration[5.2]
 
       privilege.user_privileges.each do |user_privilege|
         handler.user = user_privilege.user
-        handler.update_privileges(user, manager_privileges)
+        Biovision::Components::RegionsComponent.privilege_names.each do |slug|
+          handler.privilege_handler.add_privilege(slug)
+        end
       end
     end
   end
@@ -44,35 +42,20 @@ class ConvertRegionalEditors < ActiveRecord::Migration[5.2]
     post_type = PostType['blog_post']
 
     privilege.users.each do |user|
-      editorial_member = EditorialMember.find_or_create_by(user: user)
-
-      EditorialMemberPostType.create(editorial_member: editorial_member, post_type: post_type)
+      @handler.user = user
+      @handler.allow_post_type(post_type)
     end
   end
 
   def convert_deputy_chief_editors
-    type_ids = PostType.pluck(:id)
-
     %w[deputy_chief_editor central_deputy_editor].each do |privilege_slug|
       privilege = Privilege.find_by(slug: privilege_slug)
 
       next if privilege.nil?
 
-      criteria = {
-        biovision_component: @handler.component
-      }
-
       privilege.users.each do |user|
-        criteria[:user] = user
-        link = BiovisionComponentUser.find_or_create_by(criteria)
-
-        link.data['deputy_chief_editor'] = true
-        link.save!
-
-        member = EditorialMember.find_or_create_by(user: user)
-        type_ids.each do |id|
-          EditorialMemberPostType.create(editorial_member: member, post_type_id: id)
-        end
+        @handler.user = user
+        @handler.privilege_handler.add_privilege('deputy_chief_editor')
       end
     end
   end
@@ -83,19 +66,12 @@ class ConvertRegionalEditors < ActiveRecord::Migration[5.2]
       privilege = Privilege.find_by(slug: privilege_slug)
       next if privilege.nil?
 
-      criteria = {
-        biovision_component: @handler.component
-      }
-
       privilege.users.each do |user|
-        criteria[:user] = user
-        link = BiovisionComponentUser.find_or_create_by(criteria)
-
-        link.data['editor'] = true
-        link.save!
-
-        member = EditorialMember.find_or_create_by(user: user)
-        EditorialMemberPostType.create(editorial_member: member, post_type: post_type)
+        @handler.user = user
+        @handler.allow_post_type(post_type)
+        post_type.post_categories.each do |post_category|
+          @handler.allow_post_category(post_category)
+        end
       end
     end
   end
@@ -111,21 +87,13 @@ class ConvertRegionalEditors < ActiveRecord::Migration[5.2]
       privilege = Privilege.find_by(slug: privilege_slug)
       next if privilege.nil?
 
-      criteria = {
-        biovision_component: @handler.component
-      }
-
       privilege.users.each do |user|
-        if privilege_slug == :regional_editor
-          criteria[:user] = user
-          link = BiovisionComponentUser.find_or_create_by(criteria)
-
-          link.data['editor'] = true
-          link.save!
+        @handler.user = user
+        @handler.privilege_handler.add_privilege(privilege_slug)
+        @handler.add_post_type(post_type)
+        post_type.post_categories.each do |post_category|
+          @handler.add_post_category(post_category)
         end
-
-        member = EditorialMember.find_or_create_by(user: user)
-        EditorialMemberPostType.create(editorial_member: member, post_type: post_type)
       end
     end
   end
