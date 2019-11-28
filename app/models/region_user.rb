@@ -15,6 +15,8 @@ class RegionUser < ApplicationRecord
 
   validates_uniqueness_of :region_id, scope: :user_id
 
+  scope :recent, -> { order('id desc') }
+
   # @param [User] user
   def self.allowed_region_ids(user)
     region_ids = owned_by(user).pluck(:region_id)

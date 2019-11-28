@@ -55,6 +55,12 @@ ru:
       entity:
         region:
           deeper_level: "Уровни глубже…"
+    components:
+      user_settings:
+        regions:
+          heading: "Доступные регионы"
+          new_link:
+            add_region: "Добавить регион"
   regions:
     new:
       title: "Новый регион"

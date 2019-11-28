@@ -21,6 +21,20 @@ class Admin::RegionsController < AdminController
   def show
   end
 
+  # put /admin/regions/:id/users/:user_id
+  def add_user
+    @entity.add_user(User.find_by(id: params[:user_id]))
+
+    head :no_content
+  end
+
+  # delete /admin/regions/:id/users/:user_id
+  def remove_user
+    @entity.remove_user(User.find_by(id: params[:user_id]))
+
+    head :no_content
+  end
+
   private
 
   def component_slug

@@ -1,5 +1,6 @@
 @import "biovision/vote/vote";
 @import "biovision/comment/comments";
+@import "biovision/post/admin/posts";
 
 form {
   .new-region-name:empty::after {
@@ -14,5 +15,81 @@ form {
     margin-bottom: var(--spacer-xs);
     margin-left: .8rem;
     padding-left: 1rem;
+  }
+}
+
+.regions-user-linked {
+  list-style: none;
+
+  li {
+    align-items: center;
+    display: flex;
+    margin: 0 0 var(--spacer-xs);
+  }
+}
+
+.regions-user-new {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    align-items: center;
+    display: flex;
+    margin: 0 0 var(--spacer-xs) 0;
+    padding: 0;
+  }
+
+  .new-region-name {
+    font-weight: 500;
+    margin: 0 var(--spacer-xs);
+  }
+
+  .result-container {
+    margin: 0 var(--spacer-xs);
+  }
+}
+
+.region-link-destroy {
+  background: image_url('biovision/base/icons/destroy.svg') no-repeat center / 1.6rem auto;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 0 .2rem rgba(127, 0, 0, .25);
+  cursor: pointer;
+  display: inline-block;
+  height: 2.4rem;
+  margin-right: var(--spacer-s);
+  transition: .25s;
+  width: 2.4rem;
+
+  &:focus,
+  &:hover {
+    background-color: rgba(127, 0, 0, .125);
+    box-shadow: 0 0 .4rem rgba(196, 0, 0, .75);
+  }
+}
+
+.region-link-create {
+  background: image_url('biovision/base/icons/create.svg') no-repeat center / 1.6rem auto;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 0 .2rem rgba(0, 127, 0, .25);
+  cursor: pointer;
+  display: inline-block;
+  height: 2.4rem;
+  margin-right: var(--spacer-s);
+  transition: .25s;
+  width: 2.4rem;
+
+  &:focus,
+  &:hover {
+    background-color: rgba(0, 127, 0, .125);
+    box-shadow: 0 0 .4rem rgba(0, 196, 0, .75);
   }
 }

@@ -78,9 +78,7 @@ class Region < ApplicationRecord
 
   # @param [User] user
   def editable_by?(user)
-    chief = UserPrivilege.user_has_privilege?(user, :chief_region_manager)
-    manager = UserPrivilege.user_has_privilege?(user, :region_manager, self)
-    chief || manager
+    Biovision::Components::RegionsComponent.allow?(user, 'manager')
   end
 
   def parents
@@ -137,5 +135,15 @@ class Region < ApplicationRecord
 
     save!
     parent&.cache_children!([id] + children_cache)
+  end
+
+  # @param [User] user
+  def add_user(user)
+    RegionUser.create(region: self, user: user)
+  end
+
+  # @param [User] user
+  def remove_user(user)
+    RegionUser.where(region: self, user: user).delete_all
   end
 end

@@ -125,4 +125,73 @@ Comunit.components.entityRegionSelect = {
     }
 };
 
+Comunit.components.regionLinkRemover = {
+    initialized: false,
+    selector: ".region-link-destroy",
+    buttons: [],
+    init: function () {
+        document.querySelectorAll(this.selector).forEach(this.apply);
+        this.initialized = true;
+    },
+    apply: function (button) {
+        const component = Comunit.components.regionLinkRemover;
+        component.buttons.push(button);
+        button.addEventListener("click", component.handler);
+    },
+    handler: function (event) {
+        const button = event.target;
+        if (confirm(button.getAttribute("data-message"))) {
+            const url = button.getAttribute("data-url");
+            const request = Biovision.jsonAjaxRequest("delete", url, function () {
+                button.closest("li").remove();
+            });
+            request.send();
+        }
+    }
+};
+
+Comunit.components.regionLinkCreator = {
+    initialized: false,
+    selector: ".region-link-create",
+    button: undefined,
+    pattern: undefined,
+    container: undefined,
+    list: undefined,
+    init: function () {
+        this.button = document.querySelector(this.selector);
+        if (this.button) {
+            this.pattern = this.button.getAttribute("data-url");
+            this.container = this.button.closest(".js-grouping-container");
+            this.list = this.button.closest("div").querySelector(".js-form-region-select");
+            this.button.addEventListener("click", this.handler);
+            this.initialized = true;
+        }
+    },
+    handler: function () {
+        const component = Comunit.components.regionLinkCreator;
+        const radio = component.list.querySelector("input:checked");
+        const regionId = parseInt(radio.value);
+        if (regionId > 0) {
+            component.createLink(regionId);
+        }
+    },
+    createLink: function (regionId) {
+        const url = this.pattern.replace("_id_", String(regionId));
+        Biovision.jsonAjaxRequest("put", url, this.insertLink).send();
+    },
+    insertLink: function () {
+        const component = Comunit.components.regionLinkCreator;
+        const regionName = component.list.querySelector(".new-region-name").innerHTML;
+        let list = component.container.querySelector(".regions-user-linked");
+        if (!list) {
+            list = document.createElement("ul");
+            list.classList.add("regions-user-linked");
+            component.container.prepend(list);
+        }
+        const li = document.createElement("li");
+        li.innerHTML = regionName;
+        list.append(li);
+    }
+};
+
 Biovision.components.comunit = Comunit;

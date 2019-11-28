@@ -155,7 +155,12 @@ Rails.application.routes.draw do
       resources :promo_blocks, :promo_items, only: :show, concerns: :toggle
 
       resources :countries, only: %i[index show]
-      resources :regions, only: %i[index show], concerns: %i[priority toggle]
+      resources :regions, only: %i[index show], concerns: %i[priority toggle] do
+        member do
+          put 'users/:user_id' => :add_user, as: :user
+          delete 'users/:user_id' => :remove_user
+        end
+      end
     end
 
     namespace :editorial do

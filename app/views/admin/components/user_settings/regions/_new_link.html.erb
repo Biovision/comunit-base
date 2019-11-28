@@ -1,0 +1,43 @@
+<h5><%= t('.add_region') %></h5>
+
+<div class="regions-user-new">
+  <%=
+    button_tag(
+        '',
+        class: 'region-link-create',
+        data: {
+            url: user_admin_region_path(id: '_id_', user_id: handler.user.id)
+        },
+        type: :button
+    )
+  %>
+  <ul class="js-form-region-select">
+    <li>
+      <% element_id = "link_region_id_0" %>
+      <%=
+        radio_button_tag(
+            "link_region_id",
+            '',
+            true,
+            id: element_id
+        )
+      %>
+      <%= label_tag(element_id, t(:not_set)) %>
+    </li>
+    <li>
+      <% element_id = "link_region_id_new" %>
+      <%=
+        radio_button_tag(
+            "link_region_id",
+            '',
+            false,
+            class: 'js-set-new-region',
+            id: element_id
+        )
+      %>
+      <%= label_tag(element_id, t('shared.forms.region_select.new_region')) %>:
+      <span class="new-region-name" data-blank="<%= t('shared.forms.region_select.none') %>"></span>
+      <div class="result-container" data-url="<%= admin_regions_path %>"></div>
+    </li>
+  </ul>
+</div>
