@@ -14,7 +14,7 @@ module RegionsHelper
   def region_image_preview(entity, options = {})
     return '' if entity&.id.nil?
 
-    image_url = entity.data.dig('images', 'preview')
+    image_url = entity.data.dig('image', 'preview')
 
     return '' if image_url.nil?
 
