@@ -116,6 +116,7 @@ class NetworkManager::CandidateHandler < NetworkManager
     {
       region: RegionHandler.relationship_data(@entity.region, true),
       user: UserHandler.relationship_data(@entity.user, true),
+      campaign: CampaignHandler.relationship_data(@entity.campaign),
       political_forces: { data: political_forces_data }
     }
   end
