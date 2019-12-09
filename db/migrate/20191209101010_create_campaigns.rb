@@ -62,7 +62,7 @@ class CreateCampaigns < ActiveRecord::Migration[5.2]
       t.uuid :uuid, null: false
       t.references :campaign, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
       t.references :user, foreign_key: { on_update: :cascade, on_delete: :cascade }
-      t.references :region, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
+      t.references :region, foreign_key: { on_update: :cascade, on_delete: :cascade }
       t.references :agent, foreign_key: { on_update: :cascade, on_delete: :nullify }
       t.inet :ip
       t.timestamps
