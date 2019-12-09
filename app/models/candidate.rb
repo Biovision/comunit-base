@@ -4,12 +4,14 @@
 #
 # Attributes:
 #   about [text], optional
+#   agent_id [Agent], optional
 #   approved [boolean]
 #   birthday [date]
 #   campaign_id [Campaign]
 #   created_at [DateTime]
 #   data [JSON]
 #   image [SimpleImageUploader]
+#   ip [Inet]
 #   lead [text]
 #   name [string]
 #   patronymic [string], optional

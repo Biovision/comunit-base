@@ -33,7 +33,6 @@ class NetworkManager::CampaignHandler < NetworkManager
     log_event "[I] Creating local campaign #{uuid}"
 
     @entity = Campaign.new(uuid: uuid)
-    @entity.agent = Agent[@data.dig(:meta, :agent_name).to_s]
 
     apply_for_update
 

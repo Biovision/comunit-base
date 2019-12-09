@@ -33,7 +33,6 @@ class NetworkManager::PoliticalForceHandler < NetworkManager
     log_event "[I] Creating local political_force #{uuid}"
 
     @entity = PoliticalForce.new(uuid: uuid)
-    @entity.agent = Agent[@data.dig(:meta, :agent_name).to_s]
 
     apply_for_update
 
