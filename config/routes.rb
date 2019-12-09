@@ -204,6 +204,7 @@ Rails.application.routes.draw do
       end
       resources :regions, only: %i[create update]
       resources :posts, only: :create
+      resources :political_forces, :campaigns, :candidates, only: %i[create update]
     end
 
     namespace :my do
