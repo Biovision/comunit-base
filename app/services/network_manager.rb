@@ -42,7 +42,7 @@ class NetworkManager
   #
   # @return [Hash]
   def attributes_for_remote
-    ignored = ignored_attributes
+    ignored = self.class.ignored_attributes
 
     @entity.attributes.reject do |a, _|
       ignored.include?(a) || a.end_with?('_count', '_id')
@@ -50,7 +50,7 @@ class NetworkManager
   end
 
   def apply_attributes
-    permitted = permitted_attributes
+    permitted = self.class.permitted_attributes
     input = @data.dig(:attributes).to_h
 
     attributes = input.select { |a, _| permitted.include?(a.to_sym) }
