@@ -3,16 +3,19 @@
 # Synchronizing regions with central site
 class NetworkManager::RegionHandler < NetworkManager
   # @param [Region] entity
-  def self.relationship_data(entity)
+  # @param [TrueClass|FalseClass] wrap
+  def self.relationship_data(entity, wrap = false)
     return nil if entity.nil?
 
-    {
+    data = {
       id: entity.id,
       type: entity.class.table_name,
       attributes: {
         slug: entity.slug
       }
     }
+
+    wrap ? { data: data } : data
   end
 
   def create_local

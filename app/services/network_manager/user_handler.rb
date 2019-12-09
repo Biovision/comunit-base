@@ -5,16 +5,19 @@ class NetworkManager::UserHandler < NetworkManager
   PATH = "#{MAIN_HOST}/network/users"
 
   # @param [User] entity
-  def self.relationship_data(entity)
+  # @param [TrueClass|FalseClass]
+  def self.relationship_data(entity, wrap = false)
     return nil if entity.nil?
 
-    {
+    data = {
       id: entity.uuid,
       type: entity.class.table_name,
       attributes: {
         slug: entity.slug
       }
     }
+
+    wrap ? { data: data } : data
   end
 
   # @param [Hash] data
