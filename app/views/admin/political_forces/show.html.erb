@@ -1,0 +1,48 @@
+<% content_for :meta_title, t('.title', name: @entity.name) %>
+<% content_for :breadcrumbs do %>
+  <%= link_to(t('admin.political_forces.nav_item.text'), admin_political_forces_path) %>
+  <span><%= @entity.name %></span>
+<% end %>
+
+<article>
+  <h1><%= @entity.name %></h1>
+
+  <ul class="actions">
+    <li><%= back_icon(admin_political_forces_path) %></li>
+    <li><%= edit_icon(edit_political_force_path(id: @entity.id)) %></li>
+  </ul>
+
+  <nav>
+    <%=
+      link_to(
+          t(:candidate_count, count: @entity.candidates_count),
+          candidates_admin_political_force_path(id: @entity.id),
+          class: 'button-nav'
+      )
+    %>
+  </nav>
+
+  <dl>
+    <% unless @entity.image.blank? %>
+      <dt><%= t('activerecord.attributes.political_force.image') %></dt>
+      <dd>
+        <figure role="group" class="preview">
+          <%= simple_image_medium(@entity) %>
+        </figure>
+      </dd>
+    <% end %>
+
+    <dt><%= t('activerecord.attributes.political_force.slug') %></dt>
+    <dd><%= @entity.slug %></dd>
+
+    <dt><%= t('activerecord.attributes.political_force.name') %></dt>
+    <dd><%= @entity.name %></dd>
+
+    <% unless @entity.flare.blank? %>
+      <dt><%= t('activerecord.attributes.political_force.flare') %></dt>
+      <dd><%= @entity.flare %></dd>
+    <% end %>
+
+    <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
+  </dl>
+</article>

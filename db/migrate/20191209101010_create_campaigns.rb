@@ -29,6 +29,7 @@ class CreateCampaigns < ActiveRecord::Migration[5.2]
     create_table :political_forces, comment: 'Political forces' do |t|
       t.uuid :uuid, null: false
       t.timestamps
+      t.integer :candidates_count, default: 0, null: false
       t.string :slug, null: false
       t.string :name
       t.string :image
@@ -68,11 +69,13 @@ class CreateCampaigns < ActiveRecord::Migration[5.2]
       t.timestamps
       t.boolean :visible, default: true, null: false
       t.boolean :approved, default: false, null: false
+      t.boolean :supports_impeachment, default: false, null: false
       t.date :birthday
       t.string :image
       t.string :name
       t.string :patronymic
       t.string :surname
+      t.string :details_url
       t.text :lead
       t.text :about
       t.text :program

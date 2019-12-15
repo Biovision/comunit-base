@@ -1,0 +1,17 @@
+<% content_for :meta_title, t('.title') %>
+<% content_for :breadcrumbs do %>
+  <%= link_to(t('admin.political_forces.index.nav_text'), admin_political_forces_path(id: @entity.id)) %>
+  <%= admin_political_force_link(@entity) %>
+  <span><%= t('.nav_text') %></span>
+<% end %>
+
+<article>
+  <h1><%= t('.heading') %></h1>
+
+  <ul class="actions">
+    <li><%= return_icon(admin_political_force_path(id: @entity.id)) %></li>
+    <li class="danger"><%= destroy_icon(@entity) %></li>
+  </ul>
+
+  <%= render partial: 'form', locals: { entity: @entity } %>
+</article>

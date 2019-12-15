@@ -32,9 +32,6 @@ Comunit::Base
 ### Дополнения в `Gemfile`
 
 ```ruby
-gem 'dotenv-rails'
-gem 'jquery-rails'
-
 gem 'autoprefixer-rails', group: :production
 
 gem 'biovision-base', git: 'https://github.com/Biovision/biovision-base'
@@ -81,6 +78,8 @@ SITE_ID=
 //= require biovision/base/polyfills
 //= require biovision/base/biovision
 //= require biovision/base/components/video-stretcher
+//= require biovision/base/components/oembed
+//= require biovision/base/components/carousel
 //= require biovision/vote/biovision-vote
 //= require biovision/comment/biovision-comments
 //= require comunit/base/comunit-base
@@ -271,7 +270,6 @@ mkdir -p shared/public/uploads/region
 mkdir -p shared/tmp/import
 mkdir -p shared/config
 cd shared/public
-ln -s /var/www/ckeditor
 ln -s /var/www/shared/post_illustrations
 cd uploads/region
 ln -s /var/www/shared/uploads/region/image

@@ -1,0 +1,23 @@
+<% content_for :meta_title, t('.title', name: @entity.name) %>
+<% content_for :breadcrumbs do %>
+  <%= link_to(t('admin.political_forces.index.nav_text'), admin_political_forces_path) %>
+  <%= admin_political_force_link(@entity) %>
+  <span><%= t('.nav_text') %></span>
+<% end %>
+
+<article>
+  <h1><%= t(:candidate_count, count: @entity.candidates_count) %></h1>
+
+  <ul class="actions">
+    <li><%= return_icon(admin_political_force_path(id: @entity.id)) %></li>
+  </ul>
+
+  <%=
+    render(
+        partial: 'shared/admin/list',
+        locals: {
+            collection: @collection
+        }
+    )
+  %>
+</article>

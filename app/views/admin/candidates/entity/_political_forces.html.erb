@@ -1,0 +1,23 @@
+<section>
+  <h2><%= t('.heading') %></h2>
+
+  <ul class="entity-links">
+    <% PoliticalForce.list_for_administration.each do |force| %>
+      <li>
+        <% element_id = "candidate_political_force_#{force.id}" %>
+        <%=
+          check_box_tag(
+              "political_forces[#{force.id}]",
+              force.id,
+              force.candidate?(entity),
+              id: element_id,
+              data: {
+                  url: candidate_admin_political_force_path(id: force.id, candidate_id: entity.id)
+              }
+          )
+        %>
+        <%= label_tag(element_id, force.name) %>
+      </li>
+    <% end %>
+  </ul>
+</section>

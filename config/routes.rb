@@ -35,7 +35,6 @@ Rails.application.routes.draw do
 
   resources :appeals, only: %i[update destroy]
 
-  resources :themes, only: %i[update destroy]
   resources :user_messages, only: :destroy
 
   resources :groups, :teams, only: %i[update destroy]
@@ -43,6 +42,10 @@ Rails.application.routes.draw do
   resources :promo_blocks, :promo_items, only: %i[update destroy]
 
   resources :regions, only: %i[update destroy]
+
+  resources :political_forces, only: %i[update destroy]
+  resources :campaigns, only: %i[update destroy]
+  resources :candidates, only: %i[update destroy]
 
   scope '(:locale)', constraints: { locale: /ru|en/ } do
     root 'index#index'
@@ -63,8 +66,7 @@ Rails.application.routes.draw do
 
     get 'regional_news/:category_slug' => 'news#category', as: :legacy_news_category, constraints: { category_slug: category_slug_pattern }
     get 'regional_news/:category_slug/:slug' => 'news#show_in_category', as: :legacy_news_in_category, constraints: { category_slug: category_slug_pattern }
-
-    resources :illustrations, only: :create
+    get 'posts/:category_slug/:slug' => 'posts#legacy_show', as: nil, constraints: { category_slug: category_slug_pattern }
 
     resources :albums, except: %i[update destroy]
     resources :photos, except: %i[index update destroy]
@@ -76,30 +78,6 @@ Rails.application.routes.draw do
     resources :appeals, except: %i[index new show edit update destroy]
     get 'feedback' => 'appeals#new'
     post 'feedback' => 'appeals#create'
-
-    # resources :regional_news, only: [:index] do
-    #   collection do
-    #     get ':category_slug' => :category, as: :category, constraints: { category_slug: category_pattern }
-    #     get ':category_slug/:slug' => :show_in_category, as: :news_in_category, constraints: { category_slug: category_pattern }
-    #   end
-    # end
-    # resources :posts, except: [:update, :destroy] do
-    #   collection do
-    #     get ':category_slug' => :category, as: :category, constraints: { category_slug: category_pattern }
-    #     get ':category_slug/:slug' => :show_in_category, as: :post_in_category, constraints: { category_slug: category_pattern }
-    #   end
-    # end
-
-    get 'posts/:category_slug/:slug' => 'posts#legacy_show', as: nil, constraints: { category_slug: category_slug_pattern }
-
-    resources :themes, except: %i[index show update destroy]
-
-    # resources :entries, except: [:update, :destroy] do
-    #   member do
-    #     get 'reposts/new' => :new_repost, as: :new_repost
-    #     post 'reposts' => :create_repost, as: :create_repost
-    #   end
-    # end
 
     resources :user_messages, only: :create
 
@@ -113,6 +91,10 @@ Rails.application.routes.draw do
         get 'children', defaults: { format: :json }
       end
     end
+
+    resources :campaigns, except: %i[index show update destroy], concerns: :check
+    resources :candidates, except: %i[index show update destroy], concerns: :check
+    resources :political_forces, only: %i[new create edit], concerns: :check
 
     namespace :admin do
       resources :groups, only: %i[index show] do
@@ -161,6 +143,21 @@ Rails.application.routes.draw do
           delete 'users/:user_id' => :remove_user
         end
       end
+
+      resources :political_forces, only: %i[index show] do
+        member do
+          get 'candidates'
+          put 'candidates/:candidate_id' => :add_candidate, as: :candidate, defaults: { format: :json }
+          delete 'candidates/:candidate_id' => :remove_candidate
+        end
+      end
+      resources :campaigns, only: %i[index show], concerns: :toggle do
+        member do
+          get 'candidates'
+          get 'candidates/new' => :new_candidate, as: :new_candidate
+        end
+      end
+      resources :candidates, only: %i[index show], concerns: :toggle
     end
 
     namespace :editorial do
@@ -174,20 +171,9 @@ Rails.application.routes.draw do
         member do
           put 'follow'
           delete 'follow' => :unfollow
-          put 'privileges/:privilege_id' => :grant_privilege, as: :privilege
-          delete 'privileges/:privilege_id' => :revoke_privilege
         end
       end
 
-      resources :illustrations, only: %i[create destroy]
-      resources :themes, except: %i[new edit], concerns: :lock do
-        member do
-          put 'post_categories/:category_id' => :add_post_category, as: :post_category
-          delete 'post_categories/:category_id' => :remove_post_category
-          put 'news_categories/:category_id' => :add_news_category, as: :news_category
-          delete 'news_categories/:category_id' => :remove_news_category
-        end
-      end
       resources :user_links, except: %i[new edit], concerns: :toggle do
         member do
           delete 'hide'
@@ -208,7 +194,6 @@ Rails.application.routes.draw do
     end
 
     namespace :my do
-      resources :comments, only: :index
       resources :entries, only: :index
       resources :messages, only: :index do
         get '/:user_slug' => :dialog, on: :collection, as: :dialog

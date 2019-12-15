@@ -1,0 +1,356 @@
+ru:
+  candidate_count:
+    zero: "кандидатов нет"
+    one: "%{count} кандидат"
+    few: "%{count} кандидата"
+    many: "%{count} кандидатов"
+    other: "%{count} кандидатов"
+  candidate_event_count:
+    zero: "мероприятий нет"
+    one: "%{count} мероприятие"
+    few: "%{count} мероприятия"
+    many: "%{count} мероприятий"
+    other: "%{count} мероприятий"
+  candidate_user_count:
+    zero: "штаб пуст"
+    one: "%{count} член штаба"
+    few: "%{count} члена штаба"
+    many: "%{count} членов штаба"
+    other: "%{count} членов штаба"
+  activerecord:
+    models:
+      campaign: "Кампания"
+      campaign_region: "Кампания в регионе"
+      candidate: "Кандидат"
+      candidate_political_force: "Кандидат в политической силе"
+      mandate: "Наказ избирателя"
+      political_force: "Политическая сила"
+    attributes:
+      campaign:
+        active: "Активная"
+        candidates_count: "Количество кандидатов"
+        date: "Дата"
+        image: "Картинка"
+        name: "Название"
+        region_id: "Регион"
+        slug: "Идентификатор для URL"
+        uuid: "UUID"
+      campaign_region:
+        campaign: "Кампания"
+        region: "Регион"
+        region_id: "Регион"
+      candidate:
+        about: "Подробный текст о себе"
+        approved: "Одобрен"
+        birthday: "Дата рождения"
+        campaign: "Кампания"
+        campaign_id: "Кампания"
+        candidate_events_count: "Количество мероприятий"
+        details_url: "URL с информацией"
+        image: "Картинка"
+        lead: "Краткий текст о себе"
+        name: "Имя"
+        patronymic: "Отчество"
+        program: "Программа"
+        supports_impeachment: "За импичмент"
+        surname: "Фамилия"
+        user: "Пользователь"
+        uuid: "UUID"
+        visible: "Показывать"
+      candidate_event:
+        body: "Подробное описание"
+        candidate: "Кандидат"
+        date: "Дата"
+        comments_count: "Количество комментариев"
+        image: "Картинка"
+        lead: "Краткое описание"
+        name: "Название"
+        region: "Регион"
+        uuid: "UUID"
+        visible: "Показывать"
+      candidate_political_force:
+        candidate: "Кандидат"
+        candidate_id: "Кандидат"
+        political_force: "Политическая сила"
+        political_force_id: "Политическая сила"
+      candidate_user:
+        approved: "Одобрен"
+        candidate: "Кандидат"
+        roles:
+          inquirer: "Опрашивающий"
+          observer: "Наблюдатель"
+          staff: "Член штаба"
+          teller: "Агитатор"
+        user: "Пользователь"
+        user_id: "Пользователь"
+      mandate:
+        candidate: "Кандидат"
+        candidate_id: "Кандидат"
+        description: "Описание"
+        region: "Регион"
+        region_id: "Регион"
+        response: "Ответ кандидата"
+        title: "Название"
+        user: "Пользователь"
+        user_id: "Пользователь"
+        visible: "Показывать"
+      political_force:
+        candidates_count: "Количество кандидатов"
+        slug: "Идентификатор"
+        name: "Название"
+        image: "Картинка"
+        flare: "Текст значка"
+  admin:
+    candidates:
+      nav_item:
+        description: "Управление кандидатами"
+        text: "Кандидаты"
+      index:
+        heading: "Кандидаты"
+        title: "Кандидаты, страница %{page}"
+      show:
+        title: "Кандидат «%{name}»"
+      events:
+        nav_text: "Мероприятия"
+        title: "Мероприятия кандидата %{candidate}, страница %{page}"
+      team:
+        nav_text: "Команда"
+        title: "Команда кандидата %{candidate}, страница %{page}"
+      new_event:
+        title: "Создание мероприятия для кандидата %{candidate}"
+        heading: "Новое мероприятие"
+      entity:
+        political_forces:
+          heading: "Политические силы"
+    watchers:
+      nav_item:
+        description: "Управление наблюдателями на выборах"
+        text: "Наблюдатели на выборах"
+      index:
+        heading: "Наблюдатели"
+        title: "Наблюдатели, страница %{page}"
+    campaigns:
+      nav_item:
+        text: "Кампании"
+        description: "Управление предвыборными кампаниями"
+      index:
+        title: "Кампании"
+        heading: "Кампании"
+        nav_text: "Кампании"
+      show:
+        title: "Кампания «%{name}»"
+      candidates:
+        title: "Кампания «%{campaign}»: кандидаты"
+        nav_text: "Кандидаты"
+      new_candidate:
+        title: "Новый кандидат для кампании «%{campaign}»"
+        heading: "Добавить кандидата"
+    index:
+      dashboard:
+        elections:
+          heading: "Выборы"
+    candidate_events:
+      show:
+        title: "Мероприятие «%{name}»"
+      nav_item:
+        text: "Мероприятия"
+        description: "Управление мероприятиями кандидатов"
+      index:
+        title: "Мероприятия кандидатов, страница %{page}"
+        heading: "Мероприятия кандидатов"
+    candidate_users:
+      nav_item:
+        text: "Команды кандидатов"
+        description: "Управление списком пользователей в комендах кандидатов"
+      index:
+        title: "Члены штабов, страница %{page}"
+        heading: "Члены штабов"
+      show:
+        title: "Кандидат %{candidate}: член штаба %{name}."
+    political_forces:
+      nav_item:
+        description: "Управление политическими силами"
+        text: "Политические силы"
+      index:
+        heading: "Политические силы"
+        nav_text: "Политические силы"
+        title: "Политические силы"
+      show:
+        title: "Политическая сила «%{name}»"
+      candidates:
+        title: "Кандидаты в политической силе «%{name}»"
+        nav_text: "Кандидаты"
+    posts:
+      entity:
+        in_list:
+          additional_data:
+            candidates: "Кандидаты"
+  biovision:
+    components:
+      campaigns:
+        name: "Кампании"
+  candidates:
+    index:
+      heading: "Кандидаты"
+      title: "Кандидаты, страница %{page}"
+    new:
+      title: "Добавление кандидата"
+      heading: "Добавление кандидата"
+      nav_text: "Добавить кандидата"
+    show:
+      title: "Кандидат «%{name}»"
+      staff:
+        join: "Присоединиться"
+    edit:
+      title: "Редактирование кандидата"
+      nav_text: "Редактировать"
+      heading: "Редактирование кандидата"
+    update:
+      success: "Кандидат успешно изменён"
+    destroy:
+      success: "Кандидат успешно удалён"
+    form:
+      guidelines:
+        about: "Максимум 64кб текста"
+        details_url: "Максимум 255 символов."
+        image: "Картинка в формате JPG"
+        lead: "Отображается на странице кандидата, максимум 500 символов"
+        name: "Максимум 100 символов"
+        program: "Текст в произвольной форме. Отображается на странице кандидата"
+        slug: "Только латинские буквы, дефисы и точка. Не больше 30 символов"
+  my:
+    candidates:
+      nav_item:
+        text: "Моё участие в кампаниях"
+        description: "Просмотр вашей роли как кандидата в кампаниях"
+      edit:
+        title: "Редактирование программы"
+        heading: "Редактирование программы"
+      form:
+        guidelines:
+          program: "Текст в произвольной форме. Отображается на странице кандидата"
+      new:
+        title: "Стать кандидатом"
+      index:
+        title: "Моё участие в кампаниях"
+        heading: "Моё участие в кампаниях"
+        nav_text: "Мои кандидаты"
+      posts:
+        nav_text: "Публикации"
+      new_post:
+        nav_text: "Добавить публикацию"
+        title: "Новая публикация от имени кандидата"
+        heading: "Добавить публикацию от имени кандидата"
+      office:
+        heading: "Штаб"
+        title: "Штаб кандидата %{name}"
+        nav_text: "Штаб"
+        candidate_user:
+          for_staff_head:
+            approve: "Одобрить"
+    index:
+      index:
+        candidates:
+          heading: "Мои кандидаты"
+  election:
+    index:
+      title: "Президентская кампания 2018"
+    create_watcher:
+      success: "Вы зарегистрировались как наблюдатель на выборах"
+  campaigns:
+    destroy:
+      success: "Кампания успешно удалена"
+    edit:
+      title: "Редактирование предвыборной кампании"
+      nav_text: "Редактировать"
+      heading: "Редактирование кампании"
+    new:
+      title: "Новая предвыборная кампания"
+      nav_text: "Создать"
+      heading: "Новая предвыборная кампания"
+    form:
+      guidelines:
+        image: "Картинка в формате SVG, JPG или PNG размером в пределах 1280×1280."
+        name: "Максимум 50 символов"
+        slug: "Только латинские буквы, цифры (кроме начала), дефис и знак подчёркивания (кроме начала и конца). Максимум 50 символов."
+    candidate:
+      title: "%{campaign}: %{candidate}"
+      mandates:
+        heading: "Наказы избирателей"
+      new_mandate:
+        heading: "Добавить обращение"
+    event:
+      title: "%{campaign}: %{event}"
+    join_team:
+      pending: "Ваша заявка на рассмотрении"
+    mandates:
+      title: "%{campaign}: наказы избирателей кандидату %{candidate}, страница %{page}"
+      nav_text: "Приёмная"
+    mandate:
+      title: "%{campaign}: обращение в приёмную кандидата «%{title}»"
+      heading: "Приёмная"
+  candidate_events:
+    destroy:
+      success: "Мероприятие успешно удалено"
+    new:
+      nav_text: "Добавить мероприятие"
+      title: "Новое мероприятие"
+      heading: "Новое мероприятие"
+    form:
+      guidelines:
+        image: "Картинка в формате JPG, PNG или SVG размером в пределах 1280×1280."
+        lead: "Максимум 500 символов"
+        name: "Максимум 150 символов"
+    edit:
+      title: "Редактирование мероприятия"
+      nav_text: "Редактировать"
+      heading: "Редактирование мероприятия"
+  candidate_users:
+    roles:
+      staff_head:
+        name: "Глава штаба"
+        list_name: "Глава штаба"
+      staff:
+        name: "Член штаба"
+        list_name: "Предвыборный штаб"
+      teller:
+        name: "Агитатор"
+        list_name: "Агитаторы"
+      observer:
+        name: "Наблюдатель"
+        list_name: "Наблюдатели"
+      inquirer:
+        name: "Опрашивающий"
+        list_name: "Опрашивающие"
+  mandates:
+    form:
+      guidelines:
+        title: "Максимум 255 символов"
+    destroy:
+      success: "Наказ удалён"
+    new:
+      title: "Новое обращение в приёмную избирателя"
+      heading: "Новый наказ избирателя"
+  political_forces:
+    destroy:
+      success: "Политическая сила успешно удалена"
+    edit:
+      title: "Редактирование политической силы"
+      nav_text: "Редактировать"
+      heading: "Редактирование политической силы"
+    new:
+      title: "Новая политическая сила"
+      nav_text: "Создать"
+      heading: "Новая политическая сила"
+    form:
+      guidelines:
+        flare: "Максимум 20 символов"
+        image: "Картинка в формате SVG, JPG или PNG размером в пределах 1280×1280."
+        name: "Максимум 100 символов"
+        slug: "Только латинские буквы, дефис и знак подчёркивания (кроме начала и конца). Максимум 20 символов."
+    candidate:
+      title: "%{campaign}: %{candidate}"
+      mandates:
+        heading: "Наказы избирателей"
+      new_mandate:
+        heading: "Добавить обращение"

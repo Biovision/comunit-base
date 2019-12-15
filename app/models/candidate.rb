@@ -10,6 +10,7 @@
 #   campaign_id [Campaign]
 #   created_at [DateTime]
 #   data [JSON]
+#   details_url [String]
 #   image [SimpleImageUploader]
 #   ip [Inet]
 #   lead [text]
@@ -17,6 +18,7 @@
 #   patronymic [string], optional
 #   program [text], optional
 #   region_id [Region], optional
+#   supports_impeachment [Boolean]
 #   surname [string]
 #   sync_state [JSON]
 #   updated_at [DateTime]
@@ -31,8 +33,9 @@ class Candidate < ApplicationRecord
   ABOUT_LIMIT = 65_535
   LEAD_LIMIT = 500
   NAME_LIMIT = 50
+  URL_LIMIT = 255
 
-  toggleable :visible, :approved
+  toggleable :visible, :approved, :supports_impeachment
 
   mount_uploader :image, SimpleImageUploader
 
@@ -48,6 +51,7 @@ class Candidate < ApplicationRecord
   validates_presence_of :birthday, :lead, :name, :surname
   validates_uniqueness_of :uuid
   validates_length_of :about, maximum: ABOUT_LIMIT
+  validates_length_of :details_url, maximum: URL_LIMIT
   validates_length_of :lead, maximum: LEAD_LIMIT
   validates_length_of :name, maximum: NAME_LIMIT
   validates_length_of :patronymic, maximum: NAME_LIMIT
@@ -60,7 +64,7 @@ class Candidate < ApplicationRecord
 
   def self.entity_parameters(as_user = false)
     usual = %i[about birthday image lead name patronymic program surname]
-    extended = %i[approved visible]
+    extended = %i[approved supports_impeachment visible]
 
     as_user ? usual : usual + extended
   end

@@ -1,0 +1,209 @@
+<% model_name = entity.class.to_s.underscore %>
+<%=
+  form_with(
+      model: entity,
+      html: {
+          id: "#{model_name}-form",
+          data: { check_url: check_candidates_path }
+      }
+  ) do |f|
+%>
+  <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+
+  <dl>
+    <div>
+      <dt><%= t('activerecord.attributes.candidate.campaign') %></dt>
+      <dd>
+        <% if entity.id.nil? %>
+          <%= entity.campaign&.name %>
+        <% else %>
+          <%= admin_campaign_link(entity.campaign) %>
+        <% end %>
+      </dd>
+    </div>
+
+    <div>
+      <dt><%= f.label :image %></dt>
+      <dd>
+        <figure class="preview" role="group" id="<%= model_name %>-image">
+          <% if entity.image.blank? %>
+            <%= f.label :image, image_tag('biovision/base/placeholders/1x1.svg', alt: '') %>
+          <% else %>
+            <%= f.label :image, image_tag(entity.image.medium_url, alt: '') %>
+          <% end %>
+          <figcaption>
+            <%=
+              f.file_field(
+                  :image,
+                  id: "#{model_name}_image",
+                  accept: 'image/jpeg',
+                  data: { image: "#{model_name}-image" }
+              )
+            %>
+          </figcaption>
+        </figure>
+        <div class="guideline"><%= t('.guidelines.image') %></div>
+      </dd>
+    </div>
+
+    <div>
+      <dt><%= f.label :surname %></dt>
+      <dd>
+        <%=
+          f.text_field(
+              :surname,
+              id: "#{model_name}_surname",
+              size: nil,
+              maxlength: Candidate::NAME_LIMIT,
+              required: true,
+              data: {
+                  check: :surname
+              }
+          )
+        %>
+        <div class="check-result-error" data-field="surname"></div>
+        <div class="guideline"><%= t('.guidelines.name') %></div>
+      </dd>
+    </div>
+
+    <div>
+      <dt><%= f.label :name %></dt>
+      <dd>
+        <%=
+          f.text_field(
+              :name,
+              id: "#{model_name}_name",
+              size: nil,
+              maxlength: Candidate::NAME_LIMIT,
+              required: true,
+              data: {
+                  check: :name
+              }
+          )
+        %>
+        <div class="check-result-error" data-field="name"></div>
+        <div class="guideline"><%= t('.guidelines.name') %></div>
+      </dd>
+    </div>
+
+    <div>
+      <dt><%= f.label :patronymic %></dt>
+      <dd>
+        <%=
+          f.text_field(
+              :patronymic,
+              id: "#{model_name}_patronymic",
+              size: nil,
+              maxlength: Candidate::NAME_LIMIT,
+              data: {
+                  check: :patronymic
+              }
+          )
+        %>
+        <div class="check-result-error" data-field="patronymic"></div>
+        <div class="guideline"><%= t('.guidelines.name') %></div>
+      </dd>
+    </div>
+
+    <div>
+      <dt><%= f.label :birthday %></dt>
+      <dd>
+        <%=
+          f.date_field(
+              :birthday,
+              id: "#{model_name}_birthday",
+              required: true
+          )
+        %>
+      </dd>
+    </div>
+
+    <div>
+      <dt><%= f.label :lead %></dt>
+      <dd>
+        <%=
+          f.text_field(
+              :lead,
+              id: "#{model_name}_lead",
+              size: nil,
+              maxlength: Candidate::LEAD_LIMIT,
+              required: true,
+              data: {
+                  check: :lead
+              }
+          )
+        %>
+        <div class="check-result-error" data-field="lead"></div>
+        <div class="guideline"><%= t('.guidelines.lead') %></div>
+      </dd>
+    </div>
+
+    <div>
+      <dt><%= f.label :about %></dt>
+      <dd>
+        <%=
+          f.text_area(
+              :about,
+              id: "#{model_name}_about",
+              rows: 5,
+              maxlength: Candidate::ABOUT_LIMIT,
+              class: 'auto-expand',
+              data: {
+                  check: :about,
+                  min_rows: 5,
+                  max_rows: 50
+              }
+          )
+        %>
+        <div class="check-result-error" data-field="about"></div>
+        <div class="guideline"><%= t('.guidelines.about') %></div>
+      </dd>
+    </div>
+
+    <div>
+      <dt><%= f.label :program %></dt>
+      <dd>
+        <%=
+          f.text_area(
+              :program,
+              id: "#{model_name}_program",
+              data: {
+                  wysiwyg: 1
+              }
+          )
+        %>
+      </dd>
+    </div>
+
+    <div>
+      <dt><%= f.label :details_url %></dt>
+      <dd>
+        <%=
+          f.url_field(
+              :details_url,
+              data: {
+                  check: :details_url
+              },
+              id: "#{model_name}_details_url",
+              maxlength: Candidate::URL_LIMIT,
+              size: nil
+          )
+        %>
+        <div class="check-result-error" data-field="details_url"></div>
+        <div class="guideline"><%= t('.guidelines.details_url') %></div>
+      </dd>
+    </div>
+
+    <%= render partial: 'shared/forms/entity_flags', locals: { f: f } %>
+  </dl>
+
+  <%= render 'shared/forms/state_container' %>
+
+  <div class="buttons">
+    <%= hidden_field_tag :entity_id, entity.id %>
+    <%= f.hidden_field :campaign_id if entity.id.nil? %>
+    <%= f.button t(:save), type: :submit, class: 'button-save' %>
+  </div>
+<% end %>
+
+<%= render 'shared/forms/wysiwyg' %>

@@ -1,0 +1,40 @@
+<div class="image">
+  <%= simple_image_preview(entity) %>
+</div>
+<div class="data">
+  <div><%= admin_campaign_link(entity) %></div>
+  <div class="info">
+    <% unless entity.region.nil? %>
+      <%= entity.region.long_name %>,
+    <% end %>
+    <%= entity.date %>
+  </div>
+  <div class="secondary info">
+    <%=
+      link_to(
+          t(:candidate_count, count: entity.candidates_count),
+          candidates_admin_campaign_path(id: entity.id)
+      )
+    %>
+  </div>
+  <div class="secondary info">
+    <%= entity.uuid %>
+  </div>
+
+  <%=
+    render(
+        partial: 'shared/admin/toggleable',
+        locals: {
+            entity: entity,
+            url: toggle_admin_campaign_path(id: entity.id)
+        }
+    )
+  %>
+
+  <ul class="actions">
+    <li><%= edit_icon(edit_campaign_path(id: entity.id)) %></li>
+    <% if entity.active? %>
+      <li><%= world_icon(campaign_path(id: entity.slug)) %></li>
+    <% end %>
+  </ul>
+</div>

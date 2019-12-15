@@ -1,0 +1,93 @@
+<% content_for :meta_title, t('.title', name: @entity.full_name(true)) %>
+<% content_for :breadcrumbs do %>
+  <%= link_to(t('admin.campaigns.nav_item.text'), admin_campaigns_path) %>
+  <%= admin_campaign_link(@entity.campaign) %>
+  <%= link_to(t('admin.campaigns.candidates.nav_text'), candidates_admin_campaign_path(id: @entity.campaign_id)) %>
+  <span><%= @entity.full_name %></span>
+<% end %>
+
+<article>
+  <h1><%= @entity.full_name(true) %></h1>
+
+  <ul class="actions">
+    <li><%= back_icon(candidates_admin_campaign_path(id: @entity.campaign_id)) %></li>
+    <li><%= edit_icon(edit_candidate_path(id: @entity.id)) %></li>
+    <% if @entity.visible? %>
+<!--      <li><%#= world_icon(candidate_campaign_path(id: @entity.campaign.slug, candidate_id: @entity.id)) %></li>-->
+    <% end %>
+  </ul>
+
+  <dl>
+    <% unless @entity.image.blank? %>
+      <dt><%= t('activerecord.attributes.candidate.image') %></dt>
+      <dd>
+        <figure role="group" class="preview">
+          <%= simple_image_medium(@entity) %>
+        </figure>
+      </dd>
+    <% end %>
+
+    <dt><%= t('activerecord.attributes.candidate.surname') %></dt>
+    <dd><%= @entity.surname %></dd>
+
+    <dt><%= t('activerecord.attributes.candidate.name') %></dt>
+    <dd><%= @entity.name %></dd>
+
+    <% unless @entity.patronymic.blank? %>
+      <dt><%= t('activerecord.attributes.candidate.patronymic') %></dt>
+      <dd><%= @entity.patronymic %></dd>
+    <% end %>
+
+    <% unless @entity.birthday.blank? %>
+      <dt><%= t('activerecord.attributes.candidate.birthday') %></dt>
+      <dd><%= time_tag(@entity.birthday) %></dd>
+    <% end %>
+
+    <dt><%= t('activerecord.attributes.candidate.campaign') %></dt>
+    <dd><%= admin_campaign_link(@entity.campaign) %></dd>
+
+    <dt><%= t('activerecord.attributes.candidate.lead') %></dt>
+    <dd>
+      <div class="text">
+        <%= raw(@entity.lead) %>
+      </div>
+    </dd>
+
+    <% unless @entity.about.blank? %>
+      <dt><%= t('activerecord.attributes.candidate.about') %></dt>
+      <dd>
+        <div class="text">
+          <%= simple_format(@entity.about) %>
+        </div>
+      </dd>
+    <% end %>
+
+    <dt><%= t('activerecord.attributes.candidate.program') %></dt>
+    <dd>
+      <div class="text">
+        <%= raw(@entity.program) %>
+      </div>
+    </dd>
+
+    <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
+  </dl>
+
+  <%=
+    render(
+        partial: 'shared/admin/toggleable',
+        locals: {
+            entity: @entity,
+            url: toggle_admin_candidate_path(id: @entity.id)
+        }
+    )
+  %>
+
+  <%=
+    render(
+        partial: 'admin/candidates/entity/political_forces',
+        locals: {
+            entity: @entity
+        }
+    )
+  %>
+</article>

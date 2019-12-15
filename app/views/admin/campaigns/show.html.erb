@@ -1,0 +1,73 @@
+<% content_for :meta_title, t('.title', name: @entity.name) %>
+<% content_for :breadcrumbs do %>
+  <%= link_to(t('admin.campaigns.nav_item.text'), admin_campaigns_path) %>
+  <span><%= @entity.name %></span>
+<% end %>
+
+<article>
+  <h1><%= @entity.name %></h1>
+
+  <ul class="actions">
+    <li><%= back_icon(admin_campaigns_path) %></li>
+    <li><%= edit_icon(edit_campaign_path(id: @entity.id)) %></li>
+    <% if @entity.active? %>
+      <li><%= world_icon(campaign_path(id: @entity.slug)) %></li>
+    <% end %>
+  </ul>
+
+  <nav>
+    <%=
+      link_to(
+          t(:candidate_count, count: @entity.candidates_count),
+          candidates_admin_campaign_path(id: @entity.id),
+          class: 'button-nav'
+      )
+    %>
+    <%=
+      link_to(
+          t('candidates.new.nav_text'),
+          new_candidate_admin_campaign_path(id: @entity.id),
+          class: 'button-nav'
+      )
+    %>
+  </nav>
+
+  <dl>
+    <% unless @entity.image.blank? %>
+      <dt><%= t('activerecord.attributes.campaign.image') %></dt>
+      <dd>
+        <figure role="group" class="preview">
+          <%= simple_image_medium(@entity) %>
+        </figure>
+      </dd>
+    <% end %>
+
+    <% unless @entity.region.nil? %>
+      <dt><%= t('activerecord.attributes.campaign.region_id') %></dt>
+      <dd><%= @entity.region.long_name %></dd>
+    <% end %>
+
+    <dt><%= t('activerecord.attributes.campaign.slug') %></dt>
+    <dd><%= @entity.slug %></dd>
+
+    <dt><%= t('activerecord.attributes.campaign.name') %></dt>
+    <dd><%= @entity.name %></dd>
+
+    <% unless @entity.date.blank? %>
+      <dt><%= t('activerecord.attributes.campaign.date') %></dt>
+      <dd><%= time_tag(@entity.date) %></dd>
+    <% end %>
+
+    <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
+  </dl>
+
+  <%=
+    render(
+        partial: 'shared/admin/toggleable',
+        locals: {
+            entity: @entity,
+            url: toggle_admin_campaign_path(id: @entity.id)
+        }
+    )
+  %>
+</article>

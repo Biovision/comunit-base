@@ -1,8 +1,0 @@
-<li>
-  <% element_id = "news_region_id_#{region.id}" %>
-  <%= radio_button_tag('news[region_id]', region.id, false, id: element_id) %>
-  <%= label_tag(element_id, region.name) %><br/>
-  <% if region.children_cache.any? %>
-      <button type="button" data-url="<%= regions_admin_news_index_path(parent_id: region.id) %>">Дочерние регионы…</button>
-  <% end %>
-</li>

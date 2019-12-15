@@ -1,0 +1,24 @@
+<div class="image">
+  <%= simple_image_preview(entity) %>
+</div>
+<div class="data">
+  <div><%= admin_political_force_link(entity) %></div>
+  <div class="info">
+    <%= entity.slug %>
+  </div>
+  <div class="secondary info">
+    <%=
+      link_to(
+          t(:candidate_count, count: entity.candidates_count),
+          candidates_admin_political_force_path(id: entity.id)
+      )
+    %>
+  </div>
+  <div class="secondary info">
+    <%= entity.flare %>
+  </div>
+
+  <ul class="actions">
+    <li><%= edit_icon(edit_political_force_path(id: entity.id)) %></li>
+  </ul>
+</div>

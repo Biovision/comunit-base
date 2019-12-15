@@ -2,18 +2,17 @@
 
 module Comunit
   module Base
+    require 'dotenv-rails'
     require 'biovision/base'
     require 'biovision/post'
     require 'biovision/vote'
     # require 'biovision/poll'
     require 'biovision/comment'
-    require 'redis-namespace'
     require 'carrierwave'
-    # require 'elasticsearch/persistence'
-    # require 'elasticsearch/model'
     require 'mini_magick'
     require 'carrierwave-bombshelter'
     require 'rest-client'
+    require 'jquery-rails'
 
     class Engine < ::Rails::Engine
       initializer 'comunit_base.load_base_methods' do
@@ -38,7 +37,7 @@ module Comunit
 
       config.generators do |g|
         g.test_framework :rspec
-        g.fixture_replacement :factory_bot, :dir => 'spec/factories'
+        g.fixture_replacement :factory_bot, dir: 'spec/factories'
       end
     end
   end
