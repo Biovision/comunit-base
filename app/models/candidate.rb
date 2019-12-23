@@ -61,6 +61,9 @@ class Candidate < ApplicationRecord
   scope :ordered_by_surname, -> { order('surname asc, name asc, patronymic asc') }
   scope :list_for_visitors, -> { visible.ordered_by_surname }
   scope :list_for_administration, -> { ordered_by_surname }
+  scope :surname_like, ->(v) { where('surname ilike ?', "%#{v}%") unless v.blank? }
+  scope :with_force, ->(v) { joins(:candidate_political_forces).where(candidate_political_forces: { political_force_id: v }) unless v.blank? }
+  scope :filtered, ->(f) { surname_like(f[:surname]).with_force(f[:force]) }
 
   def self.entity_parameters(as_user = false)
     usual = %i[about birthday image lead name patronymic program surname]

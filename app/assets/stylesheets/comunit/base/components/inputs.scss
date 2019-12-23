@@ -1,0 +1,32 @@
+$input-border: .1rem solid #777 !default;
+$input-shadow-focus: inset 0 0 .4rem rgba(64, 64, 96, .5) !default;
+
+.input-text {
+  border: $input-border;
+  border-radius: .2rem;
+  font-size: var(--font-size-normal);
+  margin: 0;
+  padding: var(--spacer-xs);
+
+  &:focus {
+    box-shadow: $input-shadow-focus;
+    outline: none;
+  }
+}
+
+select.select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background: image_url('comunit/base/icons/dropdown.svg') no-repeat center right var(--spacer-xs);
+  border: $input-border;
+  border-radius: .2rem;
+  font-size: var(--font-size-normal);
+  margin: 0;
+  padding: var(--spacer-xs) 3.2rem var(--spacer-xs) var(--spacer-xs);
+
+  &:focus {
+    box-shadow: $input-shadow-focus;
+    outline: none;
+  }
+}

@@ -84,4 +84,15 @@ module CampaignsHelper
   def my_candidate_link(entity, text = entity.full_name, options = {})
     link_to(text, my_candidate_path(id: entity.id), options)
   end
+
+  # @param [String] heading
+  def political_forces_for_select(heading = '')
+    result = []
+    result << [heading, ''] unless heading.blank?
+    PoliticalForce.list_for_visitors.each do |item|
+      result << [item.name, item.id]
+    end
+
+    result
+  end
 end
