@@ -6,8 +6,8 @@ class NetworkManager::CandidateHandler < NetworkManager
 
   def self.permitted_attributes
     %i[
-      about approved birthday created_at lead name patronymic program region_id
-      surname sync_state
+      about approved birthday created_at lead name patronymic program surname
+      sync_state
     ]
   end
 
