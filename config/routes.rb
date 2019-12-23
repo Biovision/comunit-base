@@ -92,7 +92,17 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :campaigns, except: %i[index show update destroy], concerns: :check
+    resources :campaigns, only: %i[index show], concerns: :check do
+      member do
+        get 'event-:event_id' => :event, as: :event, constraints: { event_id: /\d+/ }
+        scope 'candidate-:candidate_id', constraints: { candidate_id: /\d+/ } do
+          get '/' => :candidate, as: :candidate
+          post 'join' => :join_team, as: :team_candidate
+          get 'mandates' => :mandates, as: :mandates_candidate
+        end
+        get 'mandate-:mandate_id' => :mandate, as: :mandate, constraints: { mandate_id: /\d+/ }
+      end
+    end
     resources :candidates, except: %i[index show update destroy], concerns: :check
     resources :political_forces, only: %i[new create edit], concerns: :check
 

@@ -1,0 +1,16 @@
+@import "comunit/base/default";
+@import "biovision/base/default";
+
+.candidate-image {
+  margin-bottom: var(--spacer-m);
+
+  .image {
+    margin: 0 auto;
+    max-width: 40rem;
+  }
+
+  figcaption {
+    font-size: var(--font-size-large);
+    text-align: center;
+  }
+}

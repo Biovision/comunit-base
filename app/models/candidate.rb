@@ -134,4 +134,8 @@ class Candidate < ApplicationRecord
 
     instance.save
   end
+
+  def url
+    "/campaigns/#{campaign.slug}/candidate-#{id}"
+  end
 end

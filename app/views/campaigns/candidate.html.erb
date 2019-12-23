@@ -1,0 +1,29 @@
+<% content_for :meta_title, t('.title', campaign: @entity.name, candidate: @candidate.full_name(true)) %>
+
+<article class="candidates-show">
+  <div class="content-wrapper">
+    <figure class="candidate-image">
+      <div class="image"><%= simple_image_medium(@candidate) %></div>
+      <figcaption><%= @candidate.full_name(true) %></figcaption>
+    </figure>
+    <% unless @candidate.about.blank? %>
+      <section class="candidate-about">
+        <h2>О кандидате</h2>
+
+        <div class="text">
+          <%= simple_format(@candidate.about) %>
+        </div>
+      </section>
+    <% end %>
+
+    <% unless @candidate.program.blank? %>
+      <section>
+        <h2>Программа</h2>
+
+        <div class="text">
+          <%= raw @candidate.program %>
+        </div>
+      </section>
+    <% end %>
+  </div>
+</article>
