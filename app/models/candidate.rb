@@ -66,7 +66,7 @@ class Candidate < ApplicationRecord
   scope :filtered, ->(f) { surname_like(f[:surname]).with_force(f[:force]) }
 
   def self.entity_parameters(as_user = false)
-    usual = %i[about birthday image lead name patronymic program surname]
+    usual = %i[about birthday image lead name patronymic program region_id surname]
     extended = %i[approved supports_impeachment visible]
 
     as_user ? usual : usual + extended
