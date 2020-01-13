@@ -5,7 +5,7 @@ class NetworkManager::PoliticalForceHandler < NetworkManager
   REMOTE_URL = "#{MAIN_HOST}/network/political_forces"
 
   def self.permitted_attributes
-    %i[created_at name slug sync_state]
+    %i[created_at flare name slug sync_state]
   end
 
   # Create political_force on central site
