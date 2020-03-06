@@ -1,0 +1,52 @@
+<% content_for :meta_title, 'Депутаты' %>
+
+<article>
+  <h1>Депутаты</h1>
+
+  <%= render partial: 'impeachment/filter', locals: { filter: @filter } %>
+
+  <% n = (current_page - 1) * 25 + 1 %>
+  <%= paginate @collection %>
+  <table class="candidates-table">
+    <thead>
+    <tr>
+      <th>№</th>
+      <th>Фото</th>
+      <th>ФИО</th>
+      <th>Партии</th>
+      <th>Регион</th>
+      <th>За импичмент?</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @collection.each_with_index do |entity, i| %>
+      <tr>
+        <th><%= n + i %></th>
+        <td class="image"><%= simple_image_preview(entity) %></td>
+        <td class="name">
+          <a href="<%= impeachment_candidate_path(id: entity.id) %>">
+            <%= entity.surname %><br/>
+            <%= entity.name %><br/>
+            <%= entity.patronymic %>
+          </a>
+        </td>
+        <td class="forces">
+          <% entity.political_forces.list_for_visitors.each do |force| %>
+            <%= link_to(force.flare, url_for(filter: { force: force.id })) %>
+          <% end %>
+        </td>
+        <td class="region"><%= entity.region&.name %></td>
+        <td class="flag">
+          <% flag = entity.supports_impeachment? ? 'Да' : 'Нет' %>
+          <% if entity.details_url.blank? %>
+            <%= flag %>
+          <% else %>
+            <%= link_to(flag, entity.details_url) %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <%= paginate @collection %>
+</article>

@@ -205,13 +205,12 @@ Rails.application.routes.draw do
 
     namespace :my do
       resources :entries, only: :index
-      resources :messages, only: :index do
-        get '/:user_slug' => :dialog, on: :collection, as: :dialog
-      end
-      resources :notifications, only: :index
       resources :followers, :followees, only: :index
       resources :appeals, only: :index
     end
+
+    get 'impeachment/candidates' => 'impeachment#candidates', as: :impeachment_candidates
+    get 'impeachment/candidates/:id' => 'impeachment#candidate', as: :impeachment_candidate
 
     scope 'u/:slug', controller: :profiles do
       get 'entries' => :entries, as: :user_profile_entries

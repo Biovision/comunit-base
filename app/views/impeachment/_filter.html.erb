@@ -1,0 +1,41 @@
+<%=
+  form_with(
+      url: impeachment_candidates_path,
+      local: true,
+      method: :get,
+      class: 'candidates-filter'
+  ) do
+%>
+  <fieldset>
+    <legend><%= t(:filter) %></legend>
+    <div>
+      <div class="fields">
+        <div>
+          <%=
+            text_field_tag(
+                'filter[surname]',
+                filter[:surname],
+                class: 'input-text',
+                placeholder: 'Фамилия'
+            )
+          %>
+        </div>
+        <div>
+          <%=
+            select_tag(
+                'filter[force]',
+                options_for_select(
+                    political_forces_for_select('Партия'),
+                    selected: filter[:force]
+                ),
+                class: 'select'
+            )
+          %>
+        </div>
+      </div>
+      <div class="buttons">
+        <%= button_tag('Фильтровать', class: 'button-primary') %>
+      </div>
+    </div>
+  </fieldset>
+<% end %>

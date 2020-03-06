@@ -1,0 +1,32 @@
+<% content_for :meta_title, @entity.full_name(true) %>
+
+<article class="candidates-show">
+  <div class="content-wrapper">
+    <figure class="candidate-image">
+      <div class="image"><%= simple_image_medium(@entity) %></div>
+      <figcaption>
+        <%= @entity.full_name(true) %><br/>
+        <%= @entity.political_forces.list_for_visitors.map(&:flare).join(', ') %>
+      </figcaption>
+    </figure>
+    <% unless @entity.about.blank? %>
+      <section class="candidate-about">
+        <h2>О депутате</h2>
+
+        <div class="text">
+          <%= simple_format(@entity.about) %>
+        </div>
+      </section>
+    <% end %>
+
+    <% unless @entity.program.blank? %>
+      <section>
+        <h2>Программа</h2>
+
+        <div class="text">
+          <%= raw @entity.program %>
+        </div>
+      </section>
+    <% end %>
+  </div>
+</article>

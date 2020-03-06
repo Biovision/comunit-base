@@ -1,8 +1,8 @@
 <div class="authentication">
   <% if current_user.is_a? User %>
     <div class="plate">
-      <% addition = (Notification.owned_by(current_user).unread.count > 0) ? '' : ' read' %>
-      <%= link_to '&#x1f514;'.html_safe, my_notifications_path, class: "notifications #{addition}", title: t(:unread_notifications) %>
+      <%# addition = (Notification.owned_by(current_user).unread.count > 0) ? '' : ' read' %>
+      <%#= link_to '&#x1f514;'.html_safe, my_notifications_path, class: "notifications #{addition}", title: t(:unread_notifications) %>
       <%= link_to(image_tag(current_user.image.tiny_2x.url), my_path) %>
       <%= link_to t(:logout), logout_path, method: :delete, title: t(:logout), class: 'button-action' %>
     </div>
