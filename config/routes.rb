@@ -50,6 +50,8 @@ Rails.application.routes.draw do
   scope '(:locale)', constraints: { locale: /ru|en/ } do
     root 'index#index'
 
+    put 'comunit/:table_name/:uuid' => 'network#pull', as: nil
+
     scope 'r/:region_slug' do
       get '/' => 'index#regional', as: :regional_index
       get 'news' => 'news#regional_index', as: :news_in_region
@@ -202,8 +204,6 @@ Rails.application.routes.draw do
       resources :posts, only: :create
       resources :political_forces, :campaigns, :candidates, only: %i[create update]
     end
-
-    put 'network/:table_name/:uuid' => 'network#pull', as: nil
 
     namespace :my do
       resources :entries, only: :index
