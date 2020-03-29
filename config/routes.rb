@@ -203,6 +203,8 @@ Rails.application.routes.draw do
       resources :political_forces, :campaigns, :candidates, only: %i[create update]
     end
 
+    put 'network/:table_name/:uuid' => 'network#pull', as: nil
+
     namespace :my do
       resources :entries, only: :index
       resources :followers, :followees, only: :index

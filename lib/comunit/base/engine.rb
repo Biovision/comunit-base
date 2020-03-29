@@ -18,6 +18,9 @@ module Comunit
       initializer 'comunit_base.load_base_methods' do
         require_dependency 'comunit/base/privilege_methods'
         require_dependency 'comunit/base/decorators/controllers/admin/privileges_controller_decorator'
+        require_dependency 'comunit/base/decorators/controllers/poll_answers_controller_decorator'
+        require_dependency 'comunit/base/decorators/controllers/poll_questions_controller_decorator'
+        require_dependency 'comunit/base/decorators/controllers/polls_controller_decorator'
         require_dependency 'comunit/base/decorators/controllers/posts_controller_decorator'
         require_dependency 'comunit/base/decorators/models/user_decorator'
         require_dependency 'comunit/base/decorators/models/user_privilege_decorator'

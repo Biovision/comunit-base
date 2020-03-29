@@ -27,17 +27,33 @@ class NetworkController < ApplicationController
     end
   end
 
+  # put /network/:table_name/:uuid
+  def pull
+    if @handler.pull(params[:uuid])
+      head :no_content
+    else
+      head :unprocessable_entity
+    end
+  end
+
   protected
 
   def validate_signature
     signature = request.headers['HTTP_SIGNATURE'].to_s
     if signature != Rails.application.credentials.signature_token
-      render json: { errors: { signature: 'invalid'}}, status: :unauthorized
+      render json: { errors: { signature: 'invalid'} }, status: :unauthorized
     end
   end
 
   def set_handler
-    # Assign appropriate in child controllers
-    @handler = NetworkManager.new
+    data = params.require(:data).permit!
+    model_name = params[:table_name].classify
+    prefix = 'Comunit::Network::Handlers::'
+    handler_class = "#{prefix}#{model_name}Handler".safe_constantize
+    if handler_class
+      @handler = handler_class[data]
+    else
+      render json: { errors: { handler: false } }, status: :unprocessable_entity
+    end
   end
 end
