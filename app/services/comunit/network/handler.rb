@@ -48,7 +48,7 @@ module Comunit
         return if entity.nil?
 
         log_info("Pushing #{entity.class} #{entity.uuid}")
-        path = "#{MAIN_HOST}/network/#{entity.class.table_name}/#{entity.uuid}"
+        path = "#{MAIN_HOST}/comunit/#{entity.class.table_name}/#{entity.uuid}"
         rest(:put, path, data: model_data)
       end
 
