@@ -116,7 +116,7 @@ module Comunit
 
       # @param [Symbol] key
       def dig_related_id(key)
-        data.dig(:relationships, key, :id)
+        data.dig(:relationships, key, :data, :id)
       end
 
       def apply_user
