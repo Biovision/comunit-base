@@ -58,7 +58,11 @@ module Comunit
         log_info "Pulling #{@entity.class} #{uuid}"
         pull_data
         log_info "Validation status after pull: #{@entity.valid?}"
-        @entity.save
+        if @entity.valid?
+          @entity.save
+        else
+          log_error @entity.errors.messages
+        end
       end
 
       def model_data
