@@ -17,7 +17,7 @@ module Comunit
         end
 
         def apply_poll_question
-          clause = { uuid: dig_related_id(:apply_poll_question) }
+          clause = { uuid: dig_related_id(:poll_question) }
           entity.poll_question = PollQuestion.find_by(clause)
         end
       end
