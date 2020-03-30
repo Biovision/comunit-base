@@ -28,11 +28,7 @@ module Comunit
       def self.relationship_data(entity, wrap = true)
         return nil if entity.nil?
 
-        data = {
-          id: entity.uuid,
-          type: entity.class.table_name
-        }
-
+        data = { id: entity.uuid, type: entity.class.table_name }
         wrap ? { data: data } : data
       end
 
@@ -49,7 +45,7 @@ module Comunit
 
         log_info("Pushing #{entity.class} #{entity.uuid}")
         path = "#{MAIN_HOST}/comunit/#{entity.class.table_name}/#{entity.uuid}"
-        rest(:put, path, data: model_data)
+        rest(:put, path, data: prepare_model_data)
       end
 
       # @param [String] uuid
@@ -65,16 +61,8 @@ module Comunit
         end
       end
 
-      def model_data
-        {
-          data: {
-            id: entity.uuid,
-            type: entity.class.table_name,
-            attributes: attributes_for_remote,
-            relationships: relationships_for_remote,
-            meta: meta_for_remote
-          }
-        }
+      def prepare_model_data
+        self.class.relationship_data(entity)
       end
 
       def entity_class

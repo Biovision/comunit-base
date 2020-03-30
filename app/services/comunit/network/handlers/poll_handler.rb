@@ -19,6 +19,20 @@ module Comunit
           ]
         end
 
+        def prepare_model_data
+          data = {
+            id: entity.uuid,
+            type: entity.class.table_name,
+            attributes: attributes_for_remote,
+            relationships: relationships_for_remote,
+            meta: {}
+          }
+
+          data[:meta][:agent] = entity.agent&.name
+
+          data
+        end
+
         protected
 
         def pull_data
