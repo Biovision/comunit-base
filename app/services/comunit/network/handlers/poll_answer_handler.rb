@@ -11,6 +11,12 @@ module Comunit
 
         protected
 
+        def relationships_for_remote
+          {
+            poll_question: PollQuestionHandler.relationship_data(entity.poll_question)
+          }
+        end
+
         def pull_data
           apply_attributes
           apply_poll_question
