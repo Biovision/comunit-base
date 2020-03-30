@@ -55,9 +55,9 @@ module Comunit
       # @param [String] uuid
       def pull(uuid)
         @entity = entity_class.find_or_initialize_by(uuid: uuid)
-        log_event "[I] Pulling #{@entity.class} #{uuid}"
+        log_info "Pulling #{@entity.class} #{uuid}"
         pull_data
-        log_event "[I] Validation status after pull: #{@entity.valid?}"
+        log_info "Validation status after pull: #{@entity.valid?}"
         @entity.save
       end
 
