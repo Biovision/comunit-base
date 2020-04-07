@@ -6,7 +6,7 @@ My::ProfilesController.class_eval do
     @entity = current_user
     if @entity.update(user_parameters)
       flash[:notice] = t('my.profiles.update.success')
-      NetworkUserSyncJob.perform_later(@entity.id, true)
+      NetworkEntitySyncJob.perform_later(@entity.class.to_s, @entity.id)
       form_processed_ok(my_path)
     else
       form_processed_with_error(:edit)
@@ -14,7 +14,7 @@ My::ProfilesController.class_eval do
   end
 
   def redirect_after_creation
-    NetworkUserSyncJob.perform_later(@entity.id, false)
+    NetworkEntitySyncJob.perform_later(@entity.class.to_s, @entity.id)
 
     return_path = cookies['return_path'].to_s
     return_path = my_profile_path unless return_path[0] == '/'

@@ -27,9 +27,18 @@ class NetworkController < ApplicationController
     end
   end
 
-  # put /network/:table_name/:uuid
+  # put /comunit/:table_name/:uuid
   def pull
     if @handler.pull(params[:uuid])
+      head :no_content
+    else
+      head :unprocessable_entity
+    end
+  end
+
+  # put /comunit/:table_name/:id/amend
+  def amend
+    if @handler.amend(params[:id])
       head :no_content
     else
       head :unprocessable_entity

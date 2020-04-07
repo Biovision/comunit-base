@@ -52,6 +52,21 @@ module Comunit
       def pull(uuid)
         @entity = entity_class.find_or_initialize_by(uuid: uuid)
         log_info "Pulling #{@entity.class} #{uuid}"
+        pull_and_validate
+      end
+
+      # @param [Integer] id
+      def amend(id)
+        @entity = entity_class.find_by(id: id)
+        if @entity.nil?
+          log_info "Could not find #{entity_class} #{id}"
+        else
+          log_info "Amending #{@entity.class} #{id}"
+          pull_and_validate
+        end
+      end
+
+      def pull_and_validate
         pull_data
         log_info "Validation status after pull: #{@entity.valid?}"
         if @entity.valid?
@@ -62,7 +77,13 @@ module Comunit
       end
 
       def prepare_model_data
-        self.class.relationship_data(entity)
+        {
+          id: entity.uuid,
+          type: entity.class.table_name,
+          attributes: attributes_for_remote,
+          relationships: relationships_for_remote,
+          meta: meta_for_remote
+        }
       end
 
       def entity_class
@@ -83,7 +104,7 @@ module Comunit
       end
 
       def relationships_for_remote
-        {}
+        nil
       end
 
       def meta_for_remote
@@ -100,11 +121,16 @@ module Comunit
 
         attributes = input.select { |a, _| permitted.include?(a.to_sym) }
         @entity.assign_attributes(attributes)
+        apply_comunit
       end
 
       # @param [Symbol] key
       def dig_related_id(key)
         data.dig(:relationships, key, :data, :id)
+      end
+
+      def apply_comunit
+        @entity.data['comunit'] = data.dig(:data, :profile)
       end
 
       def apply_user
@@ -113,6 +139,14 @@ module Comunit
 
       def apply_agent
         @entity.agent = Agent[data.dig(:meta, :agent)]
+      end
+
+      def apply_image
+        image_path = data.dig(:meta, :image_path)
+
+        return if image_path.blank? || !File.exist?(image_path)
+
+        @entity.image = Pathname.new(image_path).open
       end
     end
   end

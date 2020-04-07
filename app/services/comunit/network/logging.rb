@@ -10,6 +10,8 @@ module Comunit
         File.open(file, 'ab') do |f|
           f.puts "#{Time.now.strftime('%F %T')}\t#{text}"
         end
+
+        nil
       end
 
       # @param [String] text

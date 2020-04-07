@@ -51,6 +51,7 @@ Rails.application.routes.draw do
     root 'index#index'
 
     put 'comunit/:table_name/:uuid' => 'network#pull', as: nil
+    put 'comunit/:table_name/:id/amend' => 'network#amend', as: nil
 
     scope 'r/:region_slug' do
       get '/' => 'index#regional', as: :regional_index

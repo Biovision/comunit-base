@@ -6,15 +6,6 @@ class NetworkManager
 
   attr_accessor :entity, :data
 
-  # @param [Site] entity
-  # @param [Hash] attributes
-  # @param [Hash] data
-  def update_site(entity, attributes, data = {})
-    log_event("Updating site #{entity.id}:\n\t#{attributes}\n")
-    entity.assign_attributes(attributes)
-    entity.save!
-  end
-
   # @param [ApplicationRecord] entity
   # @param [TrueClass|FalseClass] wrap
   def self.relationship_data(entity, wrap = true)
