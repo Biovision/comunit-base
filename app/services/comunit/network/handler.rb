@@ -53,7 +53,7 @@ module Comunit
         @entity = entity_class.find_or_initialize_by(uuid: uuid)
         log_info "Pulling #{@entity.class} #{uuid}"
 
-        if data.dig(:comunit, :site_id).to_i == ENV['SITE_ID']
+        if data.dig(:comunit, :site_id) == ENV['SITE_ID']
           log_info 'Entity has the same origin site, skipping'
         else
           pull_and_validate

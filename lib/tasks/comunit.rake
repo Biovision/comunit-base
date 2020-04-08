@@ -7,6 +7,11 @@ namespace :comunit do
     updates = 0
     User.order('id asc').each do |user|
       site_id = user.data.dig('comunit', 'site_id')
+
+      if site_id.nil? && user.respond_to?(:site_id)
+        site_id = user.site_id
+      end
+
       print "\r#{user.id}: #{user.slug} #{site_id.inspect} "
       next if site_id.blank?
 
