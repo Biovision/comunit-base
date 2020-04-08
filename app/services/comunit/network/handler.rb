@@ -52,7 +52,12 @@ module Comunit
       def pull(uuid)
         @entity = entity_class.find_or_initialize_by(uuid: uuid)
         log_info "Pulling #{@entity.class} #{uuid}"
-        pull_and_validate
+
+        if data.dig(:comunit, :site_id).to_i == ENV['SITE_ID']
+          log_info 'Entity has the same origin site, skipping'
+        else
+          pull_and_validate
+        end
       end
 
       # @param [Integer] id
@@ -130,7 +135,7 @@ module Comunit
       end
 
       def apply_comunit
-        @entity.data['comunit'] = data.dig(:data, :profile)
+        @entity.data['comunit'] = data.dig(:data, :comunit)
       end
 
       def apply_user
