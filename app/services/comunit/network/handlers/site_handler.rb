@@ -6,7 +6,7 @@ module Comunit
       # Handling sites
       class SiteHandler < Comunit::Network::Handler
         def self.permitted_attributes
-          super + %i[active deleted description host name]
+          super + %i[active deleted description host name uuid]
         end
 
         protected

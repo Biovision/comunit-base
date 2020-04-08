@@ -13,7 +13,7 @@
 #   updated_at [DateTime]
 #   users_count [Integer]
 class Site < ApplicationRecord
-  mount_uploader :image, SiteImageUploader
+  mount_uploader :image, SimpleImageUploader
 
   has_many :users, dependent: :nullify
 
