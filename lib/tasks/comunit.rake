@@ -18,6 +18,7 @@ namespace :comunit do
       site = Site.find_by(id: site_id)
       next if site.nil?
 
+      user.data['comunit'] ||= {}
       user.data['comunit']['site_id'] = site.uuid
       user.save!
       updates += 1
