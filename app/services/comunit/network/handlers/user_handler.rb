@@ -26,13 +26,13 @@ module Comunit
         end
 
         def apply_profile
-          profile = data.dig('meta', 'profile')
+          profile = data.dig('meta', 'profile').to_h
           entity.data['profile'] = ::UserProfileHandler.clean_parameters(profile)
         end
 
         def meta_for_remote
           meta = {
-            profile: entity.data['profile'],
+            profile: entity.data['profile'].to_h,
             agent: entity.agent&.name
           }
           meta[:image_path] = entity.image.path unless entity.image.blank?
