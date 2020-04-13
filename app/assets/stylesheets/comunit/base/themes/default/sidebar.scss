@@ -1,15 +1,8 @@
-@import "biovision/base/default";
 @import "comunit/base/default";
 
 #sidebar {
-  flex: none;
-  width: 25%;
-  //max-width: 30rem;
-  padding: 0 0 0 .8rem;
-
   > div {
     .heading {
-      @include heading-stripe;
     }
   }
 
@@ -159,8 +152,25 @@
 
 @media (max-width: 960px) {
   #sidebar {
-    width: 100%;
-    margin: 0 auto;
-    max-width: 64rem;
+    display: grid;
+    grid-gap: var(--spacer-xs);
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    margin-top: var(--spacer-m);
+  }
+}
+
+@media (max-width: 720px) {
+  #sidebar {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 540px) {
+  #sidebar {
+    grid-template-columns: 1fr;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 48rem;
   }
 }

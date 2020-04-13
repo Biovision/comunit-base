@@ -3,12 +3,12 @@
   post_type = PostType.find_by(slug: 'article')
   news_type = PostType.find_by(slug: 'news')
 %>
-<ul class="main-navigation">
+<ul class="primary">
   <%= render 'layouts/application/main_navigation/prepend' %>
   <%= render partial: 'layouts/application/main_navigation/categories', locals: { categories: PostCategory.visible.for_tree(post_type) } %>
   <li class="<%= selected_item == 'news' ? 'selected' : '' %>">
     <%= link_to t('news.index.heading'), news_index_path %>
-    <ul>
+    <ul class="secondary">
       <% PostCategory.visible.for_tree(news_type).each do |news_category| %>
           <li><%= post_category_link(news_category) %></li>
       <% end %>

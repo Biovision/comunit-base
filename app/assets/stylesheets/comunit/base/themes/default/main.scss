@@ -1,0 +1,33 @@
+@import "comunit/base/default";
+
+#main {
+  align-items: flex-start;
+  background: var(--background-main);
+  display: grid;
+  grid-gap: var(--spacer-xs);
+  grid-template-columns: 3fr 1fr;
+  grid-template-rows: auto;
+
+  .content {
+    max-width: calc(var(--content-width) - var(--content-width) / 4 - var(--spacer-xs));
+    width: 100%;
+  }
+}
+
+@media (max-width: $content-width) {
+  #main {
+    .content {
+      max-width: calc(75vw - var(--spacer-xs));
+    }
+  }
+}
+
+@media (max-width: 960px) {
+  #main {
+    display: block;
+
+    .content {
+      max-width: 100%;
+    }
+  }
+}

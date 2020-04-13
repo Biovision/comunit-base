@@ -1,1 +1,23 @@
+@import "comunit/base/default";
 @import "comunit/base/components/posts/my-form";
+@import "comunit/base/components/posts/preview";
+@import "comunit/base/components/posts/featured";
+
+.post-counters {
+  color: #656565;
+  font-size: 11px;
+
+  span {
+    margin: 0.2rem;
+  }
+
+  .views {
+    background: image_url('comunit/base/icons/view.svg') no-repeat left center / 1.2rem auto;
+    padding-left: 1.6rem;
+  }
+
+  .comments {
+    background: image_url('comunit/base/icons/comment.svg') no-repeat left center / 1.2rem auto;
+    padding-left: 1.6rem;
+  }
+}

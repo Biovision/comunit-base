@@ -1,0 +1,139 @@
+@import "comunit/base/default";
+
+$header-nav-hamburger-point: 900px !default;
+
+.main-nav {
+  font-weight: 700;
+
+  ul {
+    background: $header-nav-bg;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    transition: .25s;
+    transform-origin: top left;
+  }
+
+  li {
+    margin: 0;
+    padding: 0;
+    position: relative;
+  }
+
+  a {
+    color: inherit;
+    display: block;
+    padding: var(--spacer-xs);
+    text-decoration: none;
+  }
+
+  .primary {
+    color: $header-nav-primary-color;
+    text-shadow: $header-nav-primary-shadow;
+
+    > li {
+      background: $header-nav-primary-bg;
+
+      > a {
+        &.active,
+        &:active,
+        &:hover {
+          background: $header-nav-primary-active-bg;
+          color: $header-nav-primary-active-color;
+          text-shadow: $header-nav-primary-active-shadow;
+        }
+      }
+    }
+  }
+
+  .secondary {
+    background: $header-nav-secondary-bg;
+    color: $header-nav-secondary-color;
+    font-weight: 400;
+    text-shadow: $header-nav-secondary-shadow;
+
+    a {
+      &:active,
+      &:hover {
+        background: $header-nav-secondary-active-bg;
+        color: $header-nav-secondary-active-color;
+        text-shadow: $header-nav-secondary-active-shadow;
+      }
+    }
+  }
+}
+
+@media (min-width: $header-nav-hamburger-point) {
+  .main-nav {
+    .hamburger-morpher {
+      display: none;
+    }
+
+    .morphing-hamburger {
+      display: none;
+    }
+
+    .primary {
+      display: block;
+
+      > li {
+        display: inline-block;
+
+        &:hover {
+          background: $header-nav-primary-active-bg;
+
+          ul {
+            transform: scaleY(1);
+          }
+        }
+      }
+    }
+
+    li {
+      position: relative;
+
+      ul {
+        left: 0;
+        min-width: 20rem;
+        position: absolute;
+        top: 100%;
+        transform: scaleY(0);
+        z-index: 11;
+      }
+
+    }
+  }
+}
+
+@media (max-width: #{$header-nav-hamburger-point + 1}) {
+  .main-nav {
+    left: var(--spacer-xs);
+    position: absolute;
+    top: var(--spacer-xs);
+    z-index: 10;
+
+    .primary {
+      position: absolute;
+      width: 30rem;
+    }
+
+    .hamburger-morpher {
+      &:not(:checked) {
+        ~ ul {
+          pointer-events: none;
+          transform: scaleY(0);
+        }
+      }
+
+      &:checked {
+        ~ ul {
+          transform: scaleY(1);
+        }
+      }
+    }
+
+    .secondary {
+      padding-left: var(--spacer-s);
+    }
+  }
+}

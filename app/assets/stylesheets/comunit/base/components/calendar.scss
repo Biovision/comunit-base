@@ -1,5 +1,4 @@
-@import "biovision/base/default";
-@import "default";
+@import "comunit/base/default";
 
 $calendar_heading_weekend_background: #fc605c !default;
 $calendar_heading_weekend_color: #fc605c !default;
@@ -9,7 +8,7 @@ $calendar_today: #34c749 !default;
 table.calendar {
   margin: 0 auto 1.6rem;
   border-spacing: 0;
-  font-size: $font-size-normal;
+  font-size: var(--font-size-normal);
   box-shadow: 0 0 0.1rem 0.1rem rgba(0, 0, 0, 0.1);
 
   caption {
@@ -26,7 +25,8 @@ table.calendar {
     }
   }
 
-  td, th {
+  td,
+  th {
     text-align: center;
     padding: 0.2rem;
     font-weight: normal;

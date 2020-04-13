@@ -14,12 +14,12 @@
 <%= render 'layouts/application/header' %>
 
 <main id="main" role="main">
-  <div class="content <%= content_for?(:hide_sidebar) ? 'no-sidebar' : 'with-sidebar' %>">
+  <div class="content">
     <%= render 'shared/breadcrumbs' %>
     <%= render 'shared/flash_messages' %>
     <%= yield %>
   </div>
-  <%= render 'shared/sidebar' unless content_for?(:hide_sidebar) %>
+  <%= render 'shared/sidebar' %>
 </main>
 
 <%= render 'layouts/application/footer' %>

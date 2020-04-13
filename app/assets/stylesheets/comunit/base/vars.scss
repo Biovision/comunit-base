@@ -1,0 +1,15 @@
+:root {
+  --content-width: #{$content-width};
+
+  --font-family-heading: #{$font-family-heading};
+
+  --background-html: #{$background-html};
+  --background-body: #{$background-body};
+  --background-main: #{$background-main};
+  --block-shadow: #{$block-shadow};
+  --header-logo-size: #{$header-logo-size};
+  --coat-of-arms-size: #{$coat-of-arms-size};
+
+  --section-header-bg: #{$section-header-bg};
+  --section-header-color: #{$section-header-color};
+}

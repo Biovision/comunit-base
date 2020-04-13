@@ -1,14 +1,38 @@
-@import "comunit/base/sizes";
-
 $font-family-main: "Arial", "Helvetica Neue", "Helvetica", sans-serif !default;
 $font-family-heading: "Arial Narrow", "Arial", "Helvetica Neue", "Helvetica", sans-serif !default;
+
+$background-html: #fff !default;
+$background-body: #fff !default;
+
+$main-header-bg: none !default;
+$main-header-middle-bg: none !default;
+
+$header-logo-size: 20rem !default;
+$coat-of-arms-size: 10rem !default;
 
 $content-width: 110rem !default;
 
 $link-color: #0000ff !default;
 
-$background-html: #fff !default;
-$background-body: #fff !default;
+// Navigation in main header
+$header-nav-bg: #333 !default;
+// Primary menu
+$header-nav-primary-bg: inherit !default;
+$header-nav-primary-color: #fff !default;
+$header-nav-primary-shadow: .1rem .1rem #000 !default;
+$header-nav-primary-active-bg: hsla(0, 0%, 0%, .25) !default;
+$header-nav-primary-active-color: $header-nav-primary-color !default;
+$header-nav-primary-active-shadow: $header-nav-primary-shadow !default;
+// Secondary (drop-down) menu
+$header-nav-secondary-bg: hsl(0, 0%, 50%) !default;
+$header-nav-secondary-color: #fff !default;
+$header-nav-secondary-shadow: .1rem .1rem #000 !default;
+$header-nav-secondary-active-bg: hsla(0, 0%, 0%, .25) !default;
+$header-nav-secondary-active-color: $header-nav-secondary-color !default;
+$header-nav-secondary-active-shadow: $header-nav-secondary-shadow !default;
+
+$section-header-bg: #aaf !default;
+$section-header-color: #fff !default;
 
 // Основное меню: полоска с выпадашками
 $navigation-stripe-background: #333 !default;

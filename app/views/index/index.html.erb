@@ -2,21 +2,18 @@
 
 <%=
   render(
-      partial: 'index/main_slider',
+      partial: 'index/index/featured_posts',
       locals: {
           collection: FeaturedPost.list_for_language(current_language)
       }
   )
 %>
 
-<div id="frontpage-posts">
-  <%=
-    render(
-        partial: 'index/index/categories',
-        locals: {
-            categories: PostGroupCategory['homepage']
-        }
-    )
-  %>
-</div>
-<%= render 'index/frontpage_posts/loader' %>
+<%#=
+  render(
+      partial: 'index/index/categories',
+      locals: {
+          categories: PostGroupCategory['homepage']
+      }
+  )
+%>

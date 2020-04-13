@@ -1,29 +1,27 @@
-<header id="main-header" class="main-header">
-  <% if current_region.header_image.blank? %>
-      <% style = '' %>
-  <% else %>
-      <% style = "background: url('#{current_region.header_image.url}') no-repeat center / cover " %>
-  <% end %>
-  <div style="<%= style %>">
-    <%= render 'layouts/application/header/authentication' %>
-    <div class="central">
+<header class="main-header">
+  <%= render 'layouts/application/header/authentication' %>
+  <div class="content-wrapper">
+    <div class="main-header-middle">
       <%= render 'layouts/application/header/logo' %>
       <div class="header-content">
         <%= render 'layouts/application/header_content' %>
       </div>
-      <div class="arms">
+      <div class="coat-of-arms">
         <%= region_image_preview(current_region) %>
       </div>
     </div>
-    <div class="region-and-search">
+    <div class="header-filter">
       <%= render 'layouts/application/header/region_selector' %>
       <%= render 'layouts/application/header/search' %>
     </div>
   </div>
-  <nav>
-    <input type="checkbox" id="top-nav-control" class="visually-hidden" />
-    <label for="top-nav-control"><%= image_tag('comunit/base/icons/hamburger.svg') %></label>
+  <nav class="main-nav">
+    <input type="checkbox" id="top-nav-control" class="visually-hidden hamburger-morpher" />
+    <label for="top-nav-control" class="morphing-hamburger">
+      <span class="a"></span>
+      <span class="b"></span>
+      <span class="c"></span>
+    </label>
     <%= render 'layouts/application/main_navigation' %>
-    <%= render 'layouts/application/secondary_navigation' if content_for?(:secondary_navigation) %>
   </nav>
 </header>

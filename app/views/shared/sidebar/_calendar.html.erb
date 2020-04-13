@@ -1,11 +1,19 @@
 <div>
-  <% date = Date.today - Date.today.mday + 1 %>
-  <% offset = (date.wday > 0) ? date.wday - 1 : 6 %>
-  <% date -= offset %>
+  <%
+    date = Date.today - Date.today.mday + 1
+    offset = (date.wday > 0) ? date.wday - 1 : 6
+    date -= offset
+  %>
   <table class="calendar">
     <caption><%= l Date.today, format: :long %></caption>
     <colgroup>
-      <col /><col /><col /><col /><col /><col /><col />
+      <col/>
+      <col/>
+      <col/>
+      <col/>
+      <col/>
+      <col/>
+      <col/>
     </colgroup>
     <thead>
     <tr>
@@ -19,27 +27,27 @@
     </tr>
     </thead>
     <tbody>
-    <% 6.times do |week| %>
-        <% break if (date.mon == Date.today.mon + 1) || (date.year > Date.today.year) %>
-        <tr>
-          <% 7.times do |day| %>
-              <%
-                if date == Date.today
-                  type = 'today'
-                elsif date.mon == Date.today.mon
-                  type = ''
-                else
-                  type = 'outer'
-                end
-              %>
-              <td class="<%= type %>">
-                <div>
-                  <%= date.mday %>
-                  <% date += 1 %>
-                </div>
-              </td>
-          <% end %>
-        </tr>
+    <% 6.times do %>
+      <% break if (date.mon == Date.today.mon + 1) || (date.year > Date.today.year) %>
+      <tr>
+        <% 7.times do %>
+          <%
+            if date == Date.today
+              type = 'today'
+            elsif date.mon == Date.today.mon
+              type = ''
+            else
+              type = 'outer'
+            end
+          %>
+          <td class="<%= type %>">
+            <div>
+              <%= date.mday %>
+              <% date += 1 %>
+            </div>
+          </td>
+        <% end %>
+      </tr>
     <% end %>
     </tbody>
   </table>

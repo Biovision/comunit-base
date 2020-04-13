@@ -1,0 +1,38 @@
+<% if collection.load.any? %>
+  <section class="posts-featured">
+    <h2>Тема дня</h2>
+
+    <div class="js-biovision-carousel" data-timeout="5000">
+      <button class="prev" type="button"></button>
+      <ul class="carousel-container">
+        <% collection.each do |link| %>
+          <li class="carousel-item">
+            <div class="posts-featured-in-carousel">
+              <figure>
+                <%=
+                  post_link(
+                      link.post,
+                      post_image_small(link.post),
+                      class: 'proportional-container r-3x2'
+                  )
+                %>
+              </figure>
+              <div class="text">
+                <div class="title"><%= post_link(link.post) %></div>
+                <%= time_tag(link.post.publication_time) %>
+                <p><%= post_link(link.post, link.post.lead) %></p>
+              </div>
+              <div class="footer">
+                <div class="post-counters">
+                  <span class="comments"><%= link.post.comments_count %></span>
+                  <span class="views"><%= link.post.view_count %></span>
+                </div>
+              </div>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+      <button class="next" type="button"></button>
+    </div>
+  </section>
+<% end %>

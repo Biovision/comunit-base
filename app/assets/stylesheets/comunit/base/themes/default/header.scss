@@ -1,0 +1,90 @@
+@import "comunit/base/default";
+
+.main-header {
+  background: $main-header-bg;
+  position: relative;
+
+  .authentication {
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+    padding: var(--spacer-xs);
+  }
+}
+
+.main-header-middle {
+  align-items: center;
+  background: $main-header-middle-bg;
+  display: flex;
+  padding: var(--spacer-xs);
+
+  .logo {
+    display: block;
+    flex: none;
+    height: var(--header-logo-size);
+    overflow: hidden;
+    width: var(--header-logo-size);
+
+    img {
+      height: 100%;
+      object-fit: contain;
+      width: 100%;
+    }
+  }
+
+  .coat-of-arms {
+    flex: none;
+    height: var(--coat-of-arms-size);
+    margin: 0 0 0 auto;
+    overflow: hidden;
+    width: var(--coat-of-arms-size);
+
+    img {
+      height: 100%;
+      object-fit: contain;
+      width: 100%;
+    }
+  }
+}
+
+.header-content {
+  padding: var(--spacer-s);
+}
+
+.header-filter {
+  align-items: center;
+  display: flex;
+  padding: var(--spacer-xs);
+  position: relative;
+
+  form {
+    position: absolute;
+    right: var(--spacer-xs);
+    top: 50%;
+    transform: translate(0, -50%);
+    z-index: 5;
+  }
+}
+
+@media (max-width: 800px) {
+  :root {
+    --header-logo-size: 16rem;
+    --coat-of-arms-size: 8rem;
+  }
+}
+
+@media (max-width: 720px) {
+  :root {
+    --header-logo-size: 14rem;
+    --coat-of-arms-size: 6rem;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --header-logo-size: 10rem;
+  }
+}
+
+@import "comunit/base/themes/default/header/search";
+@import "comunit/base/themes/default/header/navigation";

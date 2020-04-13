@@ -1,6 +1,6 @@
 <% poll = Poll.recent.active.first %>
 <% unless poll.nil? %>
-  <div id="sidebar-poll">
+  <div class="sidebar-poll">
     <div class="heading">Опрос</div>
     <div class="questions">
       <% if poll.votable_by?(current_user) %>
