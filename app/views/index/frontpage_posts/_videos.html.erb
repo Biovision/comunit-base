@@ -1,12 +1,8 @@
-<div class="frontpage-posts">
-  <div class="heading">
-    Видео
+<% group = PostGroup['video'] %>
+<% unless group.nil? %>
+  <div class="sidebar-posts">
+    <h3>Видео</h3>
+    <% posts = group.posts_page.first(2) %>
+    <%= render partial: 'posts/list', locals: { collection: posts } %>
   </div>
-  <div class="posts">
-    <% group = PostGroup['video'] %>
-    <% unless group.nil? %>
-      <% posts = group.posts_page.first(2) %>
-      <%= render partial: 'posts/list', locals: { collection: posts } %>
-    <% end %>
-  </div>
-</div>
+<% end %>

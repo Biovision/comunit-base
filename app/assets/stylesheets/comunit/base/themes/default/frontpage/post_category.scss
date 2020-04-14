@@ -1,0 +1,36 @@
+.frontpage-posts {
+  h2 {
+    background: var(--section-header-bg);
+    color: var(--section-header-color);
+    font-size: var(--font-size-large);
+    font-weight: 400;
+    display: block;
+    padding: var(--spacer-xs);
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+    }
+  }
+
+  .carousel-item {
+    padding: var(--spacer-xxs);
+    width: calc(100% / 3);
+  }
+}
+
+@media (max-width: 720px) {
+  .frontpage-posts {
+    .carousel-item {
+      width: 50%;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .frontpage-posts {
+    .carousel-item {
+      width: 100%;
+    }
+  }
+}

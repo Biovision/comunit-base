@@ -6,17 +6,13 @@ $calendar_weekend_color: #ffbfb2 !default;
 $calendar_today: #34c749 !default;
 
 table.calendar {
-  margin: 0 auto 1.6rem;
+  margin: var(--spacer-s) auto;
   border-spacing: 0;
   font-size: var(--font-size-normal);
-  box-shadow: 0 0 0.1rem 0.1rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 .1rem .1rem rgba(0, 0, 0, .1);
 
   caption {
     color: #777;
-  }
-
-  col {
-    //width: 4.5rem;
   }
 
   thead {

@@ -1,5 +1,64 @@
 @import "comunit/base/default";
 
+.post-preview {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  &:hover {
+    box-shadow: 0 0 .2rem rgba(0, 0, 0, .25);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  figure {
+    background: linear-gradient(to top, #eee, #fff);
+  }
+
+  .title {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-large);
+    padding: var(--spacer-xxs);
+  }
+
+  .text {
+    margin-bottom: auto;
+  }
+
+  .lead {
+    color: var(--text-color-secondary);
+    padding: var(--spacer-xxs);
+  }
+
+  .meta {
+    font-size: var(--font-size-decreased);
+    padding: 0 var(--spacer-xxs);
+  }
+
+  .time-and-author {
+    align-items: center;
+    display: flex;
+    margin-top: var(--spacer-xxs);
+  }
+
+  .author {
+    flex: 1;
+  }
+
+  time {
+    color: var(--text-color-secondary);
+    flex: none;
+    margin-left: auto;
+  }
+
+  .post-counters {
+    margin-top: var(--spacer-xxs);
+  }
+}
+
 .posts-preview {
   display: flex;
   flex-wrap: wrap;
@@ -90,7 +149,7 @@
   figcaption {
     -webkit-backdrop-filter: blur(.2rem);
     backdrop-filter: blur(.2rem);
-    font-size: $font-size-increased;
+    font-size: var(--font-size-increased);
     font-weight: 500;
     padding: .4rem;
     text-transform: uppercase;

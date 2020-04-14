@@ -1,18 +1,5 @@
 @import "comunit/base/default";
 
-#sidebar {
-  .posts-preview {
-    li {
-      min-width: initial;
-      width: 100%;
-    }
-  }
-
-  .post-preview {
-    min-width: 0;
-  }
-}
-
 ul.list-of-figures {
   li {
     input[type=text] {
@@ -332,79 +319,6 @@ article.news {
   }
 }
 
-#main-post {
-  margin: 0 0 30px 0;
-
-  > header {
-    @include heading-stripe;
-    display: flex;
-    justify-content: space-between;
-    text-transform: uppercase;
-  }
-
-  .title {
-    padding: 0 10px;
-    background: $category-background;
-    font-size: 12px;
-    font-weight: bold;
-    color: #958441;
-    margin-bottom: 5px;
-    border-bottom: 1px dotted #919191;
-
-    a {
-      //color: #958441;
-      padding: 5px 0;
-      text-transform: uppercase;
-      display: inline-block;
-      text-decoration: none;
-      font-size: $font-size-decreased;
-    }
-  }
-
-  .body {
-    display: flex;
-    padding: 0 10px;
-
-    figure {
-      margin: 0 10px 0 0;
-      flex-basis: 220px;
-
-      img {
-        max-width: 220px;
-        max-height: 220px;
-      }
-    }
-
-    p {
-      flex: 1;
-    }
-  }
-
-  > footer {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 10px;
-  }
-}
-
-#frontpage-posts {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-
-  > div {
-    flex: 1;
-
-    &:first-of-type {
-      padding-right: 5px;
-    }
-
-    &:last-of-type {
-      padding-left: 5px;
-    }
-  }
-}
-
 .posts-in-category {
   margin: 0 0 0 10px;
 
@@ -600,33 +514,6 @@ ul.post-categories {
   }
 }
 
-.frontpage-posts {
-  margin: 1.2rem 0 0 0;
-  padding-bottom: 1rem;
-
-  > .heading {
-    @include heading-stripe;
-    display: flex;
-    justify-content: space-between;
-    text-transform: uppercase;
-
-    a:link, a:visited {
-      color: #fff;
-      text-decoration: none;
-      font-size: 1.2rem;
-    }
-  }
-
-  .load-more {
-    text-align: center;
-    transition: .1s;
-
-    &.wait {
-      filter: grayscale(75%);
-    }
-  }
-}
-
 .list-of-entities {
   .repost {
     background: image_url('comunit/base/icons/repost.svg') no-repeat center left / 1.2rem 1.2rem;
@@ -634,33 +521,6 @@ ul.post-categories {
     line-height: 1.6rem;
     padding: 0 0 .4rem 1.6rem;
     margin: 0 0 0 1.6rem;
-  }
-}
-
-#sidebar-posts {
-  margin-bottom: 1rem;
-
-  .posts {
-    .title {
-      background: $category-background;
-      font-size: $font-size-normal;
-      line-height: 2.6rem;
-      padding: 0 .4rem;
-    }
-
-    .info {
-      font-size: $font-size-decreased;
-      align-items: center;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      padding: 0 .4rem;
-
-      time {
-        color: $text-color-secondary;
-        font-size: $font-size-small;
-      }
-    }
   }
 }
 
@@ -757,8 +617,6 @@ ul.post-categories {
     margin-left: 2rem;
   }
 }
-
-
 
 $border-primary: .1rem solid rgb(192, 192, 192) !default;
 $border-secondary: .1rem solid rgb(230, 230, 230) !default;

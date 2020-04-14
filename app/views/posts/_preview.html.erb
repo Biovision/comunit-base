@@ -1,22 +1,18 @@
 <div class="post-preview" role="group">
-  <div class="image">
-    <%= post_link(entity, post_image_small(entity), class: 'covered proportional-container r-16x9') %>
-  </div>
+  <figure class="image">
+    <%=
+      post_link(
+          entity,
+          post_image_small(entity),
+          class: 'covered proportional-container r-3x2'
+      )
+    %>
+  </figure>
   <div class="text">
     <div class="title"><%= post_link(entity) %></div>
-    <div class="lead"><%= post_link(entity, entity.lead) %></div>
+    <p class="lead"><%= post_link(entity, entity.lead) %></p>
   </div>
   <div class="meta">
-    <div class="time-and-author">
-      <% if entity.show_owner? %>
-        <% if entity.author_name.blank? %>
-          <%= user_link(entity.user) %>
-        <% else %>
-          <%= post_author_link(entity) %>
-        <% end %>
-      <% end %>
-      <%= time_tag(entity.publication_time.to_date, format: :default) %>
-    </div>
     <div class="category" aria-label="<%= t('activerecord.attributes.post.post_category_id') %>">
       <% entity.post_categories.each do |category| %>
         <%= post_category_link(category) %>
@@ -32,12 +28,22 @@
     <% unless entity.region.nil? %>
       <div class="region"><%= entity.region.long_name %></div>
     <% end %>
+    <div class="time-and-author">
+      <% if entity.show_owner? %>
+        <% if entity.author_name.blank? %>
+          <%= user_link(entity.user) %>
+        <% else %>
+          <%= post_author_link(entity) %>
+        <% end %>
+      <% end %>
+      <%= time_tag(entity.publication_time.to_date, format: :default) %>
+    </div>
   </div>
-  <div class="counters">
-    <span class="view_count"><%= entity.view_count %></span>
+  <div class="post-counters">
     <% if entity.allow_comments? && 'CommentableItem'.safe_constantize %>
-      <span class="comment_count"><%= entity.comments_count %></span>
+      <span class="comments"><%= entity.comments_count %></span>
     <% end %>
+    <span class="views"><%= entity.view_count %></span>
     <% if entity.time_required.to_i.positive? %>
       <div class="time_required"><%= entity.time_required %> min</div>
     <% end %>

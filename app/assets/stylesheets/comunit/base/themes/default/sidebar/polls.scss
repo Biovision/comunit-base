@@ -1,0 +1,38 @@
+$vote-percent-color: #efe !default;
+
+.sidebar-poll {
+  .title {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-increased);
+    padding: var(--spacer-xxs);
+  }
+
+  .results {
+    margin: var(--spacer-s) 0;
+
+    div {
+      --vote-percent: 0;
+
+      align-items: center;
+      background: linear-gradient(to right, $vote-percent-color, $vote-percent-color var(--vote-percent), #fff var(--vote-percent), #fff);
+      display: flex;
+      margin-bottom: var(--spacer-xxs);
+      padding: var(--spacer-xxs);
+    }
+
+    dt {
+      flex: 1;
+      margin: 0;
+      padding: 0;
+    }
+
+    dd {
+      color: var(--text-color-secondary);
+      flex: 0;
+      font-size: var(--font-size-small);
+      margin: 0;
+      padding: 0;
+      white-space: nowrap;
+    }
+  }
+}

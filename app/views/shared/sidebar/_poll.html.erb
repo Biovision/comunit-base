@@ -1,7 +1,7 @@
 <% poll = Poll.recent.active.first %>
 <% unless poll.nil? %>
   <div class="sidebar-poll">
-    <div class="heading">Опрос</div>
+    <h3>Опрос</h3>
     <div class="questions">
       <% if poll.votable_by?(current_user) %>
         <%= form_with(url: results_poll_path(id: poll.id), local: true) do %>
@@ -46,16 +46,14 @@
         <% poll.poll_questions.ordered_by_priority.each do |question| %>
           <div>
             <div class="title"><%= question.text %></div>
-            <ul>
+            <dl class="results">
               <% question.poll_answers.ordered_by_priority.each do |answer| %>
-                <li>
-                  <%= answer.text %>
-                  <div class="vote-count">
-                    <%= answer.poll_votes_count %> (<%= '%.2f' % answer.vote_percent %>%)
-                  </div>
-                </li>
+                <div style="--vote-percent: <%= answer.vote_percent %>%">
+                  <dt><%= answer.text %></dt>
+                  <dd><%= answer.poll_votes_count %> (<%= '%.2f' % answer.vote_percent %>%)</dd>
+                </div>
               <% end %>
-            </ul>
+            </dl>
           </div>
         <% end %>
       <% end %>

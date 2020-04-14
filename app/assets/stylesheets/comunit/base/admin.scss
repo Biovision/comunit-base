@@ -4,7 +4,7 @@
 
 form {
   .new-region-name:empty::after {
-    color: $text-color-secondary;
+    color: var(--text-color-secondary);
     content: attr(data-blank);
   }
 }

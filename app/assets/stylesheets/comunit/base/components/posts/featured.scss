@@ -3,8 +3,8 @@
 .posts-featured-in-carousel {
   display: grid;
   grid-gap: var(--spacer-xs);
-  grid-template-columns: 1fr 2fr;
-  grid-template-rows: auto 2.4rem;
+  grid-template-columns: 2fr 3fr;
+  grid-template-rows: minmax(3rem, 1fr) auto;
   height: 100%;
 
   figure {
@@ -45,17 +45,22 @@
     padding: var(--spacer-s);
   }
 
+  .text {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
   .footer {
-    align-items: flex-end;
-    display: flex;
-    justify-content: flex-end;
-    padding: 0 var(--spacer-xs);
+    grid-column: 2;
+    grid-row: 2;
+    padding: var(--spacer-xxs);
   }
 }
 
 @media (max-width: 640px) {
   .posts-featured-in-carousel {
-    display: block;
+    display: flex;
+    flex-direction: column;
 
     figure {
       margin-bottom: var(--spacer-s);
@@ -68,6 +73,10 @@
 
     p {
       padding: var(--spacer-s) var(--spacer-xs);
+    }
+
+    .footer {
+      margin-top: auto;
     }
   }
 }

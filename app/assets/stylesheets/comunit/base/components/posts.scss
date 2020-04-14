@@ -2,13 +2,17 @@
 @import "comunit/base/components/posts/my-form";
 @import "comunit/base/components/posts/preview";
 @import "comunit/base/components/posts/featured";
+@import "comunit/base/components/posts/list";
 
 .post-counters {
+  align-items: center;
   color: #656565;
-  font-size: 11px;
+  display: flex;
+  font-size: var(--font-size-small);
+  justify-content: flex-end;
 
   span {
-    margin: 0.2rem;
+    margin: var(--spacer-xxxs);
   }
 
   .views {

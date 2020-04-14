@@ -1,14 +1,18 @@
+<%
+  component = BiovisionComponent[Biovision::Components::ContactComponent.slug]
+  email = component&.get('contact_email').to_s
+%>
 <footer class="main-footer">
-  <div class="navigation">
-    <%# render 'layouts/application/main_navigation' %>
-  </div>
-  <div class="bottom">
-    &copy; <%= t(:copyright) %>
-    <div>
+  <div class="content-wrapper">
+    <div class="copyright">&copy; <%= t(:copyright) %></div>
+    <nav>
       <%= link_to(t('about.tos.heading'), tos_path) %><br/>
       <% if BiovisionComponent.administrative?(current_user) %>
         <%= link_to(t('admin.index.index.heading'), admin_path) %>
       <% end %>
+    </nav>
+    <div class="contact">
+      <%= link_to(email, "mailto:#{email}") unless email.blank? %>
     </div>
   </div>
 </footer>

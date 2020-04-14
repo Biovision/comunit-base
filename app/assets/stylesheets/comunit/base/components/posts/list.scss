@@ -1,0 +1,20 @@
+.posts-list {
+  display: grid;
+  grid-auto-rows: auto;
+  grid-gap: var(--spacer-xs);
+  grid-template-columns: repeat(3, 1fr);
+  margin: var(--spacer-s) auto;
+}
+
+@media (max-width: 720px) {
+  .posts-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .posts-list {
+    grid-template-columns: 1fr;
+    max-width: 40rem;
+  }
+}

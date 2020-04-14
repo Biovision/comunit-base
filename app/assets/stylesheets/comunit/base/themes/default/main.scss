@@ -31,3 +31,15 @@
     }
   }
 }
+
+.breadcrumbs {
+  border-bottom: var(--border-secondary);
+  margin-bottom: var(--spacer-xs);
+  padding: var(--spacer-xs) var(--spacer-xxs);
+}
+
+article {
+  .content-wrapper {
+    padding: var(--spacer-xxs);
+  }
+}

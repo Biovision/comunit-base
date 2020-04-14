@@ -2,17 +2,14 @@
   <%= render 'shared/sidebar/calendar' %>
   <%= render 'shared/sidebar/poll' %>
   <%= render 'shared/sidebar/popular_topics' %>
-
-  <div class="video">
-    <%= render 'index/frontpage_posts/videos' %>
-  </div>
-
+  <%= render 'index/frontpage_posts/videos' %>
   <%= render 'shared/sidebar/popular_entries' %>
 
-  <div class="regions">
-    <div class="heading">
-      Карта регионов
-    </div>
-    <%= image_tag('regions.png', srcset: "#{asset_path('regions-2x.png')} 2x") %>
+  <div class="sidebar-regions">
+    <h3>Карта регионов</h3>
+
+    <figure>
+      <%= image_tag('regions.png', srcset: "#{asset_path('regions-2x.png')} 2x") %>
+    </figure>
   </div>
 </div>
