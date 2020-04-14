@@ -11,3 +11,26 @@
     width: 100%;
   }
 }
+
+.posts-carousel {
+  .carousel-item {
+    padding: var(--spacer-xxs);
+    width: calc(100% / 3);
+  }
+}
+
+@media (max-width: 720px) {
+  .posts-carousel {
+    .carousel-item {
+      width: 50%;
+    }
+  }
+}
+
+@media (max-width: 440px) {
+  .posts-carousel {
+    .carousel-item {
+      width: 100%;
+    }
+  }
+}
