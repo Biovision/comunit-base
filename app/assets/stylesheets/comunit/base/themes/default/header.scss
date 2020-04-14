@@ -10,6 +10,21 @@
     justify-content: flex-end;
     padding: var(--spacer-xs);
   }
+
+  .image {
+    border: var(--border-primary);
+    border-radius: 50%;
+    height: 3.2rem;
+    margin-right: var(--spacer-xxs);
+    overflow: hidden;
+    width: 3.2rem;
+
+    img {
+      height: 100%;
+      object-fit: cover;
+      width: 100%;
+    }
+  }
 }
 
 .main-header-middle {

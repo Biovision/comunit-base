@@ -38,7 +38,8 @@
   padding: var(--spacer-xs) var(--spacer-xxs);
 }
 
-article {
+article,
+section {
   .content-wrapper {
     padding: var(--spacer-xxs);
   }

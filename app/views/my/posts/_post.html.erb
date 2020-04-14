@@ -1,24 +1,19 @@
-<% handler = Biovision::Components::PostsComponent[current_user] %>
 <article class="post-item" itemscope itemtype="http://schema.org/Article" itemprop="mainEntityOfPage">
   <div class="content-wrapper">
     <h1 itemprop="headline"><%= post.title %></h1>
-
-    <% if handler.editable?(post) %>
-      <ul class="actions">
-        <% if handler.group?(:chief) %>
-          <li><%= gear_icon(admin_post_path(id: post.id)) %></li>
-        <% elsif post.owned_by?(current_user) %>
-          <li><%= gear_icon(my_post_path(id: post.id)) %></li>
-        <% end %>
-        <% unless post.locked? %>
-          <li><%= edit_icon(handler.edit_path(post)) %></li>
-        <% end %>
-      </ul>
-    <% end %>
+    <ul class="actions">
+      <li><%= back_icon(my_posts_path) %></li>
+      <% if post.visible? %>
+        <li><%= world_icon(post.url) %></li>
+      <% end %>
+      <% unless post.locked? %>
+        <li><%= edit_icon(edit_my_post_path(id: post.id)) %></li>
+      <% end %>
+    </ul>
 
     <% unless post.image.blank? %>
       <figure itemprop="image" itemscope itemtype="http://schema.org/ImageObject" role="group">
-        <%= post_image_large(post, { itemprop: 'about' }) %>
+        <%= post_image_medium(post, { itemprop: 'about' }) %>
         <meta itemprop="url" content="<%= request.protocol + request.host_with_port + post.image.url %>"/>
         <% if post.has_image_data? %>
           <figcaption>
@@ -29,7 +24,7 @@
             <% end %>
             <% unless post.image_source_name.blank? %>
               <div class="image_source" itemprop="author">
-                <span><%= t('.image_credit') %></span>
+                <span><%= t('activerecord.attributes.post.image_source_name') %></span>
                 <% if post.image_source_link.blank? %>
                   <%= post.image_source_name %>
                 <% else %>
@@ -42,45 +37,14 @@
       </figure>
     <% end %>
 
-    <div class="text" itemprop="articleBody mainEntityOfPage">
-      <p class="lead"><%= post.lead %></p>
-
-      <div class="body">
-        <%= raw(post.parsed_body || post.body) %>
-      </div>
+    <div class="body" itemprop="articleBody mainEntityOfPage">
+      <%= raw(post.body) %>
     </div>
 
-    <%=
-      render(
-          partial: 'posts/entity/gallery',
-          locals: {
-              collection: post.post_images.list_for_visitors
-          }
-      )
-    %>
-
     <% if post.tags_cache.any? %>
-      <ul class="tags" aria-label="<%= t('activerecord.attributes.post.tags_cache') %>">
-        <% post.tags_cache.each do |tag_name| %>
-          <li><%= tagged_posts_link(tag_name, post) %></li>
-        <% end %>
-      </ul>
-    <% end %>
-
-    <% if post.post_attachments.any? %>
-      <section class="post-attachments">
-        <h3><%= t('.attachments') %></h3>
-
-        <ul>
-          <% post.post_attachments.ordered_for_list.each do |attachment| %>
-            <% next if attachment.file.blank? %>
-            <li>
-              <%= post_attachment_link(attachment) %>
-              (<%= number_to_human_size(attachment.size) %>)
-            </li>
-          <% end %>
-        </ul>
-      </section>
+      <div class="post-tags" aria-label="<%= t('activerecord.attributes.post.tags_cache') %>">
+        <%= post.tags_cache.join(', ') %>
+      </div>
     <% end %>
 
     <footer>
@@ -112,25 +76,6 @@
       <div class="time">
         <%= time_tag post.publication_time, itemProp: 'datePublished', aria: { label: t('activerecord.attributes.post.created_at') } %>
       </div>
-
-      <div class="post-counters">
-        <span class="views"><%= post.view_count %></span>
-        <% if post.allow_comments? && 'CommentableItem'.safe_constantize %>
-          <span class="comments"><%= post.comments_count %></span>
-        <% end %>
-        <% if post.time_required.to_i.positive? %>
-          <div class="time_required"><%= post.time_required %> min</div>
-        <% end %>
-      </div>
-
-      <% unless post.time_required.blank? %>
-        <meta itemprop="timeRequired" content="P<%= post.time_required %>M"/>
-      <% end %>
-      <meta itemprop="commentCount" content="<%= post.comments_count %>"/>
-      <meta itemprop="dateModified" content="<%= post.updated_at.strftime('%Y-%m-%d') %>"/>
-      <%= render partial: 'posts/entity/publisher', locals: { entity: post } %>
     </footer>
-
-    <%= render 'shared/pluso' %>
   </div>
 </article>

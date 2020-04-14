@@ -1,7 +1,9 @@
 <% if collection.any? %>
   <section class="posts-linked">
-    <h2><%= t('.heading') %></h2>
+    <div class="content-wrapper">
+      <h2><%= t('.heading') %></h2>
 
-    <%= render partial: 'posts/list', locals: { collection: collection } %>
+      <%= render partial: 'posts/list', locals: { collection: collection } %>
+    </div>
   </section>
 <% end %>

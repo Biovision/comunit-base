@@ -1,136 +1,149 @@
 <% profile = user.data['profile'] %>
 <article class="user-profile">
-  <h1><%= user.profile_name %></h1>
+  <div class="content-wrapper">
+    <h1><%= user.profile_name %></h1>
 
-  <nav>
-    <% if current_user == user %>
-      <div>
-        <%= link_to('Редактировать', edit_my_profile_path, class: 'button-action') %>
-      </div>
+    <nav>
+      <% if current_user == user %>
+        <div>
+          <%= link_to('Редактировать', edit_my_profile_path, class: 'button-action') %>
+        </div>
+      <% end %>
+      <div><%= link_to 'Блог', user_profile_entries_path(slug: user.slug), class: 'button-nav' %></div>
+    </nav>
+
+    <% unless user.image.blank? %>
+      <figure>
+        <div class="image">
+          <%= profile_avatar(user) %>
+        </div>
+      </figure>
     <% end %>
-    <% if current_user.is_a?(User) && (current_user != user) %>
-      <%= render partial: 'users/follow_buttons', locals: { user: user, followee: current_user.follows?(user) } %>
-      <div><%= link_to t('user_messages.new.heading'), dialog_my_messages_path(user_slug: user.slug), class: 'button-nav' %></div>
-    <% end %>
-    <div><%= link_to 'Блог', user_profile_entries_path(slug: user.slug), class: 'button-nav' %></div>
-  </nav>
 
-  <% unless user.image.blank? %>
-    <figure>
-      <div class="image">
-        <%= profile_avatar(user) %>
-      </div>
-    </figure>
-  <% end %>
-
-  <section>
-    <h2><%= t('.user_info') %></h2>
-    
-    <dl>
-      <div>
-        <dt><%= t('.registration_date') %></dt>
-        <dd><%= time_tag user.created_at %></dd>
-      </div>
-      <% unless user.last_seen.blank? %>
-        <div>
-          <dt><%= t('activerecord.attributes.user.last_seen') %></dt>
-          <dd><%= time_tag user.last_seen %></dd>
-        </div>
-      <% end %>
-      <% unless user.full_name(profile['show_patronymic']).blank? %>
-        <div>
-          <dt><%= t('activerecord.attributes.user_profile.name') %></dt>
-          <dd><%= user.full_name(profile['show_patronymic']) %></dd>
-        </div>
-      <% end %>
-      <% if profile['show_birthday'] && !user.birthday.blank? %>
-        <div>
-          <dt><%= t('activerecord.attributes.user_profile.birthday') %></dt>
-          <dd><%= time_tag(user.birthday) %></dd>
-        </div>
-      <% end %>
-      <% unless profile['gender'].blank? %>
-        <div>
-          <dt><%= t('activerecord.attributes.user_profile.gender') %></dt>
-          <dd><%= gender_name(profile['gender']) %></dd>
-        </div>
-      <% end %>
-      <% unless profile['marital_status'].blank? %>
-        <div>
-          <dt><%= t('activerecord.attributes.user_profile.marital_status') %></dt>
-          <dd><%= marital_status_for_user(user) %></dd>
-        </div>
-      <% end %>
-      <% unless profile['home_city_name'].blank? %>
-        <div>
-          <dt><%= t('activerecord.attributes.user_profile.home_city_name') %></dt>
-          <dd><%= profile['home_city_name'] %></dd>
-        </div>
-      <% end %>
-      <% unless profile['language_names'].blank? %>
-        <div>
-          <dt><%= t('activerecord.attributes.user_profile.language_names') %></dt>
-          <dd><%= profile['language_names'] %></dd>
-        </div>
-      <% end %>
-    </dl>
-  </section>
-
-  <section>
-    <h2><%= t('my.profiles.edit.form.contact') %></h2>
-
-    <dl>
-      <% unless profile['country_name'].blank? %>
-        <div>
-          <dt><%= t('activerecord.attributes.user_profile.country_name') %></dt>
-          <dd><%= profile['country_name'] %></dd>
-        </div>
-      <% end %>
-      <% unless profile['city_name'].blank? %>
-        <div>
-          <dt><%= t('activerecord.attributes.user_profile.city_name') %></dt>
-          <dd><%= profile['city_name'] %></dd>
-        </div>
-      <% end %>
-      <% if profile['show_home_address'] && !profile['home_address'].blank? %>
-        <div>
-          <dt><%= t('activerecord.attributes.user_profile.home_address') %></dt>
-          <dd><%= profile['home_address'] %></dd>
-        </div>
-      <% end %>
-      <% if profile['show_phone'] && !user.phone.blank? %>
-        <div>
-          <dt><%= t('activerecord.attributes.user.phone') %></dt>
-          <dd><%= user.phone %></dd>
-        </div>
-      <% end %>
-      <% if profile['show_secondary_phone'] && !profile['secondary_phone'].blank? %>
-        <div>
-          <dt><%= t('activerecord.attributes.user_profile.secondary_phone') %></dt>
-          <dd><%= profile['secondary_phone'] %></dd>
-        </div>
-      <% end %>
-      <% if profile['show_skype_uid'] && !profile['skype_uid'].blank? %>
-        <div>
-          <dt><%= t('activerecord.attributes.user_profile.skype_uid') %></dt>
-          <dd><%= profile['skype_uid'] %></dd>
-        </div>
-      <% end %>
-      <% if profile['show_email'] && !user.email.blank? %>
-        <div>
-          <dt><%= t('activerecord.attributes.user.email') %></dt>
-          <dd><%= user.email %></dd>
-        </div>
-      <% end %>
-    </dl>
-  </section>
-
-  <% if profile['show_about'] %>
     <section>
-      <h2><%= t('my.profiles.edit.form.about') %></h2>
+      <h2><%= t('.user_info') %></h2>
 
       <dl>
-        <% %w(about activities nationality_name interests favorite_music favorite_movies favorite_shows favorite_books favorite_games favorite_quotes).each do |parameter| %>
+        <div>
+          <dt><%= t('.registration_date') %></dt>
+          <dd><%= time_tag user.created_at %></dd>
+        </div>
+        <% unless user.last_seen.blank? %>
+          <div>
+            <dt><%= t('activerecord.attributes.user.last_seen') %></dt>
+            <dd><%= time_tag user.last_seen %></dd>
+          </div>
+        <% end %>
+        <% unless user.full_name(profile['show_patronymic']).blank? %>
+          <div>
+            <dt><%= t('activerecord.attributes.user_profile.name') %></dt>
+            <dd><%= user.full_name(profile['show_patronymic']) %></dd>
+          </div>
+        <% end %>
+        <% if profile['show_birthday'] && !user.birthday.blank? %>
+          <div>
+            <dt><%= t('activerecord.attributes.user_profile.birthday') %></dt>
+            <dd><%= time_tag(user.birthday) %></dd>
+          </div>
+        <% end %>
+        <% unless profile['gender'].blank? %>
+          <div>
+            <dt><%= t('activerecord.attributes.user_profile.gender') %></dt>
+            <dd><%= gender_name(profile['gender']) %></dd>
+          </div>
+        <% end %>
+        <% unless profile['marital_status'].blank? %>
+          <div>
+            <dt><%= t('activerecord.attributes.user_profile.marital_status') %></dt>
+            <dd><%= marital_status_for_user(user) %></dd>
+          </div>
+        <% end %>
+        <% unless profile['home_city_name'].blank? %>
+          <div>
+            <dt><%= t('activerecord.attributes.user_profile.home_city_name') %></dt>
+            <dd><%= profile['home_city_name'] %></dd>
+          </div>
+        <% end %>
+        <% unless profile['language_names'].blank? %>
+          <div>
+            <dt><%= t('activerecord.attributes.user_profile.language_names') %></dt>
+            <dd><%= profile['language_names'] %></dd>
+          </div>
+        <% end %>
+      </dl>
+    </section>
+
+    <section>
+      <h2><%= t('my.profiles.edit.form.contact') %></h2>
+
+      <dl>
+        <% unless profile['country_name'].blank? %>
+          <div>
+            <dt><%= t('activerecord.attributes.user_profile.country_name') %></dt>
+            <dd><%= profile['country_name'] %></dd>
+          </div>
+        <% end %>
+        <% unless profile['city_name'].blank? %>
+          <div>
+            <dt><%= t('activerecord.attributes.user_profile.city_name') %></dt>
+            <dd><%= profile['city_name'] %></dd>
+          </div>
+        <% end %>
+        <% if profile['show_home_address'] && !profile['home_address'].blank? %>
+          <div>
+            <dt><%= t('activerecord.attributes.user_profile.home_address') %></dt>
+            <dd><%= profile['home_address'] %></dd>
+          </div>
+        <% end %>
+        <% if profile['show_phone'] && !user.phone.blank? %>
+          <div>
+            <dt><%= t('activerecord.attributes.user.phone') %></dt>
+            <dd><%= user.phone %></dd>
+          </div>
+        <% end %>
+        <% if profile['show_secondary_phone'] && !profile['secondary_phone'].blank? %>
+          <div>
+            <dt><%= t('activerecord.attributes.user_profile.secondary_phone') %></dt>
+            <dd><%= profile['secondary_phone'] %></dd>
+          </div>
+        <% end %>
+        <% if profile['show_skype_uid'] && !profile['skype_uid'].blank? %>
+          <div>
+            <dt><%= t('activerecord.attributes.user_profile.skype_uid') %></dt>
+            <dd><%= profile['skype_uid'] %></dd>
+          </div>
+        <% end %>
+        <% if profile['show_email'] && !user.email.blank? %>
+          <div>
+            <dt><%= t('activerecord.attributes.user.email') %></dt>
+            <dd><%= user.email %></dd>
+          </div>
+        <% end %>
+      </dl>
+    </section>
+
+    <% if profile['show_about'] %>
+      <section>
+        <h2><%= t('my.profiles.edit.form.about') %></h2>
+
+        <dl>
+          <% %w(about activities nationality_name interests favorite_music favorite_movies favorite_shows favorite_books favorite_games favorite_quotes).each do |parameter| %>
+            <% unless profile[parameter].blank? %>
+              <div>
+                <dt><%= t("activerecord.attributes.user_profile.#{parameter}") %></dt>
+                <dd><div class="text"><%= simple_format(profile[parameter]) %></div></dd>
+              </div>
+            <% end %>
+          <% end %>
+        </dl>
+      </section>
+    <% end %>
+
+    <section>
+      <h2><%= t('my.profiles.edit.form.stand_in_life') %></h2>
+
+      <dl>
+        <% %w(political_views religion_name main_in_life main_in_people).each do |parameter| %>
           <% unless profile[parameter].blank? %>
             <div>
               <dt><%= t("activerecord.attributes.user_profile.#{parameter}") %></dt>
@@ -138,40 +151,25 @@
             </div>
           <% end %>
         <% end %>
-      </dl>
-    </section>
-  <% end %>
-
-  <section>
-    <h2><%= t('my.profiles.edit.form.stand_in_life') %></h2>
-
-    <dl>
-      <% %w(political_views religion_name main_in_life main_in_people).each do |parameter| %>
-        <% unless profile[parameter].blank? %>
+        <% unless profile['smoking_attitude'].blank? %>
           <div>
-            <dt><%= t("activerecord.attributes.user_profile.#{parameter}") %></dt>
-            <dd><div class="text"><%= simple_format(profile[parameter]) %></div></dd>
+            <dt><%= t('activerecord.attributes.user_profile.smoking_attitude') %></dt>
+            <dd><%= t("attitudes.#{profile['smoking_attitude']}") %></dd>
           </div>
         <% end %>
-      <% end %>
-      <% unless profile['smoking_attitude'].blank? %>
-        <div>
-          <dt><%= t('activerecord.attributes.user_profile.smoking_attitude') %></dt>
-          <dd><%= t("attitudes.#{profile['smoking_attitude']}") %></dd>
-        </div>
-      <% end %>
-      <% unless profile['alcohol_attitude'].blank? %>
-        <div>
-          <dt><%= t('activerecord.attributes.user_profile.alcohol_attitude') %></dt>
-          <dd><%= t("attitudes.#{profile['alcohol_attitude']}") %></dd>
-        </div>
-      <% end %>
-      <% unless profile['inspiration'].blank? %>
-        <div>
-          <dt><%= t('activerecord.attributes.user_profile.inspiration') %></dt>
-          <dd><div class="text"><%= simple_format(profile['inspiration']) %></div></dd>
-        </div>
-      <% end %>
-    </dl>
-  </section>
+        <% unless profile['alcohol_attitude'].blank? %>
+          <div>
+            <dt><%= t('activerecord.attributes.user_profile.alcohol_attitude') %></dt>
+            <dd><%= t("attitudes.#{profile['alcohol_attitude']}") %></dd>
+          </div>
+        <% end %>
+        <% unless profile['inspiration'].blank? %>
+          <div>
+            <dt><%= t('activerecord.attributes.user_profile.inspiration') %></dt>
+            <dd><div class="text"><%= simple_format(profile['inspiration']) %></div></dd>
+          </div>
+        <% end %>
+      </dl>
+    </section>
+  </div>
 </article>

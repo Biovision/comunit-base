@@ -4,6 +4,10 @@ $font-family-heading: "Arial Narrow", "Arial", "Helvetica Neue", "Helvetica", sa
 $background-html: #fff !default;
 $background-body: #fff !default;
 
+$link-color: #0000ff !default;
+
+@import "biovision/base/default";
+
 $main-header-bg: none !default;
 $main-header-middle-bg: none !default;
 
@@ -11,8 +15,6 @@ $header-logo-size: 20rem !default;
 $coat-of-arms-size: 10rem !default;
 
 $content-width: 110rem !default;
-
-$link-color: #0000ff !default;
 
 // Navigation in main header
 $header-nav-bg: #333 !default;
@@ -77,5 +79,3 @@ $transparent-block-background: rgba(255, 255, 255, .75) !default;
   padding: .2rem 1rem 0;
   text-shadow: $heading-stripe-text-shadow;
 }
-
-@import "biovision/base/default";

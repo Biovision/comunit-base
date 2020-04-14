@@ -1,8 +1,7 @@
-@import "biovision/base/default";
 @import "comunit/base/default";
 
 .my-post-form {
-  //* { outline: solid pink 1px}
+  padding: var(--spacer-xxs);
 
   .fields {
     > div {
@@ -12,7 +11,7 @@
   }
 
   dt {
-    font-family: $font-family-heading;
+    font-family: var(--font-family-heading);
     font-size: var(--font-size-increased);
   }
 
@@ -20,13 +19,14 @@
     margin: 0;
   }
 
-  input[type=datetime-local] {
-    width: 19ch;
-  }
-
-  input:not([type=checkbox]),
+  input:not([type=checkbox]):not([type=radio]),
   textarea {
     margin: 0;
     padding: var(--spacer-xxs) var(--spacer-xs);
+    width: 100%;
+  }
+
+  input[type=datetime-local] {
+    width: 19ch;
   }
 }

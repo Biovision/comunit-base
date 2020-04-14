@@ -382,53 +382,6 @@ input.toggle-box {
   }
 }
 
-.my-index {
-  display: block;
-  width: 100%;
-
-  .content-wrapper {
-    width: 100%;
-  }
-
-  figure {
-    margin: var(--spacer-m) auto 0;
-
-    .image {
-      box-shadow: .2rem .2rem .4rem rgba(0, 0, 0, .5), -.4rem -.4rem .8rem rgba(0, 0, 0, .25);
-      height: 28rem;
-      margin: 0 auto;
-      overflow: hidden;
-      width: 28rem;
-    }
-
-    img {
-      height: 100%;
-      object-fit: contain;
-      width: 100%;
-    }
-  }
-
-  figcaption {
-    padding: var(--spacer-s);
-    text-align: center;
-  }
-}
-
-.profile-dashboard {
-  ul {
-    display: flex;
-    flex-wrap: wrap;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  li {
-    margin: 0;
-    padding: var(--spacer-s);
-  }
-}
-
 @media screen and(max-width: 600px) {
   #main-header {
     > div {
@@ -460,15 +413,5 @@ input.toggle-box {
         }
       }
     }
-  }
-}
-
-.my-profile-posts {
-  border-top: .1rem solid #777;
-  margin-top: var(--spacer-m);
-  padding-top: var(--spacer-s);
-
-  nav {
-    margin: var(--spacer-s) auto;
   }
 }

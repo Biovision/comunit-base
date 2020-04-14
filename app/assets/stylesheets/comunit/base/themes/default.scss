@@ -1,7 +1,7 @@
 @import "comunit/base/default";
 @import "comunit/base/vars";
 
-* { outline: solid pink 1px; }
+//* { outline: solid pink 1px; }
 
 html {
   background: var(--background-html);
@@ -31,3 +31,4 @@ body {
 @import "comunit/base/themes/default/main";
 @import "comunit/base/themes/default/frontpage";
 @import "comunit/base/themes/default/sidebar";
+@import "comunit/base/themes/default/legacy";
