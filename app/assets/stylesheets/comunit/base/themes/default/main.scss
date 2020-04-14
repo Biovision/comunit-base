@@ -13,7 +13,7 @@
   }
 }
 
-@media (max-width: $content-width) {
+@media (max-width: 1100px) {
   #main {
     .content {
       width: calc(75vw - var(--spacer-xs));
