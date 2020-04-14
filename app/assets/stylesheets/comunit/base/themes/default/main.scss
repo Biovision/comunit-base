@@ -9,15 +9,14 @@
   grid-template-rows: auto;
 
   .content {
-    max-width: calc(var(--content-width) - var(--content-width) / 4 - var(--spacer-xs));
-    width: 100%;
+    width: calc(var(--content-width) - var(--content-width) / 4 - var(--spacer-xs));
   }
 }
 
 @media (max-width: $content-width) {
   #main {
     .content {
-      max-width: calc(75vw - var(--spacer-xs));
+      width: calc(75vw - var(--spacer-xs));
     }
   }
 }
@@ -27,7 +26,7 @@
     display: block;
 
     .content {
-      max-width: 100%;
+      width: 100%;
     }
   }
 }
