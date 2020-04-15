@@ -7,6 +7,10 @@
   grid-template-rows: minmax(3rem, 1fr) auto;
   height: 100%;
 
+  a {
+    color: inherit;
+  }
+
   figure {
     grid-column: 1;
     grid-row: 1 / -1;

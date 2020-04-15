@@ -1,8 +1,11 @@
 @import "comunit/base/default";
 
 .main-header {
-  background: $main-header-bg;
   position: relative;
+
+  .content-wrapper {
+    background: $main-header-bg;
+  }
 
   .authentication {
     align-items: center;

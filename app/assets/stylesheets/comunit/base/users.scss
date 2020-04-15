@@ -30,7 +30,7 @@ article.user {
     }
 
     .heading {
-      @include heading-stripe;
+      //@include heading-stripe;
     }
 
     nav {
@@ -54,7 +54,7 @@ article.user {
     margin: 0 0 0 .4rem;
 
     > .heading {
-      @include heading-stripe;
+      //@include heading-stripe;
     }
 
     .entry-preview {

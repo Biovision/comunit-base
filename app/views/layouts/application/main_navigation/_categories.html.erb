@@ -6,16 +6,16 @@
     <li class="<%= li_class %>">
       <%= post_category_link(category) %>
       <% if category.child_categories.any? %>
-          <ul>
+          <ul class="secondary">
             <%= render partial: 'layouts/application/main_navigation/categories', locals: { categories: PostCategory.visible.for_tree(category.post_type_id, category.id) } %>
           </ul>
         <% else %>
       <% end %>
     </li>
 <% end %>
-<li class="parent <% selected_item == 'impeachment' ? 'selected' : '' %>">
+<li class="<% selected_item == 'impeachment' ? 'selected' : '' %>">
   <%= link_to('Импичмент', '/articles/impeachment') %>
-  <ul>
+  <ul class="secondary">
     <li><%= link_to 'Депутаты', impeachment_candidates_path %></li>
   </ul>
 </li>
