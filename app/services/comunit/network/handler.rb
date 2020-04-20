@@ -37,7 +37,7 @@ module Comunit
       end
 
       def self.permitted_attributes
-        %i[created_at]
+        %i[created_at uuid]
       end
 
       def push
@@ -75,7 +75,7 @@ module Comunit
         pull_data
         log_info "Validation status after pull: #{@entity.valid?}"
         if @entity.valid?
-          @entity.save
+          @entity.save && after_pull
         else
           log_error @entity.errors.messages
         end
@@ -97,6 +97,10 @@ module Comunit
 
       protected
 
+      def after_pull
+        true
+      end
+
       # Attributes for remote post create/update
       #
       # @return [Hash]
@@ -104,7 +108,7 @@ module Comunit
         ignored = self.class.ignored_attributes
 
         @entity.attributes.reject do |a, _|
-          ignored.include?(a) || a.end_with?('_count', '_id')
+          ignored.include?(a) || a.end_with?('_count', '_id', '_cache')
         end
       end
 

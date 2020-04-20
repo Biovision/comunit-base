@@ -1,0 +1,18 @@
+<% if collection.any? %>
+  <ul class="list-of-entities">
+    <% collection.each do |entity| %>
+      <li>
+        <div class="image">
+          <%= simple_image_preview(entity) %>
+        </div>
+        <div class="data">
+          <div><%= deed_link(entity) %></div>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <div class="message-box-warning">
+    Пока нет добрых дел
+  </div>
+<% end %>

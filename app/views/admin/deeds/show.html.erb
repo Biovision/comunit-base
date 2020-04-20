@@ -1,0 +1,63 @@
+<% content_for :meta_title, t('.title', name: @entity.title) %>
+<% content_for :breadcrumbs do %>
+  <%= admin_biovision_component_link(component_handler.component) %>
+  <%= link_to(t('admin.deeds.nav_item.text'), admin_deeds_path) %>
+  <span><%= @entity.title %></span>
+<% end %>
+
+<article>
+  <h1><%= @entity.title %></h1>
+
+  <ul class="actions">
+    <li><%= back_icon(admin_deeds_path) %></li>
+    <li><%= edit_icon(edit_deed_path(id: @entity.id)) %></li>
+  </ul>
+
+  <dl>
+    <dt><%= t('activerecord.attributes.deed.user') %></dt>
+    <dd><%= admin_user_link(@entity.user) %></dd>
+
+    <% unless @entity.image.blank? %>
+      <dt><%= t('activerecord.attributes.deed.image') %></dt>
+      <dd>
+        <figure>
+          <%= simple_image_medium(@entity) %>
+        </figure>
+      </dd>
+    <% end %>
+
+    <dt><%= t('activerecord.attributes.deed.description') %></dt>
+    <dd>
+      <div class="text">
+        <%= simple_format(@entity.description) %>
+      </div>
+    </dd>
+
+    <%= render partial: 'shared/entity/uuid', locals: { entity: @entity } %>
+    <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
+  </dl>
+
+  <%=
+    render(
+        partial: 'shared/admin/toggleable',
+        locals:  {
+            entity: @entity,
+            url:    toggle_admin_deed_path(id: @entity.id)
+        }
+    )
+  %>
+
+  <section>
+    <h2><%= t('.categories') %></h2>
+
+    <%=
+      render(
+          partial: 'admin/deeds/entity/categories',
+          locals: {
+              collection: DeedCategory.siblings(nil).list_for_administration,
+              entity: @entity
+          }
+      )
+    %>
+  </section>
+</article>

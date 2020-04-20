@@ -1,0 +1,91 @@
+<%= radio_button_tag 'deed[region_id]', '', false, id: 'deed_region_other' %>
+<%= label_tag 'deed_region_other', 'Новый регион' %>
+
+<div id="deed-regions-selector" data-url="<%= regions_deeds_path %>" data-filter="0">
+</div>
+
+<div class="message-box-alert hidden">Нужно выбрать регион</div>
+
+<script>
+    'use strict';
+
+    $(function () {
+        let $container = $('#deed-regions-selector');
+        let $selector = $('#deed_region_other');
+        let $label = $selector.find('+ label');
+        let use_filter = parseInt($container.data('filter')) > 0;
+        let $message = $container.find('+ div');
+
+        $selector.on('click', function () {
+            if ($container.children().length < 1) {
+                $.get($container.data('url'), function (response) {
+                    if (response.hasOwnProperty('data')) {
+                        let $select = $('<select>');
+
+                        $select.append('<option>Не выбрано</option>');
+
+                        $(response['data']).each(function (i, option) {
+                            $select.append(option['meta']['html_chunk']);
+                        });
+
+                        $container.append($select);
+                    }
+                }).fail(Biovision.handleAjaxFailure);
+            }
+        });
+
+        $container.on('change', 'select', function () {
+            let $select = $(this);
+
+            $selector.val($(this).val());
+            $label.html($(this).find(':selected').data('name'));
+
+            if ($(this).val() !== "") {
+                $select.find('~ select').remove();
+                $.get($container.data('url'), { parent_id: $(this).val() }, function(response) {
+                    if (response.hasOwnProperty('data') && response['data'].length > 0) {
+                        let $children = $('<select>');
+
+                        $children.append('<option>Дочерние регионы</option>');
+
+                        $(response['data']).each(function (i, option) {
+                            $children.append(option['meta']['html_chunk']);
+                        });
+
+                        $container.append($children);
+                    }
+                }).fail(Biovision.handleAjaxFailure);
+
+                $message.addClass('hidden');
+            } else {
+                if (use_filter) {
+                    $message.removeClass('hidden');
+                }
+            }
+        });
+
+        if (use_filter) {
+            let $central_region = $('#deed_region_0');
+            let $current_region = $('#deed_region_default');
+            let $form = $container.closest('form');
+
+            $central_region.addClass('hidden');
+            $central_region.find('+ label').addClass('hidden');
+
+            if (!$current_region[0]) {
+                $selector.click();
+            }
+
+            $message.removeClass('hidden');
+
+            $form.on('submit', function(e) {
+                let value = $selector.val();
+
+                if (value === "" || parseInt(value) < 1) {
+                    e.preventDefault();
+                    $('html, body').animate({scrollTop: $selector.offset().top}, 500);
+                }
+            });
+        }
+    });
+</script>

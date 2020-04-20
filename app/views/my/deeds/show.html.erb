@@ -1,0 +1,32 @@
+<nav>
+  <%= link_to('Редактировать', edit_deed_path(id: @entity.id), class: 'button-nav') %>
+</nav>
+<article>
+  <h1><%= @entity.title %></h1>
+
+  <figure>
+    <%= simple_image_medium(@entity) %>
+  </figure>
+
+  <div class="text">
+    <%= simple_format(@entity.description) %>
+  </div>
+
+  <section>
+    <h2>Категории</h2>
+
+    <%=
+      render(
+          partial: 'admin/deeds/entity/categories',
+          locals: {
+              collection: DeedCategory.siblings(nil).list_for_visitors,
+              entity: @entity
+          }
+      )
+    %>
+  </section>
+</article>
+
+<% content_for :main_sidebar do %>
+  <!-- боковая панель для благотворения внутрип профиля -->
+<% end %>

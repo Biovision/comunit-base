@@ -1,0 +1,35 @@
+# frozen_string_literal: true
+
+module Comunit
+  module Network
+    module Handlers
+      # Handling deed categories
+      class DeedCategoryHandler < Comunit::Network::Handler
+        def self.since
+          7
+        end
+
+        def self.permitted_attributes
+          super + %i[name uuid]
+        end
+
+        protected
+
+        def relationships_for_remote
+          {
+            parent: DeedCategoryHandler.relationship_data(entity.parent)
+          }
+        end
+
+        def pull_data
+          apply_attributes
+          apply_parent
+        end
+
+        def apply_parent
+          entity.parent = DeedCategory.find_by(uuid: dig_related_id(:parent))
+        end
+      end
+    end
+  end
+end

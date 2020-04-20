@@ -1,0 +1,108 @@
+ru:
+  deed_count:
+    zero: "добрых дел нет"
+    one: "%{count} доброе дело"
+    few: "%{count} добрых дела"
+    many: "%{count} добрых дел"
+    other: "%{count} добрых дел"
+  subcategory_count:
+    zero: "дочерних категорий нет"
+    one: "%{count} дочерняя категория"
+    few: "%{count} дочерние категории"
+    many: "%{count} дочерних категорий"
+    other: "%{count} дочерних категорий"
+  activerecord:
+    models:
+      deed: "Доброе дело"
+      deed_category: "Категория дел"
+      deed_image: "Иллюстрация к доброму делу"
+    attributes:
+      deed:
+        comments_count: "Количество комментариев"
+        description: "Описание"
+        done: "Завершено"
+        image: "Картинка"
+        offer: "Предложение помощи"
+        region: "Регион"
+        region_id: "Регион"
+        title: "Название"
+        view_count: "Количество просмотров"
+      deed_category:
+        children_cache: "Кеш дочек"
+        deeds_count: "Количество дел"
+        parent: "Родительская категория"
+        parent_id: "Родительская категория"
+        parents_cache: "Кеш родителей"
+        name: "Название"
+      deed_image:
+        deed: "Доброе дело"
+        deed_id: "Доброе дело"
+        caption: "Название"
+        description: "Описание"
+  biovision:
+    components:
+      deeds:
+        name: "Благотворительность"
+  my:
+    deeds:
+      index:
+        title: "Мои добрые дела, страница %{page}"
+        heading: "Мои добрые дела"
+  deeds:
+    delete:
+      success: "Доброе дело успешно удалено"
+    new:
+      title: "Добавление доброго дела"
+      heading: "Новое доброе дело"
+    form:
+      type: "Тип"
+      guidelines:
+        description: "Максимум 64кБ текста."
+        image: "Картинка в формате JPG или PNG размером около 1280×1280."
+        title: "Название должно кратко отражать суть. Максимум 255 символов."
+    edit:
+      heading: "Редактирование доброго дела"
+    index:
+      title: "Благотворение"
+    destroy:
+      success: "Дело успешно удалено"
+  admin:
+    deed_categories:
+      index:
+        heading: "Категории добрых дел"
+        title: "Категории добрых дел"
+      nav_item:
+        description: "Управление категориями добрых дел"
+        text: "Категории добрых дел"
+      show:
+        title: "Категория добрых дел «%{name}»"
+        children_categories: "Дочерние категории"
+        add_subcategory: "Добавить подкатегорию"
+    deeds:
+      index:
+        heading: "Добрые дела"
+        title: "Добрые дела, страница %{page}"
+      nav_item:
+        description: "Управление добрыми делами"
+        text: "Добрые дела"
+      show:
+        title: "Доброе дело «%{name}»"
+        categories: "Категории"
+    index:
+      dashboard:
+        deeds:
+          heading: "Добрые дела"
+  deed_categories:
+    destroy:
+      success: "Категория добрых дел успешно удалена"
+    edit:
+      heading: "Редактирование категории добрых дел"
+      title: "Редактирование категории добрых дел"
+      nav_text: "Редактировать"
+    form:
+      guidelines:
+        name: "Максимум 75 символов."
+    new:
+      heading: "Новая категория добрых дел"
+      title: "Создание категории добрых дел"
+      nav_text: "Редактировать"

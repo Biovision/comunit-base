@@ -1,0 +1,23 @@
+<article class="deed">
+  <h1><%= @entity.title %></h1>
+  <figure><%= simple_image_hd(@entity) %></figure>
+
+  <div class="text">
+    <%= simple_format(@entity.description) %>
+  </div>
+
+  <div class="categories">
+    <dfn>Категории</dfn>: <%= @entity.deed_categories.map(&:name).join(', ') %>
+  </div>
+
+  <%=
+    render(
+        partial: 'comments/section',
+        locals: { entity: @entity }
+    )
+  %>
+</article>
+
+<% content_for :main_sidebar do %>
+  <!-- боковая панель для благотворения -->
+<% end %>

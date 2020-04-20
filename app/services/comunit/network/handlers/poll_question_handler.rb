@@ -9,15 +9,6 @@ module Comunit
           %i[comment created_at multiple_choice priority text]
         end
 
-        def prepare_model_data
-          {
-            id: entity.uuid,
-            type: entity.class.table_name,
-            attributes: attributes_for_remote,
-            relationships: relationships_for_remote,
-          }
-        end
-
         protected
 
         def relationships_for_remote

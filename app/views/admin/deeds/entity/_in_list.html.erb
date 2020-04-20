@@ -1,0 +1,30 @@
+<div class="image">
+  <%= simple_image_preview(entity) %>
+</div>
+<div class="data">
+  <div><%= admin_deed_link(entity) %></div>
+  <div class="info">
+    <%= admin_user_link(entity.user) %><br/>
+    <%= entity.deed_categories.map(&:name).join(', ') %>
+  </div>
+  <div class="secondary info">
+    <%= t(:comment_count, count: entity.comments_count) %>
+  </div>
+  <div class="secondary info">
+    <%= render partial: 'shared/track', locals: { item: entity } %>
+  </div>
+
+  <%=
+    render(
+        partial: 'shared/admin/toggleable',
+        locals:  {
+            entity: entity,
+            url:    toggle_admin_deed_path(id: entity.id)
+        }
+    )
+  %>
+
+  <ul class="actions">
+    <li><%= edit_icon(edit_deed_path(id: entity.id)) %></li>
+  </ul>
+</div>

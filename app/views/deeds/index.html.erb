@@ -1,0 +1,32 @@
+<% content_for :meta_title, t('.title') %>
+
+<div class="index-deeds">
+  <section>
+    <h2>Могу помочь</h2>
+
+    <%=
+      render(
+          partial: 'index/index/deeds',
+          locals: {
+              collection: Deed.offers.list_for_visitors
+          }
+      )
+    %>
+  </section>
+  <section>
+    <h2>Нужна помощь</h2>
+
+    <%=
+      render(
+          partial: 'index/index/deeds',
+          locals: {
+              collection: Deed.requests.list_for_visitors
+          }
+      )
+    %>
+  </section>
+</div>
+
+<% content_for :main_sidebar do %>
+  <!-- Тут будет календарь, популярные дела и так далее -->
+<% end %>

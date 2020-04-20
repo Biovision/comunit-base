@@ -1,0 +1,33 @@
+<% if collection.load.any? %>
+  <ul class="entity-links">
+    <% collection.each do |category| %>
+      <li>
+        <% element_id = "deed_category_#{category.id}" %>
+        <%=
+          check_box_tag(
+              'category[]',
+              category.id,
+              category.deed?(entity),
+              id:   element_id,
+              data: {
+                  url: category_my_deed_path(id: entity.id, category_id: category.id)
+              }
+          )
+        %>
+        <%= label_tag(element_id, category.name) %>
+
+        <div class="children">
+          <%=
+            render(
+                partial: 'admin/deeds/entity/categories',
+                locals:  {
+                    entity:     entity,
+                    collection: category.child_categories.list_for_visitors
+                }
+            )
+          %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

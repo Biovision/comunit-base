@@ -1,0 +1,30 @@
+<% if collection.load.any? %>
+  <ul>
+    <% collection.each do |category| %>
+      <li>
+        <% element_id = "deed_category_#{category.id}" %>
+        <%=
+          check_box_tag(
+              'category[]',
+              category.id,
+              category.deed?(entity),
+              id:   element_id
+          )
+        %>
+        <%= label_tag(element_id, category.name) %>
+
+        <div class="children">
+          <%=
+            render(
+                partial: 'deeds/form/categories',
+                locals:  {
+                    entity:     entity,
+                    collection: category.child_categories.list_for_administration
+                }
+            )
+          %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
