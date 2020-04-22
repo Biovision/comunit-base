@@ -5,19 +5,15 @@ module Comunit
     module Handlers
       # Handling deeds
       class DeedHandler < Comunit::Network::Handler
-        def self.since
-          7
-        end
-
         def self.permitted_attributes
-          super + %i[description done name offer title uuid]
+          super + %i[description done name offer title]
         end
 
         protected
 
         def relationships_for_remote
           {
-            user: UserHandler.relationship_data(entity.parent),
+            user: UserHandler.relationship_data(entity.user),
             region: Comunit::Network::Handler.relationship_data(entity.region),
             deed_categories: { data: deed_categories_for_remote }
           }

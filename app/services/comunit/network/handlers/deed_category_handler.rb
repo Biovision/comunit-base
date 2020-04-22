@@ -5,12 +5,8 @@ module Comunit
     module Handlers
       # Handling deed categories
       class DeedCategoryHandler < Comunit::Network::Handler
-        def self.since
-          7
-        end
-
         def self.permitted_attributes
-          super + %i[name uuid]
+          super + %i[name]
         end
 
         protected
