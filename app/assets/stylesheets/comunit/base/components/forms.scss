@@ -1,0 +1,24 @@
+@import "comunit/base/components/forms/inputs";
+
+.fields {
+  dd {
+    margin: 0;
+    padding: 0;
+  }
+
+  input[type=text]:not([size]),
+  input[type=email]:not([size]),
+  input[type=tel]:not([size]),
+  textarea {
+    width: 100%;
+  }
+}
+
+form {
+  .fields {
+    > div {
+      margin-bottom: var(--spacer-xs);
+      padding: var(--spacer-xxs);
+    }
+  }
+}

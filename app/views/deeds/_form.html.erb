@@ -10,104 +10,111 @@
 %>
   <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
 
-  <dl>
-    <dt><%= t('.type') %></dt>
-    <dd>
-      <div>
-        <%= f.radio_button :offer, '0', id: 'deed_offer_0', checked: !entity.offer? %>
-        <%= label_tag 'deed_offer_0', 'Нужна помощь' %>
-      </div>
-      <div>
-        <%= f.radio_button :offer, '1', id: 'deed_offer_1', checked: entity.offer? %>
-        <%= label_tag 'deed_offer_1', 'Готов помощь' %>
-      </div>
-    </dd>
+  <dl class="fields">
+    <div>
+      <dt><%= t('.type') %></dt>
+      <dd>
+        <div>
+          <%= f.radio_button :offer, '0', id: 'deed_offer_0', checked: !entity.offer? %>
+          <%= label_tag 'deed_offer_0', 'Нужна помощь' %>
+        </div>
+        <div>
+          <%= f.radio_button :offer, '1', id: 'deed_offer_1', checked: entity.offer? %>
+          <%= label_tag 'deed_offer_1', 'Готов помощь' %>
+        </div>
+      </dd>
+    </div>
 
-    <dt><%= f.label :region_id %></dt>
-    <dd>
-      <%=
-        radio_button_tag(
-            "#{model_name}[region_id]",
-            '',
-            entity.region.nil?,
-            id: "#{model_name}_region_0"
-        )
-      %>
-      <%= label_tag "#{model_name}_region_0", t(:not_set) %><br/>
-      <% unless entity.region.nil? %>
+    <div class="hidden">
+      <dt><%= f.label :region_id %></dt>
+      <dd>
         <%=
           radio_button_tag(
               "#{model_name}[region_id]",
-              entity.region_id,
-              true,
-              id: "#{model_name}_region_default"
+              '',
+              entity.region.nil?,
+              id: "#{model_name}_region_0"
           )
         %>
-        <%= label_tag "#{model_name}_region_default", entity.region.branch_name %><br/>
-      <% end %>
-      <%= render partial: 'regions', locals: { form: f } %>
-    </dd>
-
-    <dt><%= f.label :title %></dt>
-    <dd>
-      <%=
-        f.text_field(
-            :title,
-            id:        "#{model_name}_title",
-            size:      nil,
-            maxlength: Deed::TITLE_LIMIT,
-            required:  true,
-            data: {
-                check: :title
-            }
-        )
-      %>
-      <div class="check-result-error hidden" data-field="title"></div>
-      <div class="guideline"><%= t('.guidelines.title') %></div>
-    </dd>
-
-    <dt><%= f.label :image %></dt>
-    <dd>
-      <figure class="preview" role="group" id="<%= model_name %>-image">
-        <% if entity.image.blank? %>
-          <%= f.label :image, image_tag('biovision/base/placeholders/3x2.svg', alt: '') %>
-        <% else %>
-          <%= f.label :image, image_tag(entity.image.medium.url, alt: '') %>
-        <% end %>
-        <figcaption>
+        <%= label_tag "#{model_name}_region_0", t(:not_set) %><br/>
+        <% unless entity.region.nil? %>
           <%=
-            f.file_field(
-                :image,
-                id:     "#{model_name}_image",
-                accept: 'image/jpeg,image/png',
-                data:   { image: "#{model_name}-image" }
+            radio_button_tag(
+                "#{model_name}[region_id]",
+                entity.region_id,
+                true,
+                id: "#{model_name}_region_default"
             )
           %>
-        </figcaption>
-      </figure>
-      <div class="guideline"><%= t('.guidelines.image') %></div>
-    </dd>
+          <%= label_tag "#{model_name}_region_default", entity.region.branch_name %><br/>
+        <% end %>
+        <%= render partial: 'regions', locals: { form: f } %>
+      </dd>
+    </div>
 
-    <dt><%= f.label :description %></dt>
-    <dd>
-      <%=
-        f.text_area(
-            :description,
-            id:       "#{model_name}_description",
-            cols:     80,
-            rows:     5,
-            required: true,
-            class: 'auto-expand',
-            data:     {
-                check: :description,
-                min_rows: 5,
-                max_rows: 40
-            }
-        )
-      %>
-      <div class="check-result-error hidden" data-field="description"></div>
-      <div class="guideline"><%= t('.guidelines.description') %></div>
-    </dd>
+    <div>
+      <dt><%= f.label :title %></dt>
+      <dd>
+        <%=
+          f.text_field(
+            :title,
+            class: 'input-text',
+            data: { check: :title },
+            maxlength: Deed::TITLE_LIMIT,
+            required:  true,
+            size:      nil
+          )
+        %>
+        <div class="check-result-error" data-field="title"></div>
+        <div class="guideline"><%= t('.guidelines.title') %></div>
+      </dd>
+    </div>
+
+    <div>
+      <dt><%= f.label :image %></dt>
+      <dd>
+        <figure class="preview" role="group" id="<%= model_name %>-image">
+          <% if entity.image.blank? %>
+            <%= f.label :image, image_tag('biovision/base/placeholders/3x2.svg', alt: '') %>
+          <% else %>
+            <%= f.label :image, image_tag(entity.image.medium.url, alt: '') %>
+          <% end %>
+          <figcaption>
+            <%=
+              f.file_field(
+                  :image,
+                  id:     "#{model_name}_image",
+                  accept: 'image/jpeg,image/png',
+                  data:   { image: "#{model_name}-image" }
+              )
+            %>
+          </figcaption>
+        </figure>
+        <div class="guideline"><%= t('.guidelines.image') %></div>
+      </dd>
+    </div>
+
+    <div>
+      <dt><%= f.label :description %></dt>
+      <dd>
+        <%=
+          f.text_area(
+              :description,
+              class: 'auto-expand input-text',
+              cols:     20,
+              data:     {
+                  check: :description,
+                  min_rows: 5,
+                  max_rows: 40
+              },
+              required: true,
+              rows:     5
+          )
+        %>
+        <div class="check-result-error" data-field="description"></div>
+        <div class="guideline"><%= t('.guidelines.description') %></div>
+      </dd>
+    </div>
   </dl>
 
   <%=

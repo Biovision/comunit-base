@@ -1,0 +1,11 @@
+.deed-preview {
+  border-bottom: var(--border-secondary);
+  margin-bottom: var(--spacer-xs);
+  padding-bottom: var(--spacer-xs);
+
+  figcaption {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-increased);
+    padding: var(--spacer-xxs);
+  }
+}

@@ -44,9 +44,11 @@ class CreateDeedsComponent < ActiveRecord::Migration[5.2]
     create_table :deeds, comment: 'Deeds' do |t|
       t.uuid :uuid, null: false
       t.references :user, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
+      t.references :region, foreign_key: { on_update: :cascade, on_delete: :nullify }
       t.references :agent, foreign_key: { on_update: :cascade, on_delete: :nullify }
       t.inet :ip
       t.timestamps
+      t.integer :view_count, default: 0, null: false
       t.boolean :offer, default: false, null: false
       t.boolean :done, default: false, null: false
       t.boolean :visible, default: true, null: false

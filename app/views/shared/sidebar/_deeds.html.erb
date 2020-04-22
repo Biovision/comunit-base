@@ -1,0 +1,10 @@
+<% collection = Deed.list_for_visitors.first(2) %>
+<% if collection.any? %>
+  <div class="sidebar-deeds">
+    <h3>Благотворение</h3>
+
+    <% collection.each do |entity| %>
+      <%= render partial: 'deeds/preview', locals: { entity: entity } %>
+    <% end %>
+  </div>
+<% end %>

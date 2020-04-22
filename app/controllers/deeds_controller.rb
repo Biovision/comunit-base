@@ -2,6 +2,7 @@
 
 # Management of deeds
 class DeedsController < ApplicationController
+  before_action :restrict_anonymous_access, only: %i[new create]
   before_action :set_entity, only: %i[edit show update destroy]
 
   # post /deeds/check
@@ -68,6 +69,11 @@ class DeedsController < ApplicationController
 
   def component_class
     Biovision::Components::DeedsComponent
+  end
+
+  def restrict_editing
+    error = 'Entity is not editable by current user'
+    handle_http_401(error) unless component_handler.editable?(@entity)
   end
 
   def set_entity
