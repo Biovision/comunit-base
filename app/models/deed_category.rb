@@ -86,7 +86,7 @@ class DeedCategory < ApplicationRecord
       new_cache = child_categories.order('id asc').pluck(:id, :children_cache)
     end
 
-    self.children_cache += [new_cache.flatten]
+    self.children_cache += new_cache.flatten
     self.children_cache.uniq!
 
     save!
