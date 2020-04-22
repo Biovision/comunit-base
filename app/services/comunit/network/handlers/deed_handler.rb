@@ -14,7 +14,7 @@ module Comunit
         def relationships_for_remote
           {
             user: UserHandler.relationship_data(entity.user),
-            region: Comunit::Network::Handler.relationship_data(entity.region),
+            # region: Comunit::Network::Handler.relationship_data(entity.region),
             deed_categories: { data: deed_categories_for_remote }
           }
         end
@@ -37,7 +37,7 @@ module Comunit
           apply_attributes
           apply_user
           apply_agent
-          apply_region
+          # apply_region
           apply_image
         end
 
