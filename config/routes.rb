@@ -47,6 +47,9 @@ Rails.application.routes.draw do
   resources :campaigns, only: %i[update destroy]
   resources :candidates, only: %i[update destroy]
 
+  resources :deed_categories, only: %i[destroy update]
+  resources :deeds, only: %i[destroy update]
+
   scope '(:locale)', constraints: { locale: /ru|en/ } do
     root 'index#index'
 
@@ -108,6 +111,11 @@ Rails.application.routes.draw do
     end
     resources :candidates, except: %i[index show update destroy], concerns: :check
     resources :political_forces, only: %i[new create edit], concerns: :check
+
+    resources :deed_categories, except: %i[index show update destroy], concerns: :check
+    resources :deeds, except: %i[update destroy], concerns: :check do
+      get :regions, on: :collection
+    end
 
     namespace :admin do
       resources :groups, only: %i[index show] do
@@ -171,6 +179,14 @@ Rails.application.routes.draw do
         end
       end
       resources :candidates, only: %i[index show], concerns: :toggle
+
+      resources :deeds, only: %i[index show], concerns: :toggle
+      resources :deed_categories, only: %i[index show], concerns: %i[toggle priority] do
+        member do
+          put 'deeds/:deed_id' => :add_deed, as: :deed
+          delete 'deeds/:deed_id' => :remove_deed
+        end
+      end
     end
 
     namespace :editorial do
@@ -210,6 +226,13 @@ Rails.application.routes.draw do
       resources :entries, only: :index
       resources :followers, :followees, only: :index
       resources :appeals, only: :index
+
+      resources :deeds, only: %i[index show] do
+        member do
+          put 'categories/:category_id' => :add_category, as: :category
+          delete 'categories/:category_id' => :remove_category
+        end
+      end
     end
 
     get 'impeachment/candidates' => 'impeachment#candidates', as: :impeachment_candidates

@@ -31,6 +31,7 @@ class DeedsController < ApplicationController
     @entity = Deed.new(creation_parameters)
     if @entity.save
       apply_categories if params.key?(:category)
+      NetworkEntitySyncJob.perform_later(@entity.class.to_s, @entity.id)
       form_processed_ok(deed_path(id: @entity.id))
     else
       form_processed_with_error(:new)
@@ -50,6 +51,7 @@ class DeedsController < ApplicationController
   def update
     if @entity.update(entity_parameters)
       apply_categories if params.key?(:category)
+      NetworkEntitySyncJob.perform_later(@entity.class.to_s, @entity.id)
       form_processed_ok(deed_path(id: @entity.id))
     else
       form_processed_with_error(:edit)
@@ -58,16 +60,14 @@ class DeedsController < ApplicationController
 
   # delete /deeds/:id
   def destroy
-    if @entity.destroy
-      flash[:notice] = t('deeds.destroy.success')
-    end
+    flash[:notice] = t('deeds.destroy.success') if @entity.destroy
     redirect_to(admin_deeds_path)
   end
 
   protected
 
-  def restrict_access
-    require_privilege :content_manager
+  def component_class
+    Biovision::Components::DeedsComponent
   end
 
   def set_entity
