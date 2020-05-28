@@ -1,0 +1,26 @@
+.deed-form {
+  max-width: 64rem;
+}
+
+.deed-form_categories {
+  box-shadow: inset 0 0 .2rem rgba(0, 0, 0, .5);
+  height: 32rem;
+  margin: var(--spacer-m) 0;
+  overflow: scroll;
+  padding: var(--spacer-s);
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    margin: 0;
+    padding: 0;
+
+    li {
+      padding-left: var(--spacer-s);
+    }
+  }
+}

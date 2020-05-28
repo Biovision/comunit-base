@@ -2,9 +2,10 @@
 <%=
   form_with(
       model: entity,
-      html:  {
-          id:   "#{model_name}-form",
-          data: { check_url: check_deeds_path }
+      html: {
+          class: "#{model_name}-form",
+          data: { check_url: check_deeds_path },
+          id: "#{model_name}-form"
       }
   ) do |f|
 %>
@@ -25,44 +26,19 @@
       </dd>
     </div>
 
-    <div class="hidden">
-      <dt><%= f.label :region_id %></dt>
-      <dd>
-        <%=
-          radio_button_tag(
-              "#{model_name}[region_id]",
-              '',
-              entity.region.nil?,
-              id: "#{model_name}_region_0"
-          )
-        %>
-        <%= label_tag "#{model_name}_region_0", t(:not_set) %><br/>
-        <% unless entity.region.nil? %>
-          <%=
-            radio_button_tag(
-                "#{model_name}[region_id]",
-                entity.region_id,
-                true,
-                id: "#{model_name}_region_default"
-            )
-          %>
-          <%= label_tag "#{model_name}_region_default", entity.region.branch_name %><br/>
-        <% end %>
-        <%= render partial: 'regions', locals: { form: f } %>
-      </dd>
-    </div>
+    <%= render partial: 'shared/forms/region_select', locals: { f: f } %>
 
     <div>
       <dt><%= f.label :title %></dt>
       <dd>
         <%=
           f.text_field(
-            :title,
-            class: 'input-text',
-            data: { check: :title },
-            maxlength: Deed::TITLE_LIMIT,
-            required:  true,
-            size:      nil
+              :title,
+              class: 'input-text',
+              data: { check: :title },
+              maxlength: Deed::TITLE_LIMIT,
+              required: true,
+              size: nil
           )
         %>
         <div class="check-result-error" data-field="title"></div>
@@ -83,9 +59,9 @@
             <%=
               f.file_field(
                   :image,
-                  id:     "#{model_name}_image",
+                  id: "#{model_name}_image",
                   accept: 'image/jpeg,image/png',
-                  data:   { image: "#{model_name}-image" }
+                  data: { image: "#{model_name}-image" }
               )
             %>
           </figcaption>
@@ -100,15 +76,15 @@
         <%=
           f.text_area(
               :description,
-              class: 'auto-expand input-text',
-              cols:     20,
-              data:     {
+              class: 'input-text',
+              cols: 20,
+              data: {
                   check: :description,
                   min_rows: 5,
                   max_rows: 40
               },
               required: true,
-              rows:     5
+              rows: 5
           )
         %>
         <div class="check-result-error" data-field="description"></div>
@@ -117,15 +93,17 @@
     </div>
   </dl>
 
-  <%=
-    render(
-        partial: 'deeds/form/categories',
-        locals: {
-            collection: DeedCategory.siblings(nil).list_for_visitors,
-            entity: entity
-        }
-    )
-  %>
+  <div class="deed-form_categories">
+    <%=
+      render(
+          partial: 'deeds/form/categories',
+          locals: {
+              collection: DeedCategory.siblings(nil).list_for_visitors,
+              entity: entity
+          }
+      )
+    %>
+  </div>
 
   <%= render 'shared/forms/state_container' %>
 

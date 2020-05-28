@@ -10,6 +10,10 @@
       <%= simple_format(@entity.description) %>
     </div>
 
+    <% unless @entity.region.nil? %>
+      <div class="region"><%= @entity.region.long_name %></div>
+    <% end %>
+
     <div class="categories">
       <dfn>Категории</dfn>: <%= @entity.deed_categories.map(&:name).join(', ') %>
     </div>
