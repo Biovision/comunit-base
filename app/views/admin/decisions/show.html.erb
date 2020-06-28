@@ -1,0 +1,59 @@
+<% content_for :meta_title, t('.title', name: @entity.name) %>
+<% content_for :breadcrumbs do %>
+  <%= link_to(t('admin.decisions.nav_item.text'), admin_decisions_path) %>
+  <span><%= @entity.name %></span>
+<% end %>
+
+<article>
+  <h1><%= @entity.name %></h1>
+
+  <ul class="actions">
+    <li><%= back_icon(admin_decisions_path) %></li>
+    <li><%= edit_icon(edit_decision_path(id: @entity.id)) %></li>
+    <% if @entity.visible? %>
+      <li><%= world_icon(decision_path(id: @entity.uuid)) %></li>
+    <% end %>
+  </ul>
+
+  <dl>
+    <div>
+      <dt><%= t('activerecord.attributes.decision.name') %></dt>
+      <dd><%= @entity.name %></dd>
+    </div>
+
+    <div>
+      <dt><%= t('activerecord.attributes.decision.body') %></dt>
+      <dd>
+        <div class="text">
+          <%= raw @entity.body %>
+        </div>
+      </dd>
+    </div>
+
+    <% unless @entity.end_date.blank? %>
+      <div>
+        <dt><%= t('activerecord.attributes.decision.end_date') %></dt>
+        <dd><%= time_tag(@entity.date) %></dd>
+      </div>
+    <% end %>
+
+    <%= render partial: 'shared/entity/uuid', locals: { entity: @entity } %>
+    <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
+  </dl>
+
+  <%=
+    render(
+        partial: 'shared/admin/toggleable',
+        locals: {
+            entity: @entity,
+            url: toggle_admin_decision_path(id: @entity.id)
+        }
+    )
+  %>
+
+  <%=
+    render(
+        partial: 'admin/decisions/entity/answers', locals: { entity: @entity }
+    )
+  %>
+</article>

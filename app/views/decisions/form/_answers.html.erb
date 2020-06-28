@@ -1,0 +1,38 @@
+<section>
+  <h2><%= t('.heading') %></h2>
+
+  <ol>
+    <% entity.answers.each do |uuid, answer| %>
+      <li>
+        <%=
+          text_field_tag(
+              "answers[#{uuid}]",
+              answer,
+              class: 'input-text',
+              maxlength: 250,
+              size: nil
+          )
+        %>
+        (<%= t(:decision_count, count: entity.answer_count(uuid)) %>)
+      </li>
+    <% end %>
+    <% 2.times do %>
+      <li>
+        <%=
+          text_field_tag(
+              "answers[#{SecureRandom.uuid}]",
+              '',
+              class: 'input-text',
+              maxlength: 250,
+              size: nil,
+          )
+        %>
+      </li>
+    <% end %>
+    <li class="hidden">
+      <button class="js-decisions-add-answer button-nav" type="button">
+        <%= t('.add') %>
+      </button>
+    </li>
+  </ol>
+</section>

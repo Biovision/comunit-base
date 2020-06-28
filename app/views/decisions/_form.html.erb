@@ -1,0 +1,69 @@
+<% model_name = entity.class.to_s.underscore %>
+<%=
+  form_with(
+      model: entity,
+      html: {
+          id: "#{model_name}-form",
+          data: { check_url: check_decisions_path }
+      }
+  ) do |f|
+%>
+  <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+
+  <dl class="fields">
+    <div>
+      <dt><%= f.label :name %></dt>
+      <dd>
+        <%=
+          f.text_field(
+              :name,
+              class: 'input-text',
+              data: { check: :name },
+              maxlength: Decision::NAME_LIMIT,
+              required: true,
+              size: nil
+          )
+        %>
+        <div class="check-result-error" data-field="name"></div>
+        <div class="guideline"><%= t('.guidelines.name') %></div>
+      </dd>
+    </div>
+
+    <div>
+      <dt><%= f.label :end_date %></dt>
+      <dd><%= f.date_field(:date) %></dd>
+    </div>
+
+    <div>
+      <dt><%= f.label :body %></dt>
+      <dd>
+        <div>
+          <button type="button" class="js-wysiwyg-toggle" data-element="<%= model_name %>_body">WYSIWYG</button>
+        </div>
+        <%=
+          f.text_area(
+              :body,
+              cols: 20,
+              data: {
+                  upload_url: admin_component_images_path(slug: component_handler.slug)
+              },
+              required: true,
+              rows: 5
+          )
+        %>
+      </dd>
+    </div>
+    <%= render partial: 'shared/forms/entity_flags', locals: { f: f } %>
+  </dl>
+
+  <%= render partial: 'decisions/form/answers', locals: { entity: entity } %>
+
+  <%= render 'shared/forms/state_container' %>
+
+  <div class="buttons">
+    <%= hidden_field_tag :entity_id, entity.id %>
+    <%= f.button t(:save), class: 'button-save' %>
+  </div>
+<% end %>
+
+<%= render 'shared/forms/toggle_wysiwyg' %>

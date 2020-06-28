@@ -1,0 +1,33 @@
+<div class="image">
+  <%= simple_image_preview(entity) %>
+</div>
+<div class="data">
+  <div><%= admin_decision_link(entity) %></div>
+  <div class="info">
+    <%= entity.end_date %>
+  </div>
+  <div class="secondaty info">
+    <%= t('activerecord.attributes.decision.answers') %>:
+    <%= entity.answers.values.join(' / ') %>
+  </div>
+  <div class="secondary info">
+    <%= entity.uuid %>
+  </div>
+
+  <%=
+    render(
+        partial: 'shared/admin/toggleable',
+        locals: {
+            entity: entity,
+            url: toggle_admin_decision_path(id: entity.id)
+        }
+    )
+  %>
+
+  <ul class="actions">
+    <li><%= edit_icon(edit_decision_path(id: entity.id)) %></li>
+    <% if entity.visible? %>
+      <li><%= world_icon(decision_path(id: entity.uuid)) %></li>
+    <% end %>
+  </ul>
+</div>

@@ -1,0 +1,40 @@
+<section class="decision-block">
+  <h2><%= decision.name %></h2>
+
+  <div class="text">
+    <%= raw decision.body %>
+  </div>
+
+  <% if current_user.nil? %>
+    <p class="anonymous-user">
+      Для голосования вам нужно <%= link_to('войти', login_path) %> или
+      <%= link_to('зарегистрироваться', new_my_profile_path) %>
+    </p>
+  <% else %>
+    <% if decision.voted?(current_user) %>
+      <ul class="answers">
+        <% decision.answers.each do |uuid, answer| %>
+          <li>
+            <%= answer %>:
+            <%= t(:decision_count, count: decision.answer_count(uuid)) %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <%= form_with(url: vote_decision_path(id: decision.uuid), method: :post, class: 'decision-vote') do %>
+        <ul>
+          <% decision.answers.each do |uuid, answer| %>
+            <li>
+              <% element_id = "answer_#{uuid}" %>
+              <%= radio_button_tag('answer', uuid, false, id: element_id, required: true) %>
+              <%= label_tag element_id, answer %>
+            </li>
+          <% end %>
+        </ul>
+        <div class="buttons">
+          <%= button_tag('Голосовать') %>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+</section>

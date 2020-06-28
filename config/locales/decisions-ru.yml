@@ -1,10 +1,10 @@
 ru:
   decision_count:
-    zero: "решений нет"
-    one: "%{count} решение"
-    few: "%{count} решения"
-    many: "%{count} решений"
-    other: "%{count} решений"
+    zero: "голосов нет"
+    one: "%{count} голос"
+    few: "%{count} голоса"
+    many: "%{count} голосов"
+    other: "%{count} голосов"
   activerecord:
     models:
       decision: "Решение для голосования"
@@ -20,3 +20,41 @@ ru:
         decision: "Решение для голосования"
         decision_id: "Решение для голосования"
         answer: "Ответ"
+  biovision:
+    components:
+      decisions:
+        name: "Принятие решений"
+  decisions:
+    destroy:
+      success: "Решение для голосования удалено"
+    form:
+      guidelines:
+        name: "Максимум 250 символов"
+      answers:
+        heading: "Варианты ответа"
+        add: "Добавить вариант"
+    edit:
+      title: "Редактирование решения для голосования"
+      nav_text: "Редактировать"
+      heading: "Редактирование решения для голосования"
+    new:
+      title: "Создание решения для голосования"
+      nav_text: "Создать"
+      heading: "Новое решение для голосования"
+  admin:
+    decisions:
+      nav_item:
+        text: "Решения для голосования"
+        description: "Все решения для голосования"
+      index:
+        title: "Решения для голосования"
+        heading: "Решения для голосования"
+      show:
+        title: "Решение для голосования «%{name}»"
+      entity:
+        answers:
+          heading: "Варианты ответов"
+    decision_users:
+      nav_item:
+        text: "Голоса пользователей по решениям"
+        description: "Список голосов пользователей по решениям"

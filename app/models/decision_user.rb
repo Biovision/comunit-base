@@ -22,4 +22,12 @@ class DecisionUser < ApplicationRecord
 
   validates_presence_of :answer
   validates_uniqueness_of :decision_id, scope: :user_id
+
+  scope :recent, -> { order('id desc') }
+  scope :list_for_administration, -> { recent }
+
+  # @param [Integer] page
+  def self.page_for_administration(page = 1)
+    list_for_administration.page(page)
+  end
 end

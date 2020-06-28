@@ -26,8 +26,8 @@ class Admin::CampaignsController < AdminController
 
   private
 
-  def component_slug
-    Biovision::Components::CampaignsComponent::SLUG
+  def component_class
+    Biovision::Components::CampaignsComponent
   end
 
   def set_entity

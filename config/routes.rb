@@ -120,7 +120,11 @@ Rails.application.routes.draw do
       get :regions, on: :collection
     end
 
-    resources :decisions, except: %i[delete update], concerns: :check
+    resources :decisions, except: %i[delete update], concerns: :check do
+      member do
+        post 'vote' => :vote
+      end
+    end
 
     namespace :admin do
       resources :groups, only: %i[index show] do
@@ -136,6 +140,9 @@ Rails.application.routes.draw do
           delete 'privileges/:privilege_id' => :remove_privilege, defaults: { format: :json }
         end
       end
+
+      resources :decisions, only: %i[index show], concerns: :toggle
+      resources :decision_users, only: %i[index show]
 
       resources :albums, only: %i[index show], concerns: :toggle do
         member do

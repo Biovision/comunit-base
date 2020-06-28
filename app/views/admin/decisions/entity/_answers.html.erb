@@ -1,0 +1,12 @@
+<section>
+  <h2><%= t('.heading') %></h2>
+
+  <ol>
+    <% entity.answers.each do |uuid, answer| %>
+    <li>
+      <%= answer %> (<%= t(:decision_count, count: entity.answer_count(uuid)) %>)
+      <div><%= uuid %></div>
+    </li>
+    <% end %>
+  </ol>
+</section>
