@@ -1,0 +1,49 @@
+.decision-block {
+  box-shadow: 0 0 .2rem hsla(230, 75%, 75%, .75);
+  padding: var(--spacer-xs);
+
+  h2 {
+    font-size: var(--font-size-xl);
+    text-align: center;
+  }
+
+  .text {
+    background: #f7f7f7;
+    font-size: var(--font-size-increased);
+    margin: var(--spacer-s) 0;
+    padding: var(--spacer-s);
+
+    p:first-of-type {
+      margin-top: 0;
+    }
+
+    p:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  .anonymous-user {
+    background: hsl(0, 80%, 97%);
+    border-left: .4rem solid hsl(0, 80%, 50%);
+    box-shadow: .1rem .1rem .3rem hsl(0, 80%, 50%);
+    margin: var(--spacer-s) 0;
+    padding: var(--spacer-s);
+  }
+
+  .answers {
+    border-top: .1rem solid var(--text-color-secondary);
+    margin: var(--spacer-s) 0;
+    padding: var(--spacer-s);
+  }
+
+  ul {
+    list-style: none;
+    margin: var(--spacer-s) 0;
+    padding: 0;
+  }
+
+  li {
+    margin: 0;
+    padding: var(--spacer-xxs);
+  }
+}

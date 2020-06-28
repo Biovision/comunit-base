@@ -73,4 +73,10 @@ class Decision < ApplicationRecord
   def remove_vote(user)
     decision_users.owned_by(user).delete_all
   end
+
+  # @param [String] answer_uuid
+  def percent(answer_uuid)
+    vote_count = decision_users.count
+    answer_count(answer_uuid).to_f / vote_count * 100
+  end
 end

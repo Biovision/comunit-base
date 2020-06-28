@@ -11,30 +11,33 @@
       <%= link_to('зарегистрироваться', new_my_profile_path) %>
     </p>
   <% else %>
-    <% if decision.voted?(current_user) %>
-      <ul class="answers">
-        <% decision.answers.each do |uuid, answer| %>
-          <li>
-            <%= answer %>:
-            <%= t(:decision_count, count: decision.answer_count(uuid)) %>
-          </li>
-        <% end %>
-      </ul>
-    <% else %>
-      <%= form_with(url: vote_decision_path(id: decision.uuid), method: :post, class: 'decision-vote') do %>
+    <div class="answers">
+      <% if decision.voted?(current_user) %>
         <ul>
           <% decision.answers.each do |uuid, answer| %>
             <li>
-              <% element_id = "answer_#{uuid}" %>
-              <%= radio_button_tag('answer', uuid, false, id: element_id, required: true) %>
-              <%= label_tag element_id, answer %>
+              <%= answer %> — <%= decision.percent(uuid).round(2) %>%
+              (<%= t(:decision_count, count: decision.answer_count(uuid)) %>)
             </li>
           <% end %>
         </ul>
-        <div class="buttons">
-          <%= button_tag('Голосовать') %>
-        </div>
+      <% else %>
+        <%= form_with(url: vote_decision_path(id: decision.uuid), method: :post, class: 'decision-vote') do %>
+          <h3>Выберите ваш вариант</h3>
+          <ul>
+            <% decision.answers.each do |uuid, answer| %>
+              <li>
+                <% element_id = "answer_#{uuid}" %>
+                <%= radio_button_tag('answer', uuid, false, id: element_id, required: true) %>
+                <%= label_tag element_id, answer %>
+              </li>
+            <% end %>
+          </ul>
+          <div class="buttons">
+            <%= button_tag('Голосовать', class: 'button-save') %>
+          </div>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   <% end %>
 </section>
