@@ -50,6 +50,9 @@ Rails.application.routes.draw do
   resources :deed_categories, only: %i[destroy update]
   resources :deeds, only: %i[destroy update]
 
+  resources :decisions, only: %i[destroy update]
+  resources :decision_users, only: %i[destroy update]
+
   scope '(:locale)', constraints: { locale: /ru|en/ } do
     root 'index#index'
 
@@ -116,6 +119,8 @@ Rails.application.routes.draw do
     resources :deeds, except: %i[update destroy], concerns: :check do
       get :regions, on: :collection
     end
+
+    resources :decisions, except: %i[delete update], concerns: :check
 
     namespace :admin do
       resources :groups, only: %i[index show] do

@@ -29,6 +29,42 @@ Comunit::Base
 .env
 ```
 
+### Добавление JS
+
+После установки (`rails new .`) нужно добавить в yarn пакеты из компонентов.
+
+```bash
+yarn add jquery
+yarn add @biovision/biovision
+yarn add @biovision/posts
+yarn add @biovision/comments
+yarn add @biovision/votes
+yarn add @biovision/comunit
+```
+
+Добавить в `config/webpack/environment.js` со второй строки этот фрагмент:
+
+```js
+const webpack = require('webpack')
+environment.plugins.prepend('Provide',
+    new webpack.ProvidePlugin({
+        $: 'jquery/src/jquery',
+        jQuery: 'jquery/src/jquery'
+    })
+)
+```
+
+Добавить в `app/javascript/pack/application.js` эти строки:
+
+```js
+require("jquery")
+require("@biovision/biovision")
+require("@biovision/posts")
+require("@biovision/comments")
+require("@biovision/votes")
+require("@biovision/comunit")
+```
+
 ### Дополнения в `Gemfile`
 
 ```ruby
@@ -42,6 +78,8 @@ gem 'biovision-comment', git: 'https://github.com/Biovision/biovision-comment'
 # gem 'biovision-comment', path: '/Users/maxim/Projects/Biovision/gems/biovision-comment'
 gem 'biovision-vote', git: 'https://github.com/Biovision/biovision-vote'
 # gem 'biovision-vote', path: '/Users/maxim/Projects/Biovision/gems/biovision-vote'
+gem 'biovision-poll', git: 'https://github.com/Biovision/biovision-poll'
+# gem 'biovision-poll', path: '/Users/maxim/Projects/Biovision/gems/biovision-poll'
 gem 'comunit-base', git: 'https://github.com/Biovision/comunit-base'
 # gem 'comunit-base', path: '/Users/maxim/Projects/Biovision/Comunit/comunit-base'
 
@@ -71,21 +109,6 @@ SITE_ID=
 
 ### Добавления в `app/assets/`
 
-В `app/assets/javascripts/application.js` перед `//= require_tree .`
-
-```
-//= require jquery3
-//= require biovision/base/polyfills
-//= require biovision/base/biovision
-//= require biovision/base/components/video-stretcher
-//= require biovision/base/components/oembed
-//= require biovision/base/components/carousel
-//= require biovision/vote/biovision-vote
-//= require biovision/comment/biovision-comments
-//= require comunit/base/comunit-base
-//= require comunit/base/socialization
-```
-
 Заменить `app/assets/stylesheets/application.css` на `application.scss` из
 `sample/app/assets/stylesheets/`.
 
@@ -103,7 +126,7 @@ SITE_ID=
    
 ### Добавление жетона для работы с API
 
-В версии рельсов `5.2` вместо `secrets.yml` используется `credentials.yml`.
+В версии рельсов с `5.2` вместо `secrets.yml` используется `credentials.yml`.
 Для работы с ним нужно запустить в консоли `EDITOR=vim rails credentials:edit`.
 В список необходимо добавить этот параметр:
 
@@ -123,10 +146,6 @@ SITE_ID=
   config.time_zone = 'Moscow'
 ```
 
-### Изменения в `config/initializers/comunit_base.rb`
-
-_Нужно поменять `example` на соответствующее название проекта!_
-
 ### Дополнения в `config/puma.rb`
 
 Нужно закомментировать строку с портом (`port ENV.fetch('PORT') { 3000 }`), 
@@ -139,7 +158,6 @@ if ENV['RAILS_ENV'] == 'production'
   shared_path = '/var/www/example.com/shared'
   logs_dir    = "#{shared_path}/log"
 
-  pidfile "#{shared_path}/tmp/puma/pid"
   state_path "#{shared_path}/tmp/puma/state"
   bind "unix://#{shared_path}/tmp/puma.sock"
   stdout_redirect "#{logs_dir}/stdout.log", "#{logs_dir}/stderr.log", true
@@ -175,11 +193,8 @@ end
 Нужно раскомментировать строку `config.require_master_key = true` (19 на момент
 написания).
 
-Нужно поменять строку про `uglifier`, на `Uglifier.new(harmony: true)`, это
-26 строка на момент написания.
-
 Нужно заменить уровень журналирования ошибок с `:debug` на `:warn`. Это в районе
-54 строки (`config.log_level`). 
+51 строки (`config.log_level`). 
 
 Для настройки почты нужно поменять `example.com` на актуальный домен ниже.
 
@@ -213,7 +228,7 @@ end
       from: 'example.com <webmaster@example.com>',
       reply_to: 'support@example.com'
   }
-  config.action_mailer.default_url_options = { :host => '0.0.0.0:3000' }
+  config.action_mailer.default_url_options = { host: '0.0.0.0:3000' }
 ```
   
 ### Дополнения в `config/environments/development.rb`
@@ -226,7 +241,7 @@ end
       from: 'example.com <webmaster@example.com>',
       reply_to: 'support@example.com'
   }
-  config.action_mailer.default_url_options = { :host => '0.0.0.0:3000' }
+  config.action_mailer.default_url_options = { host: '0.0.0.0:3000' }
 ```
 
 После настройки
@@ -237,11 +252,7 @@ bundle binstubs bundler --force
 bundle binstub puma
 rails db:create
 rails railties:install:migrations
-```
 
-Дальше в консоли:
-
-```bash
 rails db:migrate
 mina init
 ```
@@ -266,8 +277,9 @@ end
 
 ```bash
 mkdir -p shared/tmp/puma
-mkdir -p shared/public/uploads/region
+mkdir -p shared/tmp/pids
 mkdir -p shared/tmp/import
+mkdir -p shared/public/uploads/region
 mkdir -p shared/config
 cd shared/public
 ln -s /var/www/shared/post_illustrations

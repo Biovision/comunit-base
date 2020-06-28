@@ -1,0 +1,22 @@
+ru:
+  decision_count:
+    zero: "решений нет"
+    one: "%{count} решение"
+    few: "%{count} решения"
+    many: "%{count} решений"
+    other: "%{count} решений"
+  activerecord:
+    models:
+      decision: "Решение для голосования"
+      decision_user: "Решение пользователя"
+    attributes:
+      decision:
+        active: "Активное"
+        answers: "Варианты"
+        body: "Текст"
+        end_date: "Дата окончания"
+        name: "Название"
+      decision_user:
+        decision: "Решение для голосования"
+        decision_id: "Решение для голосования"
+        answer: "Ответ"

@@ -14,11 +14,10 @@ Post.class_eval do
   def self.regional(selected_region = nil, excluded_region = nil)
     excluded_ids = Array(excluded_region&.subbranch_ids)
     if selected_region.nil?
-      chunk = excluded_ids.any? ? where('region_id not in (?)', excluded_ids) : where('region_id is not null')
+      excluded_ids.any? ? where('region_id not in (?)', excluded_ids) : where('region_id is not null')
     else
-      chunk = where(region_id: selected_region.subbranch_ids - excluded_ids)
+      where(region_id: selected_region.subbranch_ids - excluded_ids)
     end
-    chunk
   end
 
   def prepare_slug

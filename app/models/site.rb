@@ -5,6 +5,7 @@
 # Attributes:
 #   active [Boolean]
 #   created_at [DateTime]
+#   data [JSONB]
 #   deleted [Boolean]
 #   description [String], optional
 #   host [String]
@@ -12,6 +13,7 @@
 #   name [String]
 #   updated_at [DateTime]
 #   users_count [Integer]
+#   uuid [UUID]
 class Site < ApplicationRecord
   mount_uploader :image, SimpleImageUploader
 

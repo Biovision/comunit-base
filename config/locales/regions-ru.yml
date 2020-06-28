@@ -28,6 +28,9 @@ ru:
         name: "Центр"
         short_name: "Центр"
         locative: "в центре"
+  attributes:
+    region: "Регион"
+    region_id: "Регион"
   admin:
     countries:
       nav_item:

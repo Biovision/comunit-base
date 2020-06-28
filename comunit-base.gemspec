@@ -21,12 +21,11 @@ Gem::Specification.new do |s|
   s.add_dependency 'biovision-post'
   s.add_dependency 'biovision-comment'
   s.add_dependency 'biovision-poll'
-  s.add_dependency 'rest-client'
-  s.add_dependency 'jquery-rails'
   s.add_dependency 'dotenv-rails'
+  s.add_dependency 'rest-client'
 
-  s.add_development_dependency 'pg'
-  s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'database_cleaner'
   s.add_development_dependency 'factory_bot_rails'
+  s.add_development_dependency 'pg'
+  s.add_development_dependency 'rspec-rails'
 end

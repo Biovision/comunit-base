@@ -6,8 +6,6 @@ class CreateRegions < ActiveRecord::Migration[5.2]
     create_component
     create_countries unless Country.table_exists?
     create_regions unless Region.table_exists?
-
-    add_region_to_privileges unless column_exists?(:user_privileges, :region_id)
   end
 
   def down
@@ -68,9 +66,5 @@ class CreateRegions < ActiveRecord::Migration[5.2]
     end
 
     add_foreign_key :regions, :regions, column: :parent_id, on_update: :cascade, on_delete: :cascade
-  end
-
-  def add_region_to_privileges
-    add_reference :user_privileges, :region, foreign_key: { on_update: :cascade, on_delete: :cascade }
   end
 end

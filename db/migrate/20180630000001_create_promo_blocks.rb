@@ -10,8 +10,6 @@ class CreatePromoBlocks < ActiveRecord::Migration[5.2]
         t.string :name
         t.string :description
       end
-
-      create_privileges
     end
   end
 
@@ -19,11 +17,5 @@ class CreatePromoBlocks < ActiveRecord::Migration[5.2]
     if PromoBlock.table_exists?
       drop_table :promo_blocks
     end
-  end
-
-  private
-
-  def create_privileges
-    Privilege.create(slug: 'promo_manager', name: 'Управляющий рекламой')
   end
 end

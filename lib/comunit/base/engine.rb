@@ -6,25 +6,24 @@ module Comunit
     require 'biovision/base'
     require 'biovision/post'
     require 'biovision/vote'
-    # require 'biovision/poll'
+    require 'biovision/poll'
     require 'biovision/comment'
     require 'carrierwave'
     require 'mini_magick'
     require 'carrierwave-bombshelter'
     require 'rest-client'
-    require 'jquery-rails'
 
     class Engine < ::Rails::Engine
       initializer 'comunit_base.load_base_methods' do
         require_dependency 'comunit/base/privilege_methods'
-        require_dependency 'comunit/base/decorators/controllers/admin/privileges_controller_decorator'
-        require_dependency 'comunit/base/decorators/controllers/poll_answers_controller_decorator'
-        require_dependency 'comunit/base/decorators/controllers/poll_questions_controller_decorator'
-        require_dependency 'comunit/base/decorators/controllers/polls_controller_decorator'
-        require_dependency 'comunit/base/decorators/controllers/posts_controller_decorator'
-        require_dependency 'comunit/base/decorators/models/user_decorator'
-        require_dependency 'comunit/base/decorators/models/user_privilege_decorator'
-        require_dependency 'comunit/base/decorators/models/post_decorator'
+        # require_dependency 'comunit/base/decorators/controllers/admin/privileges_controller_decorator'
+        # require_dependency 'comunit/base/decorators/controllers/poll_answers_controller_decorator'
+        # require_dependency 'comunit/base/decorators/controllers/poll_questions_controller_decorator'
+        # require_dependency 'comunit/base/decorators/controllers/polls_controller_decorator'
+        # require_dependency 'comunit/base/decorators/controllers/posts_controller_decorator'
+        # require_dependency 'comunit/base/decorators/models/user_decorator'
+        # require_dependency 'comunit/base/decorators/models/user_privilege_decorator'
+        # require_dependency 'comunit/base/decorators/models/post_decorator'
 
         ActiveSupport.on_load(:action_controller) do
           include Comunit::Base::PrivilegeMethods
