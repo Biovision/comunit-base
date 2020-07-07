@@ -15,12 +15,12 @@ module Comunit
       # @param [Symbol] privilege_name
       # @param [Array] region_ids
       def current_user_has_privilege?(privilege_name, region_ids = [])
-        ::UserPrivilege.user_has_privilege?(current_user, privilege_name, region_ids)
+        current_user&.super_user?
       end
 
       # @param [Symbol] group_name
       def current_user_in_group?(group_name)
-        ::UserPrivilege.user_in_group?(current_user, group_name)
+        current_user&.super_user?
       end
 
       protected

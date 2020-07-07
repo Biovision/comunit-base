@@ -1,0 +1,14 @@
+<% allow_new ||= false %>
+<article>
+  <div class="content-wrapper">
+    <h1><%= heading %></h1>
+
+    <% if allow_new && local_assigns[:path_for_new] %>
+      <ul class="actions">
+        <li><%= create_icon(path_for_new) %></li>
+      </ul>
+    <% end %>
+
+    <%= render partial: 'posts/collection', locals: { collection: collection } %>
+  </div>
+</article>

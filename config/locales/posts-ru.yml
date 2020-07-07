@@ -16,11 +16,18 @@ ru:
   activerecord:
     models:
       editorial_member: "Член редакции"
+      editorial_member_post_type: "Тип публикации для члена редакции"
       featured_post: "Избранная публикация"
       post: "Публикация"
       post_attachment: "Приложение к публикации"
       post_category: "Категория публикации"
+      post_group: "Группа категорий публикаций"
+      post_group_category: "Категория публикаций в группе"
+      post_group_tag: "Метка публикаций в группе"
+      post_illustration: "Иллюстрация в теле публикации"
       post_image: "Картинка для публикации"
+      post_layout: "Шаблон отображения публикации"
+      post_post_category: "Связь категории и публикации"
       post_post_tag: "Метка у публикации"
       post_tag: "Метка"
       post_type: "Тип публикации"
@@ -44,6 +51,11 @@ ru:
         user: "Пользователь"
         user_id: "Пользователь"
         visible: "Показывать"
+      editorial_member_post_type:
+        editorial_member: "Член редакции"
+        editorial_member_id: "Член редакции"
+        post_type: "Тип публикации"
+        post_type_id: "Тип публикации"
       featured_post:
         language: "Язык"
         language_id: "Язык"
@@ -57,6 +69,7 @@ ru:
         author_name: "Имя автора"
         author_title: "Титул автора"
         author_url: "URL автора"
+        avoid_parsing: "Не делать дополнительный разбор"
         body: "Текст"
         created_at: "Время публикации"
         explicit: "Откровенное содержание"
@@ -73,8 +86,11 @@ ru:
         original_post_id: "Оригинальная публикация"
         original_title: "Оригинальное название"
         privacy: "Видимость"
+        post_categories: "Категории"
         post_category: "Категория"
         post_category_id: "Категория"
+        post_layout: "Шаблон"
+        post_layout_id: "Шаблон"
         post_type: "Тип"
         post_type_id: "Тип"
         publication_time: "Время публикации"
@@ -102,6 +118,7 @@ ru:
         children_cache: "Кеш дочек"
         meta_description: "Описание для тэга meta"
         name: "Название"
+        nav_text: "Название для ссылки"
         parent_id: "Родительская категория"
         parents_cache: "Кеш родителей"
         post_type: "Тип публикации"
@@ -109,6 +126,28 @@ ru:
         priority: "Порядок сортировки"
         slug: "Идентификатор"
         visible: "Показывать"
+      post_group:
+        name: "Название"
+        nav_text: "Текст для навигации"
+        priority: "Порядок сортировки"
+        slug: "Идентификатор"
+        visible: "Показывать"
+      post_group_category:
+        post_category: "Категория"
+        post_category_id: "Категория"
+        post_group: "Группа"
+        post_group_id: "Группа"
+        priority: "Порядок сортировки"
+      post_group_tag:
+        post_tag: "Метка"
+        post_tag_id: "Метка"
+        post_group: "Группа"
+        post_group_id: "Группа"
+        priority: "Порядок сортировки"
+      post_illustration:
+        image: "Картинка"
+        user: "Пользователь"
+        user_id: "Пользователь"
       post_image:
         caption: "Название"
         description: "Описание"
@@ -120,6 +159,13 @@ ru:
         source_link: "Ссылка на источник изображения"
         source_name: "Источник изображения"
         visible: "Показывать"
+      post_layout:
+        name: "Название"
+        slug: "Идентификатор"
+      post_post_category:
+        post: "Публикация"
+        post_category: "Категория"
+        post_category_id: "Категория"
       post_tag:
         name: "Название"
         post_type: "Тип публикации"
@@ -153,6 +199,7 @@ ru:
       show:
         heading: "Член редакции"
         title: "Редакция: %{name}"
+        post_types: "Доступные типы публикаций"
     featured_posts:
       nav_item:
         description: "Управление списком избранных публикаций"
@@ -166,10 +213,32 @@ ru:
         title: "Категория публикаций «%{name}»"
         children: "Дочерние категории"
         new_child: "Добавить дочернюю категорию"
+    post_groups:
+      nav_item:
+        description: "Управление группировкой категорий публикаций"
+        text: "Группы категорий публикаций"
+      index:
+        title: "Группы категорий"
+        heading: "Группы категорий публикаций"
+      show:
+        title: "Группа категорий «%{name}»"
+        categories: "Категории"
+        add_category: "Добавить категорию"
+        tags: "Метки"
+        add_tag: "Добавить метку"
+    post_illustrations:
+      nav_item:
+        description: "Управление загруженными картинками публикаций"
+        text: "Загруженные картинки для публикаций"
+      index:
+        title: "Картинки для публикаций, страница %{page}"
+        heading: "Картинки в публикациях"
+      show:
+        title: "Картинка в публикации «%{name}»"
     post_images:
       nav_item:
-        description: "Управление картинками публикаций"
-        text: "Картинки публикаций"
+        description: "Управление галереями публикаций"
+        text: "Изображения в галереях публикаций"
       index:
         heading: "Картинки публикаций"
         title: "Картинки публикаций, страница %{page}"
@@ -209,16 +278,21 @@ ru:
       new_post:
         title: "Новая публикация типа «%{name}»"
         heading: "Добавить публикацию"
+      authors:
+        title: "Авторы для типа публикаций «%{name}»"
+        nav_text: "Авторы"
+        heading: "Авторы"
     posts:
       nav_item:
         description: "Управление публикациями"
-        text: "Публикации"
+        text: "Все публикации"
       index:
         heading: "Публикации"
         title: "Публикации, страница %{page}"
       show:
         title: "Публикация «%{name}»"
         images: "Картинки"
+        post_categories: "Категории"
       images:
         heading: "Картинки"
         nav_text: "Картинки"
@@ -227,21 +301,39 @@ ru:
         links:
           heading: "Связанные публикации"
           search: "Искать"
+        in_list:
+          post_categories: "Категории публикаций"
         attachments:
           heading: "Приложения"
-    themes:
-      index:
-        title: "Темы группировки публикаций"
-        heading: "Темы группировки публикаций"
-        description: "Управление темами группировки публикаций и новостей на главной"
-      show:
-        title: "Тема группировки публикаций «%{name}»"
+      filter:
+        filter: "Фильтровать"
+      search:
+        title: "Поиск публикаций"
+        nav_text: "Поиск"
+        heading: "Поиск публикаций"
+      search_form:
+        query: "Что искать"
+        search: "Искать"
     index:
       dashboard:
         biovision_post:
           heading: "Модуль публикаций"
-        posts_component:
-          heading: "Редакция"
+    post_links:
+      entity:
+        in_list:
+          post_categories: "Категории публикаций"
+    components:
+      user_settings:
+        posts:
+          heading: "Разрешённые типы и категории"
+  biovision:
+    components:
+      posts:
+        name: "Публикации"
+        privileges:
+          chief_editor: "Главный редактор"
+          deputy_chief_editor: "Заместитель главного редактора"
+          editor: "Редактор"
   editorial_members:
     new:
       heading: "Добавление члена редакции"
@@ -260,6 +352,7 @@ ru:
         about: "Максимум 5000 символов."
         lead: "Максимум 170 символов."
         title: "Максимум 150 символов."
+      post_types: "Доступные типы публикаций"
   post_categories:
     new:
       title: "Новая категория публикаций"
@@ -276,7 +369,26 @@ ru:
       guidelines:
         meta_description: "Максимум 250 символов."
         name: "Максимум 50 символов."
+        nav_text: "Используется для ссылок на категорию. Максимум 50 символов."
         slug: "Используется в URL. Только латинские буквы, цифры и дефис (кроме первого и последнего символа), максимум 50 символов."
+  post_groups:
+    new:
+      title: "Новая группа категорий"
+      heading: "Добавление группы категории публикаций"
+      nav_text: "Создать"
+    edit:
+      title: "Редактирование группы категории публикаций"
+      heading: "Редактирование группы категории публикаций"
+      nav_text: "Редактировать"
+    update:
+      success: "Группа категории публикаций успешно изменена"
+    destroy:
+      success: "Группа категорий публикаций успешно удалена"
+    form:
+      guidelines:
+        name: "Максимум 50 символов."
+        nav_text: "Используется при выводе в меню, максимум 50 символов."
+        slug: "Используется в коде. Только латинские буквы, цифры, подчёркивание и дефис (кроме первого и последнего символа), максимум 30 символов."
   post_tags:
     new:
       heading: "Добавление метки публикаций"
@@ -350,9 +462,7 @@ ru:
       gallery:
         heading: "Галерея картинок"
         add_image: "Добавить изображение"
-      attachments:
-        heading: "Приложения"
-        add: "Добавить приложение"
+      categories: "Категории"
     post:
       source: "Источник"
       image_credit: "Источник изображения"
@@ -369,8 +479,8 @@ ru:
       gallery:
         heading: "Галерея"
     rss:
-      title: "Публикации сайта на Comunit CMS"
-      description: "RSS-канал сайта на Comunit CMS"
+      title: "Публикации сайта на Biovision CMS"
+      description: "RSS-канал сайта на Biovision CMS"
     archive_day:
       title: "Архив публикаций"
     calendar:
@@ -379,16 +489,8 @@ ru:
       title: "Поиск публикаций"
       nav_text: "Поиск публикаций"
       heading: "Поиск публикаций"
-  themes:
-    update:
-      success: "Тема группировки успешно обновлена"
-    destroy:
-      success: "Тема группировки успешно удалена"
-    new:
-      title: "Добавить тему группировки"
-    edit:
-      title: "Редактирование темы группировки"
-      forbidden: "Редактирование этой темы группировки запрещено"
+    category:
+      title: "Публикации в категории «%{category}», страница %{page}"
   index:
     dashboard:
       biovision_post:

@@ -1,0 +1,30 @@
+<% content_for :meta_title, t('.title') %>
+<% content_for :breadcrumbs do %>
+  <%= admin_biovision_component_link(component_handler.component) %>
+  <%= link_to(t('admin.posts.nav_item.text'), admin_posts_path) %>
+  <span><%= t('.nav_text') %></span>
+<% end %>
+
+<article>
+  <h1><%= t('.heading') %></h1>
+
+  <ul class="actions">
+    <li><%= return_icon(admin_posts_path) %></li>
+  </ul>
+
+  <%= render partial: 'admin/posts/search_form' %>
+
+  <% if @collection.respond_to?(:current_page) %>
+    <%= paginate @collection %>
+    <%=
+      render(
+          partial: 'shared/admin/list',
+          locals: {
+              collection: @collection,
+              handler: component_handler
+          }
+      )
+    %>
+    <%= paginate @collection %>
+  <% end %>
+</article>

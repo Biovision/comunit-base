@@ -1,0 +1,66 @@
+<% content_for :meta_title, t('.title', name: @entity.name) %>
+<% content_for :breadcrumbs do %>
+  <%= admin_biovision_component_link(component_handler.component) %>
+  <%= link_to(t('admin.post_groups.nav_item.text'), admin_post_groups_path) %>
+  <span><%= @entity.name %></span>
+<% end %>
+
+<article>
+  <h1><%= @entity.name %></h1>
+
+  <ul class="actions">
+    <li><%= back_icon(admin_post_groups_path) %></li>
+  </ul>
+
+  <dl>
+    <dt><%= t('activerecord.attributes.post_group.priority') %></dt>
+    <dd><%= @entity.priority %></dd>
+
+    <dt><%= t('activerecord.attributes.post_group.slug') %></dt>
+    <dd><%= @entity.slug %></dd>
+  </dl>
+
+  <%=
+    render(
+        partial: 'shared/admin/toggleable',
+        locals: {
+            entity: @entity,
+            url: toggle_admin_post_group_path(id: @entity.id)
+        }
+    )
+  %>
+
+  <section>
+    <h2><%= t('.categories') %></h2>
+
+    <%=
+      render(
+          partial: 'shared/admin/list_with_priority',
+          locals: {
+              collection: @entity.post_group_categories.list_for_administration
+          }
+      )
+    %>
+  </section>
+
+  <section>
+    <h2><%= t('.add_category') %></h2>
+
+    <% PostType.list_for_administration.each do |post_type| %>
+      <div>
+        <h3><%= post_type.name %></h3>
+        <% categories = PostCategory.list_for_tree(post_type) %>
+        <%=
+          render(
+              partial: 'admin/post_groups/entity/categories',
+              locals: {
+                  collection: categories.select { |_, i| i[:parent_id].nil? },
+                  categories: categories,
+                  post_group: @entity
+              }
+          )
+        %>
+      </div>
+    <% end %>
+  </section>
+</article>

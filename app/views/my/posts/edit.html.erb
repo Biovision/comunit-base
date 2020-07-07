@@ -1,0 +1,27 @@
+<% content_for :meta_title, t('.title') %>
+<% content_for :breadcrumbs do %>
+  <%= link_to(t('my.posts.index.nav_text'), my_posts_path) %>
+  <%= my_post_link(@entity) %>
+  <span><%= t('.nav_text') %></span>
+<% end %>
+
+<article>
+  <h1><%= t('.heading') %></h1>
+
+  <% unless @entity.locked? %>
+    <ul class="actions">
+      <li><%= return_icon(my_post_path(id: @entity.id)) %></li>
+      <li class="danger"><%= destroy_path_icon(my_post_path(id: @entity.id)) %></li>
+    </ul>
+  <% end %>
+
+  <%=
+    render(
+        partial: 'form',
+        locals: {
+            entity: @entity,
+            handler: component_handler
+        }
+    )
+  %>
+</article>

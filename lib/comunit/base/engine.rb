@@ -4,12 +4,9 @@ module Comunit
   module Base
     require 'dotenv-rails'
     require 'biovision/base'
-    require 'biovision/post'
     require 'biovision/vote'
     require 'biovision/poll'
     require 'biovision/comment'
-    require 'carrierwave'
-    require 'mini_magick'
     require 'carrierwave-bombshelter'
     require 'rest-client'
 
@@ -20,10 +17,8 @@ module Comunit
         # require_dependency 'comunit/base/decorators/controllers/poll_answers_controller_decorator'
         # require_dependency 'comunit/base/decorators/controllers/poll_questions_controller_decorator'
         # require_dependency 'comunit/base/decorators/controllers/polls_controller_decorator'
-        # require_dependency 'comunit/base/decorators/controllers/posts_controller_decorator'
         # require_dependency 'comunit/base/decorators/models/user_decorator'
         # require_dependency 'comunit/base/decorators/models/user_privilege_decorator'
-        # require_dependency 'comunit/base/decorators/models/post_decorator'
 
         ActiveSupport.on_load(:action_controller) do
           include Comunit::Base::PrivilegeMethods

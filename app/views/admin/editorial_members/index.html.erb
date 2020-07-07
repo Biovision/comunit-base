@@ -1,0 +1,16 @@
+<% content_for :meta_title, t('.title') %>
+<% content_for :breadcrumbs do %>
+  <%= admin_biovision_component_link(component_handler.component) %>
+  <span><%= t('admin.editorial_members.nav_item.text') %></span>
+<% end %>
+
+<article>
+  <h1><%= t('.heading') %></h1>
+
+  <ul class="actions">
+    <li><%= back_icon(admin_path) %></li>
+    <li><%= create_icon(new_editorial_member_path) %></li>
+  </ul>
+
+  <%= render partial: 'shared/admin/list_with_priority', locals: { collection: @collection } %>
+</article>

@@ -9,8 +9,6 @@ class CreateRegions < ActiveRecord::Migration[5.2]
   end
 
   def down
-    remove_column(:user_privileges, :region_id) if column_exists?(:user_privileges, :region_id)
-
     drop_table :regions if Region.table_exists?
     drop_table :countries if Country.table_exists?
   end
@@ -18,7 +16,7 @@ class CreateRegions < ActiveRecord::Migration[5.2]
   private
 
   def create_component
-    BiovisionComponent.create(slug: Biovision::Components::RegionsComponent::SLUG)
+    BiovisionComponent.create(slug: Biovision::Components::RegionsComponent.slug)
   end
 
   def create_countries

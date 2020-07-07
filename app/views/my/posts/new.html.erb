@@ -1,0 +1,22 @@
+<% content_for :meta_title, t('.title') %>
+<% content_for :breadcrumbs do %>
+  <span><%= t('.heading') %></span>
+<% end %>
+
+<article>
+  <h1><%= t('.heading') %></h1>
+
+  <ul class="actions">
+    <li><%= return_icon(my_posts_path) %></li>
+  </ul>
+
+  <%=
+    render(
+        partial: 'form',
+        locals: {
+            entity: @entity,
+            handler: component_handler
+        }
+    )
+  %>
+</article>
