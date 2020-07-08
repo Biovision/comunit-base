@@ -1,0 +1,27 @@
+<article class="biovision-poll">
+  <h1><%= poll.name %></h1>
+
+  <% if poll.editable_by?(current_user) %>
+    <ul class="actions">
+      <li><%= gear_icon(admin_poll_path(id: poll.id)) %></li>
+    </ul>
+  <% end %>
+
+  <div class="description"><%= poll.description %></div>
+
+  <% if @entity.voted?(current_user) %>
+    <div class="message-box-notice"><%= t('.you_have_voted') %></div>
+    <nav><%= link_to(t('.see_results'), results_poll_path(id: poll.id), class: 'button-nav') %></nav>
+  <% else %>
+    <%= form_tag results_poll_path(id: poll.id), method: :post do %>
+      <%= render poll.poll_questions.ordered_by_priority %>
+
+      <div class="buttons">
+        <%= button_tag t('.answer'), type: :submit, class: 'button-primary' %>
+        <% if poll.open_results? %>
+          <%= link_to('Результаты', results_poll_path(id: poll.id), class: 'button-nav') %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</article>

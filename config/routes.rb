@@ -63,6 +63,8 @@ Rails.application.routes.draw do
   resources :post_groups, only: %i[update destroy]
   resources :post_attachments, only: :destroy
 
+  resources :polls, :poll_questions, :poll_answers, only: %i[update destroy]
+
   scope '(:locale)', constraints: { locale: /ru|en/ } do
     root 'index#index'
 
@@ -191,6 +193,14 @@ Rails.application.routes.draw do
     scope 'u/:slug', controller: :profiles, constraints: { slug: %r{[^/]+} } do
       get 'posts' => :posts, as: :user_posts
     end
+
+    resources :polls, except: %i[update destroy], concerns: :check do
+      member do
+        post 'results' => :answer
+        get 'results'
+      end
+    end
+    resources :poll_questions, :poll_answers, only: %i[create edit], concerns: :check
 
     namespace :admin do
       resources :groups, only: %i[index show] do
@@ -324,6 +334,16 @@ Rails.application.routes.draw do
       scope 'post_links', controller: :post_links do
         post ':id/priority' => :priority, as: :priority_post_link, defaults: { format: :json }
       end
+
+      resources :polls, only: %i[index show], concerns: :toggle do
+        member do
+          get 'users'
+          post 'users' => :add_user, defaults: { format: :json }
+          delete 'users/:user_id' => :remove_user, as: :user, defaults: { format: :json }
+        end
+      end
+      resources :poll_questions, only: :show, concerns: %i[priority toggle]
+      resources :poll_answers, only: :show, concerns: :priority
     end
 
     namespace :editorial do

@@ -1,0 +1,79 @@
+<% model_name = entity.class.to_s.underscore %>
+<%=
+  form_with(
+      model: entity,
+      html: {
+          id: "#{model_name}-form",
+          data: { check_url: check_polls_path }
+      }
+  ) do |f|
+%>
+  <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+
+  <dl class="fields">
+    <div>
+      <dt><%= f.label :name %></dt>
+      <dd>
+        <%=
+          f.text_field(
+              :name,
+              class: 'input-text',
+              data: {
+                  check: :name
+              },
+              maxlength: Poll::NAME_LIMIT,
+              placeholder: t('.placeholders.name'),
+              required: true,
+              size: nil
+          )
+        %>
+        <div class="check-result-error" data-field="name"></div>
+        <div class="guideline"><%= t('.guidelines.name') %></div>
+      </dd>
+    </div>
+
+    <!--
+    <div>
+      <dt><%= f.label :description %></dt>
+      <dd>
+        <%=
+          f.text_field(
+              :description,
+              class: 'input-text',
+              data: {
+                  check: :description
+              },
+              maxlength: Poll::DESCRIPTION_LIMIT,
+              placeholder: t('.placeholders.description'),
+              size: nil,
+          )
+        %>
+        <div class="check-result-error" data-field="description"></div>
+        <div class="guideline"><%= t('.guidelines.description') %></div>
+      </dd>
+    </div>
+-->
+
+    <div>
+      <dt><%= f.label :end_date %></dt>
+      <dd>
+        <%=
+          f.date_field(
+              :end_date,
+              class: 'input-text',
+              size: 10
+          )
+        %>
+      </dd>
+    </div>
+
+    <%= render(partial: 'shared/forms/entity_flags', locals: { f: f }) %>
+  </dl>
+
+  <%= render 'shared/forms/state_container' %>
+
+  <div class="buttons">
+    <%= hidden_field_tag :entity_id, entity.id %>
+    <%= f.button t(:save), class: 'button-save' %>
+  </div>
+<% end %>

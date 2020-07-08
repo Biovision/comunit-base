@@ -1,0 +1,50 @@
+<% model_name = entity.class.to_s.underscore %>
+<%=
+  form_with(
+      model: entity,
+      html: {
+          id: "#{model_name}-form",
+          data: { check_url: check_poll_questions_path }
+      }
+  ) do |f|
+%>
+  <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+
+  <dl class="fields">
+    <% unless entity.id.nil? %>
+      <div>
+        <dt><%= t('activerecord.attributes.poll_answer.poll_question_id') %></dt>
+        <dd><%= admin_poll_question_link(entity.poll_question) %></dd>
+      </div>
+    <% end %>
+
+    <%= render partial: 'shared/forms/priority', locals: { f: f } %>
+
+    <div>
+      <dt><%= f.label :text %></dt>
+      <dd>
+        <%=
+          f.text_field(
+              :text,
+              class: 'input-text',
+              data: { check: :text },
+              maxlength: PollAnswer::TEXT_LIMIT,
+              placeholder: t('.placeholders.text'),
+              required: true,
+              size: nil
+          )
+        %>
+        <div class="check-result-error" data-field="name"></div>
+        <div class="guideline"><%= t('.guidelines.text') %></div>
+      </dd>
+    </div>
+  </dl>
+
+  <%= render 'shared/forms/state_container' %>
+
+  <div class="buttons">
+    <%= hidden_field_tag :entity_id, entity.id %>
+    <%= f.hidden_field :poll_question_id if entity.id.nil? %>
+    <%= f.button t(:save), class: 'button-save' %>
+  </div>
+<% end %>

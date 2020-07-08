@@ -1,0 +1,26 @@
+<% question = poll_answer.poll_question %>
+<div>
+  <% qid = poll_answer.poll_question_id %>
+  <% field_id = "poll_votes_#{qid}_#{poll_answer.id}" %>
+  <% if question.multiple_choice? %>
+    <%=
+      check_box_tag(
+          "answer[#{qid}][]",
+          poll_answer.id,
+          false,
+          id: field_id
+      )
+    %>
+  <% else %>
+    <%=
+      radio_button_tag(
+          "answer[#{qid}][]",
+          poll_answer.id,
+          false,
+          required: true,
+          id: field_id
+      )
+    %>
+  <% end %>
+  <%= label_tag(field_id, poll_answer.text) %>
+</div>

@@ -1,0 +1,48 @@
+<% content_for :meta_title, t('.title', poll: @entity.poll.name, answer: @entity.poll_question.text, question: @entity.text) %>
+<% content_for :breadcrumbs do %>
+  <%= admin_biovision_component_link(component_handler.component) %>
+  <%= link_to(t('admin.polls.index.nav_text'), admin_polls_path) %>
+  <%= admin_poll_link(@entity.poll) %>
+  <%= admin_poll_question_link(@entity.poll_question) %>
+  <span><%= @entity.priority %>: <%= @entity.text %></span>
+<% end %>
+
+<article>
+  <h1><%= @entity.text %></h1>
+
+  <ul class="actions">
+    <li><%= return_icon(admin_poll_question_path(id: @entity.poll_question_id)) %></li>
+    <li><%= edit_icon(edit_poll_answer_path(id: @entity.id)) %></li>
+  </ul>
+
+  <dl>
+    <div>
+      <dt><%= t('activerecord.attributes.poll_answer.poll_question_id') %></dt>
+      <dd>
+        <%= admin_poll_question_link(@entity.poll_question) %>
+      </dd>
+    </div>
+
+    <%= render partial: 'shared/entity/priority', locals: { entity: @entity } %>
+
+    <div>
+      <dt><%= t('activerecord.attributes.poll_answer.text') %></dt>
+      <dd>
+        <div class="text"><%= @entity.text %></div>
+      </dd>
+    </div>
+
+    <%= render partial: 'shared/entity/uuid', locals: { entity: @entity } %>
+    <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
+  </dl>
+
+  <%= render partial: 'admin/poll_answers/entity/data', locals: { entity: @entity } %>
+
+  <section>
+    <h2><%= t(:poll_vote_count, count: @entity.poll_votes_count) %></h2>
+
+    <%= paginate @collection %>
+    <%= render partial: 'shared/admin/list', locals: { collection: @collection } %>
+    <%= paginate @collection %>
+  </section>
+</article>

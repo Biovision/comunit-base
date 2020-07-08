@@ -1,0 +1,167 @@
+ru:
+  poll_answer_count:
+    zero: "ответов нет"
+    one: "%{count} ответ"
+    few: "%{count} ответа"
+    many: "%{count} ответов"
+    other: "%{count} ответов"
+  poll_question_count:
+    zero: "вопросов нет"
+    one: "%{count} вопрос"
+    few: "%{count} вопроса"
+    many: "%{count} вопросов"
+    other: "%{count} вопросов"
+  poll_vote_count:
+    zero: "голосов нет"
+    one: "%{count} голос"
+    few: "%{count} голоса"
+    many: "%{count} голосов"
+    other: "%{count} голосов"
+  activerecord:
+    models:
+      poll: "Опрос"
+      poll_answer: "Ответ на вопрос"
+      poll_question: "Вопрос"
+      poll_user: "Допущенный к голосованию пользователь"
+      poll_vote: "Голос в опросе"
+    attributes:
+      poll:
+        active: "Можно голосовать"
+        allow_comments: "Разрешить комментарии"
+        anonymous_votes: "Разрешить анонимные голоса"
+        description: "Описание"
+        end_date: "Дата окончания"
+        exclusive: "Эксклюзивный"
+        name: "Название"
+        open_results: "Результаты видны всем"
+        pollable_id: "Связанный объект"
+        pollable_type: "Тип связанного объекта"
+        show_on_homepage: "Показывать на главной"
+      poll_answer:
+        poll_question: "Вопрос"
+        poll_question_id: "Вопрос"
+        text: "Текст"
+      poll_question:
+        comment: "Комментарий"
+        multiple_choice: "Множественный выбор"
+        text: "Текст"
+      poll_vote:
+        poll_answer: "Ответ"
+  attributes:
+    poll: "Опрос"
+    poll_id: "Опрос"
+  biovision:
+    components:
+      polls:
+        name: "Опросы"
+        settings:
+          answer_limit: "Лимит ответов"
+          question_limit: "Лимит вопросов"
+  admin:
+    polls:
+      nav_item:
+        description: "Управление опросами"
+        text: "Список опросов"
+      index:
+        heading: "Список опросов"
+        title: "Опросы, страница %{page}"
+        nav_text: "Список опросов"
+      show:
+        title: "Опрос «%{name}»"
+        allowed_users: "Допущенные пользователи"
+      users:
+        title: "Опрос «%{name}»: допущенные пользователи, страница %{page}"
+        heading: "Допущенные пользователи"
+      entity:
+        user_filter:
+          heading: "Добавить пользователя"
+          add_user: "Добавить пользователя"
+    poll_questions:
+      show:
+        title: "Опрос «%{poll}»: %{question}"
+    poll_answers:
+      show:
+        title: "Опрос «%{poll}»: %{question} — «%{answer}»"
+    index:
+      dashboard:
+        biovision_poll:
+          heading: "Опросы"
+  polls:
+    new:
+      heading: "Новый опрос"
+      title: "Новый опрос"
+      nav_text: "Создать опрос"
+    edit:
+      heading: "Редактирование опроса"
+      title: "Редактирование опроса"
+      nav_text: "Редактировать"
+    update:
+      success: "Опрос успешно изменён"
+    destroy:
+      success: "Опрос успешно удалён"
+    form:
+      guidelines:
+        description: "Отображается перед вопросами. Максимум 255 символов."
+        image: "Картинка в формате JPG или PNG размером около 640×640 для иллюстрации."
+        name: "Суть опроса. Максимум 140 символов."
+      placeholders:
+        description: "Нужно проголосовать за лучший вариант"
+        name: "О принятии какого-либо решения"
+    index:
+      title: "Опросы, страница %{page}"
+      heading: "Опросы"
+    list:
+      no_polls: "Опросов нет"
+    entity:
+      in_list:
+        until: "до"
+        poll_ended: "Опрос окончен"
+    show:
+      title: "Опрос «%{name}»"
+    poll:
+      answer: "Ответить"
+      you_have_voted: "Вы уже проголосовали"
+      see_results: "Посмотреть результаты"
+    results:
+      title: "Результаты опроса «%{name}»"
+      heading: "Результаты опроса"
+  poll_questions:
+    new:
+      heading: "Новый вопрос"
+      title: "Новый вопрос"
+      nav_text: "Добавить вопрос"
+    edit:
+      heading: "Редактирование вопроса"
+      title: "Редактирование вопроса"
+      nav_text: "Редактировать вопрос"
+    update:
+      success: "Вопрос успешно изменён"
+    destroy:
+      success: "Вопрос успешно удалён"
+    form:
+      guidelines:
+        comment: "Максимум 140 символов."
+        image: "Картинка в формате JPG или PNG размером около 640×640 для иллюстрации."
+        text: "Максимум 140 символов."
+      placeholders:
+        comment: "Цветовая гамма — часть общего стиля"
+        text: "В какой цвет красить забор?"
+  poll_answers:
+    new:
+      heading: "Новый ответ на вопрос"
+      title: "Новый ответ на вопрос"
+      nav_text: "Добавить ответ"
+    edit:
+      heading: "Редактирование ответа на вопрос"
+      title: "Редактирование ответа на вопрос"
+      nav_text: "Редактировать ответ"
+    update:
+      success: "Ответ на вопрос успешно изменён"
+    destroy:
+      success: "Ответ на вопрос успешно удалён"
+    form:
+      guidelines:
+        image: "Картинка в формате JPG или PNG размером около 640×640 для иллюстрации."
+        text: "Максимум 140 символов."
+      placeholders:
+        text: "Идеологически правильный вариант"

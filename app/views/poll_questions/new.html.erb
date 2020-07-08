@@ -1,0 +1,19 @@
+<% content_for :meta_title, t('.title') %>
+<% content_for :breadcrumbs do %>
+  <%= admin_biovision_component_link(component_handler.component) %>
+  <%= link_to(t('admin.polls.index.nav_text'), admin_polls_path) %>
+  <%= admin_poll_link(@entity.poll) unless @entity.poll.nil? %>
+  <span><%= t('.nav_text') %></span>
+<% end %>
+
+<article>
+  <h1><%= t('.title') %></h1>
+
+  <% unless @entity.poll_id.nil? %>
+    <ul class="actions">
+      <li><%= return_icon(admin_poll_path(id: @entity.poll_id)) %></li>
+    </ul>
+  <% end %>
+
+  <%= render partial: 'form', locals: { entity: @entity } %>
+</article>

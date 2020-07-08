@@ -1,0 +1,28 @@
+<% content_for :meta_title, t('.title', name: @entity.name) %>
+
+<article>
+  <h1><%= @entity.name %></h1>
+  <h2><%= t('.heading') %></h2>
+
+  <% if component_handler.allow? %>
+    <ul class="actions">
+      <li><%= gear_icon(admin_poll_path(id: @entity.id)) %></li>
+    </ul>
+  <% end %>
+
+  <div class="biovision-poll-results">
+    <% @entity.poll_questions.list_for_visitors.each do |question| %>
+      <table>
+        <caption><%= question.text %></caption>
+        <tbody>
+        <% question.poll_answers.each do |answer| %>
+          <tr>
+            <th><%= answer.text %></th>
+            <td><%= answer.vote_percent %>%</td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+</article>

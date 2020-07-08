@@ -1,0 +1,10 @@
+<section>
+  <h2><%= poll_question.text %></h2>
+  <% unless poll_question.comment.blank? %>
+      <div class="description"><%= poll_question.comment %></div>
+  <% end %>
+
+  <div class="answers">
+    <%= render poll_question.poll_answers.ordered_by_priority %>
+  </div>
+</section>

@@ -1,0 +1,16 @@
+<div class="data">
+  <div><%= admin_poll_answer_link(entity) %></div>
+  <div class="secondary info">
+    <%= t(:poll_vote_count, count: entity.poll_votes_count) %>
+  </div>
+
+  <ul class="actions">
+    <li><%= edit_icon(edit_poll_answer_path(id: entity.id)) %></li>
+    <%=
+      render(
+          partial: 'shared/actions/priority_changer',
+          locals: { path: priority_admin_poll_answer_path(id: entity.id) }
+      )
+    %>
+  </ul>
+</div>

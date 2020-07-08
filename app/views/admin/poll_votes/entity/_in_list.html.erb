@@ -1,0 +1,17 @@
+<div class="data">
+  <div><%= admin_user_link(entity.user) %></div>
+  <div class="info">
+    <%= time_tag(entity.created_at) %>
+  </div>
+  <div class="secondary info">
+    <%= t('attributes.slug') %>:
+    <%= entity.slug %>
+  </div>
+      <div class="secondary info">
+        <%= entity.agent.name %>
+      </div>
+  <div class="secondary info">
+    <%= entity.uuid %>
+  </div>
+  <%= render partial: 'admin/poll_votes/entity/data', locals: { entity: entity } %>
+</div>

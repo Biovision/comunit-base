@@ -1,0 +1,42 @@
+<div class="data">
+  <div><%= admin_poll_link(entity) %></div>
+  <% unless entity.description.blank? %>
+    <div class="info">
+      <%= entity.description %>
+    </div>
+  <% end %>
+  <% unless entity.end_date.blank? %>
+    <div class="info">
+      <%= t('activerecord.attributes.poll.end_date') %>:
+      <%= time_tag entity.end_date %>
+    </div>
+  <% end %>
+  <div class="secondary info">
+    <%= admin_user_link(entity.user) %>
+    <% if entity.poll_questions.any? %>
+      <div>
+        <div><%= t(:poll_question_count, count: entity.poll_questions_count) %></div>
+        <ol>
+          <% entity.poll_questions.ordered_by_priority.each do |question| %>
+            <li><%= admin_poll_question_link(question) %></li>
+          <% end %>
+        </ol>
+      </div>
+    <% end %>
+  </div>
+
+  <%=
+    render(
+        partial: 'shared/admin/toggleable',
+        locals:  {
+            entity: entity,
+            url:    toggle_admin_poll_path(id: entity.id)
+        }
+    )
+  %>
+
+  <ul class="actions">
+    <li><%= world_icon(poll_path(id: entity.id)) %></li>
+    <li><%= edit_icon(edit_poll_path(id: entity.id)) %></li>
+  </ul>
+</div>

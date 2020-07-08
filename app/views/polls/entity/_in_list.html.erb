@@ -1,0 +1,20 @@
+<div class="name"><%= poll_link(entity) %></div>
+<% unless entity.description.blank? %>
+    <div class="description"><%= entity.description %></div>
+<% end %>
+<div class="info">
+  <div class="user"><%= user_link(entity.user) %></div>
+  <div class="question_count"><%= t(:poll_question_count, count: entity.poll_questions_count) %></div>
+  <% if entity.active? %>
+      <div class="state active">
+        <%= t('activerecord.attributes.poll.active') %>
+        <% unless entity.end_date.blank? %>
+            <%= t('.until') %> <%= time_tag(entity.end_date) %>
+        <% end %>
+      </div>
+  <% else %>
+      <div class="state inactive">
+        <%= t('.poll_ended') %>
+      </div>
+  <% end %>
+</div>

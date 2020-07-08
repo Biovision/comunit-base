@@ -1,0 +1,11 @@
+<% if collection.any? %>
+    <ul class="biovision-polls">
+      <% collection.each do |entity| %>
+          <li>
+            <%= render partial: 'polls/entity/in_list', locals: { entity: entity } %>
+          </li>
+      <% end %>
+    </ul>
+<% else %>
+    <div class="message-box-warning"><%= t('.no_polls') %></div>
+<% end %>

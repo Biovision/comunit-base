@@ -1,0 +1,18 @@
+<div class="image">
+  <%= profile_avatar(entity.user) %>
+</div>
+<div class="data">
+  <div><%= admin_user_link(entity.user) %> (<%= entity.user.slug %>)</div>
+  <div class="info">
+    <%= entity.user.email %><br/>
+    <%=
+      button_tag(
+          t(:delete),
+          class: 'button-destroy',
+          data:  {
+              url: user_admin_poll_path(id: entity.poll_id, user_id: entity.user_id)
+          }
+      )
+    %>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<% content_for :meta_title, t('.title', name: @entity.name, page: current_page) %>
+<% content_for :breadcrumbs do %>
+  <%= admin_biovision_component_link(component_handler.component) %>
+  <%= link_to(t('admin.polls.index.nav_text'), admin_polls_path) %>
+  <%= admin_poll_link(@entity) %>
+  <span><%= t('.heading') %></span>
+<% end %>
+
+<article>
+  <h1><%= @entity.name %></h1>
+  <h2><%= t('.heading') %></h2>
+
+  <ul class="actions">
+    <li><%= return_icon(admin_poll_path(id: @entity.id)) %></li>
+  </ul>
+
+  <div id="poll-allowed-users">
+    <%= render partial: 'shared/admin/list', locals: { collection: @collection } %>
+  </div>
+
+  <%= render partial: 'admin/polls/entity/user_filter', locals: { entity: @entity } %>
+</article>
