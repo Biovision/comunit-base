@@ -12,8 +12,6 @@ ru:
     attributes:
       promo_block:
         description: "Описание"
-        language: "Язык"
-        language_id: "Язык"
         name: "Название"
         promo_items_count: "Количество ссылок"
         slug: "Идентификатор"

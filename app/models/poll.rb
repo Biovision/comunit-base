@@ -14,7 +14,6 @@
 #   end_date [date], optional
 #   exclusive [boolean]
 #   ip [inet]
-#   language_id [Language], optional
 #   name [string]
 #   open_results [boolean]
 #   poll_questions_count [integer]

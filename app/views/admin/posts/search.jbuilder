@@ -2,7 +2,7 @@ json.data @collection do |entity|
   json.id entity.id
   json.type entity.class.table_name
   json.attributes do
-    json.(entity, :title, :publication_time, :language_id)
+    json.call(entity, :title, :publication_time)
   end
   json.relationships do
     unless entity.user.nil?

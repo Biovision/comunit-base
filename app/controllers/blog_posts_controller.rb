@@ -7,7 +7,7 @@ class BlogPostsController < ApplicationController
 
   # get /blog_posts
   def index
-    posts = PostType['blog_post'].posts.for_language(current_language)
+    posts = PostType['blog_post'].posts
     @collection = posts.page_for_visitors(current_page)
     respond_to do |format|
       format.html
@@ -17,7 +17,7 @@ class BlogPostsController < ApplicationController
 
   # get /blog_posts/:category_slug
   def category
-    posts = Post.in_category_branch(@category).for_language(current_language)
+    posts = Post.in_category_branch(@category)
     @collection = posts.page_for_visitors(current_page)
     respond_to do |format|
       format.html

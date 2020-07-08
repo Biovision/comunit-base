@@ -13,11 +13,6 @@
   </ul>
 
   <dl>
-    <% unless @entity.language.nil? %>
-      <dt><%= t('activerecord.attributes.promo_block.language') %></dt>
-      <dd><%= language_name(@entity.language) %></dd>
-    <% end %>
-
     <dt><%= t('activerecord.attributes.promo_block.slug') %></dt>
     <dd><%= @entity.slug %></dd>
 

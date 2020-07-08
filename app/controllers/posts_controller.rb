@@ -106,13 +106,13 @@ class PostsController < ApplicationController
 
   # get /posts/rss/zen.xml
   def zen
-    posts = Post.for_language(current_language).list_for_visitors
+    posts = Post.list_for_visitors
     @collection = posts.posted_after(3.days.ago)
   end
 
   # get /posts/rss.xml
   def rss
-    posts = Post.for_language(current_language).list_for_visitors
+    posts = Post.list_for_visitors
     @collection = posts.first(20)
   end
 
@@ -179,13 +179,13 @@ class PostsController < ApplicationController
   end
 
   def collect_dates
-    array  = Post.for_language(current_language).visible.published.archive
+    array  = Post.visible.published.archive
     @dates = Post.archive_dates(array)
   end
 
   def archive_day
     date        = Date.parse("#{params[:year]}-#{params[:month]}-#{params[:day]}")
-    selection   = Post.for_language(current_language).pubdate(date)
+    selection   = Post.pubdate(date)
     @collection = selection.page_for_visitors(current_page)
     render 'archive_day'
   end
@@ -215,8 +215,8 @@ class PostsController < ApplicationController
   end
 
   def mark_as_featured
-    FeaturedPost.where(language: @entity.language).update_all('priority = priority + 1')
-    link = FeaturedPost.new(language: @entity.language, post: @entity)
+    FeaturedPost.update_all('priority = priority + 1')
+    link = FeaturedPost.new(post: @entity)
     link.priority = 1
     link.save
   end

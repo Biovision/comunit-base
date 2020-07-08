@@ -51,9 +51,7 @@
                         if (listContainer) {
                             return;
                         }
-                        if (parseInt(section.getAttribute('data-language-id')) === attr.language_id) {
-                            listContainer = section.querySelector('.list-container');
-                        }
+                        listContainer = section.querySelector('.list-container');
                     });
                     if (listContainer) {
                         let list = listContainer.querySelector('ol.list-of-entities');
@@ -104,7 +102,7 @@
                     if (response.hasOwnProperty('data')) {
                         const data = response.data;
                         data.forEach(function (item) {
-                            if (item.attributes.language_id && !existingIds.includes(item['id'])) {
+                            if (!existingIds.includes(item['id'])) {
                                 const div = document.createElement('div');
                                 const button = document.createElement('button');
 

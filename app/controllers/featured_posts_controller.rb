@@ -26,11 +26,7 @@ class FeaturedPostsController < AdminController
 
   def creation_parameters
     post = Post.find_by(id: params[:post_id])
-    if post.nil?
-      { post_id: nil, language_id: nil }
-    else
-      { post_id: post.id, language_id: post.language_id }
-    end
+    { post_id: post&.id }
   end
 
   def set_entity

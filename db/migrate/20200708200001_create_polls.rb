@@ -35,7 +35,6 @@ class CreatePolls < ActiveRecord::Migration[5.1]
   def create_polls
     create_table :polls, comment: 'Polls' do |t|
       t.uuid :uuid, null: false
-      t.references :language, foreign_key: { on_update: :cascade, on_delete: :cascade }
       t.references :user, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
       t.references :simple_image, foreign_key: { on_update: :cascade, on_delete: :nullify }
       t.references :agent, foreign_key: { on_update: :cascade, on_delete: :nullify }

@@ -6,26 +6,23 @@ module Comunit
     require 'biovision/base'
     require 'biovision/vote'
     require 'biovision/comment'
-    require 'carrierwave-bombshelter'
     require 'rest-client'
 
     class Engine < ::Rails::Engine
       initializer 'comunit_base.load_base_methods' do
         require_dependency 'comunit/base/privilege_methods'
-        # require_dependency 'comunit/base/decorators/controllers/admin/privileges_controller_decorator'
-        # require_dependency 'comunit/base/decorators/models/user_decorator'
+        load 'comunit/base/overrides/controllers/admin/privileges_controller_override'
+        load 'comunit/base/overrides/models/user_override'
 
         ActiveSupport.on_load(:action_controller) do
           include Comunit::Base::PrivilegeMethods
         end
       end
 
-      components = %w[
-        admin.scss biovision/base/**/* biovision/post/**/*
-        biovision/vote/icons/* comunit/base/**/*
-        comunit_base_manifest.js
-      ]
-      config.assets.precompile << components
+      # components = %w[
+      #   admin.scss biovision/base/**/* biovision/vote/icons/* comunit/base/**/*
+      # ]
+      # config.assets.precompile << components
 
       config.generators do |g|
         g.test_framework :rspec

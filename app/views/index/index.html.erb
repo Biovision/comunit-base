@@ -4,7 +4,7 @@
   render(
       partial: 'index/index/featured_posts',
       locals: {
-          collection: FeaturedPost.list_for_language(current_language)
+          collection: FeaturedPost.ordered_by_priority
       }
   )
 %>

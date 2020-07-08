@@ -10,9 +10,7 @@
     <li><%= back_icon(admin_path) %></li>
   </ul>
 
-  <% @languages.each do |language| %>
-    <%= render partial: 'language', locals: { language: language } %>
-  <% end %>
+  <%= render partial: 'language' %>
 
   <%= render 'add' %>
 </article>

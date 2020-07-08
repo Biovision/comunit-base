@@ -13,6 +13,6 @@ gemspec
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
 
-gem 'biovision-base', git: 'https://github.com/Biovision/biovision-base', branch: 'rails5'
-gem 'biovision-poll', git: 'https://github.com/Biovision/biovision-poll'
+# gem 'biovision-base', git: 'https://github.com/Biovision/biovision-base'
+gem 'biovision-base', git: '/Users/maxim/Projects/Biovision/gems/biovision-base'
 gem 'biovision-comment', git: 'https://github.com/Biovision/biovision-comment'

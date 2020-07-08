@@ -5,7 +5,7 @@ class Admin::FeaturedPostsController < AdminController
 
   # get /admin/featured_posts
   def index
-    @languages = Language.active.ordered_by_priority
+    @collection = FeaturedPost.list_for_administration
   end
 
   private

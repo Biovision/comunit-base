@@ -8,11 +8,9 @@ class CreatePosts < ActiveRecord::Migration[5.2]
     create_post_post_categories unless PostPostCategory.table_exists?
     create_post_images unless PostImage.table_exists?
     create_post_links unless PostLink.table_exists?
-    create_post_translations unless PostTranslation.table_exists?
     create_post_references unless PostReference.table_exists?
     create_post_notes unless PostNote.table_exists?
     create_featured_posts unless FeaturedPost.table_exists?
-    create_post_illustrations unless PostIllustration.table_exists?
     create_post_attachments unless PostAttachment.table_exists?
     create_post_groups unless PostGroup.table_exists?
     create_post_group_categories unless PostGroupCategory.table_exists?
@@ -24,11 +22,9 @@ class CreatePosts < ActiveRecord::Migration[5.2]
     drop_table :post_group_categories if PostGroupCategory.table_exists?
     drop_table :post_groups if PostGroup.table_exists?
     drop_table :post_attachments if PostAttachment.table_exists?
-    drop_table :post_illustrations if PostIllustration.table_exists?
     drop_table :featured_posts if FeaturedPost.table_exists?
     drop_table :post_notes if PostNote.table_exists?
     drop_table :post_references if PostReference.table_exists?
-    drop_table :post_translations if PostTranslation.table_exists?
     drop_table :post_links if PostLink.table_exists?
     drop_table :post_images if PostImage.table_exists?
     drop_table :post_post_categories if PostPostCategory.table_exists?
@@ -40,31 +36,27 @@ class CreatePosts < ActiveRecord::Migration[5.2]
 
   def create_posts
     create_table :posts, comment: 'Post' do |t|
+      t.uuid :uuid, null: false
       t.references :user, foreign_key: { on_update: :cascade, on_delete: :cascade }
       t.references :post_type, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
-      t.references :language, foreign_key: { on_update: :cascade, on_delete: :nullify }
-      t.integer :region_id
+      t.references :simple_image, foreign_key: { on_update: :cascade, on_delete: :cascade }
+      t.references :region, foreign_key: { on_update: :cascade, on_delete: :nullify }
       t.integer :original_post_id
       t.references :agent, foreign_key: { on_update: :cascade, on_delete: :nullify }
       t.inet :ip
       t.timestamps
       t.boolean :visible, default: true, null: false
-      t.boolean :locked, default: false, null: false
       t.boolean :deleted, default: false, null: false
       t.boolean :approved, default: true, null: false
       t.boolean :show_owner, default: true, null: false
       t.boolean :allow_comments, default: true, null: false
       t.boolean :allow_votes, default: true, null: false
-      t.boolean :translation, default: false, null: false
-      t.boolean :explicit, default: false, null: false
       t.boolean :spam, default: false, null: false
       t.float :rating, default: 0.0, null: false
       t.integer :privacy, limit: 2, default: 0
       t.integer :comments_count, default: 0, null: false
       t.integer :view_count, default: 0, null: false
-      t.integer :time_required, limit: 2
       t.datetime :publication_time
-      t.uuid :uuid, null: false
       t.string :title, null: false
       t.string :slug, null: false, index: true
       t.string :image
@@ -72,7 +64,6 @@ class CreatePosts < ActiveRecord::Migration[5.2]
       t.string :image_name
       t.string :image_source_name
       t.string :image_source_link
-      t.string :original_title
       t.string :source_name
       t.string :source_link
       t.string :meta_title
@@ -81,7 +72,6 @@ class CreatePosts < ActiveRecord::Migration[5.2]
       t.string :author_name
       t.string :author_title
       t.string :author_url
-      t.string :translator_name
       t.text :lead
       t.text :body, null: false
       t.string :tags_cache, array: true, default: [], null: false
@@ -129,17 +119,22 @@ class CreatePosts < ActiveRecord::Migration[5.2]
 
   def create_post_links
     create_table :post_links, comment: 'Link between posts' do |t|
+      t.uuid :uuid
       t.references :post, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
       t.integer :other_post_id, null: false
       t.timestamps
       t.integer :priority, limit: 2, default: 1, null: false
+      t.jsonb :data, default: {}, null: false
     end
 
+    add_index :post_links, :uuid, unique: true
+    add_index :post_links, :data, using: :gin
     add_foreign_key :post_links, :posts, column: :other_post_id, on_update: :cascade, on_delete: :cascade
   end
 
   def create_post_images
     create_table :post_images, comment: 'Image in post gallery' do |t|
+      t.references :simple_image, foreign_key: { on_update: :cascade, on_delete: :cascade }
       t.references :post, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
       t.timestamps
       t.boolean :visible, default: true, null: false
@@ -151,24 +146,16 @@ class CreatePosts < ActiveRecord::Migration[5.2]
       t.string :source_name
       t.string :source_link
       t.text :description
+      t.jsonb :data, default: {}, null: false
     end
 
     add_index :post_images, :uuid, unique: true
-  end
-
-  def create_post_translations
-    create_table :post_translations, comment: 'Post translation' do |t|
-      t.references :post, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
-      t.references :language, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
-      t.integer :translated_post_id, null: false
-      t.timestamps
-    end
-
-    add_foreign_key :post_translations, :posts, column: :translated_post_id, on_update: :cascade, on_delete: :cascade
+    add_index :post_images, :data, using: :gin
   end
 
   def create_post_references
     create_table :post_references, comment: 'Reference in post body' do |t|
+      t.uuid :uuid
       t.references :post, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
       t.timestamps
       t.integer :priority, limit: 2, default: 1, null: false
@@ -176,34 +163,32 @@ class CreatePosts < ActiveRecord::Migration[5.2]
       t.string :title, null: false
       t.string :url
       t.string :publishing_info
+      t.jsonb :data, default: {}, null: false
     end
+
+    add_index :post_references, :uuid, unique: true
+    add_index :post_references, :data, using: :gin
   end
 
   def create_post_notes
     create_table :post_notes, comment: 'Footnote for post' do |t|
+      t.uuid :uuid
       t.references :post, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
       t.timestamps
       t.integer :priority, limit: 2, default: 1, null: false
       t.text :text, null: false
+      t.jsonb :data, default: {}, null: false
     end
+
+    add_index :post_notes, :uuid, unique: true
+    add_index :post_notes, :data, using: :gin
   end
 
   def create_featured_posts
     create_table :featured_posts do |t|
-      t.references :language, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
       t.references :post, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
       t.timestamps
       t.integer :priority, limit: 2, null: false, default: 1
-    end
-  end
-
-  def create_post_illustrations
-    create_table :post_illustrations, comment: 'Inline post illustration' do |t|
-      t.references :user, foreign_key: { on_update: :cascade, on_delete: :nullify }
-      t.references :agent, foreign_key: { on_update: :cascade, on_delete: :nullify }
-      t.inet :ip
-      t.timestamps
-      t.string :image
     end
   end
 
@@ -214,11 +199,12 @@ class CreatePosts < ActiveRecord::Migration[5.2]
       t.timestamps
       t.string :name
       t.string :file
+      t.jsonb :data, default: {}, null: false
     end
 
     add_index :post_attachments, :uuid, unique: true
+    add_index :post_attachments, :data, using: :gin
   end
-
 
   def create_post_groups
     create_table :post_groups, comment: 'Group of post categories and tags' do |t|

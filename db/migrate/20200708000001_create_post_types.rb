@@ -39,6 +39,8 @@ class CreatePostTypes < ActiveRecord::Migration[5.2]
 
   def create_post_categories
     create_table :post_categories, comment: 'Post category' do |t|
+      t.uuid :uuid
+      t.references :site, foreign_key: { on_update: :cascade, on_delete: :cascade }
       t.references :post_type, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
       t.integer :parent_id
       t.timestamps
@@ -57,6 +59,8 @@ class CreatePostTypes < ActiveRecord::Migration[5.2]
       t.jsonb :data, default: {}, null: false
     end
 
+    add_index :post_categories, :uuid, unique: true
+    add_index :post_categories, :data, using: :gin
     add_foreign_key :post_categories, :post_categories, column: :parent_id, on_update: :cascade, on_delete: :cascade
   end
 

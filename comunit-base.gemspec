@@ -20,7 +20,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'biovision-vote'
   s.add_dependency 'biovision-comment'
   s.add_dependency 'dotenv-rails'
-  s.add_dependency 'rest-client'
 
   s.add_development_dependency 'database_cleaner'
   s.add_development_dependency 'factory_bot_rails'

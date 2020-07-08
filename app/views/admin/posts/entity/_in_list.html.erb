@@ -9,12 +9,6 @@
     <%= admin_user_link(entity.user) %>,
     <%= time_tag(entity.created_at) %>
   </div>
-  <% unless entity.language.nil? %>
-    <div class="secondary info">
-      <%= t('activerecord.attributes.post.language_id') %>:
-      <%= language_name(entity.language) %>
-    </div>
-  <% end %>
   <div class="secondaty info">
     <div><%= t(:created_at) %>: <%= time_tag(entity.created_at) %></div>
     <div><%= t(:updated_at) %>: <%= time_tag(entity.updated_at) %></div>
