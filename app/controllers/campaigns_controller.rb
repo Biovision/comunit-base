@@ -97,8 +97,8 @@ class CampaignsController < ApplicationController
 
   protected
 
-  def component_slug
-    Biovision::Components::CampaignsComponent::SLUG
+  def component_class
+    Biovision::Components::CampaignsComponent
   end
 
   def restrict_access

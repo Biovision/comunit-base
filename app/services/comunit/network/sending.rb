@@ -2,26 +2,50 @@
 
 module Comunit
   module Network
-    # Sending signed REST requests
+    # Sender for REST requests
     module Sending
-      # @param [String|Symbol] verb
+      # @param [Symbol] verb
+      # @param [String] path
+      # @param [Hash] data
+      # @return [RestClient::Response]
+      def rest(verb, path, data)
+        log_info("#{verb.to_s.upcase} #{path}")
+        if Handler.central_site?
+          if site&.active?
+            rest_request(verb, "#{site.host}/#{path}", data)
+          else
+            log_warn('Site is inactive')
+          end
+        else
+          rest_request(verb, "#{Handler::MAIN_HOST}/#{path}", data)
+        end
+      end
+
+      # @param [Symbol] verb
       # @param [String] url
       # @param [Hash] data
-      def rest(verb, url, data)
-        log_info("#{verb.to_s.upcase} #{url}")
-        response = RestClient.send(verb, url, JSON.generate(data), headers)
-        log_info("Response (#{response.code}):\n#{response.body.inspect}\n")
+      def rest_request(verb, url, data)
+        payload = JSON.generate(data)
+        response = RestClient.send(verb, url, payload, request_headers)
+        log_info("Response #{response.code}:\n#{response.body.inspect}\n")
         response
       rescue RestClient::Exception => e
         log_error("Failed with #{e.http_code}: #{e}\n#{e.response}")
-        nil
       end
 
-      def headers
+      def request_headers
         {
           content_type: :json,
-          signature: Rails.application.credentials.signature_token
+          signature: request_signature
         }
+      end
+
+      def request_signature
+        if Handler.central_site?
+          site&.signature
+        else
+          Rails.application.credentials.signature_token
+        end
       end
     end
   end

@@ -50,8 +50,8 @@ class PoliticalForcesController < AdminController
 
   private
 
-  def component_slug
-    Biovision::Components::CampaignsComponent::SLUG
+  def component_class
+    Biovision::Components::CampaignsComponent
   end
 
   def creation_parameters

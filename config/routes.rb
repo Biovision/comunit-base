@@ -29,6 +29,9 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :sites, except: %i[index show], concerns: :check
+  resources :countries, :regions, except: %i[index show], concerns: :check
+
   resources :albums, :photos, only: %i[update destroy]
 
   resources :events, only: %i[update destroy]
@@ -45,12 +48,9 @@ Rails.application.routes.draw do
 
   resources :regions, only: %i[update destroy]
 
-  resources :political_forces, only: %i[update destroy]
-  resources :campaigns, only: %i[update destroy]
-  resources :candidates, only: %i[update destroy]
+  resources :political_forces, :campaigns, :candidates, only: %i[update destroy]
 
-  resources :deed_categories, only: %i[destroy update]
-  resources :deeds, only: %i[destroy update]
+  resources :deed_categories, :deeds, only: %i[destroy update]
 
   resources :decisions, only: %i[destroy update]
   resources :decision_users, only: %i[destroy update]
@@ -203,6 +203,21 @@ Rails.application.routes.draw do
     resources :poll_questions, :poll_answers, only: %i[create edit], concerns: :check
 
     namespace :admin do
+      resources :sites, only: %i[index show], concerns: :toggle do
+        member do
+          get 'users'
+          put 'users/:user_id' => :add_user, as: :user, defaults: { format: :json }
+          delete 'users/:user_id' => :remove_user, defaults: { format: :json }
+        end
+      end
+
+      resources :countries, only: %i[index show], concerns: %i[toggle priority] do
+        member do
+          get 'regions'
+        end
+      end
+      resources :regions, only: :show, concerns: %i[toggle priority]
+
       resources :groups, only: %i[index show] do
         member do
           get 'users', defaults: { format: :json }
@@ -375,7 +390,7 @@ Rails.application.routes.draw do
         put 'uuid' => :update_uuid, on: :member
       end
       resources :regions, only: %i[create update]
-      resources :posts, only: :create
+      resources :posts, only: %i[create update]
       resources :political_forces, :campaigns, :candidates, only: %i[create update]
     end
 

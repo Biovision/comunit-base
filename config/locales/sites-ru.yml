@@ -1,4 +1,75 @@
 ru:
+  activerecord:
+    models:
+      site: "Сайт"
+      site_user: "Роль пользователя на сайте"
+    attributes:
+      site:
+        active: "Активный"
+        description: "Описание"
+        host: "Адрес"
+        image: "Картинка"
+        local: "Локальный"
+        name: "Название"
+        token: "Жетон"
+        user_count: "Количество родных пользователей"
+        version: "Версия API"
+      site_user:
+        data: "Данные"
+        user: "Пользователь"
+        user_id: "Пользователь"
   attributes:
     site: "Сайт"
     site_id: "Сайт"
+  admin:
+    index:
+      dashboard:
+        sites:
+          heading: "Сайты"
+    sites:
+      nav_item:
+        text: "Сайты сети"
+        description: "Управление сайтами сети"
+      index:
+        title: "Сайты сети, страница %{page}"
+        heading: "Сайты сети"
+      show:
+        title: "Сайт «%{name}»"
+      users:
+        nav_text: "Управляющие"
+        title: "Управляющие сайта «%{site}»"
+        heading: "Управляющие"
+        add_user: "Добавить пользователя"
+  biovision:
+    components:
+      sites:
+        name: "Сайты"
+  sites:
+    edit:
+      title: "Редактирование сайта"
+      nav_text: "Редактировать"
+      heading: "Редактирование сайта"
+    new:
+      title: "Создание сайта"
+      nav_text: "Создать"
+      heading: "Новый сайт"
+    form:
+      guidelines:
+        description: "Максимум 255 символов"
+        host: "Адрес сайта вместе с протоколом"
+        image: "Небольшая картинка-логотип"
+        name: "Максимум 50 символов"
+        token: "Используется для подписи запросов"
+        version: "Отвечает за способ взаимодействия"
+    destroy:
+      success: "Сайт успешно удадён"
+  network:
+    signature:
+      unknown_site: "Неизвестный сайт в подписи"
+      invalid_signature: "Подпись недействительна"
+  my:
+    sites:
+      index:
+        title: "Сайты сети comunit"
+        heading: "Сайты сети"
+        nav_text: "Сайты"

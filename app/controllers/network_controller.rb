@@ -47,22 +47,32 @@ class NetworkController < ApplicationController
 
   protected
 
-  def validate_signature
-    signature = request.headers['HTTP_SIGNATURE'].to_s
-    if signature != Rails.application.credentials.signature_token
-      render json: { errors: { signature: 'invalid'} }, status: :unauthorized
-    end
-  end
-
   def set_handler
-    data = params.require(:data).permit!
     model_name = params[:table_name].classify
     prefix = 'Comunit::Network::Handlers::'
     handler_class = "#{prefix}#{model_name}Handler".safe_constantize
     if handler_class
-      @handler = handler_class[data]
+      init_handler(handler_class)
     else
       render json: { errors: { handler: false } }, status: :unprocessable_entity
+    end
+  end
+
+  def init_handler(handler_class)
+    @handler = handler_class[request.headers['HTTP_SIGNATURE'].to_s]
+    @handler.data = params.require(:data).permit!
+  rescue NetworkManager::UnknownSiteError
+    error = t('network.signature.unknown_site')
+    render json: { errors: { signature: error } }, status: :bad_request
+  rescue NetworkManager::InvalidSignatureError
+    error = t('network.signature.invalid_signature')
+    render json: { errors: { signature: error } }, status: :unauthorized
+  end
+
+  def validate_signature
+    signature = request.headers['HTTP_SIGNATURE'].to_s
+    if signature != Rails.application.credentials.signature_token
+      render json: { errors: { signature: 'invalid'} }, status: :unauthorized
     end
   end
 end

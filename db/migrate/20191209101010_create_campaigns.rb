@@ -20,7 +20,7 @@ class CreateCampaigns < ActiveRecord::Migration[5.2]
   private
 
   def create_component
-    slug = Biovision::Components::CampaignsComponent::SLUG
+    slug = Biovision::Components::CampaignsComponent.slug
 
     BiovisionComponent.create(slug: slug)
   end
