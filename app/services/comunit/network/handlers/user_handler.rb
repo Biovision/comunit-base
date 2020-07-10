@@ -3,38 +3,33 @@
 module Comunit
   module Network
     module Handlers
+      # Handling users
       class UserHandler < Comunit::Network::Handler
         def self.permitted_attributes
-          %i[
-            birthday bot consent created_at email email_confirmed foreign_slug
+          super + %i[
+            birthday bot consent email email_confirmed foreign_slug
             ip language_id password_digest phone phone_confirmed screen_name
-            slug super_user updated_at uuid search_string referral_link
+            slug super_user updated_at search_string referral_link
           ]
-        end
-
-        def self.ignored_attributes
-          super + %w[image]
         end
 
         protected
 
         def pull_data
-          apply_attributes
+          assign_attributes
           apply_profile
           apply_agent
           apply_image
         end
 
         def apply_profile
-          profile = data.dig('meta', 'profile').to_h
-          entity.data['profile'] = ::UserProfileHandler.clean_parameters(profile)
+          profile = data.dig('meta', 'profile')
+          entity.data['profile'] = ::UserProfileHandler.clean_parameters profile
         end
 
         def meta_for_remote
-          meta = {
-            profile: entity.data['profile'].to_h,
-            agent: entity.agent&.name
-          }
+          meta = super
+          meta[:agent] = entity.agent&.name
           meta[:image_path] = entity.image.path unless entity.image.blank?
 
           meta

@@ -5,15 +5,12 @@ module Comunit
     module Handlers
       # Handling sites
       class SiteHandler < Comunit::Network::Handler
-        def self.permitted_attributes
-          super + %i[active deleted description host name uuid]
+        def self.ignored_attributes
+          super + %w[token]
         end
 
-        protected
-
-        def pull_data
-          apply_attributes
-          apply_image
+        def self.permitted_attributes
+          super + %w[active description host name version]
         end
       end
     end

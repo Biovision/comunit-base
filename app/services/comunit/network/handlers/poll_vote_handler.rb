@@ -5,15 +5,6 @@ module Comunit
     module Handlers
       # Handling polls
       class PollVoteHandler < Comunit::Network::Handler
-        def prepare_model_data
-          {
-            id: entity.uuid,
-            type: entity.class.table_name,
-            attributes: attributes_for_remote,
-            relationships: relationships_for_remote,
-          }
-        end
-
         protected
 
         def relationships_for_remote
@@ -24,7 +15,7 @@ module Comunit
         end
 
         def pull_data
-          apply_attributes
+          assign_attributes
           apply_poll_answer
           apply_user
           fallback_slug = "#{entity.id}:#{entity.agent_id}"

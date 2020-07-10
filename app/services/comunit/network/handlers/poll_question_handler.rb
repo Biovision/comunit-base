@@ -3,10 +3,10 @@
 module Comunit
   module Network
     module Handlers
-      # Handling poll questions
+      # Handling polls
       class PollQuestionHandler < Comunit::Network::Handler
         def self.permitted_attributes
-          %i[comment created_at multiple_choice priority text]
+          super + %i[comment multiple_choice priority text]
         end
 
         protected
@@ -18,7 +18,7 @@ module Comunit
         end
 
         def pull_data
-          apply_attributes
+          assign_attributes
           apply_poll
         end
 

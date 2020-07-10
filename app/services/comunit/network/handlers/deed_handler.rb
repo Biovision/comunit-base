@@ -34,7 +34,7 @@ module Comunit
         end
 
         def pull_data
-          apply_attributes
+          assign_attributes
           apply_user
           apply_agent
           # apply_region
@@ -50,7 +50,7 @@ module Comunit
           uuids = list.map(&:id)
           entity.deed_category_ids = DeedCategory.where(uuid: uuids).pluck(:id)
 
-          true
+          super
         end
       end
     end

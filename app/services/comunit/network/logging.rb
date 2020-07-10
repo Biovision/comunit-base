@@ -2,13 +2,14 @@
 
 module Comunit
   module Network
-    # Logging network-related events
+    # Logging for network events
     module Logging
       # @param [String] text
       def log(text)
         file = "#{Rails.root}/log/network_manager.log"
         File.open(file, 'ab') do |f|
-          f.puts "#{Time.now.strftime('%F %T')}\t#{text}"
+          host = Handler.central_site? ? site&.host : 'comunit.online'
+          f.puts "#{Time.now.strftime('%F %T')}\t#{host}\t#{text}"
         end
 
         nil
