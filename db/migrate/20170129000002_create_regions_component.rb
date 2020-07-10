@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 # Create table for countries and regions
-class CreateRegions < ActiveRecord::Migration[5.2]
+class CreateRegionsComponent < ActiveRecord::Migration[5.2]
   def up
-    create_component
+    BiovisionComponent.create slug: Biovision::Components::RegionsComponent.slug
     create_countries unless Country.table_exists?
     create_regions unless Region.table_exists?
   end
@@ -11,13 +11,10 @@ class CreateRegions < ActiveRecord::Migration[5.2]
   def down
     drop_table :regions if Region.table_exists?
     drop_table :countries if Country.table_exists?
+    BiovisionComponent[Biovision::Components::RegionsComponent]&.destroy
   end
 
   private
-
-  def create_component
-    BiovisionComponent.create(slug: Biovision::Components::RegionsComponent.slug)
-  end
 
   def create_countries
     create_table :countries, comment: 'Country' do |t|
@@ -41,9 +38,11 @@ class CreateRegions < ActiveRecord::Migration[5.2]
 
   def create_regions
     create_table :regions, comment: 'Region' do |t|
+      t.uuid
       t.timestamps
       t.references :country, foreign_key: { on_update: :cascade, on_delete: :cascade }
       t.integer :parent_id
+      t.references :simple_image, foreign_key: { on_update: :cascade, on_delete: :nullify }
       t.integer :priority, limit: 2, default: 1, null: false
       t.integer :users_count, default: 0, null: false
       t.integer :posts_count, default: 0, null: false
@@ -64,5 +63,7 @@ class CreateRegions < ActiveRecord::Migration[5.2]
     end
 
     add_foreign_key :regions, :regions, column: :parent_id, on_update: :cascade, on_delete: :cascade
+    add_index :regions, :uuid, unique: true
+    add_index :regions, :data, using: :gin
   end
 end

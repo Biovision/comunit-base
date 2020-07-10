@@ -3,7 +3,7 @@
 # Tables for post types, categories and tags
 class CreatePostTypes < ActiveRecord::Migration[5.2]
   def up
-    create_component
+    BiovisionComponent.create(slug: Biovision::Components::PostsComponent.slug)
     create_post_types unless PostType.table_exists?
     create_post_categories unless PostCategory.table_exists?
     create_post_tags unless PostTag.table_exists?
@@ -15,6 +15,7 @@ class CreatePostTypes < ActiveRecord::Migration[5.2]
     drop_table :post_tags if PostTag.table_exists?
     drop_table :post_categories if PostCategory.table_exists?
     drop_table :post_types if PostType.table_exists?
+    BiovisionComponent[Biovision::Components::PostsComponent.slug]&.destroy
   end
 
   private
@@ -92,9 +93,5 @@ class CreatePostTypes < ActiveRecord::Migration[5.2]
     items.each do |slug, data|
       PostType.create(slug: slug, name: data[0], url_part: data[1], default_category_name: data[2])
     end
-  end
-
-  def create_component
-    BiovisionComponent.create(slug: 'posts')
   end
 end

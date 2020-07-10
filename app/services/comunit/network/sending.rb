@@ -25,6 +25,8 @@ module Comunit
       # @param [String] url
       # @param [Hash] data
       def rest_request(verb, url, data)
+        return unless Rails.env.production?
+
         payload = JSON.generate(data)
         response = RestClient.send(verb, url, payload, request_headers)
         log_info("Response #{response.code}:\n#{response.body.inspect}\n")
