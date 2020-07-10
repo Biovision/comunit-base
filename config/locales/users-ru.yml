@@ -270,15 +270,5 @@ ru:
           about: "Кратко о себе"
           stand_in_life: "Жизненная позиция"
           flags: "Настройки"
-      nav_item:
-        text: "Профиль"
-    notifications:
-      index:
-        title: "Уведомления, страница %{page}"
-        heading: "Мои уведомления"
-        description: "Просмотр списка уведомлений"
-    messages:
-      index:
-        title: "Сообщения"
-        heading: "Мои сообщения"
-        description: "Ваше общение с другими пользователями"
+          sensitive:
+            heading: "Безопасность"

@@ -1,0 +1,19 @@
+<% content_for :meta_title, t('.title') %>
+<% content_for :breadcrumbs do %>
+  <%= link_to(t('admin.countries.nav_item.text'), admin_countries_path) %>
+  <%= admin_country_link(@entity) %>
+  <span><%= t('.nav_text') %></span>
+<% end %>
+
+<article>
+  <h1><%= t('.heading') %></h1>
+
+  <ul class="actions">
+    <li><%= return_icon(admin_country_path(id: @entity.id)) %></li>
+    <% if @entity.can_be_deleted? %>
+      <li class="danger"><%= destroy_icon(@entity) %></li>
+    <% end %>
+  </ul>
+
+  <%= render partial: 'form', locals: { entity: @entity } %>
+</article>

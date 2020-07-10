@@ -5,85 +5,108 @@ ru:
     few: "%{count} дочерних региона"
     many: "%{count} дочерних регионов"
     other: "%{count} дочерних регионов"
+  region_count:
+    zero: "регионов нет"
+    one: "%{count} регион"
+    few: "%{count} региона"
+    many: "%{count} регионов"
+    other: "%{count} регионов"
   activerecord:
     models:
+      country: "Страна"
       region: "Регион"
     attributes:
-      region:
-        country_id: "Страна"
-        parent_id: "Родительский регион"
-        visible: "Показывать"
-        name: "Название"
-        slug: "Код"
-        long_slug: "Код для пути в URL"
-        image: "Герб"
-        header_image: "Картинка для шапки"
-        parents_cache: "Кеш родителей"
-        children_cache: "Кеш дочек"
-        latitude: "Широта центральной точки"
-        longitude: "Долгота центральной точки"
-        short_name: "Короткое название"
+      country:
+        data: "Данные"
+        image: "Картинка"
         locative: "Локатив"
-      central_region:
-        name: "Центр"
-        short_name: "Центр"
-        locative: "в центре"
+        name: "Название"
+        priority: "Порядок сортировки"
+        regions_count: "Количество регионов"
+        short_name: "Короткое название"
+        slug: "Идентификатор"
+        visible: "Показывать"
+      region:
+        children_cache: "Кеш дочек"
+        country_id: "Страна"
+        data: "Данные"
+        image: "Герб"
+        latitude: "Широта центральной точки"
+        locative: "Локатив"
+        long_slug: "Код для пути в URL"
+        longitude: "Долгота центральной точки"
+        name: "Название"
+        parent_id: "Родительский регион"
+        parents_cache: "Кеш родителей"
+        priority: "Порядок сортировки"
+        short_name: "Короткое название"
+        slug: "Код"
+        visible: "Показывать"
   attributes:
     region: "Регион"
     region_id: "Регион"
   admin:
-    countries:
-      nav_item:
-        description: "Просмотр стран и регионов в них"
-        text: "Страны"
     index:
       dashboard:
-        biovision_regions:
+        regions:
           heading: "Региональность"
-    regions:
+    countries:
       nav_item:
-        text: "Все регионы"
-        description: "Управление регионами"
+        text: "Страны и регионы"
+        description: "Управление странами и регионами"
+      show:
+        title: "Страна «%{name}»"
       index:
-        title: "Регионы"
+        heading: "Страны"
+        title: "Страны"
+      regions:
         heading: "Регионы"
+        nav_text: "Регионы"
+        title: "Регионы %{locative}, страница %{page}"
+    regions:
       show:
         title: "Регион «%{name}»"
         children: "Дочерние регионы"
-    users:
-      entity:
-        privilege:
-          select_regions: "Выбрать регионы…"
-    privileges:
-      entity:
-        region:
-          deeper_level: "Уровни глубже…"
-    components:
-      user_settings:
-        regions:
-          heading: "Доступные регионы"
-          new_link:
-            add_region: "Добавить регион"
+  countries:
+    new:
+      heading: "Добавление страны"
+      nav_text: "Добавить"
+      title: "Новая страна"
+    edit:
+      heading: "Редактирование страны"
+      nav_text: "Редактировать"
+      title: "Редактирование страны"
+    destroy:
+      success: "Страна успешно удалена"
+    form:
+      placeholders:
+        locative: "в России"
+      guidelines:
+        image: "Картинка в формате JPG или PNG размером около 1280×720."
+        locative: "Вместе с предлогом. Используется в предложениях вида «в такой-то стране». Максимум 50 символов."
+        name: "Полное название. Максимум 50 символов."
+        slug: "Используется адресной строке. Только латинские буквы, дефис (кроме границ) и цифры, до 63 символов."
+        short_name: "Используется в списках, максимум 50 символов."
   regions:
     new:
-      title: "Новый регион"
       heading: "Добавление региона"
+      nav_text: "Добавить"
+      title: "Новый регион"
     edit:
-      title: "Редактирование региона"
       heading: "Редактирование региона"
-      forbidden: "Редактирование этого региона запрещено"
-    update:
-      success: "Регион успешно изменён"
+      nav_text: "Редактировать"
+      title: "Редактирование региона"
     destroy:
       success: "Регион успешно удалён"
     form:
       placeholders:
         locative: "в Москве"
       guidelines:
-        header_image: "Картинка в формате JPG или PNG размером 1000×220 (лишнее будет обрезано автоматически)"
+        image: "Картинка в формате JPG или PNG размером около 320×320."
+        locative: "Вместе с предлогом. Используется в предложениях вида «в таком-то регионе»."
+        name: "Максимум 50 символов"
         slug: "Используется адресной строке. Только латинские буквы, дефис (кроме границ) и цифры, до 63 символов."
         short_name: "Используется в списках"
-        locative: "Используется в предложениях вида «в таком-то регионе»"
   shared:
     forms:
       region_select:

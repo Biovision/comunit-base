@@ -1,0 +1,87 @@
+<% content_for :meta_title, t('.title', name: @entity.name) %>
+<% content_for :breadcrumbs do %>
+  <%= admin_biovision_component_link(component_handler.component) %>
+  <%= link_to(t('admin.sites.nav_item.text'), admin_sites_path) %>
+  <span><%= @entity.name %></span>
+<% end %>
+
+<article>
+  <h1><%= @entity.name %></h1>
+
+  <ul class="actions">
+    <li><%= back_icon(admin_sites_path) %></li>
+    <li><%= edit_icon(edit_site_path(id: @entity.id)) %></li>
+  </ul>
+
+  <nav>
+    <%=
+      link_to(
+          t('admin.sites.users.nav_text'),
+          users_admin_site_path(id: @entity.id),
+          class: 'button-nav'
+      )
+    %>
+  </nav>
+
+  <dl>
+    <div>
+      <dt>ID</dt>
+      <dd><%= @entity.id %></dd>
+    </div>
+
+    <% unless @entity.image.blank? %>
+      <div>
+        <dt><%= t('activerecord.attributes.site.image') %></dt>
+        <dd>
+          <figure role="group" class="preview">
+            <%= site_image(@entity) %>
+          </figure>
+        </dd>
+      </div>
+    <% end %>
+
+    <div>
+      <dt><%= t('activerecord.attributes.site.host') %></dt>
+      <dd>
+        <%=
+          link_to(
+              @entity.host,
+              @entity.host,
+              target: '_blank',
+              rel: 'external noopener noreferrer'
+          )
+        %>
+      </dd>
+    </div>
+
+    <% unless @entity.description.blank? %>
+      <div>
+        <dt><%= t('activerecord.attributes.site.description') %></dt>
+        <dd><%= @entity.description %></dd>
+      </div>
+    <% end %>
+
+    <div>
+      <dt><%= t('activerecord.attributes.site.token') %></dt>
+      <dd><%= @entity.token %></dd>
+    </div>
+
+    <div>
+      <dt><%= t('activerecord.attributes.site.user_count') %></dt>
+      <dd><%= t(:user_count, count: @entity.user_count) %></dd>
+    </div>
+
+    <%= render partial: 'shared/entity/uuid', locals: { entity: @entity } %>
+    <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
+  </dl>
+
+  <%=
+    render(
+        partial: 'shared/admin/toggleable',
+        locals:  {
+            entity: @entity,
+            url:    toggle_admin_site_path(id: @entity.id)
+        }
+    )
+  %>
+</article>

@@ -1,0 +1,22 @@
+<% content_for :meta_title, t('.title', locative: @entity.locative, page: current_page) %>
+<% content_for :breadcrumbs do %>
+  <%= link_to(t('admin.countries.nav_item.text'), admin_countries_path) %>
+  <%= admin_country_link(@entity) %>
+  <span><%= t('.nav_text') %></span>
+<% end %>
+
+<article>
+  <h1><%= t('.heading') %></h1>
+
+  <ul class="actions">
+    <li><%= return_icon(admin_region_path(id: @entity.id)) %></li>
+    <li><%= back_icon(admin_path) %></li>
+  </ul>
+
+  <%=
+    render(
+        partial: 'shared/admin/list_with_priority',
+        locals:  { collection: @collection }
+    )
+  %>
+</article>

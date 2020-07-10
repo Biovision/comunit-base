@@ -1,15 +1,14 @@
 <% content_for :meta_title, t('.title') %>
 <% content_for :breadcrumbs do %>
-  <%= admin_biovision_component_link(component_handler.component) %>
-  <%= link_to(t('admin.campaigns.nav_item.text'), admin_campaigns_path) %>
-  <span><%= t('.nav_text') %></span>
+    <%= link_to(t('admin.countries.nav_item.text'), admin_countries_path) %>
+    <span><%= t('.nav_text') %></span>
 <% end %>
 
 <article>
   <h1><%= t('.heading') %></h1>
 
   <ul class="actions">
-    <li><%= back_icon(admin_campaigns_path) %></li>
+    <li><%= back_icon(admin_countries_path) %></li>
   </ul>
 
   <%= render partial: 'form', locals: { entity: @entity } %>

@@ -1,5 +1,6 @@
 <% content_for :meta_title, t('.title', name: @entity.full_name(true)) %>
 <% content_for :breadcrumbs do %>
+  <%= admin_biovision_component_link(component_handler.component) %>
   <%= link_to(t('admin.campaigns.nav_item.text'), admin_campaigns_path) %>
   <%= admin_campaign_link(@entity.campaign) %>
   <%= link_to(t('admin.campaigns.candidates.nav_text'), candidates_admin_campaign_path(id: @entity.campaign_id)) %>
@@ -18,57 +19,67 @@
   </ul>
 
   <dl>
-    <% unless @entity.image.blank? %>
-      <dt><%= t('activerecord.attributes.candidate.image') %></dt>
-      <dd>
-        <figure role="group" class="preview">
-          <%= simple_image_medium(@entity) %>
-        </figure>
-      </dd>
-    <% end %>
+    <%= render partial: 'shared/entity/image', locals: { entity: @entity } %>
 
-    <dt><%= t('activerecord.attributes.candidate.surname') %></dt>
-    <dd><%= @entity.surname %></dd>
+    <div>
+      <dt><%= t('activerecord.attributes.candidate.surname') %></dt>
+      <dd><%= @entity.surname %></dd>
+    </div>
 
-    <dt><%= t('activerecord.attributes.candidate.name') %></dt>
-    <dd><%= @entity.name %></dd>
+    <div>
+      <dt><%= t('activerecord.attributes.candidate.name') %></dt>
+      <dd><%= @entity.name %></dd>
+    </div>
 
     <% unless @entity.patronymic.blank? %>
-      <dt><%= t('activerecord.attributes.candidate.patronymic') %></dt>
-      <dd><%= @entity.patronymic %></dd>
+      <div>
+        <dt><%= t('activerecord.attributes.candidate.patronymic') %></dt>
+        <dd><%= @entity.patronymic %></dd>
+      </div>
     <% end %>
 
     <% unless @entity.birthday.blank? %>
-      <dt><%= t('activerecord.attributes.candidate.birthday') %></dt>
-      <dd><%= time_tag(@entity.birthday) %></dd>
+      <div>
+        <dt><%= t('activerecord.attributes.candidate.birthday') %></dt>
+        <dd><%= time_tag(@entity.birthday) %></dd>
+      </div>
     <% end %>
 
-    <dt><%= t('activerecord.attributes.candidate.campaign') %></dt>
-    <dd><%= admin_campaign_link(@entity.campaign) %></dd>
+    <div>
+      <dt><%= t('activerecord.attributes.candidate.campaign') %></dt>
+      <dd><%= admin_campaign_link(@entity.campaign) %></dd>
+    </div>
 
-    <dt><%= t('activerecord.attributes.candidate.lead') %></dt>
-    <dd>
-      <div class="text">
-        <%= raw(@entity.lead) %>
-      </div>
-    </dd>
-
-    <% unless @entity.about.blank? %>
-      <dt><%= t('activerecord.attributes.candidate.about') %></dt>
+    <div>
+      <dt><%= t('activerecord.attributes.candidate.lead') %></dt>
       <dd>
         <div class="text">
-          <%= simple_format(@entity.about) %>
+          <%= raw(@entity.lead) %>
         </div>
       </dd>
+    </div>
+
+    <% unless @entity.about.blank? %>
+      <div>
+        <dt><%= t('activerecord.attributes.candidate.about') %></dt>
+        <dd>
+          <div class="text">
+            <%= simple_format(@entity.about) %>
+          </div>
+        </dd>
+      </div>
     <% end %>
 
-    <dt><%= t('activerecord.attributes.candidate.program') %></dt>
-    <dd>
-      <div class="text">
-        <%= raw(@entity.program) %>
-      </div>
-    </dd>
+    <div>
+      <dt><%= t('activerecord.attributes.candidate.program') %></dt>
+      <dd>
+        <div class="text">
+          <%= raw(@entity.program) %>
+        </div>
+      </dd>
+    </div>
 
+    <%= render partial: 'shared/entity/uuid', locals: { entity: @entity } %>
     <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
   </dl>
 

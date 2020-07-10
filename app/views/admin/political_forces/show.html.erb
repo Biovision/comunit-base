@@ -1,5 +1,6 @@
 <% content_for :meta_title, t('.title', name: @entity.name) %>
 <% content_for :breadcrumbs do %>
+  <%= admin_biovision_component_link(component_handler.component) %>
   <%= link_to(t('admin.political_forces.nav_item.text'), admin_political_forces_path) %>
   <span><%= @entity.name %></span>
 <% end %>
@@ -23,26 +24,26 @@
   </nav>
 
   <dl>
-    <% unless @entity.image.blank? %>
-      <dt><%= t('activerecord.attributes.political_force.image') %></dt>
-      <dd>
-        <figure role="group" class="preview">
-          <%= simple_image_medium(@entity) %>
-        </figure>
-      </dd>
-    <% end %>
+    <%= render partial: 'shared/entity/image', locals: { entity: @entity } %>
 
-    <dt><%= t('activerecord.attributes.political_force.slug') %></dt>
-    <dd><%= @entity.slug %></dd>
+    <div>
+      <dt><%= t('attributes.slug') %></dt>
+      <dd><%= @entity.slug %></dd>
+    </div>
 
-    <dt><%= t('activerecord.attributes.political_force.name') %></dt>
-    <dd><%= @entity.name %></dd>
+    <div>
+      <dt><%= t('activerecord.attributes.political_force.name') %></dt>
+      <dd><%= @entity.name %></dd>
+    </div>
 
     <% unless @entity.flare.blank? %>
-      <dt><%= t('activerecord.attributes.political_force.flare') %></dt>
-      <dd><%= @entity.flare %></dd>
+      <div>
+        <dt><%= t('activerecord.attributes.political_force.flare') %></dt>
+        <dd><%= @entity.flare %></dd>
+      </div>
     <% end %>
 
+    <%= render partial: 'shared/entity/uuid', locals: { entity: @entity } %>
     <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
   </dl>
 </article>

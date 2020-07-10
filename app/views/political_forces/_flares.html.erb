@@ -1,9 +1,7 @@
 <% if collection.any? %>
   <ul class="flares">
-    <% collection.each do |political_force| %>
-      <li class="flare-<%= political_force.slug %>">
-        <%= political_force.flare %>
-      </li>
+    <% collection.each do |entity| %>
+      <li class="flare-<%= entity.slug %>"><%= entity.flare %></li>
     <% end %>
   </ul>
 <% end %>

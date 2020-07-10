@@ -1,0 +1,63 @@
+<% content_for :meta_title, t('.title', site: @entity.name) %>
+<% content_for :breadcrumbs do %>
+  <%= admin_biovision_component_link(component_handler.component) %>
+  <%= link_to(t('admin.sites.nav_item.text'), admin_sites_path) %>
+  <%= admin_site_link(@entity) %>
+  <span><%= t('.nav_text') %></span>
+<% end %>
+
+<article>
+  <h1><%= t('.heading') %></h1>
+
+  <% if @collection.any? %>
+    <ul class="entity-links">
+      <% @collection.each do |site_user| %>
+        <li>
+          <% element_id = "site_user_#{site_user.id}" %>
+          <%=
+            check_box_tag(
+                "site_user[#{site_user.id}]",
+                site_user.id,
+                @entity.user?(site_user.user),
+                id: element_id,
+                data: {
+                    url: user_admin_site_path(id: @entity.id, user_id: site_user.user_id)
+                }
+            )
+          %>
+          <%= label_tag(element_id, site_user.user.profile_name) %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <%= render 'shared/nothing_found' %>
+  <% end %>
+
+  <section>
+    <h2><%= t('.add_user') %></h2>
+
+    <div>
+      <label for="new_user_id">Id</label>
+      <input type="number" id="new_user_id" min="1"/>
+      <button id="site-user-adder" data-site-id="<%= @entity.id %>">Добавить</button>
+      <div class="state"></div>
+    </div>
+  </section>
+</article>
+
+<script>
+  "use strict";
+
+  const adder = document.getElementById('site-user-adder');
+  const newUserId = document.getElementById('new_user_id');
+  const siteId = adder.getAttribute('data-site-id');
+  const state = adder.parentNode.querySelector('.state');
+
+  newUserId.addEventListener('change', () => state.innerHTML = '' );
+  adder.addEventListener('click', () => {
+      const s = v => state.innerHTML = v;
+      s('Добавляется…');
+      const url = `/admin/sites/${siteId}/users/${newUserId.value}`;
+      Biovision.jsonAjaxRequest('PUT', url, () => s('Добавлено'), () => s('Не добавлено')).send();
+  });
+</script>

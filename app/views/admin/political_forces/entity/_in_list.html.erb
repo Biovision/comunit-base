@@ -1,6 +1,6 @@
-<div class="image">
+<figure class="image">
   <%= simple_image_preview(entity) %>
-</div>
+</figure>
 <div class="data">
   <div><%= admin_political_force_link(entity) %></div>
   <div class="info">
@@ -14,8 +14,13 @@
       )
     %>
   </div>
+  <% unless entity.flare.blank? %>
+    <div class="secondary info">
+      <%= entity.flare %>
+    </div>
+  <% end %>
   <div class="secondary info">
-    <%= entity.flare %>
+    <%= entity.uuid %>
   </div>
 
   <ul class="actions">

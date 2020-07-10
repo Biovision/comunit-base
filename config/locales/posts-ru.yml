@@ -32,6 +32,7 @@ ru:
       post_tag: "Метка"
       post_type: "Тип публикации"
       post_zen_category: "Категория Яндекс.Дзен для публикации"
+      site_post: "Состояние публикации на сайте"
       theme: "Тема публикаций"
       zen_category: "Категория Яндекс.Дзен"
     errors:
@@ -57,6 +58,8 @@ ru:
         post_type: "Тип публикации"
         post_type_id: "Тип публикации"
       featured_post:
+        language: "Язык"
+        language_id: "Язык"
         post: "Публикация"
         post_id: "Публикация"
         priority: "Порядок сортировки"
@@ -67,7 +70,6 @@ ru:
         author_name: "Имя автора"
         author_title: "Титул автора"
         author_url: "URL автора"
-        avoid_parsing: "Не делать дополнительный разбор"
         body: "Текст"
         created_at: "Время публикации"
         explicit: "Откровенное содержание"
@@ -76,6 +78,7 @@ ru:
         image_name: "Название изображения"
         image_source_link: "Ссылка на источник изображения"
         image_source_name: "Источник изображения"
+        language_id: "Язык"
         lead: "Аннотация"
         meta_description: "Описание для метатэга"
         meta_keywords: "Ключевые слова для метатэга"
@@ -179,6 +182,16 @@ ru:
         post_id: "Публикация"
         zen_category: "Категория Яндекс.Дзен"
         zen_category_id: "Категория Яндекс.Дзен"
+      site_post:
+        post: "Публикация"
+        post_id: "Публикация"
+        site: "Сайт"
+        site_id: "Сайт"
+        state: "Состояние"
+        states:
+          original: "Оригинал"
+          copied: "Скопировано"
+          removed: "Удалено"
       zen_category:
         name: "Название"
         posts_count: "Количество публикаций"
@@ -234,8 +247,8 @@ ru:
         title: "Картинка в публикации «%{name}»"
     post_images:
       nav_item:
-        description: "Управление галереями публикаций"
-        text: "Изображения в галереях публикаций"
+        description: "Управление картинками публикаций"
+        text: "Картинки публикаций"
       index:
         heading: "Картинки публикаций"
         title: "Картинки публикаций, страница %{page}"
@@ -282,14 +295,14 @@ ru:
     posts:
       nav_item:
         description: "Управление публикациями"
-        text: "Все публикации"
+        text: "Публикации"
       index:
         heading: "Публикации"
         title: "Публикации, страница %{page}"
       show:
         title: "Публикация «%{name}»"
         images: "Картинки"
-        post_categories: "Категории"
+        show_raw: "Показать сырой HTML"
       images:
         heading: "Картинки"
         nav_text: "Картинки"
@@ -302,35 +315,23 @@ ru:
           post_categories: "Категории публикаций"
         attachments:
           heading: "Приложения"
-      filter:
-        filter: "Фильтровать"
-      search:
-        title: "Поиск публикаций"
-        nav_text: "Поиск"
-        heading: "Поиск публикаций"
-      search_form:
-        query: "Что искать"
-        search: "Искать"
+        sync:
+          heading: "Синхронизация"
+    themes:
+      index:
+        title: "Темы группировки публикаций"
+        heading: "Темы группировки публикаций"
+        description: "Управление темами группировки публикаций и новостей на главной"
+      show:
+        title: "Тема группировки публикаций «%{name}»"
     index:
       dashboard:
         biovision_post:
           heading: "Модуль публикаций"
-    post_links:
-      entity:
-        in_list:
-          post_categories: "Категории публикаций"
-    components:
-      user_settings:
+        posts_component:
+          heading: "Редакция"
         posts:
-          heading: "Разрешённые типы и категории"
-  biovision:
-    components:
-      posts:
-        name: "Публикации"
-        privileges:
-          chief_editor: "Главный редактор"
-          deputy_chief_editor: "Заместитель главного редактора"
-          editor: "Редактор"
+          heading: "Публикации"
   editorial_members:
     new:
       heading: "Добавление члена редакции"
@@ -441,6 +442,7 @@ ru:
         image_name: "Будет отображаться в качестве подписи к картинке."
         image_source_link: "Будет открываться при нажатии на имя автора картинки."
         image_source_name: "ФИО или название организации. Будет отображаться в подписи к картинке."
+        language_id: "Язык"
         lead: "Краткая суть, максимум 5000 символов."
         meta_description: "50–55 слов. Максимум 250 символов."
         meta_keywords: "Максимум 250 символов."
@@ -458,7 +460,9 @@ ru:
       gallery:
         heading: "Галерея картинок"
         add_image: "Добавить изображение"
-      categories: "Категории"
+      attachments:
+        heading: "Приложения"
+        add: "Добавить приложение"
     post:
       source: "Источник"
       image_credit: "Источник изображения"
@@ -475,8 +479,8 @@ ru:
       gallery:
         heading: "Галерея"
     rss:
-      title: "Публикации сайта на Biovision CMS"
-      description: "RSS-канал сайта на Biovision CMS"
+      title: "Публикации сайта на Comunit CMS"
+      description: "RSS-канал сайта на Comunit CMS"
     archive_day:
       title: "Архив публикаций"
     calendar:
@@ -485,8 +489,16 @@ ru:
       title: "Поиск публикаций"
       nav_text: "Поиск публикаций"
       heading: "Поиск публикаций"
-    category:
-      title: "Публикации в категории «%{category}», страница %{page}"
+  themes:
+    update:
+      success: "Тема группировки успешно обновлена"
+    destroy:
+      success: "Тема группировки успешно удалена"
+    new:
+      title: "Добавить тему группировки"
+    edit:
+      title: "Редактирование темы группировки"
+      forbidden: "Редактирование этой темы группировки запрещено"
   index:
     dashboard:
       biovision_post:
@@ -569,5 +581,5 @@ ru:
         title: "Редактирование моей публикации"
         nav_text: "Редактировать"
         heading: "Редактирование публикации"
-      form:
-        categories: "Категории"
+    feed:
+      nav_text: "Лента сайтов"

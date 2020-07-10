@@ -10,88 +10,91 @@
 %>
   <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
 
-  <dl>
-    <dt><%= f.label :image %></dt>
-    <dd>
-      <figure class="preview" role="group" id="<%= model_name %>-image">
-        <% if entity.image.blank? %>
-          <%= f.label :image, image_tag('biovision/base/placeholders/1x1.svg', alt: '') %>
-        <% else %>
-          <%= f.label :image, image_tag(entity.image.medium_url, alt: '') %>
-        <% end %>
-        <figcaption>
-          <%=
-            f.file_field(
-                :image,
-                id: "#{model_name}_image",
-                accept: 'image/jpeg,image/png,image/svg+xml',
-                data: { image: "#{model_name}-image" }
-            )
-          %>
-        </figcaption>
-      </figure>
-      <div class="guideline"><%= t('.guidelines.image') %></div>
-    </dd>
+  <dl class="fields">
+    <div>
+      <dt><%= f.label :image %></dt>
+      <dd>
+        <figure class="preview" role="group" id="<%= model_name %>-image">
+          <% if entity.image.blank? %>
+            <%= f.label :image, image_tag('biovision/base/placeholders/1x1.svg', alt: '') %>
+          <% else %>
+            <%= f.label :image, image_tag(entity.image.medium_url, alt: '') %>
+          <% end %>
+          <figcaption>
+            <%=
+              f.file_field(
+                  :image,
+                  accept: 'image/jpeg,image/png,image/svg+xml',
+                  data: { image: "#{model_name}-image" }
+              )
+            %>
+          </figcaption>
+        </figure>
+        <div class="guideline"><%= t('.guidelines.image') %></div>
+      </dd>
+    </div>
 
-    <dt><%= f.label :name %></dt>
-    <dd>
-      <%=
-        f.text_field(
-            :name,
-            id: "#{model_name}_name",
-            size: nil,
-            maxlength: Candidate::NAME_LIMIT,
-            required: true,
-            data: {
-                check: :name
-            }
-        )
-      %>
-      <div class="check-result-error" data-field="name"></div>
-      <div class="guideline"><%= t('.guidelines.name') %></div>
-    </dd>
+    <div>
+      <dt><%= f.label :name %></dt>
+      <dd>
+        <%=
+          f.text_field(
+              :name,
+              class: 'input-text',
+              data: { check: :name },
+              maxlength: Candidate::NAME_LIMIT,
+              required: true,
+              size: nil
+          )
+        %>
+        <div class="check-result-error" data-field="name"></div>
+        <div class="guideline"><%= t('.guidelines.name') %></div>
+      </dd>
+    </div>
 
-    <dt><%= f.label :slug %></dt>
-    <dd>
-      <%=
-        f.text_field(
-            :slug,
-            id: "#{model_name}_slug",
-            size: nil,
-            maxlength: PoliticalForce::SLUG_LIMIT,
-            pattern: PoliticalForce::SLUG_PATTERN_HTML,
-            required: true,
-            data: {
-                check: :slug
-            }
-        )
-      %>
-      <div class="check-result-error" data-field="slug"></div>
-      <div class="guideline"><%= t('.guidelines.slug') %></div>
-    </dd>
+    <div>
+      <dt><%= f.label :slug %></dt>
+      <dd>
+        <%=
+          f.text_field(
+              :slug,
+              class: 'input-text',
+              data: { check: :slug },
+              maxlength: PoliticalForce::SLUG_LIMIT,
+              pattern: PoliticalForce::SLUG_PATTERN_HTML,
+              required: true,
+              size: nil
+          )
+        %>
+        <div class="check-result-error" data-field="slug"></div>
+        <div class="guideline"><%= t('.guidelines.slug') %></div>
+      </dd>
+    </div>
 
-    <dt><%= f.label :flare %></dt>
-    <dd>
-      <%=
-        f.text_field(
-            :flare,
-            id: "#{model_name}_flare",
-            size: nil,
-            maxlength: PoliticalForce::FLARE_LIMIT,
-            data: {
-                check: :flare
-            }
-        )
-      %>
-      <div class="check-result-error" data-field="flare"></div>
-      <div class="guideline"><%= t('.guidelines.flare') %></div>
-    </dd>
+    <div>
+      <dt><%= f.label :flare %></dt>
+      <dd>
+        <%=
+          f.text_field(
+              :flare,
+              class: 'input-text',
+              data: {
+                  check: :flare
+              },
+              maxlength: PoliticalForce::FLARE_LIMIT,
+              size: nil
+          )
+        %>
+        <div class="check-result-error" data-field="flare"></div>
+        <div class="guideline"><%= t('.guidelines.flare') %></div>
+      </dd>
+    </div>
   </dl>
 
   <%= render 'shared/forms/state_container' %>
 
   <div class="buttons">
     <%= hidden_field_tag :entity_id, entity.id %>
-    <%= f.button t(:save), type: :submit, class: 'button-save' %>
+    <%= f.button t(:save), class: 'button-save' %>
   </div>
 <% end %>

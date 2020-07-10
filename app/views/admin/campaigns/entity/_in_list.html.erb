@@ -1,12 +1,13 @@
-<div class="image">
+<figure class="image">
   <%= simple_image_preview(entity) %>
-</div>
+</figure>
 <div class="data">
   <div><%= admin_campaign_link(entity) %></div>
   <div class="info">
     <% unless entity.region.nil? %>
       <%= entity.region.long_name %>,
     <% end %>
+    <%= entity.slug %>
     <%= entity.date %>
   </div>
   <div class="secondary info">
