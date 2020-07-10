@@ -8,8 +8,6 @@ module Comunit
         def self.permitted_attributes
           super + %i[name body answers]
         end
-
-        protected
       end
     end
   end

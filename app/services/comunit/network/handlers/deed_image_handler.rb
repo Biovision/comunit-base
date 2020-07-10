@@ -9,6 +9,10 @@ module Comunit
           super + %i[caption description priority]
         end
 
+        def self.since
+          7
+        end
+
         protected
 
         def relationships_for_remote

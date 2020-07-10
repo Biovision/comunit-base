@@ -5,6 +5,10 @@ module Comunit
     module Handlers
       # Handling sites
       class SiteHandler < Comunit::Network::Handler
+        def self.since
+          9
+        end
+
         def self.ignored_attributes
           super + %w[token]
         end
