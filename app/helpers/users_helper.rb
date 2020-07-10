@@ -7,7 +7,7 @@ module UsersHelper
   # @param [Integer] gender_key
   def marital_statuses_for_select(gender_key)
     options = [[t(:not_selected), '']]
-    options + UserProfileHandler::MARITAL.keys.map { |o| [marital_status_name(gender_key, o), o] }
+    options + UserProfileHandler.marital_statuses.keys.map { |o| [marital_status_name(gender_key, o), o] }
   end
 
   # @param [Integer] gender_key
@@ -16,8 +16,8 @@ module UsersHelper
     gender = UserProfileHandler::GENDERS[gender_key]
     prefix = 'activerecord.attributes.user_profile.marital_statuses.'
     prefix << (gender.blank? ? 'default' : gender)
-    if UserProfileHandler::MARITAL.key?(key)
-      t("#{prefix}.#{UserProfileHandler::MARITAL[key]}")
+    if UserProfileHandler.marital_statuses.key?(key)
+      t("#{prefix}.#{UserProfileHandler.marital_statuses[key]}")
     else
       t(:not_selected)
     end

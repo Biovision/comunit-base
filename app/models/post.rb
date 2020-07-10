@@ -65,7 +65,7 @@ class Post < ApplicationRecord
   scope :in_region, ->(region) { where(region_id: region&.id.nil? ? nil : region&.subbranch_ids) }
   # scope :regional, -> { where('region_id is not null') }
   scope :central, -> { where(region_id: nil) }
-
+  scope :for_site, ->(v) { where(site: v) unless v.blank? }
   scope :recent, -> { order('publication_time desc') }
   scope :popular, -> { order('rating desc') }
   scope :visible, -> { where(visible: true, deleted: false, approved: true) }
