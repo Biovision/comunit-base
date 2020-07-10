@@ -26,7 +26,7 @@ class Site < ApplicationRecord
   HOST_LIMIT = 100
   NAME_LIMIT = 50
 
-  toggleable :active
+  toggleable :active # , :local
 
   has_secure_token
 

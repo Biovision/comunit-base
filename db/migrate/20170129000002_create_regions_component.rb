@@ -18,6 +18,8 @@ class CreateRegionsComponent < ActiveRecord::Migration[5.2]
 
   def create_countries
     create_table :countries, comment: 'Country' do |t|
+      t.uuid :uuid
+      t.references :simple_image, foreign_key: { on_update: :cascade, on_delete: :nullify }
       t.integer :priority, limit: 2, default: 1, null: false
       t.boolean :visible, default: true, null: false
       t.integer :regions_count, default: 0, null: false
@@ -26,6 +28,7 @@ class CreateRegionsComponent < ActiveRecord::Migration[5.2]
       t.string :short_name
       t.string :locative
       t.string :slug
+      t.jsonb :data, default: {}, null: false
     end
 
     Country.create(
