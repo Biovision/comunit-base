@@ -1,21 +1,11 @@
 # frozen_string_literal: true
 
-# Administrative part of regions handler
+# Administrative part for regions management
 class Admin::RegionsController < AdminController
   include ToggleableEntity
-  include LockableEntity
   include EntityPriority
 
-  before_action :set_entity, except: :index
-
-  # get /admin/regions
-  def index
-    component = Biovision::Components::RegionsComponent
-    country_id = params[:country_id] || component.default_country_id
-    allowed_ids = component_handler.allowed_region_ids
-
-    @collection = Region.for_tree(country_id).only_with_ids(allowed_ids)
-  end
+  before_action :set_entity
 
   # get /admin/regions/:id
   def show
@@ -37,13 +27,8 @@ class Admin::RegionsController < AdminController
 
   private
 
-  def component_slug
-    Biovision::Components::RegionsComponent::SLUG
-  end
-
-  def restrict_access
-    error = 'Region handling is not allowed for current user'
-    handle_http_401(error) unless component_handler.allow_regions?
+  def component_class
+    Biovision::Components::RegionsComponent
   end
 
   def set_entity

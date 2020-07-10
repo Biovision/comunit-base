@@ -43,9 +43,7 @@ class DeedCategoriesController < AdminController
 
   # delete /deed_categories/:id
   def destroy
-    if @entity.destroy
-      flash[:notice] = t('deed_categories.destroy.success')
-    end
+    flash[:notice] = t('.success') if @entity.destroy
     redirect_to(admin_deed_categories_path)
   end
 

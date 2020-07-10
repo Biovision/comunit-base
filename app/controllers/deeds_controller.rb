@@ -61,7 +61,7 @@ class DeedsController < ApplicationController
 
   # delete /deeds/:id
   def destroy
-    flash[:notice] = t('deeds.destroy.success') if @entity.destroy
+    flash[:notice] = t('.success') if @entity.destroy
     redirect_to(admin_deeds_path)
   end
 

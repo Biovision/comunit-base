@@ -26,7 +26,7 @@ class Admin::PostsController < AdminController
   def search
     @collection = params.key?(:q) ? search_posts(param_from_request(:q)) : []
   end
-  
+
   # get /admin/posts/regions
   def regions
     @collection = RegionManager.new(current_user).for_tree(params[:parent_id])

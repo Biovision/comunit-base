@@ -1,7 +1,13 @@
 # frozen_string_literal: true
 
-# Helper methods for handling regions
+# Helper methods for region and country handling
 module RegionsHelper
+  # @param [Country] entity
+  # @param [String] text
+  def admin_country_link(entity, text = entity.name)
+    link_to(text, admin_country_path(id: entity.id))
+  end
+
   # @param [Region] entity
   # @param [String] text
   # @param [Hash] options
@@ -73,5 +79,14 @@ module RegionsHelper
       versions = "#{entity.image.medium_2x.url} 2x"
       image_tag(entity.image.medium.url, alt: entity.name, srcset: versions)
     end
+  end
+
+  # @param [Region] entity
+  # @param [Hash] options
+  def region_image_small(entity, options = {})
+    return '' if entity.image.blank?
+
+    default = { alt: entity.name }
+    image_tag(entity.image.small.url, default.merge(options))
   end
 end
