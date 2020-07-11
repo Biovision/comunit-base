@@ -5,10 +5,6 @@ module Comunit
     module Handlers
       # Handling polls
       class PollHandler < Comunit::Network::Handler
-        def self.since
-          7
-        end
-
         def self.permitted_attributes
           super + %i[
             active allow_comments anonymous_votes description end_date exclusive

@@ -5,10 +5,6 @@ module Comunit
     module Handlers
       # Handling polls
       class PollAnswerHandler < Comunit::Network::Handler
-        def self.since
-          7
-        end
-
         protected
 
         def relationships_for_remote

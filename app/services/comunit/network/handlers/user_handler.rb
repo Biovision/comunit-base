@@ -5,10 +5,6 @@ module Comunit
     module Handlers
       # Handling users
       class UserHandler < Comunit::Network::Handler
-        def self.since
-          7
-        end
-
         def self.permitted_attributes
           super + %i[
             birthday bot consent email email_confirmed foreign_slug

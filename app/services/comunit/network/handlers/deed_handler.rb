@@ -9,10 +9,6 @@ module Comunit
           super + %i[description done name offer title]
         end
 
-        def self.since
-          7
-        end
-
         protected
 
         def relationships_for_remote

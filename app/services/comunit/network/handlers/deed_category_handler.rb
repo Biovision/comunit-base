@@ -9,10 +9,6 @@ module Comunit
           super + %i[name]
         end
 
-        def self.since
-          7
-        end
-
         protected
 
         def relationships_for_remote

@@ -50,7 +50,7 @@ module Comunit
 
       # API version when it was implemented on remote site
       def self.since
-        9
+        7
       end
 
       def self.permitted_attributes

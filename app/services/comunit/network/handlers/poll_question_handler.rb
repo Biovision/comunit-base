@@ -5,10 +5,6 @@ module Comunit
     module Handlers
       # Handling polls
       class PollQuestionHandler < Comunit::Network::Handler
-        def self.since
-          7
-        end
-
         def self.permitted_attributes
           super + %i[comment multiple_choice priority text]
         end
