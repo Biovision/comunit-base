@@ -30,7 +30,7 @@ module Comunit
                 type: entity.post_type.class.table_name
               }
             },
-            site: SiteHandler.relationship_data(entity.user)
+            site: SiteHandler.relationship_data(entity.site)
           }
         end
 
