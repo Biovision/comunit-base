@@ -396,7 +396,6 @@ Rails.application.routes.draw do
 
     namespace :my do
       resources :entries, only: :index
-      resources :followers, :followees, only: :index
       resources :appeals, only: :index
 
       resources :deeds, only: %i[index show] do

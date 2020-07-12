@@ -38,7 +38,7 @@ module EntriesHelper
 
   # @param [Post] entity
   # @param [String] text
-  def post_link(entity, text = entity&.title, options = {})
+  def post_link1(entity, text = entity&.title, options = {})
     if entity.class.to_s == Post.to_s
       if entity.post_category.class.to_s == PostCategory.to_s
         parameters = { category_slug: entity.post_category.slug, slug: entity.slug }

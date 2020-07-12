@@ -1,4 +1,5 @@
 class PostNote < ApplicationRecord
+  include HasUuid
   include PostChildWithPriority
 
   TEXT_LIMIT = 1000

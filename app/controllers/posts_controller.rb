@@ -23,7 +23,9 @@ class PostsController < ApplicationController
       add_attachments if params.key?(:post_attachment)
       mark_as_featured if params[:featured]
       # PostBodyParserJob.perform_later(@entity.id)
-      NetworkPostSyncJob.perform_later(@entity.id, false)
+      unless Comunit::Network::Handler.central_site?
+        NetworkPostSyncJob.perform_later(@entity.id, false)
+      end
       form_processed_ok(PostManager.new(@entity).post_path)
     else
       form_processed_with_error(:new)
@@ -66,7 +68,9 @@ class PostsController < ApplicationController
       apply_post_categories
       add_attachments if params.key?(:post_attachment)
       # PostBodyParserJob.perform_later(@entity.id)
-      NetworkPostSyncJob.perform_later(@entity.id, true)
+      unless Comunit::Network::Handler.central_site?
+        NetworkPostSyncJob.perform_later(@entity.id, true)
+      end
       form_processed_ok(PostManager.new(@entity).post_path)
     else
       form_processed_with_error(:edit)
@@ -170,7 +174,7 @@ class PostsController < ApplicationController
   end
 
   def owner_for_post
-    key    = :user_for_entity
+    key = :user_for_entity
     result = {}
     if component_handler.group?(:chief) && params.key?(key)
       result[:user_id] = param_from_request(key)
@@ -179,13 +183,13 @@ class PostsController < ApplicationController
   end
 
   def collect_dates
-    array  = Post.visible.published.archive
+    array = Post.visible.published.archive
     @dates = Post.archive_dates(array)
   end
 
   def archive_day
-    date        = Date.parse("#{params[:year]}-#{params[:month]}-#{params[:day]}")
-    selection   = Post.pubdate(date)
+    date = Date.parse("#{params[:year]}-#{params[:month]}-#{params[:day]}")
+    selection = Post.pubdate(date)
     @collection = selection.page_for_visitors(current_page)
     render 'archive_day'
   end

@@ -3,7 +3,7 @@
 # Common parts for working with Comunit network
 class NetworkController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :validate_signature
+  before_action :validate_signature, except: %i[amend pull]
   before_action :set_handler
 
   # post /network/[table_name]

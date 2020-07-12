@@ -128,7 +128,7 @@
       <% end %>
       <meta itemprop="commentCount" content="<%= post.comments_count %>"/>
       <meta itemprop="dateModified" content="<%= post.updated_at.strftime('%Y-%m-%d') %>"/>
-      <%= render partial: 'posts/entity/publisher', locals: { entity: post } %>
+      <%#= render partial: 'posts/entity/publisher', locals: { entity: post } %>
     </footer>
 
     <%= render 'shared/pluso' %>

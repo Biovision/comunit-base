@@ -21,7 +21,7 @@ module Comunit
       end
 
       def self.central_site?
-        !site_id.blank?
+        site_id.blank?
       end
 
       def self.site_id
@@ -101,10 +101,9 @@ module Comunit
       def push(amend = false)
         log_info("Pushing #{entity.class} #{entity.uuid}")
         ensure_site_is_pushed
-        response = rest(:put, path(amend), data: prepare_model_data)
-        code = response&.code.to_i
+        code = rest(:put, path(amend), data: prepare_model_data)
 
-        if code / 100 == 2
+        if code.to_i / 100 == 2
           apply_sync_state
         else
           log_error "Unexpected response code: #{code}"
@@ -196,6 +195,10 @@ module Comunit
       end
 
       def after_pull
+        if self.class.central_site?
+          NetworkEntitySyncJob.perform_later(entity.class.to_s, entity.id)
+        end
+
         true
       end
 

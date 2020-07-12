@@ -5,6 +5,7 @@
 # Attributes:
 #   children_cache [Array<Integer>]
 #   created_at [DateTime]
+#   data [JSONb]
 #   meta_description [String], optional
 #   name [String]
 #   nav_text [String], optional
@@ -12,11 +13,14 @@
 #   parents_cache [String]
 #   post_type_id [PostType]
 #   priority [Integer]
+#   site_id [Site]
 #   slug [String]
 #   updated_at [DateTime]
+#   uuid [UUID]
 #   visible [Boolean]
 class PostCategory < ApplicationRecord
   include Checkable
+  include HasUuid
   include NestedPriority
   include Toggleable
 
@@ -29,6 +33,7 @@ class PostCategory < ApplicationRecord
 
   belongs_to :post_type
   belongs_to :parent, class_name: PostCategory.to_s, optional: true, touch: true
+  belongs_to :site, optional: true
   has_many :child_categories, class_name: PostCategory.to_s, foreign_key: :parent_id, dependent: :destroy
   has_many :post_post_categories, dependent: :delete_all
   has_many :posts, through: :post_post_categories

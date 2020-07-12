@@ -1,4 +1,5 @@
 class PostReference < ApplicationRecord
+  include HasUuid
   include PostChildWithPriority
 
   META_LIMIT = 255

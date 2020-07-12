@@ -141,6 +141,10 @@ class Post < ApplicationRecord
     dates
   end
 
+  def site
+    Site.find_by(uuid: data.dig('comunit', 'site_id'))
+  end
+
   # Lead or the first passage of body
   def lead!
     if lead.blank?

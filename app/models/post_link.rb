@@ -1,4 +1,5 @@
 class PostLink < ApplicationRecord
+  include HasUuid
   include PostChildWithPriority
 
   belongs_to :other_post, class_name: Post.to_s
