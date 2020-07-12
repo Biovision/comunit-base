@@ -19,6 +19,7 @@ module Comunit
           apply_attributes
           apply_site
           apply_parent
+          apply_post_type
         end
 
         def relationships_for_remote
