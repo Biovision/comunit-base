@@ -122,6 +122,24 @@ module Comunit
         end
       end
 
+      # @param [Integer] id
+      def amend(id)
+        return if self.class.central_site?
+
+        entity = entity_class.find_by(id: id)
+        if entity.nil?
+          log_info "Could not find #{entity_class} #{id}"
+        else
+          log_info "Amending #{entity.class} #{id}"
+          pull_data
+          if entity.valid?
+            entity.save && after_pull
+          else
+            log_error entity.errors.messages
+          end
+        end
+      end
+
       # @param [TrueClass|FalseClass] amend
       def path(amend = false)
         prefix = "comunit/#{entity.class.table_name}"
