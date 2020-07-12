@@ -16,7 +16,7 @@ module Comunit
         protected
 
         def pull_data
-          assign_attributes
+          apply_attributes
           apply_site
           apply_parent
         end

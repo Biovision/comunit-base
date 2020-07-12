@@ -15,7 +15,7 @@ module Comunit
         end
 
         def pull_data
-          assign_attributes
+          apply_attributes
           apply_poll_answer
           apply_user
           fallback_slug = "#{entity.id}:#{entity.agent_id}"

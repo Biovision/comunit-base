@@ -16,7 +16,7 @@ module Comunit
         protected
 
         def pull_data
-          assign_attributes
+          apply_attributes
           apply_profile
           apply_agent
           apply_image

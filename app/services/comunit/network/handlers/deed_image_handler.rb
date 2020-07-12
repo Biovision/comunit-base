@@ -26,7 +26,7 @@ module Comunit
         end
 
         def pull_data
-          assign_attributes
+          apply_attributes
           apply_deed
           apply_image
         end
