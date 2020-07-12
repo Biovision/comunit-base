@@ -27,7 +27,7 @@ module Comunit
             post_type: {
               data: {
                 id: entity.post_type.slug,
-                type: entity.post_type.table_name
+                type: entity.post_type.class.table_name
               }
             },
             site: SiteHandler.relationship_data(entity.user)
