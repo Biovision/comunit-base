@@ -20,7 +20,6 @@ Comunit::Base
 
 ```
 /public/uploads
-/public/ckeditor
 /public/post_illustrations
 
 /spec/examples.txt
@@ -101,7 +100,7 @@ SITE_ID=
 
 `DATABASE_PASSWORD` создаётся через random.org, `MAIL_PASSWORD` — или через 
 интерфейс внешнего почтовика, или через тот же random.org.
-`SITE_ID` берётся из админки comunit.
+`SITE_ID` берётся из админки comunit (UUID сайта).
 
 ### Добавления в `app/assets/`
 

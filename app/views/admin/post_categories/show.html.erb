@@ -49,6 +49,8 @@
       <dt><%= t('activerecord.attributes.post_category.children_cache') %></dt>
       <dd><%= @entity.children_cache %></dd>
     <% end %>
+
+    <%= render partial: 'shared/entity/uuid', locals: { entity: @entity } %>
   </dl>
 
   <%=

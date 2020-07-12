@@ -56,9 +56,9 @@ class PostCategory < ApplicationRecord
   validate :parent_matches_type
   validate :parent_is_not_too_deep
 
-  scope :visible, -> { where(visible: true, deleted: false) }
-  scope :for_tree, ->(post_type_id, parent_id = nil) { where(post_type_id: post_type_id, parent_id: parent_id).ordered_by_priority }
-  scope :ids_for_slug, ->(slug) { where(long_slug: slug.to_s.downcase).pluck(:id) }
+  scope :visible, -> { where(site: Site.find_by(uuid: ENV['SITE_ID']), visible: true, deleted: false) }
+  scope :for_tree, ->(post_type_id, parent_id = nil) { where(site: Site.find_by(uuid: ENV['SITE_ID']), post_type_id: post_type_id, parent_id: parent_id).ordered_by_priority }
+  scope :ids_for_slug, ->(slug) { where(site: Site.find_by(uuid: ENV['SITE_ID']), long_slug: slug.to_s.downcase).pluck(:id) }
 
   def self.entity_parameters
     %i[meta_description name nav_text slug priority visible]

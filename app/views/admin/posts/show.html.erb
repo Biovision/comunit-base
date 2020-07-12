@@ -53,11 +53,7 @@
       </dd>
     <% end %>
 
-    <dt><%= t(:created_at) %></dt>
-    <dd><%= time_tag(@entity.created_at) %></dd>
-
-    <dt><%= t(:updated_at) %></dt>
-    <dd><%= time_tag(@entity.updated_at) %></dd>
+    <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
 
     <dt><%= t('activerecord.attributes.post.publication_time') %></dt>
     <dd><%= time_tag(@entity.publication_time) %></dd>
@@ -163,6 +159,8 @@
         </ul>
       </dd>
     <% end %>
+
+    <%= render partial: 'shared/entity/uuid', locals: { entity: @entity } %>
   </dl>
 
   <%=
