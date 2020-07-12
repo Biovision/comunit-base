@@ -199,7 +199,7 @@ module Comunit
 
       # @param [TrueClass|FalseClass] skip_site_check
       def check_site_and_pull(skip_site_check)
-        log_info "Pulling #{entity.class} #{uuid}"
+        log_info "Pulling #{entity.class} #{entity.uuid}"
         if skip_site_check || original?
           pull_data
           log_info "Validation status after pull: #{entity.valid?}"
