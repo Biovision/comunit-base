@@ -23,7 +23,7 @@ module Comunit
 
         def relationships_for_remote
           {
-            parent: PostCategory.relationship_data(entity.parent),
+            parent: PostCategoryHandler.relationship_data(entity.parent),
             post_type: {
               data: {
                 id: entity.post_type.slug,
