@@ -11,6 +11,7 @@ class PostCategoriesController < AdminController
   def create
     @entity = PostCategory.new(creation_parameters)
     if @entity.save
+      NetworkEntitySyncJob.perform_later(@entity.class.to_s, @entity.id)
       form_processed_ok(admin_post_category_path(id: @entity.id))
     else
       form_processed_with_error(:new)
@@ -24,6 +25,7 @@ class PostCategoriesController < AdminController
   # patch /post_categories/:id
   def update
     if @entity.update entity_parameters
+      NetworkEntitySyncJob.perform_later(@entity.class.to_s, @entity.id)
       form_processed_ok(admin_post_category_path(id: @entity.id))
     else
       form_processed_with_error(:edit)

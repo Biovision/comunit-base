@@ -8,6 +8,10 @@ module Comunit
         @entity.user = User.find_by(uuid: dig_related_id(:user))
       end
 
+      def apply_site
+        @entity.site = Site.find_by(uuid: dig_related_id(:site))
+      end
+
       def apply_agent
         @entity.agent = Agent[data.dig(:meta, :agent)]
       end
