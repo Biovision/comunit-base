@@ -47,8 +47,8 @@
 
     <% categories = PostCategory.list_for_tree(entity.post_type_id) %>
     <% if categories.any? %>
-      <div>
-        <dt><label><%= t('.categories') %></label></dt>
+      <div class="post-form-categories">
+        <dt><label><%= t('posts.form.categories') %></label></dt>
         <dd>
           <%=
             render(

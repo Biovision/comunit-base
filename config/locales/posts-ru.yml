@@ -332,6 +332,10 @@ ru:
           heading: "Редакция"
         posts:
           heading: "Публикации"
+  biovision:
+    components:
+      posts:
+        name: "Публикации"
   editorial_members:
     new:
       heading: "Добавление члена редакции"
@@ -463,6 +467,7 @@ ru:
       attachments:
         heading: "Приложения"
         add: "Добавить приложение"
+      categories: "Категории"
     post:
       source: "Источник"
       image_credit: "Источник изображения"

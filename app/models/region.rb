@@ -79,6 +79,24 @@ class Region < ApplicationRecord
     entity_parameters + %i[country_id parent_id]
   end
 
+  # Post moved to other region
+  #
+  # Decrements posts_count for region with old_id and increments for new_id
+  #
+  # @param [Integer|nil] old_id
+  # @param [Integer|nil] new_id
+  def self.update_post_count(old_id, new_id)
+    part = 'update regions set posts_count = posts_count'
+    unless new_id.nil?
+      region = find(new_id)
+      connection.execute("#{part} + 1 where id in (#{region.branch_ids.join(',')})")
+    end
+    return if old_id.nil?
+
+    region = find(old_id)
+    connection.execute("#{part} - 1 where id in (#{region.branch_ids.join(',')})")
+  end
+
   # @param [User] user
   def editable_by?(user)
     Biovision::Components::RegionsComponent[user].allow?('manager')

@@ -5,7 +5,16 @@ class Admin::RegionsController < AdminController
   include ToggleableEntity
   include EntityPriority
 
-  before_action :set_entity
+  before_action :set_entity, except: :index
+
+  # get /admin/regions
+  def index
+    component = Biovision::Components::RegionsComponent
+    country_id = params[:country_id] || component.default_country_id
+    allowed_ids = component_handler.allowed_region_ids
+
+    @collection = Region.for_tree(country_id).only_with_ids(allowed_ids)
+  end
 
   # get /admin/regions/:id
   def show

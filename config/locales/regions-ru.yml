@@ -64,6 +64,9 @@ ru:
         nav_text: "Регионы"
         title: "Регионы %{locative}, страница %{page}"
     regions:
+      nav_item:
+        description: "Управление регионами"
+        text: "Список регионов"
       show:
         title: "Регион «%{name}»"
         children: "Дочерние регионы"
