@@ -19,9 +19,11 @@
 #   short_name [String]
 #   slug [String]
 #   updated_at [DateTime]
+#   uuid [UUID]
 #   visible [Boolean]
 class Region < ApplicationRecord
   include Checkable
+  include HasUuid
   include NestedPriority
   include Toggleable
 

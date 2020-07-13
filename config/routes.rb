@@ -383,13 +383,9 @@ Rails.application.routes.draw do
     end
 
     namespace :network, defaults: { format: :json } do
-      controller :sites do
-        put 'sites/:id' => :synchronize, as: :synchronize_site
-      end
       resources :users, only: %i[create update] do
         put 'uuid' => :update_uuid, on: :member
       end
-      resources :regions, only: %i[create update]
       resources :posts, only: %i[create update]
       resources :political_forces, :campaigns, :candidates, only: %i[create update]
     end

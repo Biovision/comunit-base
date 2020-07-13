@@ -11,7 +11,8 @@ class NetworkManager::RegionHandler < NetworkManager
       id: entity.id,
       type: entity.class.table_name,
       attributes: {
-        slug: entity.slug
+        slug: entity.slug,
+        long_slug: entity.long_slug
       }
     }
 

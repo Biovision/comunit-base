@@ -24,6 +24,12 @@ module Comunit
         @entity.image = Pathname.new(image_path).open
       end
 
+      def apply_region
+        region_id = dig_related_id(:region)
+        key = region_id =~ /[^-]{8}-(?:[^-]-){3}.{12}/ ? 'uuid' : 'id'
+        entity.region = Region.find_by(key => region_id)
+      end
+
       def apply_comunit
         key = Handler::ROOT_KEY
         @entity.data[key] = data.dig(:data, key.to_sym)

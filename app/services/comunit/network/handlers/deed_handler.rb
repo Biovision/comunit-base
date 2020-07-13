@@ -41,10 +41,6 @@ module Comunit
           apply_image
         end
 
-        def apply_region
-          entity.region = Region.find_by(uuid: dig_related_id(:region))
-        end
-
         def after_pull
           list = Array(data.dig(:relationships, :deed_categories, :data))
           uuids = list.map(&:id)
