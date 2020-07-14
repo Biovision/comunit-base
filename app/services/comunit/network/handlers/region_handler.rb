@@ -3,7 +3,7 @@
 module Comunit
   module Network
     module Handlers
-      # Handling sites
+      # Handling regions
       class RegionHandler < Comunit::Network::Handler
         def self.since
           10
@@ -16,6 +16,7 @@ module Comunit
         def self.permitted_attributes
           super + %w[latitude locative longitude name short_name slug visible]
         end
+
         protected
 
         def pull_data
@@ -37,11 +38,11 @@ module Comunit
         end
 
         def apply_country
-          @entity.country = Country.find_by(slug: dig_related_id(:country))
+          entity.country = Country.find_by(slug: dig_related_id(:country))
         end
 
         def apply_parent
-          @entity.parent = Region.find_by(uuid: dig_related_id(:parent))
+          entity.parent = Region.find_by(uuid: dig_related_id(:parent))
         end
       end
     end

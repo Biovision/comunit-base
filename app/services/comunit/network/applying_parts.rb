@@ -5,15 +5,15 @@ module Comunit
     # Applying parts to pulled entities
     module ApplyingParts
       def apply_user
-        @entity.user = User.find_by(uuid: dig_related_id(:user))
+        entity.user = User.find_by(uuid: dig_related_id(:user))
       end
 
       def apply_site
-        @entity.site = Site.find_by(uuid: dig_related_id(:site))
+        entity.site = Site.find_by(uuid: dig_related_id(:site))
       end
 
       def apply_agent
-        @entity.agent = Agent[data.dig(:meta, :agent)]
+        entity.agent = Agent[data.dig(:meta, :agent)]
       end
 
       def apply_image
@@ -21,7 +21,7 @@ module Comunit
 
         return if image_path.blank? || !File.exist?(image_path)
 
-        @entity.image = Pathname.new(image_path).open
+        entity.image = Pathname.new(image_path).open
       end
 
       def apply_region
@@ -32,7 +32,7 @@ module Comunit
 
       def apply_comunit
         key = Handler::ROOT_KEY
-        @entity.data[key] = data.dig(:data, key.to_sym)
+        entity.data[key] = data.dig(:data, key.to_sym)
       end
 
       # @param [Symbol] key

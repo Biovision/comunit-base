@@ -126,7 +126,7 @@ module Comunit
       def amend(id)
         return if self.class.central_site?
 
-        entity = entity_class.find_by(id: id)
+        self.entity = entity_class.find_by(id: id)
         if entity.nil?
           log_info "Could not find #{entity_class} #{id}"
         else
@@ -226,7 +226,7 @@ module Comunit
       def attributes_for_remote
         ignored = self.class.ignored_attributes
 
-        @entity.attributes.reject do |a, _|
+        entity.attributes.reject do |a, _|
           ignored.include?(a) || a.end_with?('_count', '_id', '_cache')
         end
       end
@@ -241,7 +241,7 @@ module Comunit
 
       def apply_attributes
         permitted = self.class.permitted_attributes
-        input = @data.dig(:attributes).to_h
+        input = data.dig(:attributes).to_h
 
         attributes = input.select { |a, _| permitted.include?(a.to_sym) }
         entity.assign_attributes(attributes)

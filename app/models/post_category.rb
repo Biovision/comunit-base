@@ -56,9 +56,10 @@ class PostCategory < ApplicationRecord
   validate :parent_matches_type
   validate :parent_is_not_too_deep
 
-  scope :visible, -> { where(site: Site.find_by(uuid: ENV['SITE_ID']), visible: true, deleted: false) }
-  scope :for_tree, ->(post_type_id, parent_id = nil) { where(site: Site.find_by(uuid: ENV['SITE_ID']), post_type_id: post_type_id, parent_id: parent_id).ordered_by_priority }
-  scope :ids_for_slug, ->(slug) { where(site: Site.find_by(uuid: ENV['SITE_ID']), long_slug: slug.to_s.downcase).pluck(:id) }
+  scope :for_current_site, -> { where(site: Site.find_by(uuid: ENV['SITE_ID'])) }
+  scope :visible, -> { for_current_site.where(visible: true, deleted: false) }
+  scope :for_tree, ->(post_type_id, parent_id = nil) { for_current_site.where(post_type_id: post_type_id, parent_id: parent_id).ordered_by_priority }
+  scope :ids_for_slug, ->(slug) { for_current_site.where(long_slug: slug.to_s.downcase).pluck(:id) }
 
   def self.entity_parameters
     %i[meta_description name nav_text slug priority visible]
@@ -76,7 +77,7 @@ class PostCategory < ApplicationRecord
   # @param [Integer] post_type_id
   def self.list_for_tree(post_type_id)
     buffer = {}
-    where(post_type_id: post_type_id).ordered_by_priority.each do |item|
+    for_current_site.where(post_type_id: post_type_id).ordered_by_priority.each do |item|
       buffer[item.id] = {
         parent_id: item.parent_id,
         item: item
