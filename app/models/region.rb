@@ -153,7 +153,7 @@ class Region < ApplicationRecord
       new_cache = child_regions.order('id asc').pluck(:id, :children_cache)
     end
 
-    self.children_cache += [new_cache.flatten]
+    self.children_cache += new_cache.flatten
     self.children_cache.uniq!
 
     save!
