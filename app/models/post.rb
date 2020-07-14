@@ -145,6 +145,10 @@ class Post < ApplicationRecord
     Site.find_by(uuid: data.dig('comunit', 'site_id'))
   end
 
+  def text
+    parsed_body.blank? || created_at > 1.year.ago ? body : parsed_body
+  end
+
   # Lead or the first passage of body
   def lead!
     if lead.blank?

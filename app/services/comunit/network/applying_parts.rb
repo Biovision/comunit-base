@@ -30,6 +30,10 @@ module Comunit
         entity.region = Region.find_by(key => region_id)
       end
 
+      def apply_post_type
+        entity.post_type = PostType.find_by(slug: dig_related_id(:post_type))
+      end
+
       def apply_comunit
         key = Handler::ROOT_KEY
         entity.data[key] = data.dig(:data, key.to_sym)

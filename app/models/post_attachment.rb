@@ -41,7 +41,6 @@ class PostAttachment < ApplicationRecord
   end
 
   # @param [User] user
-  # @deprecated use component handler
   def editable_by?(user)
     Biovision::Components::PostsComponent[user]&.editable?(post)
   end
