@@ -10,7 +10,7 @@ module Comunit
         end
 
         def self.permitted_attributes
-          super + %w[
+          super + %i[
             ip updated_at show_owner translation time_required publication_time
             slug title image_alt_text image_name image_source_name
             image_source_link original_title source_name source_link meta_title

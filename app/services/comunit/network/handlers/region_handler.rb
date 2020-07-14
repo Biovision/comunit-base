@@ -10,11 +10,11 @@ module Comunit
         end
 
         def self.ignored_attributes
-          super + %w[long_slug]
+          super + %i[long_slug]
         end
 
         def self.permitted_attributes
-          super + %w[latitude locative longitude name short_name slug visible]
+          super + %i[latitude locative longitude name short_name slug visible]
         end
 
         protected

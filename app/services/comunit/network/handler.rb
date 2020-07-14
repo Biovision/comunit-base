@@ -243,6 +243,7 @@ module Comunit
         permitted = self.class.permitted_attributes
         input = data.dig(:attributes).to_h
         log_info "Input: #{JSON.generate(input)}"
+        log_info "Permitted: #{permitted}"
 
         attributes = input.select { |a, _| permitted.include?(a.to_sym) }
         log_info "Attributes: #{JSON.generate(attributes)}"
