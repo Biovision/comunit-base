@@ -25,9 +25,7 @@ module Comunit
       end
 
       def apply_region
-        region_id = dig_related_id(:region)
-        key = region_id =~ /[^-]{8}-(?:[^-]-){3}.{12}/ ? 'uuid' : 'id'
-        entity.region = Region.find_by(key => region_id)
+        entity.region = Region.find_by(uuid: dig_related_id(:region))
       end
 
       def apply_post_type

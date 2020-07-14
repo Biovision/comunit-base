@@ -37,7 +37,7 @@ class Region < ApplicationRecord
   mount_uploader :header_image, SimpleImageUploader
 
   belongs_to :country, optional: true, counter_cache: true
-  belongs_to :parent, class_name: Region.to_s, optional: true, touch: true
+  belongs_to :parent, class_name: Region.to_s, optional: true
   has_many :child_regions, class_name: Region.to_s, foreign_key: :parent_id
 
   before_validation { self.slug = slug.to_s.downcase.strip }

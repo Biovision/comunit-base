@@ -242,8 +242,10 @@ module Comunit
       def apply_attributes
         permitted = self.class.permitted_attributes
         input = data.dig(:attributes).to_h
+        log_info "Input: #{JSON.generate(input)}"
 
         attributes = input.select { |a, _| permitted.include?(a.to_sym) }
+        log_info "Attributes: #{JSON.generate(attributes)}"
         entity.assign_attributes(attributes)
         apply_comunit unless self.class.central_site?
       end
