@@ -42,7 +42,8 @@ module Comunit
         end
 
         def apply_parent
-          entity.parent = Region.find_by(uuid: dig_related_id(:parent))
+          parent_id = dig_related_id(:parent)
+          entity.parent = parent_id.nil? ? nil : Region.find_by(uuid: parent_id)
         end
       end
     end

@@ -5,18 +5,19 @@
 # Attributes:
 #   created_at [DateTime]
 #   data [Json]
-#   image [SimpleImageUploader], optional
 #   locative [String]
 #   name [String]
 #   priority [Integer]
 #   regions_count [Integer]
 #   short_name [String]
+#   simple_image_id [SimpleImage], optional
 #   slug [String]
 #   updated_at [DateTime]
 #   visible [Boolean]
 class Country < ApplicationRecord
   include Checkable
   include FlatPriority
+  include HasSimpleImage
   include RequiredUniqueName
   include RequiredUniqueSlug
   include Toggleable
@@ -27,8 +28,6 @@ class Country < ApplicationRecord
   SLUG_PATTERN_HTML = '^[a-zA-Z][-a-zA-Z0-9]*[a-zA-Z]$'
 
   toggleable :visible
-
-  mount_uploader :image, SimpleImageUploader
 
   has_many :regions, dependent: :delete_all
 
@@ -47,7 +46,7 @@ class Country < ApplicationRecord
   scope :list_for_administration, -> { ordered_by_priority }
 
   def self.entity_parameters
-    %i[image locative name short_name slug visible]
+    %i[locative name short_name simple_image_id slug visible]
   end
 
   def can_be_deleted?
