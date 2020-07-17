@@ -10,7 +10,7 @@ module Comunit
         end
 
         def self.ignored_attributes
-          super + %i[long_slug]
+          super + %w[long_slug]
         end
 
         def self.permitted_attributes

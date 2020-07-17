@@ -10,11 +10,11 @@ module Comunit
         end
 
         def self.ignored_attributes
-          super + %w[token]
+          super + %i[token]
         end
 
         def self.permitted_attributes
-          super + %w[active description host name version]
+          super + %i[active description host name version]
         end
       end
     end
