@@ -56,7 +56,8 @@ class PostCategory < ApplicationRecord
   validate :parent_matches_type
   validate :parent_is_not_too_deep
 
-  scope :for_current_site, -> { where(site: Site.find_by(uuid: ENV['SITE_ID'])) }
+  scope :for_current_site, -> { for_site(Site.find_by(uuid: ENV['SITE_ID'])) }
+  scope :for_site, ->(v) { where(site: v) }
   scope :visible, -> { for_current_site.where(visible: true, deleted: false) }
   scope :for_tree, ->(post_type_id, parent_id = nil) { for_current_site.where(post_type_id: post_type_id, parent_id: parent_id).ordered_by_priority }
   scope :ids_for_slug, ->(slug) { for_current_site.where(long_slug: slug.to_s.downcase).pluck(:id) }
@@ -74,16 +75,20 @@ class PostCategory < ApplicationRecord
     where(post_type_id: entity.post_type_id, parent_id: entity.parent_id)
   end
 
-  # @param [Integer] post_type_id
-  def self.list_for_tree(post_type_id)
+  # @param [Integer] type_id
+  def self.list_for_tree(type_id, site = Site.find_by(uuid: ENV['SITE_ID']))
     buffer = {}
-    for_current_site.where(post_type_id: post_type_id).ordered_by_priority.each do |item|
+    where(post_type_id: type_id, site: site).ordered_by_priority.each do |item|
       buffer[item.id] = {
         parent_id: item.parent_id,
         item: item
       }
     end
     buffer
+  end
+
+  def self.sites
+    Site.where(id: pluck(:site_id).uniq).list_for_administration
   end
 
   def full_title

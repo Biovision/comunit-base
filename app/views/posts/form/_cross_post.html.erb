@@ -1,0 +1,28 @@
+<% if handler.allow?(:cross_post) %>
+  <% site_uuid = ENV['SITE_ID'] %>
+  <section class="posts_cross-post">
+    <h2><%= t('.heading') %></h2>
+
+    <% PostCategory.sites.each do |site| %>
+      <% next if site.uuid == site_uuid %>
+      <details <%= entity.post_categories.for_site(site).any? ? 'open' : '' %>>
+        <summary><%= site.host %></summary>
+        <div class="post-form-categories">
+          <% categories = PostCategory.list_for_tree(entity.post_type_id, site) %>
+          <%=
+            render(
+                partial: 'posts/form/category_links',
+                locals: {
+                    categories: categories,
+                    collection: categories.select { |_, i| i[:parent_id].nil? },
+                    entity: entity,
+                    handler: handler
+                }
+            )
+          %>
+        </div>
+      </details>
+    <% end %>
+  </section>
+<% end %>
+

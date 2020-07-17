@@ -410,8 +410,8 @@ Site.where(active: true).each { |s| NetworkManager.new(s).push_site(site) }
 m = NetworkManager.new(site)
 Site.order('id asc').each { |s| m.push_site(s) }
 
-h = NetworkManager::RegionHandler.new(site)
-Region.order('id asc').each { |r| print "\r#{r.id}    "; h.create_remote(r) }; puts
+h = Comunit::Network::Handlers::RegionHandler.new(site)
+Region.order('id asc').each { |r| print "\r#{r.id}    "; h.entity = r; h.push }; puts
 
 h = NetworkManager::UserHandler.new(site)
 User.order('id asc').each { |u| puts "#{u.id} #{u.slug}"; h.create_remote(u) }

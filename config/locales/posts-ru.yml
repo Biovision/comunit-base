@@ -468,6 +468,8 @@ ru:
         heading: "Приложения"
         add: "Добавить приложение"
       categories: "Категории"
+      cross_post:
+        heading: "Кросс-пост"
     post:
       source: "Источник"
       image_credit: "Источник изображения"

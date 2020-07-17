@@ -448,6 +448,7 @@
 
   <%#= render partial: 'posts/form/gallery', locals: { entity: entity } %>
   <%= render partial: 'posts/form/attachments', locals: { entity: entity } %>
+  <%= render partial: 'posts/form/cross_post', locals: { entity: entity, handler: handler } %>
 
   <%= render 'shared/forms/state_container' %>
 

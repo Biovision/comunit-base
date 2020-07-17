@@ -99,3 +99,23 @@
     }
   }
 }
+
+.posts_cross-post {
+  margin-bottom: var(--spacer-m);
+  margin-top: var(--spacer-s);
+
+  details {
+    border-bottom: var(--border-secondary);
+    margin-bottom: var(--spacer-xs);
+
+    > div {
+      margin: var(--spacer-xs) 0;
+    }
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+}

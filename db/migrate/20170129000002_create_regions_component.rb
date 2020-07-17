@@ -41,7 +41,7 @@ class CreateRegionsComponent < ActiveRecord::Migration[5.2]
 
   def create_regions
     create_table :regions, comment: 'Region' do |t|
-      t.uuid
+      t.uuid :uuid
       t.timestamps
       t.references :country, foreign_key: { on_update: :cascade, on_delete: :cascade }
       t.integer :parent_id
