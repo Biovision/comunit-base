@@ -38,7 +38,7 @@ class ArticlesController < ApplicationController
 
   def set_category
     type      = PostType.find_by(slug: 'article')
-    @category = type.post_categories.find_by(long_slug: params[:category_slug])
+    @category = type.post_categories.for_current_site.find_by(long_slug: params[:category_slug])
     handle_http_404('Cannot find post category (article)') if @category.nil?
   end
 
