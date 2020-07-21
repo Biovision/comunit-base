@@ -19,6 +19,14 @@ module Comunit
           ]
         end
 
+        def meta_for_remote
+          meta = super
+          meta[:agent] = entity.agent&.name
+          meta[:image_path] = entity.image.path unless entity.image.blank?
+
+          meta
+        end
+
         protected
 
         def after_pull
