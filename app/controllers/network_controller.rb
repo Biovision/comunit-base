@@ -3,7 +3,7 @@
 # Common parts for working with Comunit network
 class NetworkController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :validate_signature, except: %i[amend pull]
+  before_action :validate_signature, except: %i[amend pull rpc]
   before_action :set_handler
 
   # post /network/[table_name]
@@ -43,6 +43,12 @@ class NetworkController < ApplicationController
     else
       head :unprocessable_entity
     end
+  end
+
+  # post /comunit/:table_name/:uuid/rpc
+  def rpc
+    @handler.rpc
+    head :no_content
   end
 
   protected

@@ -24,7 +24,7 @@ class PostsController < ApplicationController
       mark_as_featured if params[:featured]
       # PostBodyParserJob.perform_later(@entity.id)
       unless Comunit::Network::Handler.central_site?
-        NetworkEntitySyncJob.perform_later(@entity.id, false)
+        NetworkEntitySyncJob.perform_later(@entity.class.to_s, @entity.id)
       end
       form_processed_ok(PostManager.new(@entity).post_path)
     else
@@ -69,7 +69,7 @@ class PostsController < ApplicationController
       add_attachments if params.key?(:post_attachment)
       # PostBodyParserJob.perform_later(@entity.id)
       unless Comunit::Network::Handler.central_site?
-        NetworkEntitySyncJob.perform_later(@entity.id, true)
+        NetworkEntitySyncJob.perform_later(@entity.class.to_s, @entity.id)
       end
       form_processed_ok(PostManager.new(@entity).post_path)
     else

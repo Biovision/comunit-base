@@ -37,6 +37,7 @@ class PostCategory < ApplicationRecord
   has_many :child_categories, class_name: PostCategory.to_s, foreign_key: :parent_id, dependent: :destroy
   has_many :post_post_categories, dependent: :delete_all
   has_many :posts, through: :post_post_categories
+  has_many :post_category_users, dependent: :delete_all
 
   before_validation { self.slug = Canonizer.transliterate(name.to_s) if slug.blank? }
   before_validation { self.slug = slug.to_s.downcase }
@@ -150,6 +151,21 @@ class PostCategory < ApplicationRecord
   # @param [Post] post
   def remove_post(post)
     post_post_categories.where(post: post).delete_all
+  end
+
+  # @param [User] user
+  def user?(user)
+    post_category_users.where(user: user).exists?
+  end
+
+  # @param [User] user
+  def add_user(user)
+    post_category_users.create(user: user)
+  end
+
+  # @param [User] user
+  def remove_user(user)
+    post_category_users.where(user: user).delete_all
   end
 
   # @param [Symbol] locale
