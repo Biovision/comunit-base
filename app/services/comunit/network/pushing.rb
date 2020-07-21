@@ -25,10 +25,10 @@ module Comunit
 
       def ensure_site_is_pushed
         return unless self.class.central_site?
-        return unless entity.data.dig(ROOT_KEY, SITE_KEY).nil?
+        return unless entity.data.dig(Handler::ROOT_KEY, Handler::SITE_KEY).nil?
 
-        entity.data[ROOT_KEY] ||= {}
-        entity.data[ROOT_KEY][SITE_KEY] = ''
+        entity.data[Handler::ROOT_KEY] ||= {}
+        entity.data[Handler::ROOT_KEY][Handler::SITE_KEY] = ''
         entity.save
       end
 
@@ -58,14 +58,16 @@ module Comunit
       end
 
       def meta_for_remote
-        { ROOT_KEY.to_sym => entity.data[ROOT_KEY] }
+        { Handler::ROOT_KEY.to_sym => entity.data[Handler::ROOT_KEY] }
       end
 
       # @param [Integer] state
       def ensure_sync_state(state = nil)
-        entity.data[ROOT_KEY] ||= {}
-        entity.data[ROOT_KEY][SYNC_KEY] ||= {}
-        entity.data[ROOT_KEY][SYNC_KEY][site&.uuid] = state unless state.nil?
+        entity.data[Handler::ROOT_KEY] ||= {}
+        entity.data[Handler::ROOT_KEY][Handler::SYNC_KEY] ||= {}
+        return if state.nil?
+
+        entity.data[Handler::ROOT_KEY][Handler::SYNC_KEY][site&.uuid] = state
       end
 
       # @param [Integer] state

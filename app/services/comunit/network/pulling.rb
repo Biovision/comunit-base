@@ -11,7 +11,7 @@ module Comunit
         raise Errors::UnknownSiteError if site.nil?
         raise Errors::EmptyEntityError if entity.nil?
 
-        entity.data.dig(ROOT_KEY, SITE_KEY).to_s == site.uuid
+        entity.data.dig(Handler::ROOT_KEY, Handler::SITE_KEY).to_s == site.uuid
       end
 
       # @param [String] uuid
@@ -45,10 +45,10 @@ module Comunit
       end
 
       def ensure_site_presence
-        entity.data[ROOT_KEY] ||= {}
-        return if entity.data[ROOT_KEY].key?(SITE_KEY)
+        entity.data[Handler::ROOT_KEY] ||= {}
+        return if entity.data[Handler::ROOT_KEY].key?(Handler::SITE_KEY)
 
-        entity.data[ROOT_KEY][SITE_KEY] = site&.uuid
+        entity.data[Handler::ROOT_KEY][Handler::SITE_KEY] = site&.uuid
       end
 
       # @param [TrueClass|FalseClass] skip_site_check
