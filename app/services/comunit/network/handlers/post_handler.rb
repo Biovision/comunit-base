@@ -30,10 +30,11 @@ module Comunit
 
         def forward
           site_ids = entity.post_categories.pluck(:site_id).uniq
+          log_info "Forward to #{site_ids}"
           Site.where(id: site_ids).each do |other_site|
             next if other_site == entity.site
 
-            NetworkEntitySyncJob.perform_later(entity.class.to_s, entity.id, other_site.id)
+            NetworkEntitySyncJob.perform_later(entity.class.to_s, entity.id, other_site.uuid)
           end
         end
 
