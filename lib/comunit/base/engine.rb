@@ -9,20 +9,20 @@ module Comunit
     require 'rest-client'
 
     class Engine < ::Rails::Engine
-      initializer 'comunit_base.load_base_methods' do
+      initializer 'comunit_base.load_overrides' do
         require_dependency 'comunit/base/privilege_methods'
-        load 'comunit/base/overrides/controllers/admin/privileges_controller_override'
-        load 'comunit/base/overrides/models/user_override'
-
         ActiveSupport.on_load(:action_controller) do
           include Comunit::Base::PrivilegeMethods
         end
-      end
 
-      # components = %w[
-      #   admin.scss biovision/base/**/* biovision/vote/icons/* comunit/base/**/*
-      # ]
-      # config.assets.precompile << components
+        engine_root = File.expand_path('../../../..', __FILE__)
+        overrides_path = "#{engine_root}/app/overrides"
+
+        Rails.autoloaders.main.ignore(overrides_path)
+        Dir.glob("#{overrides_path}/**/*_override*.rb").each do |c|
+          require_dependency(c)
+        end
+      end
 
       config.generators do |g|
         g.test_framework :rspec

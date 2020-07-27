@@ -33,12 +33,7 @@ Comunit::Base
 После установки (`rails new .`) нужно добавить в yarn пакеты из компонентов.
 
 ```bash
-yarn add jquery
-yarn add @biovision/biovision
-yarn add @biovision/posts
-yarn add @biovision/comments
-yarn add @biovision/votes
-yarn add @biovision/comunit
+yarn add jquery @biovision/biovision @biovision/posts @biovision/comments @biovision/votes @biovision/comunit
 ```
 
 Добавить в `config/webpack/environment.js` со второй строки этот фрагмент:
@@ -121,8 +116,7 @@ SITE_ID=
    
 ### Добавление жетона для работы с API
 
-В версии рельсов с `5.2` вместо `secrets.yml` используется `credentials.yml`.
-Для работы с ним нужно запустить в консоли `EDITOR=vim rails credentials:edit`.
+Нужно запустить в консоли `EDITOR=vim rails credentials:edit`.
 В список необходимо добавить этот параметр:
 
 ```yaml
