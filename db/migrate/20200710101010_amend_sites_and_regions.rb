@@ -7,6 +7,7 @@ class AmendSitesAndRegions < ActiveRecord::Migration[6.0]
     add_reference :sites, :simple_image, foreign_key: { on_update: :cascade, on_delete: :nullify }
     add_column :sites, :version, :integer, limit: 2, default: 0, null: false
     add_column :sites, :token, :string
+    Site.connection.execute "select setval('sites_id_seq', (select max(id) from sites));"
 
     add_reference :regions, :simple_image, foreign_key: { on_update: :cascade, on_delete: :nullify }
     add_column :regions, :uuid, :uuid
