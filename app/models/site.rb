@@ -51,7 +51,7 @@ class Site < ApplicationRecord
   end
 
   def self.entity_parameters
-    %i[active description host image local name token]
+    %i[active description host image local name token version]
   end
 
   # @param [User] user
