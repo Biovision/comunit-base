@@ -17,7 +17,7 @@ module Comunit
 
       attr_accessor :site, :entity, :data
 
-      # @param [Site] site
+      # @param [Site|nil] site
       def initialize(site = nil)
         self.site = site
       end
