@@ -21,6 +21,7 @@ ru:
         petition: "Петиция"
         petition_id: "Петиция"
         surname: "Фамилия"
+        visible: "Показывать имя в списке подписавших"
   biovision:
     components:
       petitions:
@@ -39,6 +40,15 @@ ru:
       title: "Создание петиции"
       nav_text: "Создать"
       heading: "Новая петиция"
+    show:
+      sign: "Подписать"
+      notice: "Список тех, кто подписал и согласился показать своё имя."
+  petition_signs:
+    destroy:
+      success: "Подпись под петицией удалена"
+    new:
+      title: "Добавление подписи петиции"
+      heading: "Подписать петицию"
   admin:
     petitions:
       nav_item:

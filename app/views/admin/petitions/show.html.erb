@@ -1,0 +1,46 @@
+<% content_for :meta_title, t('.title', title: @entity.title) %>
+<% content_for :breadcrumbs do %>
+  <%= link_to(t('admin.petitions.nav_item.text'), admin_petitions_path) %>
+  <span><%= @entity.title %></span>
+<% end %>
+
+<article>
+  <h1><%= @entity.title %></h1>
+
+  <ul class="actions">
+    <li><%= back_icon(admin_petitions_path) %></li>
+    <li><%= edit_icon(edit_petition_path(id: @entity.id)) %></li>
+    <% if @entity.visible? %>
+      <li><%= world_icon(petition_path(id: @entity.id)) %></li>
+    <% end %>
+  </ul>
+
+  <dl>
+    <div>
+      <dt><%= t('activerecord.attributes.petition.title') %></dt>
+      <dd><%= @entity.title %></dd>
+    </div>
+
+    <div>
+      <dt><%= t('activerecord.attributes.petition.description') %></dt>
+      <dd>
+        <div class="text">
+          <%= raw @entity.description %>
+        </div>
+      </dd>
+    </div>
+
+    <%= render partial: 'shared/entity/uuid', locals: { entity: @entity } %>
+    <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
+  </dl>
+
+  <%=
+    render(
+        partial: 'shared/admin/toggleable',
+        locals: {
+            entity: @entity,
+            url: toggle_admin_petition_path(id: @entity.id)
+        }
+    )
+  %>
+</article>

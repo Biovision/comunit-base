@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Petition sign
-# 
+#
 # Attributes:
 #   agent_id [Agent], optional
 #   created_at [DateTime]
@@ -15,6 +15,7 @@
 #   updated_at [DateTime]
 #   user_id [User], optional
 #   uuid [uuid]
+#   visible [Boolean]
 class PetitionSign < ApplicationRecord
   include Checkable
   include HasOwner
@@ -28,12 +29,14 @@ class PetitionSign < ApplicationRecord
   belongs_to :agent, optional: true
 
   validates_presence_of :name, :surname, :email
+  validates_uniqueness_of :email, scope: :petition_id
   validates_length_of :name, maximum: NAME_LIMIT
   validates_length_of :surname, maximum: NAME_LIMIT
   validates_length_of :email, maximum: EMAIL_LIMIT
 
   scope :recent, -> { order('id desc') }
-  scope :list_for_visitors, -> { recent }
+  scope :visible, -> { where(visible: true) }
+  scope :list_for_visitors, -> { visible.recent }
   scope :list_for_administration, -> { recent }
 
   # @param [Integer] page
@@ -47,7 +50,7 @@ class PetitionSign < ApplicationRecord
   end
 
   def self.entity_parameters
-    %i[email name surname]
+    %i[email name surname visible]
   end
 
   def self.creation_parameters

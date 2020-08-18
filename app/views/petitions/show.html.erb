@@ -1,0 +1,32 @@
+<% content_for :meta_title, @entity.title %>
+
+<article>
+  <div class="content-wrapper">
+    <%= render @entity %>
+
+    <section>
+      <h2>
+        <%= t(:petition_sign_count, count: @entity.petition_signs_count) %>
+      </h2>
+
+      <p class="notice"><%= t('.notice') %></p>
+
+      <ul>
+        <% @entity.petition_signs.list_for_visitors.each do |person| %>
+          <li><%= person.surname %> <%= person.name %></li>
+        <% end %>
+      </ul>
+    </section>
+
+    <section>
+      <h2><%= t('.sign') %></h2>
+
+      <%=
+        render(
+            partial: 'petition_signs/form',
+            locals: { entity: @entity.petition_signs.new }
+        )
+      %>
+    </section>
+  </div>
+</article>

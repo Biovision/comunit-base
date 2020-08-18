@@ -43,6 +43,7 @@ class CreatePetitionsComponent < ActiveRecord::Migration[6.0]
       t.references :user, foreign_key: { on_update: :cascade, on_delete: :nullify }
       t.references :agent, foreign_key: { on_update: :cascade, on_delete: :nullify }
       t.inet :ip
+      t.boolean :visible, default: true, null: false
       t.timestamps
       t.string :surname
       t.string :name

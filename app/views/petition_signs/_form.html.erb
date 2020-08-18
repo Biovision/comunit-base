@@ -1,0 +1,78 @@
+<% model_name = entity.class.to_s.underscore %>
+<%=
+  form_with(
+      model: entity,
+      html: {
+          id: "#{model_name}-form",
+          data: { check_url: check_petition_signs_path }
+      }
+  ) do |f|
+%>
+  <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+
+  <dl class="fields">
+    <div>
+      <dt><%= f.label :surname %></dt>
+      <dd>
+        <%=
+          f.text_field(
+              :surname,
+              class: 'input-text',
+              data: { check: :surname },
+              maxlength: PetitionSign::NAME_LIMIT,
+              required: true,
+              size: nil
+          )
+        %>
+        <div class="check-result-error" data-field="surname"></div>
+      </dd>
+    </div>
+
+    <div>
+      <dt><%= f.label :name %></dt>
+      <dd>
+        <%=
+          f.text_field(
+              :name,
+              class: 'input-text',
+              data: { check: :name },
+              maxlength: PetitionSign::NAME_LIMIT,
+              required: true,
+              size: nil
+          )
+        %>
+        <div class="check-result-error" data-field="name"></div>
+      </dd>
+    </div>
+
+    <div>
+      <dt><%= f.label :email %></dt>
+      <dd>
+        <%=
+          f.email_field(
+              :email,
+              class: 'input-text',
+              data: { check: :email },
+              maxlength: PetitionSign::EMAIL_LIMIT,
+              required: true,
+              size: nil
+          )
+        %>
+        <div class="check-result-error" data-field="email"></div>
+      </dd>
+    </div>
+  </dl>
+
+  <div class="consent">
+    <%= f.check_box :visible %>
+    <%= f.label :visible %>
+  </div>
+
+  <%= render 'shared/forms/state_container' %>
+
+  <div class="buttons">
+    <%= hidden_field_tag :entity_id, entity.id %>
+    <%= f.hidden_field :petition_id if entity.id.nil? %>
+    <%= f.button t(:save), class: 'button-save' %>
+  </div>
+<% end %>

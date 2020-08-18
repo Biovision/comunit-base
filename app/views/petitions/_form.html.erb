@@ -1,0 +1,62 @@
+<% model_name = entity.class.to_s.underscore %>
+<%=
+  form_with(
+      model: entity,
+      html: {
+          id: "#{model_name}-form",
+          data: { check_url: check_petitions_path }
+      }
+  ) do |f|
+%>
+  <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+
+  <dl class="fields">
+    <div>
+      <dt><%= f.label :title %></dt>
+      <dd>
+        <%=
+          f.text_field(
+              :title,
+              class: 'input-text',
+              data: { check: :title },
+              maxlength: Petition::TITLE_LIMIT,
+              required: true,
+              size: nil
+          )
+        %>
+        <div class="check-result-error" data-field="title"></div>
+        <div class="guideline"><%= t('.guidelines.title') %></div>
+      </dd>
+    </div>
+
+    <div>
+      <dt><%= f.label :description %></dt>
+      <dd>
+        <div>
+          <button type="button" class="js-wysiwyg-toggle" data-element="<%= model_name %>_description">WYSIWYG</button>
+        </div>
+        <%=
+          f.text_area(
+              :description,
+              cols: 20,
+              data: {
+                  upload_url: admin_ckeditor_path(slug: component_handler.slug)
+              },
+              required: true,
+              rows: 5
+          )
+        %>
+      </dd>
+    </div>
+    <%= render partial: 'shared/forms/entity_flags', locals: { f: f } %>
+  </dl>
+
+  <%= render 'shared/forms/state_container' %>
+
+  <div class="buttons">
+    <%= hidden_field_tag :entity_id, entity.id %>
+    <%= f.button t(:save), class: 'button-save' %>
+  </div>
+<% end %>
+
+<%= render 'shared/forms/toggle_wysiwyg' %>

@@ -65,6 +65,8 @@ Rails.application.routes.draw do
 
   resources :polls, :poll_questions, :poll_answers, only: %i[update destroy]
 
+  resources :petitions, :petition_signs, only: %i[update destroy]
+
   scope '(:locale)', constraints: { locale: /ru|en/ } do
     root 'index#index'
 
@@ -201,6 +203,9 @@ Rails.application.routes.draw do
       end
     end
     resources :poll_questions, :poll_answers, only: %i[create edit], concerns: :check
+
+    resources :petitions, except: %i[update destroy], concerns: :check
+    resources :petition_signs, only: :create, concerns: :check
 
     namespace :admin do
       resources :sites, only: %i[index show], concerns: :toggle do
@@ -359,6 +364,10 @@ Rails.application.routes.draw do
       end
       resources :poll_questions, only: :show, concerns: %i[priority toggle]
       resources :poll_answers, only: :show, concerns: :priority
+
+      resources :petitions, only: %i[index show], concerns: :toggle do
+        get 'signs', on: :member
+      end
     end
 
     namespace :editorial do

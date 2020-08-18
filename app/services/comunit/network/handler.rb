@@ -62,6 +62,11 @@ module Comunit
         new(nil)
       end
 
+      # @param [ApplicationRecord] entity
+      def self.sync(entity)
+        NetworkEntitySyncJob.perform_later(entity.class.to_s, entity.id)
+      end
+
       # API version when it was implemented on remote site
       def self.since
         7

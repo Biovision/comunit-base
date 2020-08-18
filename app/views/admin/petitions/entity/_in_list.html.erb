@@ -1,0 +1,26 @@
+<div class="data">
+  <div><%= admin_petition_link(entity) %></div>
+  <div class="info">
+    <%= t(:petition_sign_count, count: entity.petition_signs_count) %>
+  </div>
+  <div class="secondary info">
+    <%= entity.uuid %>
+  </div>
+
+  <%=
+    render(
+        partial: 'shared/admin/toggleable',
+        locals: {
+            entity: entity,
+            url: toggle_admin_petition_path(id: entity.id)
+        }
+    )
+  %>
+
+  <ul class="actions">
+    <li><%= edit_icon(edit_petition_path(id: entity.id)) %></li>
+    <% if entity.visible? %>
+      <li><%= world_icon(petition_path(id: entity.id)) %></li>
+    <% end %>
+  </ul>
+</div>
