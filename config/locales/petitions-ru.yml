@@ -1,0 +1,54 @@
+ru:
+  petition_sign_count:
+    zero: "подписей нет"
+    one: "%{count} подпись"
+    few: "%{count} подписи"
+    many: "%{count} подписей"
+    other: "%{count} подписей"
+  activerecord:
+    models:
+      petition: "Петиция"
+      petition_sign: "Подпись под петицией"
+    attributes:
+      petition:
+        active: "Активная"
+        description: "Описание"
+        petition_signs_count: "Количество подписей"
+        title: "Название"
+      petition_sign:
+        email: "Email"
+        name: "Имя"
+        petition: "Петиция"
+        petition_id: "Петиция"
+        surname: "Фамилия"
+  biovision:
+    components:
+      petitions:
+        name: "Петиции"
+  petitions:
+    destroy:
+      success: "Петиция удалена"
+    form:
+      guidelines:
+        title: "Максимум 250 символов"
+    edit:
+      title: "Редактирование петиции"
+      nav_text: "Редактировать"
+      heading: "Редактирование петиции"
+    new:
+      title: "Создание петиции"
+      nav_text: "Создать"
+      heading: "Новая петиция"
+  admin:
+    petitions:
+      nav_item:
+        text: "Список петиций"
+        description: "Все петиции"
+      index:
+        title: "Петиции, страница %{page}"
+        heading: "Петиции"
+      show:
+        title: "Петиция «%{name}»"
+      entity:
+        signs:
+          heading: "Подписи, страница %{page}"
