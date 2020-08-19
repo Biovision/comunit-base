@@ -58,7 +58,7 @@ ru:
         title: "Петиции, страница %{page}"
         heading: "Петиции"
       show:
-        title: "Петиция «%{name}»"
+        title: "Петиция «%{title}»"
       entity:
         signs:
           heading: "Подписи, страница %{page}"
