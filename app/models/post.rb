@@ -5,8 +5,8 @@ class Post < ApplicationRecord
   include Checkable
   include HasOwner
   include HasUuid
-  include CommentableItem if Gem.loaded_specs.key?('biovision-comment')
-  include VotableItem if Gem.loaded_specs.key?('biovision-vote')
+  include CommentableItem
+  include VotableItem
   include Toggleable
 
   ALT_LIMIT = 255
@@ -27,7 +27,7 @@ class Post < ApplicationRecord
   paginates_per 12
 
   belongs_to :region, optional: true
-  belongs_to :user
+  belongs_to :user, optional: true
   belongs_to :post_type, counter_cache: true
   belongs_to :agent, optional: true
   belongs_to :post_layout, counter_cache: true, optional: true
@@ -63,7 +63,6 @@ class Post < ApplicationRecord
   validates_length_of :author_url, maximum: META_LIMIT
 
   scope :in_region, ->(region) { where(region_id: region&.id.nil? ? nil : region&.subbranch_ids) }
-  # scope :regional, -> { where('region_id is not null') }
   scope :central, -> { where(region_id: nil) }
   scope :for_site, ->(v) { where(site: v) unless v.blank? }
   scope :recent, -> { order('publication_time desc') }
@@ -165,7 +164,7 @@ class Post < ApplicationRecord
     return default_name unless show_owner?
 
     if author_name.blank?
-      user.profile_name
+      user&.profile_name
     else
       author_name
     end
@@ -245,7 +244,7 @@ class Post < ApplicationRecord
   # @param [User] user
   # @deprecated use component handler
   def editable_by?(user)
-    Biovision::Components::BaseComponent.handler('posts', user).editable?(self)
+    Biovision::Components::PostsComponent[user].editable?(self)
   end
 
   def has_image_data?
