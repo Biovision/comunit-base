@@ -15,7 +15,7 @@
   <meta property="article:updated_time" content="<%= entity.updated_at.strftime('%F') %>"/>
   <meta property="article:modified_time" content="<%= entity.updated_at.strftime('%F') %>"/>
   <% if entity.show_owner? %>
-    <meta property="article:author" content="<%= entity.author_name.blank? ? entity.user.screen_name : entity.author_name %>"/>
+    <meta property="article:author" content="<%= entity.author_name.blank? ? entity.user&.screen_name : entity.author_name %>"/>
   <% end %>
   <% unless entity.post_category.nil? %>
     <meta property="article:section" content="<%= entity.post_category.name %>"/>

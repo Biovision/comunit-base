@@ -10,9 +10,7 @@
         <% elsif post.owned_by?(current_user) %>
           <li><%= gear_icon(my_post_path(id: post.id)) %></li>
         <% end %>
-        <% unless post.locked? %>
-          <li><%= edit_icon(handler.edit_path(post)) %></li>
-        <% end %>
+        <li><%= edit_icon(handler.edit_path(post)) %></li>
       </ul>
     <% end %>
 
@@ -46,7 +44,7 @@
       <p class="lead"><%= post.lead %></p>
 
       <div class="body">
-        <%= raw(post.parsed_body || post.body) %>
+        <%= raw post.body %>
       </div>
     </div>
 
@@ -118,17 +116,10 @@
         <% if post.allow_comments? && 'CommentableItem'.safe_constantize %>
           <span class="comments"><%= post.comments_count %></span>
         <% end %>
-        <% if post.time_required.to_i.positive? %>
-          <div class="time_required"><%= post.time_required %> min</div>
-        <% end %>
       </div>
 
-      <% unless post.time_required.blank? %>
-        <meta itemprop="timeRequired" content="P<%= post.time_required %>M"/>
-      <% end %>
       <meta itemprop="commentCount" content="<%= post.comments_count %>"/>
       <meta itemprop="dateModified" content="<%= post.updated_at.strftime('%Y-%m-%d') %>"/>
-      <%#= render partial: 'posts/entity/publisher', locals: { entity: post } %>
     </footer>
 
     <%= render 'shared/pluso' %>
