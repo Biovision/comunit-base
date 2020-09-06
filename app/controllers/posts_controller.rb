@@ -147,8 +147,8 @@ class PostsController < ApplicationController
   end
 
   def restrict_editing
-    if @entity.locked? || !component_handler.editable?(@entity)
-      handle_http_403('Post is locked or not editable by current user')
+    unless component_handler.editable?(@entity)
+      handle_http_403('Post is not editable by current user')
     end
   end
 
