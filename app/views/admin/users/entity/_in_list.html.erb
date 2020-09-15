@@ -31,12 +31,6 @@
     <% end %>
   </div>
 
-  <% if entity.privileges.any? %>
-      <div class="secondary info">
-        <%= entity.privileges.map(&:name).uniq.join(', ') %>
-      </div>
-  <% end %>
-
   <%=
     render(
         partial: 'shared/admin/toggleable',
