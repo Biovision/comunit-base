@@ -33,6 +33,13 @@ module BiovisionPostsHelper
     link_to(text, admin_post_group_path(id: entity.id), options)
   end
 
+  # @param [Taxon] entity
+  # @param [String] text
+  # @param [Hash] options
+  def admin_taxon_link(entity, text = entity.name, options = {})
+    link_to(text, admin_taxon_path(id: entity.id), options)
+  end
+
   # @param [PostIllustration] entity
   # @param [String] text
   # @param [Hash] options

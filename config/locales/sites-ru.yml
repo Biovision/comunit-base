@@ -16,8 +16,6 @@ ru:
         version: "Версия API"
       site_user:
         data: "Данные"
-        user: "Пользователь"
-        user_id: "Пользователь"
   attributes:
     site: "Сайт"
     site_id: "Сайт"

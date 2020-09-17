@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# Additional post dimension
-# 
+# Taxon for categorizing posts
+#
 # Attributes:
 #   created_at [DateTime]
 #   data [jsonb]
@@ -13,7 +13,7 @@
 #   updated_at [DateTime]
 #   uuid [uuid]
 #   visible [boolean]
-class PostDimension < ApplicationRecord
+class Taxon < ApplicationRecord
   include Checkable
   include HasUuid
   include NestedPriority
@@ -27,8 +27,8 @@ class PostDimension < ApplicationRecord
   toggleable :visible
 
   belongs_to :site
-  has_many :post_post_dimensions, dependent: :delete_all
-  has_many :posts, through: :post_post_dimensions
+  has_many :post_taxons, dependent: :delete_all
+  has_many :posts, through: :post_taxons
 
   validates_presence_of :slug, :name
   validates_uniqueness_of :name, scope: :site_id

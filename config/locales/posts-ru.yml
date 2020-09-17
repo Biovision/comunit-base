@@ -30,9 +30,11 @@ ru:
       post_post_category: "Связь категории и публикации"
       post_post_tag: "Метка у публикации"
       post_tag: "Метка"
+      post_taxon: "Таксон у публикации"
       post_type: "Тип публикации"
       post_zen_category: "Категория Яндекс.Дзен для публикации"
       site_post: "Состояние публикации на сайте"
+      taxon: "Таксон"
       theme: "Тема публикаций"
       zen_category: "Категория Яндекс.Дзен"
     errors:
@@ -172,6 +174,8 @@ ru:
         post_type_id: "Тип публикации"
         posts_count: "Количество публикаций"
         slug: "Идентификатор"
+      post_taxon:
+        taxon_id: "Таксон"
       post_type:
         category_depth: "Глубина категорий"
         default_category_name: "Название категории по умолчанию"
@@ -192,12 +196,17 @@ ru:
           original: "Оригинал"
           copied: "Скопировано"
           removed: "Удалено"
+      taxon:
+        name: "Название"
       zen_category:
         name: "Название"
         posts_count: "Количество публикаций"
       theme:
         name: "Название"
         slug: "Идентификатор"
+  attributes:
+    post: "Публикация"
+    post_id: "Публикация"
   admin:
     editorial_members:
       nav_item:
@@ -317,6 +326,16 @@ ru:
           heading: "Приложения"
         sync:
           heading: "Синхронизация"
+    taxons:
+      index:
+        title: "Таксоны"
+        heading: "Таксоны"
+        nav_text: "Таксоны"
+      nav_item:
+        description: "Управление таксонами"
+        text: "Таксоны"
+      show:
+        title: "Таксон «%{name}»"
     themes:
       index:
         title: "Темы группировки публикаций"
@@ -496,6 +515,21 @@ ru:
       title: "Поиск публикаций"
       nav_text: "Поиск публикаций"
       heading: "Поиск публикаций"
+  taxons:
+    destroy:
+      success: "Таксон успешно удалён"
+    new:
+      heading: "Добавить таксон"
+      nav_text: "Новый таксон"
+      title: "Добавление таксона"
+    edit:
+      heading: "Редактирование таксона"
+      nav_text: "Редактировать"
+      title: "Редактирование таксона"
+    form:
+      guidelines:
+        name: "Максимум 50 символов"
+        slug: "Максимум 50 символов. Только латинские буквы, цифры и дефис."
   themes:
     update:
       success: "Тема группировки успешно обновлена"

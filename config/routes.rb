@@ -62,6 +62,7 @@ Rails.application.routes.draw do
   resources :post_illustrations, only: :create
   resources :post_groups, only: %i[update destroy]
   resources :post_attachments, only: :destroy
+  resources :taxons, only: %i[update destroy]
 
   resources :polls, :poll_questions, :poll_answers, only: %i[update destroy]
 
@@ -159,6 +160,7 @@ Rails.application.routes.draw do
     resources :editorial_members, only: %i[new create edit]
     resources :featured_posts, only: :create
     resources :post_groups, only: %i[show new create edit], concerns: :check
+    resources :taxons, only: %i[new create edit], concerns: :check
 
     scope :articles, controller: :articles do
       get '/' => :index, as: :articles
@@ -341,6 +343,8 @@ Rails.application.routes.draw do
       scope 'post_group_tags/:id', controller: :post_group_tags do
         post 'priority' => :priority, as: :priority_post_group_tag, defaults: { format: :json }
       end
+
+      resources :taxons, only: %i[index show], concerns: %i[toggle priority]
 
       resources :editorial_members, only: %i[index show], concerns: %i[toggle priority] do
         member do

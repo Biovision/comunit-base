@@ -1,0 +1,40 @@
+<% content_for :meta_title, t('.title', name: @entity.name) %>
+<% content_for :breadcrumbs do %>
+  <%= admin_biovision_component_link(component_handler.component) %>
+  <%= link_to(t('admin.taxons.index.nav_text'), admin_taxons_path) %>
+  <span><%= @entity.name %></span>
+<% end %>
+
+<article>
+  <h1><%= @entity.name %></h1>
+
+  <ul class="actions">
+    <li><%= back_icon(admin_taxons_path) %></li>
+    <li><%= edit_icon(edit_taxon_path(id: @entity.id)) %></li>
+  </ul>
+
+  <dl>
+    <%= render partial: 'shared/entity/priority', locals: { entity: @entity } %>
+
+    <div>
+      <dt><%= t('activerecord.attributes.taxon.name') %></dt>
+      <dd>
+        <%= @entity.name %>
+      </dd>
+    </div>
+
+    <%= render partial: 'shared/entity/slug', locals: { entity: @entity } %>
+    <%= render partial: 'shared/entity/uuid', locals: { entity: @entity } %>
+    <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
+  </dl>
+
+  <%=
+    render(
+        partial: 'shared/admin/toggleable',
+        locals: {
+            entity: @entity,
+            url: toggle_admin_taxon_path(id: @entity.id)
+        }
+    )
+  %>
+</article>
