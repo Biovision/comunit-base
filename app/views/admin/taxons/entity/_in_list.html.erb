@@ -3,6 +3,11 @@
   <div class="info">
     <%= entity.slug %>
   </div>
+  <% if entity.children_cache.any? %>
+    <div class="secondary info">
+      <%= t('attributes.children_cache') %>: <%= entity.children_cache %>
+    </div>
+  <% end %>
 
   <%=
     render(
@@ -15,7 +20,6 @@
   %>
 
   <ul class="actions">
-    <li><%= world_icon(taxon_path(id: entity.id)) %></li>
     <li><%= edit_icon(edit_taxon_path(id: entity.id)) %></li>
     <%=
       render(

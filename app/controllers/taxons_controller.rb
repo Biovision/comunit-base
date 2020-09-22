@@ -6,7 +6,7 @@ class TaxonsController < AdminController
 
   # post /taxons/check
   def check
-    @entity = Taxon.instance_for_check(params[:entity_id], entity_parameters)
+    @entity = Taxon.instance_for_check(params[:entity_id], creation_parameters)
 
     render 'shared/forms/check'
   end
@@ -18,7 +18,7 @@ class TaxonsController < AdminController
 
   # post /taxons
   def create
-    @entity = Taxon.new(entity_parameters)
+    @entity = Taxon.new(creation_parameters)
     if @entity.save
       form_processed_ok(admin_taxon_path(id: @entity.id))
     else
@@ -64,5 +64,9 @@ class TaxonsController < AdminController
 
   def entity_parameters
     params.require(:taxon).permit(Taxon.entity_parameters)
+  end
+
+  def creation_parameters
+    params.require(:taxon).permit(Taxon.creation_parameters)
   end
 end

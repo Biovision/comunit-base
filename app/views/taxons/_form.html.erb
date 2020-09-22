@@ -32,6 +32,24 @@
     </div>
 
     <div>
+      <dt><%= f.label :nav_text %></dt>
+      <dd>
+        <%=
+          f.text_field(
+              :nav_text,
+              class: 'input-text',
+              data: { check: :nav_text },
+              maxlength: Taxon::NAV_LIMIT,
+              required: true,
+              size: nil
+          )
+        %>
+        <div class="check-result-error" data-field="nav_text"></div>
+        <div class="guideline"><%= t('.guidelines.nav_text') %></div>
+      </dd>
+    </div>
+
+    <div>
       <dt><%= f.label :slug %></dt>
       <dd>
         <%=
@@ -58,6 +76,10 @@
 
   <div class="buttons">
     <%= hidden_field_tag :entity_id, entity.id %>
+    <% if entity.id.nil? %>
+      <%= f.hidden_field :parent_id %>
+      <%= f.hidden_field :taxon_type_id %>
+    <% end %>
     <%= f.button t(:save), class: 'button-save' %>
   </div>
 <% end %>

@@ -59,6 +59,11 @@ class Site < ApplicationRecord
     UserSite.owned_by(user).pluck(:site_id)
   end
 
+  # @param [String] uuid
+  def self.[](uuid)
+    find_by(uuid: uuid)
+  end
+
   def signature
     "#{id}:#{token}"
   end

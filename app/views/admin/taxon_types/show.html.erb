@@ -1,0 +1,45 @@
+<% content_for :meta_title, t('.title', name: @entity.name) %>
+<% content_for :breadcrumbs do %>
+  <%= admin_biovision_component_link(component_handler.component) %>
+  <%= link_to(t('admin.taxon_types.index.nav_text'), admin_taxon_types_path) %>
+  <span><%= @entity.name %></span>
+<% end %>
+
+<article>
+  <h1><%= @entity.name %></h1>
+
+  <ul class="actions">
+    <li><%= back_icon(admin_taxon_types_path) %></li>
+  </ul>
+
+  <dl>
+    <div>
+      <dt><%= t('activerecord.attributes.taxon.name') %></dt>
+      <dd>
+        <%= @entity.name %>
+      </dd>
+    </div>
+
+    <%= render partial: 'shared/entity/slug', locals: { entity: @entity } %>
+    <%= render partial: 'shared/entity/uuid', locals: { entity: @entity } %>
+    <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
+  </dl>
+
+  <%=
+    render(
+        partial: 'admin/components/posts/taxa',
+        locals: { collection: @entity.taxons.for_tree }
+    )
+  %>
+
+  <section>
+    <h2><%= t('taxons.new.nav_text') %></h2>
+
+    <%=
+      render(
+          partial: 'taxons/form',
+          locals: { entity: @entity.taxons.new }
+      )
+    %>
+  </section>
+</article>

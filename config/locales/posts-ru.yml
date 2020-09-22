@@ -216,6 +216,10 @@ ru:
     taxon: "Таксон"
     taxon_id: "Таксон"
   admin:
+    components:
+      posts:
+        taxa:
+          heading: "Список таксонов"
     editorial_members:
       nav_item:
         description: "Управление публичным составом редакции"
@@ -334,7 +338,7 @@ ru:
           heading: "Приложения"
         sync:
           heading: "Синхронизация"
-    taxons:
+    taxon_types:
       index:
         title: "Таксоны"
         heading: "Таксоны"
@@ -342,6 +346,9 @@ ru:
       nav_item:
         description: "Управление таксонами"
         text: "Таксоны"
+      show:
+        title: "Таксоны типа «%{name}»"
+    taxons:
       show:
         title: "Таксон «%{name}»"
     themes:
@@ -536,7 +543,8 @@ ru:
       title: "Редактирование таксона"
     form:
       guidelines:
-        name: "Максимум 50 символов"
+        name: "Максимум 500 символов"
+        nav_text: "Максимум 50 символов"
         slug: "Максимум 50 символов. Только латинские буквы, цифры и дефис."
   themes:
     update:

@@ -3,10 +3,14 @@
 # Taxon for categorizing posts
 #
 # Attributes:
+#   children_cache [Array<Integer>]
 #   created_at [DateTime]
 #   data [jsonb]
 #   name [string]
+#   nav_text [String]
 #   posts_count [integer]
+#   parent_id [Taxon]
+#   parents_cache [String]
 #   priority [integer]
 #   site_id [Site]
 #   slug [String]
@@ -14,39 +18,62 @@
 #   uuid [uuid]
 #   visible [boolean]
 class Taxon < ApplicationRecord
+  include BelongsToSite
   include Checkable
   include HasUuid
   include NestedPriority
   include Toggleable
+  include TreeStructure
 
-  NAME_LIMIT = 50
+  NAME_LIMIT = 500
+  NAV_LIMIT = 50
   SLUG_LIMIT = 50
   SLUG_PATTERN = /\A[a-z][-a-z0-9]*[a-z0-9]\z/i.freeze
   SLUG_PATTERN_HTML = '^[a-zA-Z][-a-zA-Z0-9]*[a-zA-Z0-9]$'
 
   toggleable :visible
 
-  belongs_to :site
+  belongs_to :taxon_type
   has_many :post_taxons, dependent: :delete_all
   has_many :posts, through: :post_taxons
 
   validates_presence_of :slug, :name
-  validates_uniqueness_of :name, scope: :site_id
-  validates_uniqueness_of :slug, scope: :site_id
+  validates_uniqueness_of :name, scope: %i[site_id taxon_type_id]
+  validates_uniqueness_of :slug, scope: %i[site_id taxon_type_id]
   validates_length_of :name, maximum: NAME_LIMIT
   validates_length_of :slug, maximum: SLUG_LIMIT
   validates_format_of :slug, with: SLUG_PATTERN
 
+  before_validation :ensure_parent_match
+
+  scope :for_tree, ->(v = nil) { where(parent_id: v) }
   scope :visible, -> { where(visible: true) }
   scope :list_for_visitors, -> { visible.ordered_by_priority }
   scope :list_for_administration, -> { ordered_by_priority }
 
-  # @param [PostDimension] entity
+  # @param [Taxon] entity
   def self.siblings(entity)
-    where(site: entity&.site)
+    criteria = {
+      site: entity&.site,
+      taxon_type: entity&.taxon_type,
+      parent_id: entity&.parent_id
+    }
+    where(criteria)
   end
 
   def self.entity_parameters
-    %i[name priority slug visible]
+    %i[name nav_text priority slug visible]
+  end
+
+  def self.creation_parameters
+    entity_parameters + %i[parent_id taxon_type_id]
+  end
+
+  private
+
+  def ensure_parent_match
+    return if parent.nil?
+
+    self.taxon_type_id = parent.taxon_type_id
   end
 end

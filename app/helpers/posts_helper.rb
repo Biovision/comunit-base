@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Helper methods for Posts component
-module BiovisionPostsHelper
+module PostsHelper
   # @param [PostType] entity
   # @param [String] text
   def admin_post_type_link(entity, text = entity.name)
@@ -33,10 +33,17 @@ module BiovisionPostsHelper
     link_to(text, admin_post_group_path(id: entity.id), options)
   end
 
+  # @param [TaxonType] entity
+  # @param [String] text
+  # @param [Hash] options
+  def admin_taxon_type_link(entity, text = entity.name, options = {})
+    link_to(text, admin_taxon_type_path(id: entity.id), options)
+  end
+
   # @param [Taxon] entity
   # @param [String] text
   # @param [Hash] options
-  def admin_taxon_link(entity, text = entity.name, options = {})
+  def admin_taxon_link(entity, text = entity.nav_text, options = {})
     link_to(text, admin_taxon_path(id: entity.id), options)
   end
 

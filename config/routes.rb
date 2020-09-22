@@ -160,7 +160,7 @@ Rails.application.routes.draw do
     resources :editorial_members, only: %i[new create edit]
     resources :featured_posts, only: :create
     resources :post_groups, only: %i[show new create edit], concerns: :check
-    resources :taxons, only: %i[new create edit], concerns: :check
+    resources :taxons, only: %i[create edit], concerns: :check
 
     scope :articles, controller: :articles do
       get '/' => :index, as: :articles
@@ -344,7 +344,8 @@ Rails.application.routes.draw do
         post 'priority' => :priority, as: :priority_post_group_tag, defaults: { format: :json }
       end
 
-      resources :taxons, only: %i[index show], concerns: %i[toggle priority]
+      resources :taxon_types, only: %i[index show]
+      resources :taxons, only: %i[show], concerns: %i[toggle priority]
 
       resources :editorial_members, only: %i[index show], concerns: %i[toggle priority] do
         member do
