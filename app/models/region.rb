@@ -26,6 +26,7 @@ class Region < ApplicationRecord
   include HasUuid
   include NestedPriority
   include Toggleable
+  include TreeStructure
 
   NAME_LIMIT        = 70
   SLUG_LIMIT        = 63
@@ -34,18 +35,11 @@ class Region < ApplicationRecord
 
   toggleable :visible
 
-  mount_uploader :header_image, SimpleImageUploader
-
   belongs_to :country, optional: true, counter_cache: true
-  belongs_to :parent, class_name: Region.to_s, optional: true
-  has_many :child_regions, class_name: Region.to_s, foreign_key: :parent_id
 
   before_validation { self.slug = slug.to_s.downcase.strip }
   before_validation { self.country_id = parent.country_id unless parent.nil? }
-  before_save { children_cache.uniq! }
   before_save :generate_long_slug
-  after_save { parent&.cache_children! }
-  after_create :cache_parents!
 
   validates_presence_of :name, :slug
   validates_uniqueness_of :name, :slug, scope: %i[country_id parent_id]
@@ -104,30 +98,6 @@ class Region < ApplicationRecord
     Biovision::Components::RegionsComponent[user].allow?('manager')
   end
 
-  def parents
-    return [] if parents_cache.blank?
-
-    Region.where(id: parent_ids).order('id asc')
-  end
-
-  def parent_ids
-    parents_cache.split(',').compact
-  end
-
-  # @return [Array<Integer>]
-  def branch_ids
-    parents_cache.split(',').map(&:to_i).reject { |i| i < 1 }.uniq + [id]
-  end
-
-  # @return [Array<Integer>]
-  def subbranch_ids
-    [id] + children_cache
-  end
-
-  def depth
-    parent_ids.count
-  end
-
   def long_name
     return name if parents.blank?
 
@@ -138,26 +108,6 @@ class Region < ApplicationRecord
     return short_name if parents.blank?
 
     "#{parents.map(&:short_name).join('/')}/#{short_name}"
-  end
-
-  def cache_parents!
-    return if parent.nil?
-
-    self.parents_cache = "#{parent.parents_cache},#{parent_id}".gsub(/\A,/, '')
-    save!
-  end
-
-  # @param [Array] new_cache
-  def cache_children!(new_cache = [])
-    if new_cache.blank?
-      new_cache = child_regions.order('id asc').pluck(:id, :children_cache)
-    end
-
-    self.children_cache += new_cache.flatten
-    self.children_cache.uniq!
-
-    save!
-    parent&.cache_children!([id] + children_cache)
   end
 
   # @param [User] user

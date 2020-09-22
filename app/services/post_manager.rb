@@ -14,7 +14,7 @@ class PostManager
   # @param [User] user
   # @param [String|PostType] type
   def self.editor?(user, type)
-    return true if UserPrivilege.user_has_privilege?(user, :chief_editor)
+    return true if Biovision::Components::PostsComponent[user].group?(:chief)
 
     type = PostType.find_by(slug: type) unless type.is_a?(PostType)
 

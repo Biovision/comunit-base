@@ -23,8 +23,4 @@ class Admin::EventSpeakersController < AdminController
       handle_http_404('Cannot find event speaker')
     end
   end
-
-  def restrict_access
-    require_privilege :event_manager
-  end
 end

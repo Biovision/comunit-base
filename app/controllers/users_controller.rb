@@ -58,7 +58,7 @@ class UsersController < ApplicationController
   protected
 
   def restrict_access
-    require_privilege :administrator
+    handle_http_403('Forbidden') unless current_user&.super_user?
   end
 
   def set_entity

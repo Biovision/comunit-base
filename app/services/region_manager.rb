@@ -30,8 +30,7 @@ class RegionManager
   end
 
   def available_regions
-    criteria = { user: @user, privilege_id: regional_privilege_ids }
-    Region.where(id: UserPrivilege.where(criteria).pluck(:region_id))
+    []
   end
 
   def available_region_ids
@@ -40,21 +39,12 @@ class RegionManager
 
   # Нужно ли ограничивать список доступных регионов для текущего пользователя
   def filter?
-    return false if @user.super_user?
-
-    selection     = UserPrivilege.owned_by(@user)
-    privilege_ids = Privilege.where(slug: PRIVILEGES).pluck(:id)
-    if selection.where(privilege_id: privilege_ids).exists?
-      false
-    else
-      selection.where(privilege_id: regional_privilege_ids).exists?
-    end
+    !@user.super_user?
   end
 
   private
 
   def prepare_regional_privilege_ids
-    slugs = PRIVILEGES.map { |slug| "regional_#{slug}" }
-    Privilege.where(regional: true, slug: slugs).pluck(:id)
+    []
   end
 end

@@ -9,7 +9,7 @@
           <% end %>
       <% end %>
       <%= select_tag "current_region_#{current_region.parent_id.to_i}", child_regions_for_select(current_region.parent_id, current_region.id, current_region.parent&.long_slug) %>
-      <% if current_region.child_regions.any? %>
+      <% if current_region.child_items.any? %>
          <%= select_tag "current_region_#{current_region.id}", child_regions_for_select(current_region.id, '', current_region.long_slug) %>
       <% end %>
   <% end %>

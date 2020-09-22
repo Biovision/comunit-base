@@ -20,8 +20,12 @@ class FeaturedPostsController < AdminController
 
   private
 
+  def component_class
+    Biovision::Components::PostsComponent
+  end
+
   def restrict_access
-    require_privilege :chief_editor
+    handle_http_403('Forbidden') unless component_handler.group?(:chief)
   end
 
   def creation_parameters

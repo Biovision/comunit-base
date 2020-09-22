@@ -12,10 +12,6 @@ class Admin::PhotosController < AdminController
 
   private
 
-  def restrict_access
-    require_privilege :albums_manager
-  end
-
   def set_entity
     @entity = Photo.find_by(id: params[:id])
     if @entity.nil?

@@ -1,3 +1,4 @@
+# @deprecated Do not use
 class TeamPrivilege < ApplicationRecord
   belongs_to :team, counter_cache: true
   belongs_to :privilege

@@ -39,10 +39,6 @@ class TeamsController < AdminController
 
   private
 
-  def restrict_access
-    require_privilege :teams_manager
-  end
-
   def set_entity
     @entity = Team.find_by(id: params[:id])
     if @entity.nil?

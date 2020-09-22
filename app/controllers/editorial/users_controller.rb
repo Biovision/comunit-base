@@ -2,7 +2,6 @@ class Editorial::UsersController < AdminController
   include ToggleableEntity
 
   before_action :set_entity, except: [:index]
-  before_action :restrict_toggle, only: [:toggle]
 
   # get /editorial/users
   def index
@@ -16,14 +15,6 @@ class Editorial::UsersController < AdminController
   end
 
   protected
-
-  def restrict_access
-    require_privilege_group(:editors)
-  end
-
-  def restrict_toggle
-    require_privilege(:chief_editor)
-  end
 
   def set_entity
     @entity = User.find_by(id: params[:id])

@@ -3,15 +3,15 @@
   <ul>
     <li><%= render 'editorial/users/nav_item' %></li>
 
-    <% if current_user_in_group?(:editors) %>
-        <li><%= render 'admin/posts/nav_item' %></li>
-    <% end %>
-    <% if current_user_in_group?(:reporters) %>
-        <li><%= render 'admin/news/nav_item' %></li>
-    <% end %>
-    <% if current_user_has_privilege?(:moderator) %>
-        <li><%= render 'admin/comments/nav_item' %></li>
-        <li><%= render 'admin/votes/nav_item' %></li>
-    <% end %>
+    <%# if current_user_in_group?(:editors) %>
+<!--        <li><%#= render 'admin/posts/nav_item' %></li>-->
+    <%# end %>
+    <%# if current_user_in_group?(:reporters) %>
+<!--        <li><%#= render 'admin/news/nav_item' %></li>-->
+    <%# end %>
+    <%# if current_user_has_privilege?(:moderator) %>
+<!--        <li><%#= render 'admin/comments/nav_item' %></li>-->
+<!--        <li><%#= render 'admin/votes/nav_item' %></li>-->
+    <%# end %>
   </ul>
 </nav>

@@ -17,8 +17,8 @@ class Admin::AppealsController < AdminController
 
   private
 
-  def restrict_access
-    require_privilege :feedback_manager
+  def component_class
+    Biovision::Components::ContactComponent
   end
 
   def set_entity

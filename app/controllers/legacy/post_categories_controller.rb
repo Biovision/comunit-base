@@ -1,5 +1,4 @@
 class Legacy::PostCategoriesController < AdminController
-  before_action :restrict_access
   before_action :set_entity, only: [:edit, :update, :destroy]
   before_action :restrict_editing, only: [:edit, :update, :destroy]
 
@@ -37,10 +36,6 @@ class Legacy::PostCategoriesController < AdminController
   end
 
   private
-
-  def restrict_access
-    require_privilege :administrator
-  end
 
   def set_entity
     @entity = PostCategory.find_by(id: params[:id], deleted: false)

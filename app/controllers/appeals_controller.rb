@@ -51,8 +51,12 @@ class AppealsController < ApplicationController
 
   private
 
+  def component_class
+    Biovision::Components::ContactComponent
+  end
+
   def restrict_access
-    require_privilege :feedback_manager
+    handle_http_403('Forbidden') unless component_handler.allow?
   end
 
   def set_entity

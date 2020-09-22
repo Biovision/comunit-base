@@ -34,10 +34,6 @@ class Admin::GroupsController < AdminController
 
   protected
 
-  def restrict_access
-    require_privilege :group_manager
-  end
-
   def set_entity
     @entity = Group.find_by(id: params[:id])
     if @entity.nil?

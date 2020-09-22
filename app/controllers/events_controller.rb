@@ -53,7 +53,7 @@ class EventsController < ApplicationController
   private
 
   def restrict_access
-    require_privilege :event_manager
+    handle_http_403('Forbidden') unless current_user&.super_user?
   end
 
   def set_entity

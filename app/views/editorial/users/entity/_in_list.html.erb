@@ -13,7 +13,7 @@
     <% end %>
   </div>
 
-  <% if current_user_has_privilege?(:chief_editor) %>
-      <%= render partial: 'editorial/users/toggleable', locals: { entity: entity } %>
-  <% end %>
+  <%# if handler.group?(:chief) %>
+      <%#= render partial: 'editorial/users/toggleable', locals: { entity: entity } %>
+  <%# end %>
 </div>

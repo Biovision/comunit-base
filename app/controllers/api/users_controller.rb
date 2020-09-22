@@ -2,7 +2,6 @@ class Api::UsersController < ApplicationController
   before_action :restrict_access, except: [:follow, :unfollow]
   before_action :restrict_anonymous_access, only: [:follow, :unfollow]
   before_action :set_entity
-  before_action :set_privilege, only: [:grant_privilege, :revoke_privilege]
 
   # post /api/users/:id/toggle
   def toggle
@@ -24,16 +23,12 @@ class Api::UsersController < ApplicationController
 
   # put /api/users/:id/privileges/:privilege_id
   def grant_privilege
-    @privilege.grant(@entity, @region)
-
-    render json: { data: { user_privilege_ids: @entity.user_privilege_ids } }
+    head :gone
   end
 
   # delete /api/users/:id/privileges/:privilege_id
   def revoke_privilege
-    @privilege.revoke(@entity, @region)
-
-    render json: { data: { user_privilege_ids: @entity.user_privilege_ids } }
+    head :gone
   end
 
   private
@@ -45,22 +40,8 @@ class Api::UsersController < ApplicationController
     end
   end
 
-  def set_privilege
-    @privilege = Privilege.find_by(id: params[:privilege_id], deleted: false)
-    if @privilege.nil?
-      handle_http_404("Cannot use privilege #{params[:privilege_id]}")
-    elsif @privilege.regional?
-      @region = Region.find_by(id: params[:region_id], visible: true)
-      if @region.nil?
-        handle_http_404("Cannot use region #{params[:region_id]}")
-      end
-    else
-      @region = nil
-    end
-  end
-
   def restrict_access
-    require_privilege :administrator
+    handle_http_403('Forbidden') unless current_user&.super_user?
   end
 
   # @param [UserLink] link

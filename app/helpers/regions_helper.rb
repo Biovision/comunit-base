@@ -29,22 +29,6 @@ module RegionsHelper
     image_tag(image_url, default_options.merge(options))
   end
 
-  def regions_for_select(user = nil)
-    options = [[t(:not_set), '']]
-    if user.is_a?(User)
-      allowed_ids = UserPrivilege.where(user: user).pluck(:region_id).uniq
-      if allowed_ids.any?
-        selection = Region.where(id: allowed_ids).for_tree
-      else
-        selection = Region.for_tree
-      end
-    else
-      selection = Region.for_tree
-    end
-    selection.each { |r| options << [r.name, r.id] }
-    options
-  end
-
   # @param [Integer] selected_id
   def current_region_for_select(selected_id = 0)
     options = [['Центр', '', { data: { url: root_path } }]]

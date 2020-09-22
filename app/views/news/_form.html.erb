@@ -1,3 +1,4 @@
+<% handler ||= Biovision::Components::PostsComponent[current_user] %>
 <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
 
 <%= form_for entity do |f| %>
@@ -92,7 +93,7 @@
       <div class="guideline"><%= t('.guidelines.source_link') %></div>
     </dd>
 
-    <% if current_user_has_privilege?(:chief_editor) %>
+    <% if handler.group?(:chief) %>
       <dt><%= f.label :author_name %></dt>
       <dd>
         <%= f.text_field :author_name %>

@@ -1,5 +1,4 @@
 class Legacy::Admin::PostCategoriesController < AdminController
-  before_action :restrict_access
   before_action :set_entity, except: [:index]
 
   def index
@@ -17,9 +16,9 @@ class Legacy::Admin::PostCategoriesController < AdminController
 
   protected
 
-  def restrict_access
-    require_privilege :administrator
-  end
+  # def component_class
+    # Biovision::Components::PostsComponent
+  # end
 
   def set_entity
     @entity = PostCategory.find params[:id]

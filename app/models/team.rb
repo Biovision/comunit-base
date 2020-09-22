@@ -1,3 +1,4 @@
+# @deprecated Do not use
 class Team < ApplicationRecord
   include Toggleable
   include RequiredUniqueName
@@ -46,8 +47,7 @@ class Team < ApplicationRecord
   end
 
   def users
-    ids = UserPrivilege.where(privilege_id: privilege_ids).pluck(:user_id)
-    User.where(id: ids.uniq).order('surname asc, name asc, slug asc')
+    []
   end
 
   # @param [Integer] delta

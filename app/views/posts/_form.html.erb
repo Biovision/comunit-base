@@ -386,7 +386,7 @@
       </dd>
     </div>
 
-    <% if current_user_has_privilege?(:chief_editor) %>
+    <% if chief %>
       <dt><%= f.label :rating %></dt>
       <dd>
         <%=
@@ -403,7 +403,7 @@
     <dt><%= t(:flags) %></dt>
     <dd>
       <ul class="flags">
-        <% if entity.id.nil? && current_user_has_privilege?(:chief_editor) %>
+        <% if entity.id.nil? && chief %>
           <li>
             <%= check_box_tag :featured, '1' %>
             <%= label_tag :featured, t('activerecord.models.featured_post') %>

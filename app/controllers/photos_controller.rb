@@ -47,7 +47,7 @@ class PhotosController < ApplicationController
   private
 
   def restrict_access
-    require_privilege :photo_manager
+    handle_http_403('Forbidden') unless current_user&.super_user?
   end
 
   def set_entity

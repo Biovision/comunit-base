@@ -86,7 +86,7 @@ class News < ApplicationRecord
 
   # @param [User] user
   def editable_by?(user)
-    !deleted? && !locked? && (owned_by?(user) || UserPrivilege.user_has_privilege?(user, :chief_editor))
+    false
   end
 
   # @param [User] user

@@ -14,10 +14,6 @@ class Admin::EventParticipantsController < AdminController
 
   protected
 
-  def restrict_access
-    require_privilege :event_manager
-  end
-
   def set_entity
     @entity = EventParticipant.find_by(id: params[:id])
     if @entity.nil?

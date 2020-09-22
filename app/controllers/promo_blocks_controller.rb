@@ -47,10 +47,6 @@ class PromoBlocksController < AdminController
 
   protected
 
-  def restrict_access
-    require_privilege :promo_manager
-  end
-
   def set_entity
     @entity = PromoBlock.find_by(id: params[:id])
     if @entity.nil?

@@ -78,10 +78,6 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'rspec-rails'
 end
-
-group :development do
-  gem 'mina'
-end
 ```
 
 ### Пример `.env`
@@ -253,7 +249,7 @@ mina init
 require 'mina/rbenv'
 
 #...
-set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp', 'public/uploads', 'public/ckeditor', 'public/post_illustrations')
+set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp', 'public/uploads', 'public/post_illustrations')
 set :shared_files, fetch(:shared_files, []).push('.env', 'config/master.key')
 
 # В том месте, где task :environment, сразу после
@@ -376,7 +372,7 @@ mina deploy
 Добавить параметры для запуска пумы при перезагрузке сервера 
 (`sudo /etc/puma.conf`) по аналогии с тем, что там указано.
 
-Нужно импортировать регионы
+Нужно импортировать регионы (устарело)
 ----------------------
 
 В папке `tmp/import`:
@@ -392,7 +388,7 @@ ln -s /var/www/shared/import/regions.yml
 bin/rails regions:import
 ```
 
-Занесение сайта в сеть
+Занесение сайта в сеть (устарело)
 ----------------------
 
 В консоли `comunit.online`.

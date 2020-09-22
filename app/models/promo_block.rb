@@ -39,7 +39,7 @@ class PromoBlock < ApplicationRecord
 
   # @param [User] user
   def editable_by?(user)
-    UserPrivilege.user_has_privilege?(user, :promo_manager)
+    user&.super_user?
   end
 
   # @return [PromoItem]

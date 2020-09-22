@@ -93,7 +93,7 @@ class Legacy::NewsController < ApplicationController
   end
 
   def restrict_access
-    require_privilege_group :reporters
+    handle_http_403('Forbidden') unless current_user&.super_user?
   end
 
   def restrict_editing
