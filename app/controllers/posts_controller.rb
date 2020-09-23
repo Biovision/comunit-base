@@ -11,7 +11,8 @@ class PostsController < ApplicationController
   # get /posts
   def index
     excluded = param_from_request(:x).split(',').map(&:to_i)
-    @collection = Post.exclude_ids(excluded).page_for_visitors(current_page)
+    taxon_ids = params.key?(:taxon_id) ? Array(params[:taxon_id]) : []
+    @collection = Post.exclude_ids(excluded).with_taxon_ids(taxon_ids).page_for_visitors(current_page)
   end
 
   # post /posts
@@ -20,9 +21,9 @@ class PostsController < ApplicationController
     if @entity.save
       apply_post_tags
       apply_post_categories
+      apply_post_taxa
       add_attachments if params.key?(:post_attachment)
       mark_as_featured if params[:featured]
-      # PostBodyParserJob.perform_later(@entity.id)
       unless Comunit::Network::Handler.central_site?
         NetworkEntitySyncJob.perform_later(@entity.class.to_s, @entity.id)
       end
@@ -66,6 +67,7 @@ class PostsController < ApplicationController
     if @entity.update(entity_parameters)
       apply_post_tags
       apply_post_categories
+      apply_post_taxa
       add_attachments if params.key?(:post_attachment)
       # PostBodyParserJob.perform_later(@entity.id)
       unless Comunit::Network::Handler.central_site?
@@ -170,6 +172,14 @@ class PostsController < ApplicationController
       @entity.post_category_ids = Array(params[:post_category_ids])
     else
       @entity.post_post_categories.destroy_all
+    end
+  end
+
+  def apply_post_taxa
+    if params.key?(:taxon_ids)
+      @entity.taxon_ids = Array(params[:taxon_ids])
+    else
+      @entity.post_taxons.destroy_all
     end
   end
 

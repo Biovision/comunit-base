@@ -1,6 +1,6 @@
 <% content_for :meta_title, t('.title', page: current_page) %>
 <% content_for :alternate_links do %>
-  <link rel="alternate" type="application/rss+xml" href="<%= rss_posts_path %>" />
+  <link rel="alternate" type="application/rss+xml" href="<%= rss_posts_path %>"/>
 <% end %>
 <% content_for :breadcrumbs do %>
   <span><%= t('posts.index.nav_text') %></span>
@@ -9,5 +9,11 @@
 <article>
   <h1><%= t('.heading') %></h1>
 
+  <% if params.key?(:taxon_id) %>
+    <% taxon = Taxon.find_by(id: param_from_request(:taxon_id)) %>
+    <% unless taxon.nil? %>
+      <h2><%= taxon.name %></h2>
+    <% end %>
+  <% end %>
   <%= render partial: 'posts/collection', locals: { collection: @collection } %>
 </article>

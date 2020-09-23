@@ -46,7 +46,7 @@ class Taxon < ApplicationRecord
 
   before_validation :ensure_parent_match
 
-  scope :for_tree, ->(v = nil) { where(parent_id: v) }
+  scope :for_tree, ->(v = nil) { where(parent_id: v).ordered_by_priority }
   scope :visible, -> { where(visible: true) }
   scope :list_for_visitors, -> { visible.ordered_by_priority }
   scope :list_for_administration, -> { ordered_by_priority }
@@ -67,6 +67,21 @@ class Taxon < ApplicationRecord
 
   def self.creation_parameters
     entity_parameters + %i[parent_id taxon_type_id]
+  end
+
+  # @param [Post] entity
+  def post?(entity)
+    post_taxons.where(post: entity).exists?
+  end
+
+  # @param [Post] entity
+  def add_post(entity)
+    post_taxons.create(post: entity)
+  end
+
+  # @param [Post] entity
+  def remove_post(entity)
+    post_taxons.where(post: entity).delete_all
   end
 
   private

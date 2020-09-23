@@ -141,6 +141,13 @@ module PostsHelper
     end
   end
 
+  # @param [Taxon] entity
+  # @param [String] text
+  # @param [Hash] options
+  def taxon_link(entity, text = entity.name, options = {})
+    link_to(text, posts_path(taxon_id: entity.id), options)
+  end
+
   # @param [PostAttachment] entity
   # @param [String] text
   # @param [Hash] options

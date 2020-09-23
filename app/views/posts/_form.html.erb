@@ -53,7 +53,6 @@
         <%=
           f.datetime_local_field(
               :publication_time,
-              id: "#{model_name}_publication_time",
               required: true
           )
         %>
@@ -66,7 +65,6 @@
         <%=
           f.text_field(
               :title,
-              id: "#{model_name}_title",
               size: nil,
               maxlength: Post::TITLE_LIMIT,
               required: true,
@@ -117,6 +115,7 @@
       </div>
     <% end %>
 
+    <%= render partial: 'posts/form/taxa', locals: { f: f } %>
     <%= render partial: 'shared/forms/region_select', locals: { f: f } %>
 
     <div>
@@ -151,13 +150,12 @@
         <%=
           f.text_area(
               :body,
-              id: "#{model_name}_body",
               cols: 20,
               rows: 25,
               required: true,
               data: {
                   wysiwyg: 1,
-                  upload_url: post_illustrations_path
+                  upload_url: admin_ckeditor_path(slug: handler.slug)
               }
           )
         %>
@@ -170,7 +168,6 @@
         <%=
           f.text_field(
               :author_name,
-              id: "#{model_name}_author_name",
               size: nil,
               maxlength: Post::META_LIMIT
           )
@@ -185,7 +182,6 @@
         <%=
           f.text_field(
               :author_title,
-              id: "#{model_name}_author_title",
               size: nil,
               maxlength: Post::META_LIMIT
           )
@@ -200,7 +196,6 @@
         <%=
           f.url_field(
               :author_url,
-              id: "#{model_name}_author_url",
               size: nil,
               maxlength: Post::META_LIMIT
           )
@@ -223,7 +218,6 @@
             <%=
               f.file_field(
                   :image,
-                  id: "#{model_name}_image",
                   accept: 'image/jpeg,image/png',
                   data: { image: figure_id }
               )
@@ -240,7 +234,6 @@
         <%=
           f.text_field(
               :image_alt_text,
-              id: "#{model_name}_image_alt_text",
               size: nil,
               maxlength: Post::META_LIMIT
           )
@@ -255,7 +248,6 @@
         <%=
           f.text_field(
               :image_name,
-              id: "#{model_name}_image_name",
               size: nil,
               maxlength: Post::IMAGE_NAME_LIMIT
           )
@@ -270,7 +262,6 @@
         <%=
           f.text_field(
               :image_source_name,
-              id: "#{model_name}_image_source_name",
               size: nil,
               maxlength: Post::META_LIMIT
           )
@@ -285,7 +276,6 @@
         <%=
           f.url_field(
               :image_source_link,
-              id: "#{model_name}_image_source_link",
               size: nil,
               maxlength: Post::META_LIMIT,
               placeholder: t('.placeholders.image_source_link')
@@ -301,7 +291,6 @@
         <%=
           f.text_field(
               :source_name,
-              id: "#{model_name}_source_name",
               size: nil,
               maxlength: Post::META_LIMIT
           )
@@ -316,7 +305,6 @@
         <%=
           f.text_field(
               :original_title,
-              id: "#{model_name}_original_title",
               size: nil,
               maxlength: Post::META_LIMIT
           )
@@ -331,7 +319,6 @@
         <%=
           f.url_field(
               :source_link,
-              id: "#{model_name}_source_link",
               size: nil,
               maxlength: Post::META_LIMIT,
               placeholder: t('.placeholders.source_link')
@@ -341,109 +328,52 @@
       </dd>
     </div>
 
-    <div>
-      <dt><%= f.label :meta_title %></dt>
-      <dd>
-        <%=
-          f.text_field(
-              :meta_title,
-              id: "#{model_name}_meta_title",
-              size: nil,
-              maxlength: Post::META_LIMIT
-          )
-        %>
-        <div class="guideline"><%= t('.guidelines.meta_title') %></div>
-      </dd>
-    </div>
-
-    <div>
-      <dt><%= f.label :meta_description %></dt>
-      <dd>
-        <%=
-          f.text_field(
-              :meta_description,
-              id: "#{model_name}_meta_description",
-              size: nil,
-              maxlength: Post::META_LIMIT
-          )
-        %>
-        <div class="guideline"><%= t('.guidelines.meta_description') %></div>
-      </dd>
-    </div>
-
-    <div>
-      <dt><%= f.label :meta_keywords %></dt>
-      <dd>
-        <%=
-          f.text_field(
-              :meta_keywords,
-              id: "#{model_name}_meta_keywords",
-              size: nil,
-              maxlength: Post::META_LIMIT
-          )
-        %>
-        <div class="guideline"><%= t('.guidelines.meta_keywords') %></div>
-      </dd>
-    </div>
+    <%= render partial: 'shared/forms/meta_texts', locals: { f: f } %>
 
     <% if chief %>
-      <dt><%= f.label :rating %></dt>
-      <dd>
-        <%=
-          f.number_field(
-              :rating,
-              id: "#{model_name}_rating",
-              step: 0.0000001,
-              size: 5
-          )
-        %>
-      </dd>
+      <div>
+        <dt><%= f.label :rating %></dt>
+        <dd>
+          <%=
+            f.number_field(
+                :rating,
+                step: 0.0000001,
+                size: 5
+            )
+          %>
+        </dd>
+      </div>
     <% end %>
 
-    <dt><%= t(:flags) %></dt>
-    <dd>
-      <ul class="flags">
-        <% if entity.id.nil? && chief %>
+    <div>
+      <dt><%= t(:flags) %></dt>
+      <dd>
+        <ul class="flags">
+          <% if entity.id.nil? && chief %>
+            <li>
+              <%= check_box_tag :featured, '1' %>
+              <%= label_tag :featured, t('activerecord.models.featured_post') %>
+            </li>
+          <% end %>
           <li>
-            <%= check_box_tag :featured, '1' %>
-            <%= label_tag :featured, t('activerecord.models.featured_post') %>
+            <%= f.check_box :visible, id: "#{model_name}_visible" %>
+            <%= f.label :visible %>
           </li>
-        <% end %>
-        <li>
-          <%= f.check_box :visible, id: "#{model_name}_visible" %>
-          <%= f.label :visible %>
-        </li>
-        <li>
-          <%= f.check_box :show_owner, id: "#{model_name}_show_owner" %>
-          <%= f.label :show_owner %>
-        </li>
-        <!--
-        <li>
-          <%= f.check_box :translation, id: "#{model_name}_translation" %>
-          <%= f.label :translation %>
-          <div>
-            <%= f.label :translator_name %><br/>
-            <%=
-        f.text_field(
-            :translator_name,
-            id: "#{model_name}_translator_name",
-            size: nil,
-            maxlength: Post::META_LIMIT
-        )
-      %>
-          </div>
-        </li>
--->
-        <li>
-          <%= f.check_box :allow_comments, id: "#{model_name}_allow_comments" %>
-          <%= f.label :allow_comments %>
-        </li>
-        <li>
-          <%= f.check_box :allow_votes, id: "#{model_name}_allow_votes" %>
-          <%= f.label :allow_votes %>
-        </li>
-      </ul>
-    </dd>
+          <li>
+            <%= f.check_box :show_owner, id: "#{model_name}_show_owner" %>
+            <%= f.label :show_owner %>
+          </li>
+          <li>
+            <%= f.check_box :allow_comments, id: "#{model_name}_allow_comments" %>
+            <%= f.label :allow_comments %>
+          </li>
+          <li>
+            <%= f.check_box :allow_votes, id: "#{model_name}_allow_votes" %>
+            <%= f.label :allow_votes %>
+          </li>
+        </ul>
+      </dd>
+    </div>
   </dl>
 
   <%#= render partial: 'posts/form/gallery', locals: { entity: entity } %>
@@ -454,7 +384,7 @@
 
   <div class="buttons">
     <%= f.hidden_field :post_type_id if entity.id.nil? %>
-    <%= f.button t(:save), type: :submit, class: 'button-save' %>
+    <%= f.button t(:save), class: 'button-save' %>
   </div>
 <% end %>
 

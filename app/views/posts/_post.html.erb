@@ -118,6 +118,14 @@
         <% end %>
       </div>
 
+      <% if post.taxons.any? %>
+        <ul class="post-taxons">
+          <% post.taxons.each do |taxon| %>
+            <li><%= taxon_link(taxon) %></li>
+          <% end %>
+        </ul>
+      <% end %>
+
       <meta itemprop="commentCount" content="<%= post.comments_count %>"/>
       <meta itemprop="dateModified" content="<%= post.updated_at.strftime('%Y-%m-%d') %>"/>
     </footer>

@@ -89,3 +89,22 @@
     padding: 0 0 0.4rem 0;
   }
 }
+
+.post-taxons {
+  border: var(--border-secondary);
+  font-size: var(--font-size-decreased);
+  list-style: none;
+  margin: var(--spacer-xs) 0;
+  padding: var(--spacer-xxs);
+
+  li {
+    margin: 0;
+    padding: var(--spacer-xxs);
+
+    &::before {
+      color: var(--text-color-secondary);
+      content: '▶';
+      margin-right: var(--spacer-xxs);
+    }
+  }
+}
