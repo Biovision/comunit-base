@@ -1,7 +1,8 @@
 <% content_for :meta_title, t('.title') %>
 <% content_for :breadcrumbs do %>
   <%= admin_biovision_component_link(component_handler.component) %>
-  <%= link_to(t('admin.taxons.index.nav_text'), admin_taxons_path) %>
+  <%= link_to(t('admin.taxon_types.index.nav_text'), admin_taxon_types_path) %>
+  <%= admin_taxon_type_link(@entity.taxon_type) %>
   <%= admin_taxon_link(@entity) %>
   <span><%= t('.nav_text') %></span>
 <% end %>
