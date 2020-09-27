@@ -35,7 +35,7 @@ class My::PostsController < ProfileController
     if component_handler.allow_post_type?(@entity.post_type) && @entity.save
       apply_post_tags
       apply_post_categories
-      NetworkPostSyncJob.perform_later(@entity.id, false)
+      Comunit::Network::Handler.sync(@entity)
       form_processed_ok(@entity.url)
     else
       form_processed_with_error(:new)
@@ -55,7 +55,7 @@ class My::PostsController < ProfileController
     if @entity.update(entity_parameters)
       apply_post_tags
       apply_post_categories
-      NetworkPostSyncJob.perform_later(@entity.id, true)
+      Comunit::Network::Handler.sync(@entity)
       form_processed_ok(@entity.url)
     else
       form_processed_with_error(:edit)
