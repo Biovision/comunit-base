@@ -28,8 +28,8 @@ class Taxon < ApplicationRecord
   NAME_LIMIT = 500
   NAV_LIMIT = 50
   SLUG_LIMIT = 50
-  SLUG_PATTERN = /\A[a-z][-a-z0-9]*[a-z0-9]\z/i.freeze
-  SLUG_PATTERN_HTML = '^[a-zA-Z][-a-zA-Z0-9]*[a-zA-Z0-9]$'
+  SLUG_PATTERN = /\A[a-z0-9]([-a-z0-9]*[a-z0-9])?\z/i.freeze
+  SLUG_PATTERN_HTML = '^[a-zA-Z0-9]([-a-zA-Z0-9]*[a-zA-Z0-9])?$'
 
   toggleable :visible
 
@@ -67,6 +67,10 @@ class Taxon < ApplicationRecord
 
   def self.creation_parameters
     entity_parameters + %i[parent_id taxon_type_id]
+  end
+
+  def text_for_link
+    nav_text.blank? ? "#{name[0..50]}…" : nav_text
   end
 
   # @param [Post] entity

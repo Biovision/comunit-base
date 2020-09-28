@@ -20,4 +20,9 @@ class TaxonType < ApplicationRecord
   validates_uniqueness_of :slug, scope: :site_id
 
   scope :list_for_administration, -> { order('name asc, slug asc') }
+
+  # @param [String] slug
+  def self.[](slug)
+    find_by(slug: slug)
+  end
 end

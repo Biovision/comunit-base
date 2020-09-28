@@ -43,7 +43,7 @@ module PostsHelper
   # @param [Taxon] entity
   # @param [String] text
   # @param [Hash] options
-  def admin_taxon_link(entity, text = entity.nav_text, options = {})
+  def admin_taxon_link(entity, text = entity.text_for_link, options = {})
     link_to(text, admin_taxon_path(id: entity.id), options)
   end
 
@@ -144,7 +144,7 @@ module PostsHelper
   # @param [Taxon] entity
   # @param [String] text
   # @param [Hash] options
-  def taxon_link(entity, text = entity.name, options = {})
+  def taxon_link(entity, text = entity.text_for_link, options = {})
     link_to(text, posts_path(taxon_id: entity.id), options)
   end
 
