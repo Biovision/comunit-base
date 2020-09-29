@@ -81,7 +81,7 @@ class PostsController < ApplicationController
 
   # delete /posts/:id
   def destroy
-    flash[:notice] = t('posts.destroy.success') if @entity.destroy #@entity.update(deleted: true)
+    flash[:notice] = t('.success') if @entity.destroy
 
     redirect_to admin_posts_path
   end
@@ -128,7 +128,6 @@ class PostsController < ApplicationController
       archive_day
     else
       collect_dates
-      archive_group if params[:year]
     end
   end
 
@@ -202,14 +201,6 @@ class PostsController < ApplicationController
     selection = Post.pubdate(date)
     @collection = selection.page_for_visitors(current_page)
     render 'archive_day'
-  end
-
-  def archive_group
-    year = params[:year].to_i
-    @dates.select! { |k, _| k == year }
-    return unless params.key?(:month)
-
-    @dates[year]&.select! { |k, _| k == params[:month].to_i }
   end
 
   # @param [String] q

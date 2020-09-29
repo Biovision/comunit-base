@@ -1,13 +1,30 @@
 <% content_for :meta_title, t('.title') + title_for_archive(params[:year], params[:month]) %>
 <% content_for :posts_selected, '1' %>
+<% content_for :breadcrumbs do %>
+  <span><%= t('.heading') %></span>
+<% end %>
 
-<article class="posts">
-  <h1><%= t('.title') %></h1>
-  <ul>
-    <% @dates.keys.each do |year| %>
-        <li><%= link_to year, archive_posts_path(year: year) %></li>
-    <% end %>
-  </ul>
+<article class="posts-archive">
+  <div class="content-wrapper">
+    <h1><%= t('.heading') %></h1>
 
-  <%= render 'posts/archive/month_list' %>
+    <ul class="years">
+      <% @dates.each do |year, months| %>
+        <li>
+          <% text = "#{year} год" %>
+          <% if params[:year].to_i == year %>
+            <div class="current"><%= text %></div>
+            <%=
+              render(
+                  partial: 'posts/archive/months',
+                  locals: { collection: months }
+              )
+            %>
+          <% else %>
+            <%= link_to text, archive_posts_path(year: year) %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 </article>

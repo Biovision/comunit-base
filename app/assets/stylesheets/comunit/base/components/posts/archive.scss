@@ -1,0 +1,32 @@
+.posts-archive {
+  li:first-letter {
+    text-transform: uppercase;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .years {
+    margin: 0;
+    padding: var(--spacer-xs);
+
+    > li {
+      font-size: var(--font-size-increased);
+    }
+
+    ul {
+      border-bottom: var(--border-secondary);
+      margin: 0 0 0 var(--spacer-s);
+    }
+  }
+
+  .months {
+    padding-bottom: var(--spacer-s);
+  }
+
+  .current {
+    font-weight: 700;
+  }
+}

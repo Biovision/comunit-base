@@ -1,0 +1,15 @@
+<% if collection.any? %>
+  <ul>
+    <% collection.each do |day| %>
+      <li>
+        <% date = Date.parse("#{params[:year]}-#{params[:month]}-#{day}") %>
+        <%=
+          link_to(
+              l(date, format: :long),
+              archive_posts_path(year: params[:year], month: params[:month], day: day.to_s.rjust(2, '0'))
+          )
+        %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

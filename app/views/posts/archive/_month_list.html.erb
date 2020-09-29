@@ -4,14 +4,14 @@
         <% if @dates[params[:year].to_i] %>
             <ul>
               <% @dates[params[:year].to_i].each do |month| %>
-                  <li><%= link_to t('date.nominative_months')[month], archive_posts_path(year: params[:year], month: month) %></li>
+                  <li><%= link_to t('date.nominative_month_names')[month[0]], archive_posts_path(year: params[:year], month: month[0].to_s.rjust(2, '0')) %></li>
               <% end %>
             </ul>
         <% else %>
             <%= render 'shared/nothing_found' %>
         <% end %>
     <% else %>
-        <h3><%= t('date.nominative_months')[params[:month].to_i] %></h3>
+        <h3><%= t('date.nominative_month_names')[params[:month].to_i] %></h3>
         <%= paginate @collection %>
         <% if @collection.any? %>
             <% @collection.each do |post| %>

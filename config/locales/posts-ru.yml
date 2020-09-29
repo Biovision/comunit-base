@@ -530,6 +530,10 @@ ru:
       title: "Поиск публикаций"
       nav_text: "Поиск публикаций"
       heading: "Поиск публикаций"
+    archive:
+      title: "Архив публикаций"
+      year: "%{year} год"
+      heading: "Архив публикаций"
   taxons:
     destroy:
       success: "Таксон успешно удалён"

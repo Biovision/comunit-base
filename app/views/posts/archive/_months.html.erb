@@ -1,0 +1,25 @@
+<% if collection.any? %>
+  <ul class="months">
+    <% collection.each do |month, days| %>
+      <li>
+        <% text = t('date.nominative_month_names')[month] %>
+        <% if params[:month] == month.to_s.rjust(2, '0') %>
+          <div class="current"><%= text %></div>
+          <%=
+            render(
+                partial: 'posts/archive/days',
+                locals: { collection: days }
+            )
+          %>
+        <% else %>
+          <%=
+            link_to(
+                text,
+                archive_posts_path(year: params[:year], month: month.to_s.rjust(2, '0'))
+            )
+          %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

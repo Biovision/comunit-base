@@ -1,6 +1,9 @@
 <% content_for :meta_title, t('.title') %>
 <% content_for :breadcrumbs do %>
-  <span><%= t('posts.index.nav_text') %></span>
+  <%= link_to(t('posts.archive.heading'), posts_path) %>
+  <%= link_to(params[:year], archive_posts_path(year: params[:year])) %>
+  <%= link_to(t('date.nominative_month_names')[params[:month].to_i], archive_posts_path(year: params[:year], month: params[:month])) %>
+  <span><%= params[:day] %></span>
 <% end %>
 
 <article>

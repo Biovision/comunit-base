@@ -90,7 +90,6 @@ Rails.application.routes.draw do
 
     get 'regional_news/:category_slug' => 'news#category', as: :legacy_news_category, constraints: { category_slug: category_slug_pattern }
     get 'regional_news/:category_slug/:slug' => 'news#show_in_category', as: :legacy_news_in_category, constraints: { category_slug: category_slug_pattern }
-    get 'posts/:category_slug/:slug' => 'posts#legacy_show', as: nil, constraints: { category_slug: category_slug_pattern }
 
     resources :albums, except: %i[update destroy]
     resources :photos, except: %i[index update destroy]
@@ -161,6 +160,7 @@ Rails.application.routes.draw do
     resources :featured_posts, only: :create
     resources :post_groups, only: %i[show new create edit], concerns: :check
     resources :taxons, only: %i[create edit], concerns: :check
+    get 'posts/:category_slug/:slug' => 'posts#legacy_show', as: nil, constraints: { category_slug: category_slug_pattern }
 
     scope :articles, controller: :articles do
       get '/' => :index, as: :articles
