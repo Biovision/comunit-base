@@ -25,7 +25,7 @@ class Taxon < ApplicationRecord
   include Toggleable
   include TreeStructure
 
-  NAME_LIMIT = 500
+  NAME_LIMIT = 5000
   NAV_LIMIT = 50
   SLUG_LIMIT = 50
   SLUG_PATTERN = /\A[a-z0-9]([-a-z0-9]*[a-z0-9])?\z/i.freeze
