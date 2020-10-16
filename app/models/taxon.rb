@@ -20,6 +20,7 @@
 class Taxon < ApplicationRecord
   include BelongsToSite
   include Checkable
+  include HasSimpleImage
   include HasUuid
   include NestedPriority
   include Toggleable
@@ -38,8 +39,8 @@ class Taxon < ApplicationRecord
   has_many :posts, through: :post_taxons
 
   validates_presence_of :slug, :name
-  validates_uniqueness_of :name, scope: %i[site_id taxon_type_id]
-  validates_uniqueness_of :slug, scope: %i[site_id taxon_type_id]
+  # validates_uniqueness_of :name, scope: %i[site_id taxon_type_id]
+  # validates_uniqueness_of :slug, scope: %i[site_id taxon_type_id]
   validates_length_of :name, maximum: NAME_LIMIT
   validates_length_of :slug, maximum: SLUG_LIMIT
   validates_format_of :slug, with: SLUG_PATTERN
@@ -53,12 +54,14 @@ class Taxon < ApplicationRecord
 
   # @param [Taxon] entity
   def self.siblings(entity)
-    criteria = {
-      site: entity&.site,
-      taxon_type: entity&.taxon_type,
-      parent_id: entity&.parent_id
-    }
-    where(criteria)
+    criteria = { taxon_type: entity&.taxon_type, parent_id: entity&.parent_id }
+    if entity.nil?
+      where(criteria)
+    elsif entity.site.nil?
+      where(criteria).where("data->'comunit'->>'site_id' is null")
+    else
+      where(criteria).where("data->'comunit'->>'site_id' = ?", entity.site.uuid)
+    end
   end
 
   def self.entity_parameters

@@ -1,8 +1,8 @@
-<% content_for :meta_title, t('.title', name: @entity.name) %>
+<% content_for :meta_title, t('.title', type: @entity.taxon_type.name, name: @entity.name) %>
 <% content_for :breadcrumbs do %>
   <%= admin_biovision_component_link(component_handler.component) %>
   <%= link_to(t('admin.taxon_types.index.nav_text'), admin_taxon_types_path) %>
-  <%= admin_taxon_type_link(@entity.taxon_type) %>
+  <%= admin_entity_link(@entity.taxon_type) %>
   <span><%= @entity.name %></span>
 <% end %>
 
@@ -10,7 +10,6 @@
   <h1><%= @entity.name %></h1>
 
   <ul class="actions">
-    <li><%= back_icon(admin_taxon_type_path(id: @entity.taxon_type)) %></li>
     <li><%= edit_icon(edit_taxon_path(id: @entity.id)) %></li>
   </ul>
 
@@ -18,32 +17,20 @@
     <% unless @entity.parent.nil? %>
       <div>
         <dt><%= t('activerecord.attributes.taxon.parent_id') %></dt>
-        <dd><%= admin_taxon_link(@entity.parent) %></dd>
+        <dd><%= admin_entity_link(@entity.parent) %></dd>
       </div>
     <% end %>
 
     <%= render partial: 'shared/entity/priority', locals: { entity: @entity } %>
 
     <div>
-      <dt><%= t('activerecord.attributes.taxon.taxon_type_id') %></dt>
-      <dd><%= admin_taxon_type_link(@entity.taxon_type) %></dd>
+      <dt><%= @entity.class.human_attribute_name(:taxon_type) %></dt>
+      <dd><%= admin_entity_link(@entity.taxon_type) %></dd>
     </div>
 
-    <div>
-      <dt><%= t('activerecord.attributes.taxon.name') %></dt>
-      <dd>
-        <%= @entity.name %>
-      </dd>
-    </div>
-
-    <div>
-      <dt><%= t('activerecord.attributes.taxon.nav_text') %></dt>
-      <dd>
-        <%= @entity.nav_text %>
-      </dd>
-    </div>
-
+    <%= render partial: 'shared/entity/text_fields', locals: { entity: @entity, list: %w[name nav_text] } %>
     <%= render partial: 'shared/entity/slug', locals: { entity: @entity } %>
+    <%= render partial: 'shared/entity/tree_caches', locals: { entity: @entity } %>
     <%= render partial: 'shared/entity/uuid', locals: { entity: @entity } %>
     <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
   </dl>
@@ -67,11 +54,11 @@
   %>
 
   <section>
-    <h2><%= t('taxons.new.nav_text') %></h2>
+    <h2><%= t('taxa.new.nav_text') %></h2>
 
     <%=
       render(
-          partial: 'taxons/form',
+          partial: 'taxa/form',
           locals: { entity: @entity.child_items.new(taxon_type: @entity.taxon_type) }
       )
     %>

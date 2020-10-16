@@ -17,11 +17,9 @@ class CreateComunitComponent < ActiveRecord::Migration[5.2]
   def create_sites
     create_table :sites, comment: 'Network site' do |t|
       t.uuid :uuid
-      t.timestamps
       t.references :simple_image, foreign_key: { on_update: :cascade, on_delete: :nullify }
+      t.timestamps
       t.boolean :active, null: false, default: true
-      t.boolean :deleted, null: false, default: false
-      t.integer :users_count, null: false, default: 0
       t.integer :version, limit: 2, default: 0, null: false
       t.string :name, null: false
       t.string :host, null: false

@@ -73,6 +73,10 @@ class Site < ApplicationRecord
     site_posts.find_by(post: post)
   end
 
+  def text_for_link
+    host
+  end
+
   # @param [User] user
   def user?(user)
     site_users.where(user: user).exists?

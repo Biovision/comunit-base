@@ -1,0 +1,69 @@
+ru:
+  activerecord:
+    models:
+      taxon: "Таксон"
+      taxon_type: "Тип таксона"
+      taxon_type_biovision_component: "Доступный компоненту тип таксона"
+      taxon_user: "Таксон для пользователя"
+    attributes:
+      taxon:
+        name: "Название"
+        nav_text: "Текст для ссылки"
+        parent_id: "Родитель"
+      taxon_type:
+        active: "Активный"
+        name: "Название"
+  attributes:
+    taxon: "Таксон"
+    taxon_id: "Таксон"
+    taxon_type: "Тип таксона"
+    taxon_type_id: "Тип таксона"
+  biovision:
+    components:
+      taxonomy:
+        name: "Таксономия"
+  admin:
+    taxon_types:
+      nav_item:
+        description: "Управление списком типов таксонов"
+        text: "Типы таксонов"
+      index:
+        heading: "Типы таксонов"
+        title: "Типы таксонов"
+      show:
+        title: "Тип таксона «%{name}»"
+    taxa:
+      show:
+        title: "Таксон типа «%{type}»: %{name}"
+  taxa:
+    destroy:
+      success: "Таксон удалён"
+    new:
+      heading: "Добавить таксон"
+      nav_text: "Новый таксон"
+      title: "Добавление таксона"
+    edit:
+      heading: "Редактирование таксона"
+      nav_text: "Редактировать"
+      title: "Редактирование таксона"
+    form:
+      guidelines:
+        name: "Максимум 500 символов"
+        nav_text: "Максимум 50 символов"
+        slug: "Максимум 50 символов. Только латинские буквы, цифры и дефис."
+  taxon_types:
+    destroy:
+      success: "Тип таксона удалён"
+    new:
+      heading: "Добавить тип таксона"
+      nav_text: "Новый тип таксона"
+      title: "Добавление типа таксона"
+    edit:
+      heading: "Редактирование типа таксона"
+      nav_text: "Редактировать"
+      title: "Редактирование типа таксона"
+    form:
+      guidelines:
+        name: "Максимум 500 символов"
+        nav_text: "Максимум 50 символов"
+        slug: "Максимум 50 символов. Только латинские буквы, цифры и дефис."

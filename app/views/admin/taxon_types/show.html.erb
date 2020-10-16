@@ -14,10 +14,8 @@
 
   <dl>
     <div>
-      <dt><%= t('activerecord.attributes.taxon.name') %></dt>
-      <dd>
-        <%= @entity.name %>
-      </dd>
+      <dt><%= @entity.class.human_attribute_name(:name) %></dt>
+      <dd><%= @entity.name %></dd>
     </div>
 
     <%= render partial: 'shared/entity/slug', locals: { entity: @entity } %>
@@ -28,17 +26,17 @@
   <%=
     render(
         partial: 'admin/components/posts/taxa',
-        locals: { collection: @entity.taxons.for_tree }
+        locals: { collection: @entity.taxa.for_tree }
     )
   %>
 
   <section>
-    <h2><%= t('taxons.new.nav_text') %></h2>
+    <h2><%= t('taxa.new.nav_text') %></h2>
 
     <%=
       render(
-          partial: 'taxons/form',
-          locals: { entity: @entity.taxons.new }
+          partial: 'taxa/form',
+          locals: { entity: @entity.taxa.new }
       )
     %>
   </section>

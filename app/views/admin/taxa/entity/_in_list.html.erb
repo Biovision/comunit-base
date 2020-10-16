@@ -1,0 +1,20 @@
+<figure class="image"><%= simple_image_preview(entity) %></figure>
+<div class="data">
+  <div><%= admin_entity_link(entity) %></div>
+  <div class="info">
+    <%= entity.slug %>
+  </div>
+  <% if entity.children_cache.any? %>
+    <div class="secondary info">
+      <%= entity.class.human_attribute_name(:children_cache) %>:
+      <%= entity.children_cache %>
+    </div>
+  <% end %>
+
+  <%= render(partial: 'shared/admin/toggle', locals: { entity: entity }) %>
+
+  <ul class="actions">
+    <li><%= edit_icon(edit_taxon_path(id: entity.id)) %></li>
+    <%= render(partial: 'shared/admin/priority', locals: { entity: entity }) %>
+  </ul>
+</div>

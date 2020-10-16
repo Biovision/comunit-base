@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Administrative part of taxon management
-class Admin::TaxonsController < AdminController
+class Admin::TaxaController < AdminController
   include EntityPriority
   include ToggleableEntity
 
@@ -14,12 +14,7 @@ class Admin::TaxonsController < AdminController
   private
 
   def component_class
-    Biovision::Components::PostsComponent
-  end
-
-  def restrict_access
-    error = 'Managing taxons is not allowed'
-    handle_http_401(error) unless component_handler.allow?('chief_editor')
+    Biovision::Components::TaxonomyComponent
   end
 
   def set_entity

@@ -34,9 +34,6 @@ ru:
       post_type: "Тип публикации"
       post_zen_category: "Категория Яндекс.Дзен для публикации"
       site_post: "Состояние публикации на сайте"
-      taxon: "Таксон"
-      taxon_type: "Тип таксона"
-      taxon_user: "Таксон для пользователя"
       theme: "Тема публикаций"
       zen_category: "Категория Яндекс.Дзен"
     errors:
@@ -196,14 +193,6 @@ ru:
           original: "Оригинал"
           copied: "Скопировано"
           removed: "Удалено"
-      taxon:
-        name: "Название"
-        nav_text: "Текст для ссылки"
-        parent_id: "Родитель"
-        taxon_type_id: "Тип"
-      taxon_type:
-        name: "Название"
-        slug: "Идентификатор"
       zen_category:
         name: "Название"
         posts_count: "Количество публикаций"
@@ -213,8 +202,6 @@ ru:
   attributes:
     post: "Публикация"
     post_id: "Публикация"
-    taxon: "Таксон"
-    taxon_id: "Таксон"
   admin:
     components:
       posts:
@@ -534,22 +521,6 @@ ru:
       title: "Архив публикаций"
       year: "%{year} год"
       heading: "Архив публикаций"
-  taxons:
-    destroy:
-      success: "Таксон успешно удалён"
-    new:
-      heading: "Добавить таксон"
-      nav_text: "Новый таксон"
-      title: "Добавление таксона"
-    edit:
-      heading: "Редактирование таксона"
-      nav_text: "Редактировать"
-      title: "Редактирование таксона"
-    form:
-      guidelines:
-        name: "Максимум 500 символов"
-        nav_text: "Максимум 50 символов"
-        slug: "Максимум 50 символов. Только латинские буквы, цифры и дефис."
   themes:
     update:
       success: "Тема группировки успешно обновлена"

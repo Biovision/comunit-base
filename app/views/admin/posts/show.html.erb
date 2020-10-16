@@ -110,13 +110,13 @@
     <dt><%= t('activerecord.attributes.post.rating') %></dt>
     <dd><%= @entity.rating %></dd>
 
-    <% if @entity.taxons.any? %>
+    <% if @entity.taxa.any? %>
       <div>
         <dt>Таксоны</dt>
         <dd>
           <ul>
-            <% @entity.taxons.each do |taxon| %>
-              <li><%= admin_taxon_link(taxon) %></li>
+            <% @entity.taxa.each do |taxon| %>
+              <li><%= admin_entity_link(taxon) %></li>
             <% end %>
           </ul>
         </dd>

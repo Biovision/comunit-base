@@ -1,6 +1,10 @@
 <div class="data">
-  <div><%= admin_taxon_type_link(entity) %></div>
+  <div><%= admin_entity_link(entity) %></div>
   <div class="info">
     <%= entity.slug %>
+  </div>
+  <div class="secondary info">
+    <%= t('attributes.site') %>:
+    <%= admin_entity_link(entity.site) %>
   </div>
 </div>

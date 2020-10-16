@@ -1,0 +1,52 @@
+<% model_name = entity.class.to_s.underscore %>
+<%=
+  form_with(
+      model: entity,
+      html: {
+          id: "#{model_name}-form",
+          data: { check_url: check_taxa_path }
+      }
+  ) do |f|
+%>
+  <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+
+  <dl class="fields">
+    <%= render(partial: 'shared/forms/priority', locals: { f: f }) %>
+    <%=
+      render(
+          partial: 'shared/forms/text_field',
+          locals: {
+              f: f,
+              field: :name,
+              data: { transliterate: "#{model_name}_slug" }
+          }
+      )
+    %>
+    <%= render(partial: 'shared/forms/text_field', locals: { f: f, field: :nav_text }) %>
+    <%=
+      render(
+          partial: 'shared/forms/text_field',
+          locals: {
+              f: f,
+              field: :slug,
+              options: {
+                  pattern: Taxon::SLUG_PATTERN_HTML,
+                  title: t('.guidelines.slug')
+              }
+          }
+      )
+    %>
+    <%= render(partial: 'shared/forms/entity_flags', locals: { f: f }) %>
+  </dl>
+
+  <%= render 'shared/forms/state_container' %>
+
+  <div class="buttons">
+    <%= hidden_field_tag :entity_id, entity.id %>
+    <% if entity.id.nil? %>
+      <%= f.hidden_field :parent_id %>
+      <%= f.hidden_field :taxon_type_id %>
+    <% end %>
+    <%= f.button t(:save), class: 'button-save' %>
+  </div>
+<% end %>

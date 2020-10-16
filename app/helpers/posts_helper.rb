@@ -33,13 +33,6 @@ module PostsHelper
     link_to(text, admin_post_group_path(id: entity.id), options)
   end
 
-  # @param [TaxonType] entity
-  # @param [String] text
-  # @param [Hash] options
-  def admin_taxon_type_link(entity, text = entity.name, options = {})
-    link_to(text, admin_taxon_type_path(id: entity.id), options)
-  end
-
   # @param [Taxon] entity
   # @param [String] text
   # @param [Hash] options
