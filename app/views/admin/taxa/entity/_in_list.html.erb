@@ -5,6 +5,10 @@
     <%= entity.slug %>
   </div>
   <div class="secondary info">
+    <%= t('attributes.site') %>:
+    <%= admin_entity_link(entity.site) %>
+  </div>
+  <div class="secondary info">
     <%= entity.uuid %>
   </div>
   <% if entity.children_cache.any? %>
