@@ -16,6 +16,11 @@ module Comunit
         entity.agent = Agent[data.dig(:meta, :agent)]
       end
 
+      def apply_simple_image
+        image_id = dig_related_id(:simple_image)
+        entity.simple_image = SimpleImage.find_by(uuid: image_id)
+      end
+
       def apply_image
         image_path = data.dig(:meta, :image_path)
 

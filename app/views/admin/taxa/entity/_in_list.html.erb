@@ -4,6 +4,9 @@
   <div class="info">
     <%= entity.slug %>
   </div>
+  <div class="secondary info">
+    <%= entity.uuid %>
+  </div>
   <% if entity.children_cache.any? %>
     <div class="secondary info">
       <%= entity.class.human_attribute_name(:children_cache) %>:

@@ -76,7 +76,8 @@ module Comunit
 
       def apply_attributes
         permitted = self.class.permitted_attributes
-        input = data.dig(:attributes).to_h
+        existing = entity.class.attribute_names
+        input = data.dig(:attributes).to_h.select { |a, _| existing.include? a }
 
         attributes = input.select { |a, _| permitted.include?(a.to_sym) }
         entity.assign_attributes(attributes)

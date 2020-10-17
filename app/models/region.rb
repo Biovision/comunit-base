@@ -36,6 +36,7 @@ class Region < ApplicationRecord
   toggleable :visible
 
   belongs_to :country, optional: true, counter_cache: true
+  mount_uploader :image, RegionImageUploader
 
   before_validation { self.slug = slug.to_s.downcase.strip }
   before_validation { self.country_id = parent.country_id unless parent.nil? }
