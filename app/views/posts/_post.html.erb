@@ -118,9 +118,9 @@
         <% end %>
       </div>
 
-      <% if post.taxons.any? %>
-        <ul class="post-taxons">
-          <% post.taxons.each do |taxon| %>
+      <% if post.taxa.any? %>
+        <ul class="post-taxa">
+          <% post.taxa.each do |taxon| %>
             <li><%= taxon_link(taxon) %></li>
           <% end %>
         </ul>

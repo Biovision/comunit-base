@@ -40,8 +40,8 @@ class Post < ApplicationRecord
   has_many :post_tags, through: :post_post_tags
   has_many :post_images, dependent: :destroy
   has_many :post_attachments, dependent: :destroy
-  has_many :post_taxons, dependent: :destroy
-  has_many :taxons, through: :post_taxons
+  has_many :post_taxa, dependent: :destroy
+  has_many :taxa, through: :post_taxa
 
   after_initialize { self.publication_time = Time.now if publication_time.nil? }
   before_validation :prepare_slug
@@ -80,7 +80,7 @@ class Post < ApplicationRecord
   scope :in_category, ->(v) { joins(:post_post_categories).where(post_post_categories: { post_category_id: PostCategory.ids_for_slug(v) }).distinct unless v.blank? }
   scope :in_category_branch, ->(v) { joins(:post_post_categories).where(post_post_categories: { post_category_id: v.subbranch_ids }).distinct }
   scope :with_category_ids, ->(v) { joins(:post_post_categories).where(post_post_categories: { post_category_id: Array(v) }) }
-  scope :with_taxon_ids, ->(v) { joins(:post_taxons).where(post_taxons: { taxon_id: Array(v) }) unless v.blank? }
+  scope :with_taxon_ids, ->(v) { joins(:post_taxa).where(post_taxa: { taxon_id: Array(v) }) unless v.blank? }
   scope :authors, -> { User.where(id: Post.author_ids).order('screen_name asc') }
   scope :of_type, ->(v) { where(post_type: PostType.find_by(slug: v)) unless v.blank? }
   scope :archive, -> { f = Arel.sql('date(publication_time)'); distinct.order(f).pluck(f) }

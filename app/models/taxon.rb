@@ -35,8 +35,8 @@ class Taxon < ApplicationRecord
   toggleable :visible
 
   belongs_to :taxon_type
-  has_many :post_taxons, dependent: :delete_all
-  has_many :posts, through: :post_taxons
+  has_many :post_taxa, dependent: :delete_all
+  has_many :posts, through: :post_taxa
 
   validates_presence_of :slug, :name
   # validates_uniqueness_of :name, scope: %i[site_id taxon_type_id]
@@ -78,17 +78,17 @@ class Taxon < ApplicationRecord
 
   # @param [Post] entity
   def post?(entity)
-    post_taxons.where(post: entity).exists?
+    post_taxa.where(post: entity).exists?
   end
 
   # @param [Post] entity
   def add_post(entity)
-    post_taxons.create(post: entity)
+    post_taxa.create(post: entity)
   end
 
   # @param [Post] entity
   def remove_post(entity)
-    post_taxons.where(post: entity).delete_all
+    post_taxa.where(post: entity).delete_all
   end
 
   private

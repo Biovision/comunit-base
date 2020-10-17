@@ -325,19 +325,6 @@ ru:
           heading: "Приложения"
         sync:
           heading: "Синхронизация"
-    taxon_types:
-      index:
-        title: "Таксоны"
-        heading: "Таксоны"
-        nav_text: "Таксоны"
-      nav_item:
-        description: "Управление таксонами"
-        text: "Таксоны"
-      show:
-        title: "Таксоны типа «%{name}»"
-    taxons:
-      show:
-        title: "Таксон «%{name}»"
     themes:
       index:
         title: "Темы группировки публикаций"

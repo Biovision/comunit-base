@@ -7,7 +7,7 @@ class Admin::TaxaController < AdminController
 
   before_action :set_entity
 
-  # get /admin/taxons/:id
+  # get /admin/taxa/:id
   def show
   end
 

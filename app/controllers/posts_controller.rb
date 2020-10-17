@@ -178,7 +178,7 @@ class PostsController < ApplicationController
     if params.key?(:taxon_ids)
       @entity.taxon_ids = Array(params[:taxon_ids])
     else
-      @entity.post_taxons.destroy_all
+      @entity.post_taxa.destroy_all
     end
   end
 
