@@ -29,7 +29,7 @@ class Taxon < ApplicationRecord
   NAME_LIMIT = 5000
   NAV_LIMIT = 50
   SLUG_LIMIT = 50
-  SLUG_PATTERN = /\A[a-z0-9]([-a-z0-9]*[a-z0-9])?\z/i.freeze
+  SLUG_PATTERN = /\A[a-z0-9]([-_a-z0-9]*[a-z0-9])?\z/i.freeze
   SLUG_PATTERN_HTML = '^[a-zA-Z0-9]([-a-zA-Z0-9]*[a-zA-Z0-9])?$'
 
   toggleable :visible
