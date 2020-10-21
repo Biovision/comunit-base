@@ -58,7 +58,7 @@ class Taxon < ApplicationRecord
     if entity.nil?
       where(criteria)
     elsif entity.site.nil?
-      where(criteria).where("data->'comunit'->>'site_id' is null")
+      where(criteria).where("coalesce(data->'comunit'->>'site_id', '') = ''")
     else
       where(criteria).where("data->'comunit'->>'site_id' = ?", entity.site.uuid)
     end

@@ -93,12 +93,17 @@ module Comunit
       def sync?
         return false if site&.version.to_i < self.class.since
         return false if entity.nil?
+        return false if site_id == site&.uuid
 
         sync_state == -1 || sync_state.positive?
       end
 
       def host
         site&.host || MAIN_HOST
+      end
+
+      def site_id
+        entity.data.dig(ROOT_KEY, SITE_KEY).to_s
       end
 
       def sync_state

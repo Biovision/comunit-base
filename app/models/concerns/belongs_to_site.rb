@@ -11,7 +11,7 @@ module BelongsToSite
     scope :for_site, ->(v) { where("coalesce(data->'comunit'->>'site_id', '') in (?, '')", v.uuid) unless v.blank? }
 
     def ensure_site_presence
-      return unless data.dig('comunit', 'site_id').nil?
+      return unless data.dig('comunit', 'site_id').blank?
 
       data['comunit'] ||= {}
       data['comunit']['site_id'] = ENV['SITE_ID']

@@ -10,7 +10,7 @@ module Comunit
         end
 
         def self.permitted_attributes
-          super + %i[name nav_text slug]
+          super + %i[name nav_text priority slug]
         end
 
         protected

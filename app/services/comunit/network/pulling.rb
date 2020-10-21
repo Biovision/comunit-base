@@ -11,7 +11,7 @@ module Comunit
         raise Errors::UnknownSiteError if site.nil?
         raise Errors::EmptyEntityError if entity.nil?
 
-        entity.data.dig(Handler::ROOT_KEY, Handler::SITE_KEY).to_s == site.uuid
+        site_id == site.uuid
       end
 
       # @param [String] uuid
