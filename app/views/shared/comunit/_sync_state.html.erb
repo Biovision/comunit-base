@@ -1,0 +1,16 @@
+<% if Comunit::Network::Handler.central_site? %>
+  <section class="comunit-sync-state">
+    <h3><%= t('.heading') %></h3>
+
+    <dl class="fields">
+      <% Site.active.list_for_administration.each do |site| %>
+        <div>
+          <dt><%= admin_entity_link(site) %></dt>
+          <dd>
+            <%= entity.data.dig('comunit', 'sync_state', site.uuid) %>
+          </dd>
+        </div>
+      <% end %>
+    </dl>
+  </section>
+<% end %>

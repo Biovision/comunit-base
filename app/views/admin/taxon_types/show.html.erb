@@ -13,15 +13,13 @@
   </ul>
 
   <dl>
-    <div>
-      <dt><%= @entity.class.human_attribute_name(:name) %></dt>
-      <dd><%= @entity.name %></dd>
-    </div>
-
+    <%= render partial: 'shared/entity/text_field', locals: { entity: @entity, field: :name } %>
     <%= render partial: 'shared/entity/slug', locals: { entity: @entity } %>
     <%= render partial: 'shared/entity/uuid', locals: { entity: @entity } %>
     <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
   </dl>
+
+  <%= render partial: 'shared/comunit/sync_state', locals: { entity: @entity } %>
 
   <%=
     render(
@@ -33,11 +31,6 @@
   <section>
     <h2><%= t('taxa.new.nav_text') %></h2>
 
-    <%=
-      render(
-          partial: 'taxa/form',
-          locals: { entity: @entity.taxa.new }
-      )
-    %>
+    <%= render(partial: 'taxa/form', locals: { entity: @entity.taxa.new }) %>
   </section>
 </article>

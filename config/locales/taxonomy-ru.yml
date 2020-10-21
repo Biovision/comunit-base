@@ -30,6 +30,7 @@ ru:
       index:
         heading: "Типы таксонов"
         title: "Типы таксонов"
+        nav_text: "Типы таксонов"
       show:
         title: "Тип таксона «%{name}»"
     taxa:

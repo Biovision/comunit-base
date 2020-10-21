@@ -22,12 +22,7 @@
     <% end %>
 
     <%= render partial: 'shared/entity/priority', locals: { entity: @entity } %>
-
-    <div>
-      <dt><%= @entity.class.human_attribute_name(:taxon_type) %></dt>
-      <dd><%= admin_entity_link(@entity.taxon_type) %></dd>
-    </div>
-
+    <%= render partial: 'shared/entity/linked_entity', locals: { entity: @entity.taxon_type } %>
     <%= render partial: 'shared/entity/text_fields', locals: { entity: @entity, list: %w[name nav_text] } %>
     <%= render partial: 'shared/entity/slug', locals: { entity: @entity } %>
     <%= render partial: 'shared/entity/tree_caches', locals: { entity: @entity } %>
@@ -35,16 +30,8 @@
     <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
   </dl>
 
-  <%=
-    render(
-        partial: 'shared/admin/toggleable',
-        locals: {
-            entity: @entity,
-            url: toggle_admin_taxon_path(id: @entity.id)
-        }
-    )
-  %>
-
+  <%= render(partial: 'shared/admin/toggle', locals: { entity: @entity }) %>
+  <%= render partial: 'shared/comunit/sync_state', locals: { entity: @entity } %>
 
   <%=
     render(

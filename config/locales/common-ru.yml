@@ -17,6 +17,9 @@ ru:
     sidebar:
       popular_entries:
         heading: "Блоги"
+    comunit:
+      sync_state:
+        heading: "Состояние синхронизации"
   admin:
     index:
       index:
