@@ -72,6 +72,7 @@ Rails.application.routes.draw do
   scope '(:locale)', constraints: { locale: /ru|en/ } do
     root 'index#index'
 
+    get 'comunit/:table_name/:uuid' => 'network#show', as: nil
     put 'comunit/:table_name/:uuid' => 'network#pull', as: nil
     put 'comunit/:table_name/:id/amend' => 'network#amend', as: nil
 

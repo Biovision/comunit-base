@@ -97,6 +97,10 @@ module Comunit
         sync_state == -1 || sync_state.positive?
       end
 
+      def host
+        site&.host || MAIN_HOST
+      end
+
       def sync_state
         raise Errors::UnknownSiteError if site.nil?
         raise Errors::EmptyEntityError if entity.nil?
@@ -108,6 +112,17 @@ module Comunit
 
       def entity_class
         self.class.to_s.demodulize.gsub(/Handler$/, '').safe_constantize
+      end
+
+      # @param [String] uuid
+      def show(uuid)
+        model = entity_class
+        self.entity = model.nil? ? nil : model.find_by(uuid: uuid)
+        if entity.nil?
+          { errors: [{ code: 404, text: 'Cannot find entity' }] }
+        else
+          { data: prepare_model_data }
+        end
       end
 
       def rpc

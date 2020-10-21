@@ -22,6 +22,7 @@ module Comunit
         def pull_data
           apply_attributes
           apply_component
+          apply_image if site.remote?
         end
 
         def relationships_for_remote
@@ -38,6 +39,16 @@ module Comunit
         def apply_component
           slug = dig_related_id(:biovision_component)
           entity.biovision_component = BiovisionComponent[slug]
+        end
+
+        def meta_for_remote
+          meta = super
+          unless entity.image.blank?
+            meta[:image_path] = entity.image.path
+            meta[:image_url] = host + entity.image.url
+          end
+
+          meta
         end
       end
     end

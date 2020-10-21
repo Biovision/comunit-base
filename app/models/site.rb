@@ -82,6 +82,10 @@ class Site < ApplicationRecord
     site_users.where(user: user).exists?
   end
 
+  def remote?
+    data.dig('comunit', 'remote').to_i == 1
+  end
+
   # @param [User] user
   def add_user(user)
     site_users.create(user: user)

@@ -18,7 +18,9 @@ module Comunit
             id: entity.uuid,
             type: entity.class.table_name,
             attributes: { name: entity.name },
-            meta: { file_path: entity.file.path }
+            meta: {
+              file_path: entity.file.path, file_url: host + entity.file.url
+            }
           }
           wrap ? { data: data } : data
         end
@@ -30,8 +32,13 @@ module Comunit
           entity.post = post
           entity.name = data.dig(:attributes, :name)
           file_path = data.dig(:meta, :file_path)
-          if !file_path.blank? && File.exist?(file_path)
-            entity.file = Pathname.new(file_path).open
+          unless file_path.blank?
+            if File.exist?(file_path)
+              entity.file = Pathname.new(file_path).open
+            else
+              file_url = data.dig(:meta, :file_url)
+              entity.remote_file_url = file_url unless file_url.blank?
+            end
           end
 
           entity.save

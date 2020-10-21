@@ -14,7 +14,7 @@ module Comunit
         end
 
         def self.ignored_attributes
-          super + %w[priority visible]
+          super + %w[visible]
         end
       end
     end

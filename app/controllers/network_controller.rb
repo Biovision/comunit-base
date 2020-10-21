@@ -3,7 +3,7 @@
 # Common parts for working with Comunit network
 class NetworkController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :validate_signature, except: %i[amend pull rpc]
+  before_action :validate_signature, except: %i[amend pull rpc show]
   before_action :set_handler
 
   # post /network/[table_name]
@@ -25,6 +25,11 @@ class NetworkController < ApplicationController
     else
       head :bad_request
     end
+  end
+
+  # get /comunit/:table_name/:uuid
+  def show
+    render json: @handler.show(params[:uuid])
   end
 
   # put /comunit/:table_name/:uuid

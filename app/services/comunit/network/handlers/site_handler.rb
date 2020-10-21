@@ -10,7 +10,7 @@ module Comunit
         end
 
         def self.ignored_attributes
-          super + %i[token]
+          super + %w[token]
         end
 
         def self.permitted_attributes

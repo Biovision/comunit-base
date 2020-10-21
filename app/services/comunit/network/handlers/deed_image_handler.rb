@@ -20,7 +20,10 @@ module Comunit
         def meta_for_remote
           meta = {}
 
-          meta[:image_path] = entity.image.path unless entity.image.blank?
+          unless entity.image.blank?
+            meta[:image_path] = entity.image.path
+            meta[:image_url] = host + entity.image.url
+          end
 
           meta
         end

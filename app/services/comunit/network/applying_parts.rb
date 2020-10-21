@@ -9,7 +9,7 @@ module Comunit
       end
 
       def apply_site
-        entity.site = Site.find_by(uuid: dig_related_id(:site))
+        entity.site = Site[dig_related_id(:site)]
       end
 
       def apply_agent
@@ -23,10 +23,16 @@ module Comunit
 
       def apply_image
         image_path = data.dig(:meta, :image_path)
+        return if image_path.blank?
 
-        return if image_path.blank? || !File.exist?(image_path)
+        if File.exist?(image_path)
+          entity.image = Pathname.new(image_path).open
+        else
+          image_url = data.dig(:meta, :image_url)
+          return if image_url.blank?
 
-        entity.image = Pathname.new(image_path).open
+          entity.remote_image_url = image_url
+        end
       end
 
       def apply_region
