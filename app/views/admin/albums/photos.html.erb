@@ -10,9 +10,7 @@
   <section>
     <h2><%= t(:photo_count, count: @entity.photos_count) %></h2>
 
-    <%= paginate @collection %>
-    <%= render partial: 'admin/photos/list', locals: { collection: @collection } %>
-    <%= paginate @collection %>
+    <%= render partial: 'shared/admin/list', locals: { collection: @collection } %>
   </section>
 
   <section>

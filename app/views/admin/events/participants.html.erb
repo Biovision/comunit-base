@@ -15,8 +15,6 @@
   <section>
     <h2><%= t(:event_participant_count, count: @entity.event_participants_count) %></h2>
 
-    <%= paginate @collection %>
-    <%= render partial: 'admin/event_participants/list', locals: { collection: @collection } %>
-    <%= paginate @collection %>
+    <%= render partial: 'shared/admin/list', locals: { collection: @collection } %>
   </section>
 </article>

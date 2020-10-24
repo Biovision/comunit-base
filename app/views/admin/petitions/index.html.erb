@@ -10,14 +10,10 @@
     <li><%= create_icon(new_petition_path) %></li>
   </ul>
 
-  <%= paginate @collection %>
   <%=
     render(
         partial: 'shared/admin/list',
-        locals: {
-            collection: @collection
-        }
+        locals: { collection: @collection }
     )
   %>
-  <%= paginate @collection %>
 </article>

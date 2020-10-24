@@ -15,7 +15,6 @@
   <%= render partial: 'admin/posts/search_form' %>
 
   <% if @collection.respond_to?(:current_page) %>
-    <%= paginate @collection %>
     <%=
       render(
           partial: 'shared/admin/list',
@@ -25,6 +24,5 @@
           }
       )
     %>
-    <%= paginate @collection %>
   <% end %>
 </article>

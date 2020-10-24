@@ -41,8 +41,6 @@
   <section>
     <h2><%= t(:poll_vote_count, count: @entity.poll_votes_count) %></h2>
 
-    <%= paginate @collection %>
     <%= render partial: 'shared/admin/list', locals: { collection: @collection } %>
-    <%= paginate @collection %>
   </section>
 </article>

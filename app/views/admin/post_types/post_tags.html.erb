@@ -13,7 +13,5 @@
     <li><%= return_icon(admin_post_type_path(id: @entity.id)) %></li>
   </ul>
 
-  <%= paginate @collection %>
   <%= render partial: 'shared/admin/list', locals: { collection: @collection } %>
-  <%= paginate @collection %>
 </article>

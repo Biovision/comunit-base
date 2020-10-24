@@ -8,7 +8,6 @@
     <li><%= back_icon(my_messages_path) %></li>
   </ul>
 
-  <%# paginate @collection %>
   <ul class="list-of-messages">
     <% @collection.reverse.each do |message| %>
         <li class="<%= message.sender?(current_user) ? 'sent' : 'received' %>">
@@ -31,6 +30,4 @@
       </div>
     </li>
   </ul>
-
-  <%# paginate @collection %>
 </article>
