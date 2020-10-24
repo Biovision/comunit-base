@@ -34,12 +34,9 @@
     </div>
   </div>
   <div class="post-counters">
-    <% if entity.allow_comments? && 'CommentableItem'.safe_constantize %>
+    <% if entity.allow_comments? %>
       <span class="comments"><%= entity.comments_count %></span>
     <% end %>
     <span class="views"><%= entity.view_count %></span>
-    <% if entity.time_required.to_i.positive? %>
-      <div class="time_required"><%= entity.time_required %> min</div>
-    <% end %>
   </div>
 </div>

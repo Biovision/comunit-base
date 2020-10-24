@@ -73,9 +73,9 @@ class Post < ApplicationRecord
   scope :published, -> { where('publication_time <= current_timestamp') }
   scope :pg_search, ->(v) { where("posts_tsvector(title, lead, body) @@ phraseto_tsquery('russian', ?)", v) }
   scope :exclude_ids, ->(v) { where('posts.id not in (?)', Array(v)) unless v.blank? }
-  scope :list_for_visitors, -> { visible.published.recent }
-  scope :list_for_administration, -> { order('id desc') }
-  scope :list_for_owner, ->(v) { owned_by(v).recent }
+  scope :list_for_visitors, -> { visible.published.includes(:region, :post_type, :user).recent }
+  scope :list_for_administration, -> { includes(:region, :post_type, :user).order('id desc') }
+  scope :list_for_owner, ->(v) { includes(:region, :post_type, :user).owned_by(v).recent }
   scope :tagged, ->(v) { joins(:post_post_tags).where(post_post_tags: { post_tag_id: PostTag.ids_for_name(v) }).distinct unless v.blank? }
   scope :in_category, ->(v) { joins(:post_post_categories).where(post_post_categories: { post_category_id: PostCategory.ids_for_slug(v) }).distinct unless v.blank? }
   scope :in_category_branch, ->(v) { joins(:post_post_categories).where(post_post_categories: { post_category_id: v.subbranch_ids }).distinct }

@@ -27,7 +27,7 @@ class PostGroupCategory < ApplicationRecord
   def self.[](slug)
     post_group = slug.is_a?(PostGroup) ? slug : PostGroup[slug]
 
-    where(post_group: post_group).ordered_by_priority.map do |link|
+    includes(post_category: [:posts]).where(post_group: post_group).ordered_by_priority.map do |link|
       next unless link.post_category.visible?
 
       link.post_category

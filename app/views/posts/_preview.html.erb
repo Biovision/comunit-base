@@ -14,8 +14,8 @@
   </div>
   <div class="meta">
     <div class="category" aria-label="<%= t('activerecord.attributes.post.post_category_id') %>">
-      <% entity.post_categories.for_current_site.each do |category| %>
-        <%= post_category_link(category) %>
+      <% entity.post_categories.each do |category| %>
+        <%= post_category_link(category) if category.site&.uuid == ENV['SITE_ID'] %>
       <% end %>
     </div>
     <% if entity.tags_cache.any? %>
@@ -40,7 +40,7 @@
     </div>
   </div>
   <div class="post-counters">
-    <% if entity.allow_comments? && 'CommentableItem'.safe_constantize %>
+    <% if entity.allow_comments? %>
       <span class="comments"><%= entity.comments_count %></span>
     <% end %>
     <span class="views"><%= entity.view_count %></span>
