@@ -30,6 +30,10 @@ module Comunit
         ENV['SITE_ID'].to_s
       end
 
+      def self.host
+        Site[site_id]&.host || MAIN_HOST
+      end
+
       # Sets current site by signature
       #
       # Signature format is <site_id>:<token>
