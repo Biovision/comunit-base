@@ -20,6 +20,7 @@ class TaxonType < ApplicationRecord
   toggleable :active
 
   has_many :taxa, dependent: :delete_all
+  has_many :taxon_type_users, dependent: :delete_all
 
   validates_presence_of :name
 
@@ -37,5 +38,30 @@ class TaxonType < ApplicationRecord
 
   def text_for_link
     name
+  end
+
+  # @param [User] user
+  def user?(user)
+    taxon_type_users.owned_by(user).exists?
+  end
+
+  # @param [User] user
+  def add_user(user)
+    return if user.nil?
+
+    taxon_type_users.create(user: user)
+  end
+
+  # @param [User] user
+  def remove_user(user)
+    return if user.nil?
+
+    taxon_type_users.owned_by(user).delete_all
+  end
+
+  # @param [User] user
+  def taxon_ids_for_user(user)
+    list = taxa.joins(:taxon_users).where(taxon_users: { user_id: user&.id })
+    list.pluck(:id, :children_cache).flatten.uniq
   end
 end

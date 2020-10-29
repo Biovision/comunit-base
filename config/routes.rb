@@ -29,6 +29,14 @@ Rails.application.routes.draw do
     end
   end
 
+  concern :link_user do
+    member do
+      get 'users'
+      put 'users/:user_id' => :add_user, as: :user
+      delete 'users/:user_id' => :remove_user
+    end
+  end
+
   resources :sites, except: %i[index show], concerns: :check
   resources :countries, :regions, except: %i[index show], concerns: :check
 
@@ -214,28 +222,14 @@ Rails.application.routes.draw do
     resources :petition_signs, only: :create, concerns: :check
 
     namespace :admin do
-      resources :sites, only: %i[index show], concerns: :toggle do
-        member do
-          get 'users'
-          put 'users/:user_id' => :add_user, as: :user, defaults: { format: :json }
-          delete 'users/:user_id' => :remove_user, defaults: { format: :json }
-        end
-      end
+      resources :sites, only: %i[index show], concerns: %i[link_user toggle]
 
       resources :countries, only: %i[index show], concerns: %i[toggle priority] do
-        member do
-          get 'regions'
-        end
+        get 'regions', on: :member
       end
       resources :regions, only: :show, concerns: %i[toggle priority]
 
-      resources :groups, only: %i[index show] do
-        member do
-          get 'users', defaults: { format: :json }
-          put 'users/:user_id' => :add_user, as: :user, defaults: { format: :json }
-          delete 'users/:user_id' => :remove_user, defaults: { format: :json }
-        end
-      end
+      resources :groups, only: %i[index show], concerns: :link_user
       resources :teams, only: %i[index show], concerns: %i[toggle priority] do
         member do
           put 'privileges/:privilege_id' => :add_privilege, as: :privilege, defaults: { format: :json }
@@ -247,18 +241,14 @@ Rails.application.routes.draw do
       resources :decision_users, only: %i[index show]
 
       resources :albums, only: %i[index show], concerns: :toggle do
-        member do
-          get 'photos'
-        end
+        get 'photos', on: :member
       end
       resources :photos, only: %i[index show], concerns: :priority
 
       resources :appeals, only: %i[index show], concerns: :toggle
 
       resources :events, only: %i[index show], concerns: %i[lock toggle] do
-        member do
-          get 'participants'
-        end
+        get 'participants', on: :member
       end
       resources :event_participants, only: %i[index show], concerns: :toggle
       resources :event_speakers, :event_sponsors, only: [], concerns: %i[toggle priority]
@@ -272,12 +262,7 @@ Rails.application.routes.draw do
       resources :promo_blocks, :promo_items, only: :show, concerns: :toggle
 
       resources :countries, only: %i[index show]
-      resources :regions, only: %i[index show], concerns: %i[priority toggle] do
-        member do
-          put 'users/:user_id' => :add_user, as: :user
-          delete 'users/:user_id' => :remove_user
-        end
-      end
+      resources :regions, only: %i[index show], concerns: %i[link_user priority toggle]
 
       resources :political_forces, only: %i[index show] do
         member do
@@ -302,23 +287,16 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :post_types, only: %i[index show] do
+      resources :post_types, only: %i[link_user index show] do
         member do
           get :post_categories
           get :new_post
           get :post_tags
           get :authors
-          put 'users/:user_id' => :add_user, as: :user
-          delete 'users/:user_id' => :remove_user
         end
       end
 
-      resources :post_categories, only: :show, concerns: %i[toggle priority] do
-        member do
-          put 'users/:user_id' => :add_user, as: :user
-          delete 'users/:user_id' => :remove_user
-        end
-      end
+      resources :post_categories, only: :show, concerns: %i[link_user toggle priority]
 
       resources :posts, only: %i[index show], concerns: %i[lock toggle] do
         get 'search', on: :collection
@@ -348,8 +326,10 @@ Rails.application.routes.draw do
         post 'priority' => :priority, as: :priority_post_group_tag, defaults: { format: :json }
       end
 
-      resources :taxon_types, only: %i[index show], concerns: :toggle
-      resources :taxa, only: %i[show], concerns: %i[toggle priority]
+      resources :taxon_types, only: %i[index show], concerns: %i[link_user toggle]
+      resources :taxa, only: %i[show], concerns: %i[link_user toggle priority] do
+        get 'children', on: :member
+      end
 
       resources :editorial_members, only: %i[index show], concerns: %i[toggle priority] do
         member do
@@ -394,9 +374,7 @@ Rails.application.routes.draw do
       end
 
       resources :user_links, except: %i[new edit], concerns: :toggle do
-        member do
-          delete 'hide'
-        end
+        delete 'hide', on: :member
       end
     end
 

@@ -3,6 +3,7 @@
 # Administrative part of taxon management
 class Admin::TaxonTypesController < AdminController
   include ListAndShowEntities
+  include LinkedUsers
 
   private
 

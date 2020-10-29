@@ -33,7 +33,7 @@ Comunit::Base
 После установки (`rails new .`) нужно добавить в yarn пакеты из компонентов.
 
 ```bash
-yarn add jquery @biovision/biovision @biovision/posts @biovision/comments @biovision/votes @biovision/comunit
+yarn add jquery @biovision/comunit
 ```
 
 Добавить в `config/webpack/environment.js` со второй строки этот фрагмент:
@@ -62,8 +62,6 @@ require("@biovision/comunit")
 ### Дополнения в `Gemfile`
 
 ```ruby
-gem 'autoprefixer-rails', group: :production
-
 gem 'biovision-base', git: 'https://github.com/Biovision/biovision-base'
 # gem 'biovision-base', path: '/Users/maxim/Projects/Biovision/gems/biovision-base'
 gem 'biovision-comment', git: 'https://github.com/Biovision/biovision-comment'

@@ -8,10 +8,11 @@ class CreateTaxonomyComponent < ActiveRecord::Migration[6.0]
     create_taxon_type_component unless TaxonTypeBiovisionComponent.table_exists?
     create_taxa unless Taxon.table_exists?
     create_taxon_users unless TaxonUser.table_exists?
+    create_taxon_type_users unless TaxonTypeUser.table_exists?
   end
 
   def down
-    [TaxonUser, Taxon, TaxonTypeBiovisionComponent, TaxonType].each do |model|
+    [TaxonUser, Taxon, TaxonTypeUser, TaxonTypeBiovisionComponent, TaxonType].each do |model|
       drop_table model.table_name if model.table_exists?
     end
 
@@ -55,6 +56,13 @@ class CreateTaxonomyComponent < ActiveRecord::Migration[6.0]
 
     add_index :taxa, :uuid, unique: true
     add_index :taxa, :data, using: :gin
+  end
+
+  def create_taxon_type_users
+    create_table :taxon_type_users, comment: 'Taxon types available to users' do |t|
+      t.references :taxon_type, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
+      t.references :user, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
+    end
   end
 
   def create_taxon_users

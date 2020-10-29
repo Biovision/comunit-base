@@ -4,11 +4,19 @@
 class Admin::TaxaController < AdminController
   include EntityPriority
   include ToggleableEntity
+  include LinkedUsers
 
-  before_action :set_entity
+  before_action :set_entity, only: %i[show children]
 
   # get /admin/taxa/:id
   def show
+    @user = User.find_by(id: params[:user_id])
+  end
+
+  # get /admin/taxa/:id/children
+  def children
+    @user = User.find_by(id: params[:user_id])
+    @collection = @entity.child_items.list_for_administration
   end
 
   private

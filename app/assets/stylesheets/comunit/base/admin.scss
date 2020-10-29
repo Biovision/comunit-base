@@ -93,3 +93,12 @@ form {
     box-shadow: 0 0 .4rem rgba(0, 196, 0, .75);
   }
 }
+
+.user-taxon-list {
+  :checked {
+    ~ button,
+    ~ ul {
+      display: none;
+    }
+  }
+}

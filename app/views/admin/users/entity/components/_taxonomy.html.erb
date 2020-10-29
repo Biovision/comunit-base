@@ -1,0 +1,22 @@
+<% TaxonType.active.list_for_administration.each do |taxon_type| %>
+  <% taxon_ids = taxon_type.taxon_ids_for_user(user) %>
+  <details <%= taxon_ids.any? ? 'open' : '' %>>
+    <summary><%= taxon_type.name %> (<%= taxon_ids.count %>)</summary>
+    <ul class="user-taxon-list entity-links">
+      <% taxon_type.taxa.for_tree.each do |taxon| %>
+        <li>
+          <%=
+            render(
+                partial: 'admin/users/entity/components/taxonomy/taxon',
+                locals: {
+                    taxon: taxon,
+                    user: user,
+                    taxon_ids: taxon_ids
+                }
+            )
+          %>
+        </li>
+      <% end %>
+    </ul>
+  </details>
+<% end %>

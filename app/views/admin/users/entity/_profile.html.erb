@@ -1,14 +1,20 @@
 <% prefix = 'activerecord.attributes.user_profile' %>
 <% %w[name patronymic surname].reject { |f| data[f].blank? }.each do |field| %>
-  <dt><%= t("#{prefix}.#{field}") %></dt>
-  <dd><%= data[field] %></dd>
+  <div>
+    <dt><%= t("#{prefix}.#{field}") %></dt>
+    <dd><%= data[field] %></dd>
+  </div>
 <% end %>
 
-<dt><%= t("#{prefix}.gender") %></dt>
-<dd><%= gender_name(data['gender']) %></dd>
+<div>
+  <dt><%= t("#{prefix}.gender") %></dt>
+  <dd><%= gender_name(data['gender']) %></dd>
+</div>
 
-<dt><%= t("#{prefix}.marital_status") %></dt>
-<dd><%= marital_status_name(data['gender'], data['marital_status']) %></dd>
+<div>
+  <dt><%= t("#{prefix}.marital_status") %></dt>
+  <dd><%= marital_status_name(data['gender'], data['marital_status']) %></dd>
+</div>
 
 <!-- Родной город, языки и Контактная информация -->
 <%
@@ -17,8 +23,10 @@
     home_address secondary_phone skype_uid
   ].reject { |f| data[f].blank? }.each do |field|
 %>
-  <dt><%= t("#{prefix}.#{field}") %></dt>
-  <dd><%= data[field] %></dd>
+  <div>
+    <dt><%= t("#{prefix}.#{field}") %></dt>
+    <dd><%= data[field] %></dd>
+  </div>
 <% end %>
 
 <!-- О себе -->
@@ -28,33 +36,43 @@
     favorite_books favorite_games favorite_quotes main_in_life main_in_people
   ].reject { |f| data[f].blank? }.each do |field|
 %>
-  <dt><%= t("#{prefix}.#{field}") %></dt>
-  <dd>
-    <div class="text"><%= simple_format(data[field]) %></div>
-  </dd>
+  <div>
+    <dt><%= t("#{prefix}.#{field}") %></dt>
+    <dd>
+      <div class="text"><%= simple_format(data[field]) %></div>
+    </dd>
+  </div>
 <% end %>
 
 <!-- Жизненная позиция -->
 <% %w[political_views religion_name].reject { |f| data[f].blank? }.each do |field| %>
-  <dt><%= t("#{prefix}.#{field}") %></dt>
-  <dd><%= data[field] %></dd>
+  <div>
+    <dt><%= t("#{prefix}.#{field}") %></dt>
+    <dd><%= data[field] %></dd>
+  </div>
 <% end %>
 
 <% %w[main_in_life main_in_people inspiration].reject { |f| data[f].blank? }.each do |field| %>
-  <dt><%= t("#{prefix}.#{field}") %></dt>
-  <dd>
-    <div class="text"><%= simple_format(data[field]) %></div>
-  </dd>
+  <div>
+    <dt><%= t("#{prefix}.#{field}") %></dt>
+    <dd>
+      <div class="text"><%= simple_format(data[field]) %></div>
+    </dd>
+  </div>
 <% end %>
 
-<% if data.key?('smoking_attitude') %>
-  <dt><%= t("#{prefix}.smoking_attitude") %></dt>
-  <dd><%= t("attitudes.#{data['smoking_attitude']}") %></dd>
+<% unless data['smoking_attitude'].blank? %>
+  <div>
+    <dt><%= t("#{prefix}.smoking_attitude") %></dt>
+    <dd><%= t("attitudes.#{data['smoking_attitude']}") %></dd>
+  </div>
 <% end %>
 
-<% if data.key?('alcohol_attitude') %>
-  <dt><%= t("#{prefix}.alcohol_attitude") %></dt>
-  <dd><%= t("attitudes.#{data['alcohol_attitude']}") %></dd>
+<% unless data['alcohol_attitude'] %>
+  <div>
+    <dt><%= t("#{prefix}.alcohol_attitude") %></dt>
+    <dd><%= t("attitudes.#{data['alcohol_attitude']}") %></dd>
+  </div>
 <% end %>
 
 <%
@@ -64,12 +82,14 @@
       ].select { |f| data[f] }
 %>
 <% if flags.any? %>
-  <dt><%= t('users.form.profile_data.confidentiality') %></dt>
-  <dd>
-    <ul class="flags">
-      <% flags.each do |flag| %>
-        <li><%= t("#{prefix}.#{flag}") %></li>
-      <% end %>
-    </ul>
-  </dd>
+  <div>
+    <dt><%= t('users.form.profile_data.confidentiality') %></dt>
+    <dd>
+      <ul class="flags">
+        <% flags.each do |flag| %>
+          <li><%= t("#{prefix}.#{flag}") %></li>
+        <% end %>
+      </ul>
+    </dd>
+  </div>
 <% end %>

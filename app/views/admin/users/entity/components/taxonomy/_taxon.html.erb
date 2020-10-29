@@ -1,0 +1,47 @@
+<%
+  element_id = "user_taxon_#{taxon.id}"
+  checked = taxon_ids.include?(taxon.id)
+%>
+<%=
+  check_box_tag(
+      element_id,
+      '1',
+      checked,
+      data: {
+          url: user_admin_taxon_path(id: taxon.id, user_id: user.id)
+      }
+  )
+%>
+<%= label_tag(element_id, taxon.name) %>
+<% unless taxon.children_cache.blank? %>
+  <% intersection = taxon_ids & taxon.children_cache %>
+  <% if checked || !intersection.any? %>
+    <%=
+      button_tag(
+          '+',
+          class: 'js-taxon-loader',
+          data: {
+              url: children_admin_taxon_path(id: taxon.id, user_id: user.id)
+          },
+          type: :button
+      )
+    %>
+  <% elsif intersection.any? %>
+    <ul>
+      <% taxon.child_items.list_for_administration.each do |child| %>
+        <li>
+          <%=
+            render(
+                partial: 'admin/users/entity/components/taxonomy/taxon',
+                locals: {
+                    taxon: child,
+                    user: user,
+                    taxon_ids: taxon_ids
+                }
+            )
+          %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>

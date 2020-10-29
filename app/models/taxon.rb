@@ -12,7 +12,6 @@
 #   parent_id [Taxon]
 #   parents_cache [String]
 #   priority [integer]
-#   site_id [Site]
 #   slug [String]
 #   updated_at [DateTime]
 #   uuid [uuid]
@@ -35,6 +34,8 @@ class Taxon < ApplicationRecord
   toggleable :visible
 
   belongs_to :taxon_type
+  has_many :taxon_users, dependent: :delete_all
+  has_many :users, through: :taxon_users
   has_many :post_taxa, dependent: :delete_all
   has_many :posts, through: :post_taxa
 
@@ -73,7 +74,11 @@ class Taxon < ApplicationRecord
   end
 
   def text_for_link
-    nav_text.blank? ? "#{name[0..50]}…" : nav_text
+    if nav_text.blank?
+      name.count > 50 ? "#{name[0..49]}…" : name
+    else
+      nav_text
+    end
   end
 
   # @param [Post] entity
@@ -89,6 +94,25 @@ class Taxon < ApplicationRecord
   # @param [Post] entity
   def remove_post(entity)
     post_taxa.where(post: entity).delete_all
+  end
+
+  # @param [User] entity
+  def user?(entity)
+    taxon_users.where(user: entity).exists?
+  end
+
+  # @param [User] entity
+  def add_user(entity)
+    return if entity.nil?
+
+    taxon_users.create(user: entity)
+  end
+
+  # @param [User] entity
+  def remove_user(entity)
+    return if entity.nil?
+
+    taxon_users.where(user: entity).delete_all
   end
 
   private

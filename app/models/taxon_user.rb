@@ -3,8 +3,8 @@
 # Taxon available to user
 #
 # Attributes:
-#   taxon_id [References]
-#   user_id [References]
+#   taxon_id [Taxon]
+#   user_id [User]
 class TaxonUser < ApplicationRecord
   include HasOwner
 
