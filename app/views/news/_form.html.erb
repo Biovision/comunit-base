@@ -43,7 +43,18 @@
 
     <dt><%= f.label :body %></dt>
     <dd>
-      <%= f.text_area :body, cols: 20, rows: 25, required: true %>
+      <%=
+        f.text_area(
+            :body,
+            cols: 20,
+            rows: 25,
+            required: true,
+            data: {
+                wysiwyg: 1,
+                upload_url: admin_ckeditor_path(slug: handler.slug)
+            }
+        )
+      %>
     </dd>
 
     <dt>
@@ -130,17 +141,4 @@
   </div>
 <% end %>
 
-<% if entity.entry.nil? %>
-  <script src="/ckeditor/4-6-2/ckeditor.js"></script>
-  <script>
-      $(function () {
-          let editor = document.getElementById('news_body');
-
-          CKEDITOR.replace(editor, {
-              filebrowserUploadUrl: '/illustrations',
-              removePlugins: 'forms,save,preview,flash,bidi,language,print,templates,newpage',
-              extraPlugins: 'embed'
-          });
-      });
-  </script>
-<% end %>
+<%= render partial: 'shared/forms/wysiwyg' %>
