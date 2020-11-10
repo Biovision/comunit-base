@@ -1,9 +1,9 @@
 <div class="authentication">
   <% if current_user.is_a? User %>
     <%= link_to(image_tag(current_user.image.tiny_2x.url), my_path, class: 'image') %>
-    <%= link_to t(:logout), logout_path, method: :delete, title: t(:logout), class: 'button-action' %>
+    <%= link_to t(:logout), logout_path, method: :delete, title: t(:logout), class: 'button button-primary' %>
   <% else %>
-    <%= link_to t('authentication.new.title'), login_path, class: 'button-nav' %>
-    <%= link_to t('my.profiles.new.title'), new_my_profile_path, class: 'button-primary' %>
+    <%= link_to t('authentication.new.title'), login_path, class: 'button button-ghost' %>
+    <%= link_to t('my.profiles.new.title'), new_my_profile_path, class: 'button button-primary' %>
   <% end %>
 </div>

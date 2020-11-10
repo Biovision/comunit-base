@@ -15,7 +15,7 @@
     <div>
       <%= label_tag(:q, t('admin.posts.entity.links.search')) %>
       <%= text_field_tag(:q) %>
-      <%= button_tag t(:submit), type: :submit, class: 'button-action' %>
+      <%= button_tag t(:submit), type: :submit, class: 'button button-primary' %>
     </div>
     <div class="results">
     </div>
@@ -107,7 +107,7 @@
                                 const button = document.createElement('button');
 
                                 div.setAttribute('data-id', item['id']);
-                                button.classList.add('button-save');
+                                button.classList.add('button', 'button-save');
                                 button.setAttribute('data-post-id', item.id);
                                 button.innerHTML = '&plus;';
                                 div.append(button);

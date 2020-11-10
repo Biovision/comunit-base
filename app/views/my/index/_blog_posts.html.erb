@@ -7,9 +7,9 @@
 
     <nav>
       <% if creation_allowed %>
-        <%= link_to('Добавить запись', my_new_blog_post_path, class: 'button-action') %>
+        <%= link_to('Добавить запись', my_new_blog_post_path, class: 'button button-primary') %>
       <% end %>
-      <%= link_to('Все записи', my_blog_path, class: 'button-nav') %>
+      <%= link_to('Все записи', my_blog_path, class: 'button button-ghost') %>
     </nav>
 
     <% if collection.any? %>

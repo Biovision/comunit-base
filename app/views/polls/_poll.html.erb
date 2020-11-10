@@ -17,7 +17,7 @@
       <%= render poll.poll_questions.ordered_by_priority %>
 
       <div class="buttons">
-        <%= button_tag t('.answer'), type: :submit, class: 'button-primary' %>
+        <%= button_tag t('.answer'), type: :submit, class: 'button button-primary' %>
         <% if poll.open_results? %>
           <%= link_to('Результаты', results_poll_path(id: poll.id), class: 'button-nav') %>
         <% end %>
