@@ -8,7 +8,7 @@
     <%=
       button_tag(
           t(:delete),
-          class: 'button button-destroy',
+          class: 'button button-danger',
           data:  {
               url: user_admin_poll_path(id: entity.poll_id, user_id: entity.user_id)
           }

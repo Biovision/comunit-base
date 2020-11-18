@@ -12,9 +12,10 @@
     <li><%= back_icon(admin_taxon_types_path) %></li>
   </ul>
 
-  <dl>
+  <dl class="fields">
     <%= render partial: 'shared/entity/text_field', locals: { entity: @entity, field: :name } %>
     <%= render partial: 'shared/entity/slug', locals: { entity: @entity } %>
+    <%= render partial: 'admin/components/comunit/entity/site', locals: { entity: @entity } %>
     <%= render partial: 'shared/entity/uuid', locals: { entity: @entity } %>
     <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
   </dl>

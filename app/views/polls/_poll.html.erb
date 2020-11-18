@@ -11,7 +11,7 @@
 
   <% if @entity.voted?(current_user) %>
     <div class="message-box-notice"><%= t('.you_have_voted') %></div>
-    <nav><%= link_to(t('.see_results'), results_poll_path(id: poll.id), class: 'button-nav') %></nav>
+    <nav><%= link_to(t('.see_results'), results_poll_path(id: poll.id), class: 'button button-ghost') %></nav>
   <% else %>
     <%= form_tag results_poll_path(id: poll.id), method: :post do %>
       <%= render poll.poll_questions.ordered_by_priority %>
@@ -19,7 +19,7 @@
       <div class="buttons">
         <%= button_tag t('.answer'), type: :submit, class: 'button button-primary' %>
         <% if poll.open_results? %>
-          <%= link_to('Результаты', results_poll_path(id: poll.id), class: 'button-nav') %>
+          <%= link_to('Результаты', results_poll_path(id: poll.id), class: 'button button-ghost') %>
         <% end %>
       </div>
     <% end %>

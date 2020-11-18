@@ -1,27 +1,4 @@
-<li>
-  <%= render 'admin/post_types/nav_item' %>
-  <ul>
-    <% PostType.list_for_administration.each do |post_type| %>
-      <li>
-        <div><%= admin_post_type_link(post_type) %></div>
-        <div class="description">
-          <%= t(:post_count, count: post_type.posts_count) %>
-        </div>
-        <% if handler.allow_post_type?(post_type) %>
-          <ul class="actions">
-            <li>
-              <%= create_icon(new_post_admin_post_type_path(id: post_type.id)) %>
-            </li>
-          </ul>
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
-</li>
 <li><%= render 'admin/posts/nav_item' %></li>
-<% if handler.allow?('chief_editor', 'deputy_chief_editor') %>
-  <li><%= render 'admin/featured_posts/nav_item' %></li>
-<% end %>
 <% if handler.allow?('chief_editor') %>
   <li><%= render 'admin/post_groups/nav_item' %></li>
 <!--  <li><%#= render 'admin/post_tags/nav_item' %></li>-->

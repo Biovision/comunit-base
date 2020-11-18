@@ -21,14 +21,14 @@
       link_to(
           t(:candidate_count, count: @entity.candidates_count),
           candidates_admin_campaign_path(id: @entity.id),
-          class: 'button-nav'
+          class: 'button button-secondary'
       )
     %>
     <%=
       link_to(
           t('candidates.new.nav_text'),
           new_candidate_admin_campaign_path(id: @entity.id),
-          class: 'button-nav'
+          class: 'button button-secondary'
       )
     %>
   </nav>

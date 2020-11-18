@@ -13,7 +13,9 @@
     <li><%= edit_icon(edit_taxon_path(id: @entity.id)) %></li>
   </ul>
 
-  <dl>
+  <dl class="fields">
+    <%= render partial: 'admin/components/comunit/entity/site', locals: { entity: @entity } %>
+
     <% unless @entity.parent.nil? %>
       <div>
         <dt><%= t('activerecord.attributes.taxon.parent_id') %></dt>

@@ -12,7 +12,7 @@
         button_tag(
             t('.add_user'),
             type:  :button,
-            class: 'button-save',
+            class: 'button button-save',
             id:    'poll-user-add',
             data:  { url: users_admin_poll_path(id: entity.id) }
         )
@@ -39,7 +39,7 @@
         const input = document.getElementById('poll-user-id');
         const container = document.getElementById('poll-allowed-users');
 
-        container.querySelectorAll('button.button-destroy').forEach(function (element) {
+        container.querySelectorAll('button.button-danger').forEach(function (element) {
             element.addEventListener('click', poll_user_remover);
         });
 
@@ -64,7 +64,7 @@
 
                         li.setAttribute('data-id', item.id);
                         li.innerHTML = item.meta.html;
-                        li.querySelector('button.button-destroy').addEventListener('click', poll_user_remover);
+                        li.querySelector('button.button-danger').addEventListener('click', poll_user_remover);
                         list.append(li);
                     });
                 }
