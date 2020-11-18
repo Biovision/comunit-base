@@ -1,2 +1,0 @@
-class DecisionUsersController < ApplicationController
-end

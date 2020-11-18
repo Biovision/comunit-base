@@ -8,11 +8,11 @@
   <h1><%= @entity.name %></h1>
 
   <ul class="actions">
-    <li><%= back_icon(admin_decisions_path) %></li>
-    <li><%= edit_icon(edit_decision_path(id: @entity.id)) %></li>
     <% if @entity.visible? %>
       <li><%= world_icon(decision_path(id: @entity.uuid)) %></li>
     <% end %>
+    <li><%= edit_icon(@entity) %></li>
+    <li><%= destroy_icon(@entity) %></li>
   </ul>
 
   <dl>
@@ -41,15 +41,7 @@
     <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
   </dl>
 
-  <%=
-    render(
-        partial: 'shared/admin/toggleable',
-        locals: {
-            entity: @entity,
-            url: toggle_admin_decision_path(id: @entity.id)
-        }
-    )
-  %>
+  <%= render(partial: 'shared/admin/toggle', locals: { entity: @entity }) %>
 
   <%=
     render(

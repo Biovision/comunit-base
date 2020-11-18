@@ -1,13 +1,5 @@
 <% model_name = entity.class.to_s.underscore %>
-<%=
-  form_with(
-      model: entity,
-      html: {
-          id: "#{model_name}-form",
-          data: { check_url: check_decisions_path }
-      }
-  ) do |f|
-%>
+<%= form_with(Biovision::Components::BaseComponent.form_options(entity)) do |f| %>
   <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
 
   <dl class="fields">
@@ -56,7 +48,7 @@
     <%= render partial: 'shared/forms/entity_flags', locals: { f: f } %>
   </dl>
 
-  <%= render partial: 'decisions/form/answers', locals: { entity: entity } %>
+  <%= render partial: 'admin/decisions/form/answers', locals: { entity: entity } %>
 
   <%= render 'shared/forms/state_container' %>
 

@@ -14,18 +14,10 @@
     <%= entity.uuid %>
   </div>
 
-  <%=
-    render(
-        partial: 'shared/admin/toggleable',
-        locals: {
-            entity: entity,
-            url: toggle_admin_decision_path(id: entity.id)
-        }
-    )
-  %>
+  <%= render(partial: 'shared/admin/toggle', locals: { entity: entity }) %>
 
   <ul class="actions">
-    <li><%= edit_icon(edit_decision_path(id: entity.id)) %></li>
+    <li><%= edit_icon(entity) %></li>
     <% if entity.visible? %>
       <li><%= world_icon(decision_path(id: entity.uuid)) %></li>
     <% end %>

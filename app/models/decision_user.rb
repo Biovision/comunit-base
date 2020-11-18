@@ -17,7 +17,6 @@ class DecisionUser < ApplicationRecord
 
   belongs_to :agent, optional: true
   belongs_to :decision
-  belongs_to :region, optional: true
   belongs_to :user
 
   validates_presence_of :answer

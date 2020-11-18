@@ -41,16 +41,11 @@ Rails.application.routes.draw do
 
   resources :user_messages, only: :destroy
 
-  resources :groups, :teams, only: %i[update destroy]
-
   resources :promo_blocks, :promo_items, only: %i[update destroy]
 
   resources :regions, only: %i[update destroy]
 
   resources :deed_categories, :deeds, only: %i[destroy update]
-
-  resources :decisions, only: %i[destroy update]
-  resources :decision_users, only: %i[destroy update]
 
   resources :post_categories, :posts, :post_tags, :post_images, only: %i[update destroy]
   resources :post_links, only: :destroy
@@ -121,7 +116,8 @@ Rails.application.routes.draw do
       get :regions, on: :collection
     end
 
-    resources :decisions, except: %i[delete update], concerns: :check do
+    # Decisions component
+    resources :decisions, only: :index do
       member do
         post 'vote' => :vote
       end
@@ -207,8 +203,9 @@ Rails.application.routes.draw do
       end
       resources :regions, only: :show, concerns: %i[toggle priority]
 
-      resources :decisions, only: %i[index show], concerns: :toggle
-      resources :decision_users, only: %i[index show]
+      # Decisions component
+      resources :decisions, concerns: %i[check toggle]
+      resources :decision_users, concerns: :check
 
       resources :appeals, only: %i[index show], concerns: :toggle
 
