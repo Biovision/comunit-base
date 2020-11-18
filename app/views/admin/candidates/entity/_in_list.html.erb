@@ -10,18 +10,10 @@
     <%= admin_campaign_link(entity.campaign) %>
   </div>
 
-  <%=
-    render(
-        partial: 'shared/admin/toggleable',
-        locals: {
-            entity: entity,
-            url: toggle_admin_candidate_path(id: entity.id)
-        }
-    )
-  %>
+  <%= render(partial: 'shared/admin/toggle', locals: { entity: entity }) %>
 
   <ul class="actions">
-    <li><%= edit_icon(edit_candidate_path(id: entity.id)) %></li>
+    <li><%= edit_icon(entity) %></li>
     <% if entity.visible? %>
 <!--      <li><%#= world_icon(candidate_campaign_path(id: entity.campaign.slug, candidate_id: entity.id)) %></li>-->
     <% end %>

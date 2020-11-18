@@ -2,16 +2,9 @@
 
 # Administrative part of political forces management
 class Admin::PoliticalForcesController < AdminController
-  before_action :set_entity, except: :index
-
-  # get /admin/political_forces
-  def index
-    @collection = PoliticalForce.list_for_administration
-  end
-
-  # get /admin/political_forces/:id
-  def show
-  end
+  include CreateAndModifyEntities
+  include ListAndShowEntities
+  before_action :set_entity, except: %i[check create index new]
 
   # get /admin/political_forces/:id/candidates
   def candidates
@@ -36,10 +29,5 @@ class Admin::PoliticalForcesController < AdminController
 
   def component_class
     Biovision::Components::CampaignsComponent
-  end
-
-  def set_entity
-    @entity = PoliticalForce.find_by(id: params[:id])
-    handle_http_404('Cannot find political_force') if @entity.nil?
   end
 end

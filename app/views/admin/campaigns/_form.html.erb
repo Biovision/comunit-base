@@ -1,13 +1,5 @@
 <% model_name = entity.class.to_s.underscore %>
-<%=
-  form_with(
-      model: entity,
-      html: {
-          id: "#{model_name}-form",
-          data: { check_url: check_political_forces_path }
-      }
-  ) do |f|
-%>
+<%= form_with(Biovision::Components::BaseComponent.form_options(entity)) do |f| %>
   <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
 
   <dl class="fields">
@@ -34,6 +26,8 @@
       </dd>
     </div>
 
+    <%#= render partial: 'shared/forms/region_select', locals: { f: f } %>
+
     <div>
       <dt><%= f.label :name %></dt>
       <dd>
@@ -41,8 +35,11 @@
           f.text_field(
               :name,
               class: 'input-text',
-              data: { check: :name },
-              maxlength: Candidate::NAME_LIMIT,
+              data: {
+                  check: :name,
+                  transliterate: "#{model_name}_slug"
+              },
+              maxlength: Campaign::NAME_LIMIT,
               required: true,
               size: nil
           )
@@ -59,11 +56,14 @@
           f.text_field(
               :slug,
               class: 'input-text',
-              data: { check: :slug },
-              maxlength: PoliticalForce::SLUG_LIMIT,
-              pattern: PoliticalForce::SLUG_PATTERN_HTML,
+              data: {
+                  check: :slug
+              },
+              maxlength: Campaign::SLUG_LIMIT,
+              pattern: Campaign::SLUG_PATTERN_HTML,
               required: true,
-              size: nil
+              size: nil,
+              title: t('.guidelines.slug')
           )
         %>
         <div class="check-result-error" data-field="slug"></div>
@@ -72,23 +72,13 @@
     </div>
 
     <div>
-      <dt><%= f.label :flare %></dt>
+      <dt><%= f.label :date %></dt>
       <dd>
-        <%=
-          f.text_field(
-              :flare,
-              class: 'input-text',
-              data: {
-                  check: :flare
-              },
-              maxlength: PoliticalForce::FLARE_LIMIT,
-              size: nil
-          )
-        %>
-        <div class="check-result-error" data-field="flare"></div>
-        <div class="guideline"><%= t('.guidelines.flare') %></div>
+        <%= f.date_field(:date, class: 'input-text') %>
       </dd>
     </div>
+
+    <%= render partial: 'shared/forms/entity_flags', locals: { f: f } %>
   </dl>
 
   <%= render 'shared/forms/state_container' %>

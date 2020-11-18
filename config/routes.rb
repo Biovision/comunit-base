@@ -47,8 +47,6 @@ Rails.application.routes.draw do
 
   resources :regions, only: %i[update destroy]
 
-  resources :political_forces, :campaigns, :candidates, only: %i[update destroy]
-
   resources :deed_categories, :deeds, only: %i[destroy update]
 
   resources :decisions, only: %i[destroy update]
@@ -124,8 +122,6 @@ Rails.application.routes.draw do
         get 'mandate-:mandate_id' => :mandate, as: :mandate, constraints: { mandate_id: /\d+/ }
       end
     end
-    resources :candidates, except: %i[index show update destroy], concerns: :check
-    resources :political_forces, only: %i[new create edit], concerns: :check
 
     resources :deed_categories, except: %i[index show update destroy], concerns: :check
     resources :deeds, except: %i[update destroy], concerns: :check do
@@ -248,20 +244,20 @@ Rails.application.routes.draw do
       resources :countries, only: %i[index show]
       resources :regions, only: %i[index show], concerns: %i[link_user priority toggle]
 
-      resources :political_forces, only: %i[index show] do
+      resources :political_forces, concerns: :check do
         member do
           get 'candidates'
           put 'candidates/:candidate_id' => :add_candidate, as: :candidate, defaults: { format: :json }
           delete 'candidates/:candidate_id' => :remove_candidate
         end
       end
-      resources :campaigns, only: %i[index show], concerns: :toggle do
+      resources :campaigns, concerns: %i[check toggle] do
         member do
           get 'candidates'
           get 'candidates/new' => :new_candidate, as: :new_candidate
         end
       end
-      resources :candidates, only: %i[index show], concerns: :toggle
+      resources :candidates, concerns: %i[check toggle]
 
       resources :deeds, only: %i[index show], concerns: :toggle
       resources :deed_categories, only: %i[index show], concerns: %i[toggle priority] do

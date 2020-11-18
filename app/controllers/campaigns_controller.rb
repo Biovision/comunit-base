@@ -2,19 +2,9 @@
 
 # Managing campaigns
 class CampaignsController < ApplicationController
-  before_action :restrict_access, only: %i[check new create edit update destroy]
   before_action :set_entity, only: %i[edit update destroy]
   before_action :set_campaign, only: %i[candidate event join_team mandate mandates]
   before_action :set_candidate, only: %i[candidate join_team mandates]
-
-  layout 'admin', only: %i[check new create edit update destroy]
-
-  # post /campaigns/check
-  def check
-    @entity = Campaign.instance_for_check(params[:entity_id], entity_parameters)
-
-    render 'shared/forms/check'
-  end
 
   # get /campaigns
   def index
@@ -58,53 +48,10 @@ class CampaignsController < ApplicationController
     handle_http_404('Cannot find event for campaign') if @event.nil?
   end
 
-  # get /campaigns/new
-  def new
-    @entity = Campaign.new
-  end
-
-  # post /campaigns
-  def create
-    @entity = Campaign.new(entity_parameters)
-    if @entity.save
-      NetworkCampaignSyncJob.perform_later(@entity.id)
-      form_processed_ok(admin_campaign_path(id: @entity.id))
-    else
-      form_processed_with_error(:new)
-    end
-  end
-
-  # get /campaigns/:id/edit
-  def edit
-  end
-
-  # patch /campaigns/:id
-  def update
-    if @entity.update(entity_parameters)
-      NetworkCampaignSyncJob.perform_later(@entity.id, false)
-      form_processed_ok(admin_campaign_path(id: @entity.id))
-    else
-      form_processed_with_error(:edit)
-    end
-  end
-
-  # delete /campaigns/:id
-  def destroy
-    flash[:notice] = t('campaigns.destroy.success') if @entity.destroy
-
-    redirect_to(admin_campaigns_path)
-  end
-
   protected
 
   def component_class
     Biovision::Components::CampaignsComponent
-  end
-
-  def restrict_access
-    error = "User #{current_user&.id} has no privileges"
-
-    handle_http_401(error) unless component_handler.allow?
   end
 
   def set_entity

@@ -2,27 +2,15 @@
 
 # Administrative part of candidates management
 class Admin::CandidatesController < AdminController
+  include CreateAndModifyEntities
+  include ListAndShowEntities
   include ToggleableEntity
 
-  before_action :set_entity, except: :index
-
-  # get /admin/candidates
-  def index
-    @collection = Candidate.list_for_administration.page(current_page)
-  end
-
-  # get /admin/candidates/:id
-  def show
-  end
+  before_action :set_entity, except: %i[check create index new]
 
   private
 
   def component_class
     Biovision::Components::CampaignsComponent
-  end
-
-  def set_entity
-    @entity = Candidate.find_by(id: params[:id])
-    handle_http_404('Cannot find candidate') if @entity.nil?
   end
 end

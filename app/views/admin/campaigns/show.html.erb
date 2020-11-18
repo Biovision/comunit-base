@@ -9,8 +9,7 @@
   <h1><%= @entity.name %></h1>
 
   <ul class="actions">
-    <li><%= back_icon(admin_campaigns_path) %></li>
-    <li><%= edit_icon(edit_campaign_path(id: @entity.id)) %></li>
+    <li><%= edit_icon(@entity) %></li>
     <% if @entity.active? %>
       <li><%= world_icon(campaign_path(id: @entity.slug)) %></li>
     <% end %>
@@ -26,7 +25,7 @@
     %>
     <%=
       link_to(
-          t('candidates.new.nav_text'),
+          t('admin.candidates.new.nav_text'),
           new_candidate_admin_campaign_path(id: @entity.id),
           class: 'button button-secondary'
       )
@@ -36,15 +35,8 @@
   <dl>
     <%= render partial: 'shared/entity/image', locals: { entity: @entity } %>
 
-    <% unless @entity.region.nil? %>
-      <div>
-        <dt><%= t('activerecord.attributes.campaign.region_id') %></dt>
-        <dd><%= @entity.region.long_name %></dd>
-      </div>
-    <% end %>
-
     <div>
-      <dt><%= t('activerecord.attributes.campaign.slug') %></dt>
+      <dt><%= t('attributes.slug') %></dt>
       <dd><%= @entity.slug %></dd>
     </div>
 
@@ -64,13 +56,5 @@
     <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
   </dl>
 
-  <%=
-    render(
-        partial: 'shared/admin/toggleable',
-        locals: {
-            entity: @entity,
-            url: toggle_admin_campaign_path(id: @entity.id)
-        }
-    )
-  %>
+  <%= render(partial: 'shared/admin/toggle', locals: { entity: @entity }) %>
 </article>

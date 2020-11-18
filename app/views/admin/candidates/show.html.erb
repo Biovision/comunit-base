@@ -11,8 +11,7 @@
   <h1><%= @entity.full_name(true) %></h1>
 
   <ul class="actions">
-    <li><%= back_icon(candidates_admin_campaign_path(id: @entity.campaign_id)) %></li>
-    <li><%= edit_icon(edit_candidate_path(id: @entity.id)) %></li>
+    <li><%= edit_icon(@entity) %></li>
     <% if @entity.visible? %>
 <!--      <li><%#= world_icon(candidate_campaign_path(id: @entity.campaign.slug, candidate_id: @entity.id)) %></li>-->
     <% end %>
@@ -83,15 +82,7 @@
     <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
   </dl>
 
-  <%=
-    render(
-        partial: 'shared/admin/toggleable',
-        locals: {
-            entity: @entity,
-            url: toggle_admin_candidate_path(id: @entity.id)
-        }
-    )
-  %>
+  <%= render(partial: 'shared/admin/toggle', locals: { entity: @entity }) %>
 
   <%=
     render(

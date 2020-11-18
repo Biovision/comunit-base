@@ -3,7 +3,7 @@
   <%= admin_biovision_component_link(component_handler.component) %>
   <%= link_to(t('admin.campaigns.index.nav_text'), admin_campaigns_path) %>
   <%= admin_campaign_link(@entity) %>
-  <span><%= t('candidates.new.nav_text') %></span>
+  <span><%= t('admin.candidates.new.nav_text') %></span>
 <% end %>
 
 <article>
@@ -16,7 +16,7 @@
 
   <%=
     render(
-        partial: 'candidates/form',
+        partial: 'admin/candidates/form',
         locals: {
             entity: @entity.candidates.new
         }
