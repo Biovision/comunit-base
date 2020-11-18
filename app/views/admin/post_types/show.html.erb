@@ -21,21 +21,21 @@
         link_to(
             t('admin.post_types.post_categories.nav_text'),
             post_categories_admin_post_type_path(id: @entity.id),
-            class: 'button-nav'
+            class: 'button button-secondary'
         )
       %>
       <%=
         link_to(
             t('admin.post_types.post_tags.nav_text'),
             post_tags_admin_post_type_path(id: @entity.id),
-            class: 'button-nav'
+            class: 'button button-secondary'
         )
       %>
       <%=
         link_to(
             t('admin.post_types.authors.nav_text'),
             authors_admin_post_type_path(id: @entity.id),
-            class: 'button-nav'
+            class: 'button button-secondary'
         )
       %>
     </nav>

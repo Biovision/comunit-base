@@ -247,7 +247,7 @@ mina init
 require 'mina/rbenv'
 
 #...
-set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp', 'public/uploads', 'public/post_illustrations')
+set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp', 'public/uploads')
 set :shared_files, fetch(:shared_files, []).push('.env', 'config/master.key')
 
 # В том месте, где task :environment, сразу после

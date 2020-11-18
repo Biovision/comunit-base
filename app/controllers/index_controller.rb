@@ -2,7 +2,7 @@ class IndexController < ApplicationController
   # get /
   def index
     collect_main_news
-    collect_regional_news
+    # collect_regional_news
   end
 
   # get /r/:region_slug
@@ -36,7 +36,7 @@ class IndexController < ApplicationController
   end
 
   def collect_regional_news(page = 1)
-    region         = Region.find_by(id: params[:region_id].to_s.to_i)
-    @regional_news = Post.regional(region, current_region).where(post_type: PostType['news']).visible.recent.page(page).per(7)
+    # region         = Region.find_by(id: params[:region_id].to_s.to_i)
+    @regional_news = [] #Post.regional(region, current_region).where(post_type: PostType['news']).visible.recent.page(page).per(7)
   end
 end

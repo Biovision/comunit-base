@@ -18,9 +18,9 @@
   <h2><%= link_to('Новости', news_index_path) %></h2>
 
   <% if region.id.nil? %>
-    <% collection = Post.of_type('news').list_for_visitors.first(6) %>
+    <% collection = [] #Post.of_type('news').list_for_visitors.first(6) %>
   <% else %>
-    <% collection = Post.where(region_id: region.subbranch_ids).of_type('news').list_for_visitors.first(6) %>
+    <% collection = [] #Post.where(region_id: region.subbranch_ids).of_type('news').list_for_visitors.first(6) %>
   <% end %>
   <%=
     render(

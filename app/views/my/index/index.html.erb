@@ -14,14 +14,14 @@
     <nav class="profile-dashboard">
       <ul>
         <li>
-          <%= link_to('Ваш профиль', my_profile_path, class: 'button-nav') %>
+          <%= link_to('Ваш профиль', my_profile_path, class: 'button button-secondary') %>
         </li>
         <li>
-          <%= link_to('Редактировать профиль', edit_my_profile_path, class: 'button-action') %>
+          <%= link_to('Редактировать профиль', edit_my_profile_path, class: 'button button-primary') %>
         </li>
         <% if BiovisionComponent.administrative?(current_user) %>
           <li>
-            <%= link_to(t('admin.index.index.heading'), admin_path, class: 'button-nav') %>
+            <%= link_to(t('admin.index.index.heading'), admin_path, class: 'button button-secondary') %>
           </li>
         <% end %>
 <!--        <li><%#= render 'my/tokens/nav_item' %></li>-->
@@ -31,7 +31,7 @@
 
     <% handler = Biovision::Components::BaseComponent.handler('posts', current_user) %>
 
-    <%=
+    <%#=
       render(
           partial: 'my/index/articles',
           locals: {
@@ -41,7 +41,7 @@
       )
     %>
 
-    <%=
+    <%#=
       render(
           partial: 'my/index/news',
           locals: {
@@ -51,7 +51,7 @@
       )
     %>
 
-    <%=
+    <%#=
       render(
           partial: 'my/index/blog_posts',
           locals: {

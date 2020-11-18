@@ -8,11 +8,13 @@
 #   data [jsonb]
 #   name [string]
 #   nav_text [String]
-#   posts_count [integer]
+#   object_count [integer]
 #   parent_id [Taxon]
 #   parents_cache [String]
 #   priority [integer]
+#   simple_image_id [SimpleImage], optional
 #   slug [String]
+#   taxon_type_id [TaxonType]
 #   updated_at [DateTime]
 #   uuid [uuid]
 #   visible [boolean]
@@ -29,7 +31,7 @@ class Taxon < ApplicationRecord
   NAV_LIMIT = 50
   SLUG_LIMIT = 50
   SLUG_PATTERN = /\A[a-z0-9]([-_a-z0-9]*[a-z0-9])?\z/i.freeze
-  SLUG_PATTERN_HTML = '^[a-zA-Z0-9]([-a-zA-Z0-9]*[a-zA-Z0-9])?$'
+  SLUG_PATTERN_HTML = '^[a-zA-Z0-9]([-a-zA-Z0-9_]*[a-zA-Z0-9])?$'
 
   toggleable :visible
 
@@ -40,18 +42,16 @@ class Taxon < ApplicationRecord
   has_many :posts, through: :post_taxa
 
   validates_presence_of :slug, :name
-  # validates_uniqueness_of :name, scope: %i[site_id taxon_type_id]
-  # validates_uniqueness_of :slug, scope: %i[site_id taxon_type_id]
   validates_length_of :name, maximum: NAME_LIMIT
   validates_length_of :slug, maximum: SLUG_LIMIT
   validates_format_of :slug, with: SLUG_PATTERN
 
   before_validation :ensure_parent_match
 
-  scope :for_tree, ->(v = nil) { where(parent_id: v).ordered_by_priority }
+  scope :for_tree, ->(v = nil) { joined_image.where(parent_id: v).ordered_by_priority }
   scope :visible, -> { where(visible: true) }
-  scope :list_for_visitors, -> { visible.ordered_by_priority }
-  scope :list_for_administration, -> { ordered_by_priority }
+  scope :list_for_visitors, -> { visible.joined_image.ordered_by_priority }
+  scope :list_for_administration, -> { joined_image.ordered_by_priority }
 
   # @param [Taxon] entity
   def self.siblings(entity)
@@ -66,7 +66,7 @@ class Taxon < ApplicationRecord
   end
 
   def self.entity_parameters
-    %i[name nav_text priority slug visible]
+    %i[name nav_text priority simple_image_id slug visible]
   end
 
   def self.creation_parameters
@@ -75,7 +75,7 @@ class Taxon < ApplicationRecord
 
   def text_for_link
     if nav_text.blank?
-      name.count > 50 ? "#{name[0..49]}…" : name
+      name.length > 50 ? "#{name[0..49]}…" : name
     else
       nav_text
     end

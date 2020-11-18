@@ -5,6 +5,8 @@ class Admin::TaxonTypesController < AdminController
   include ListAndShowEntities
   include LinkedUsers
 
+  before_action :set_entity, except: :index
+
   private
 
   def component_class

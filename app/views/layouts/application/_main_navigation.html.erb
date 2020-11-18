@@ -1,11 +1,11 @@
 <%
   selected_item = content_for(:selected_item)
-  post_type = PostType.find_by(slug: 'article')
-  news_type = PostType.find_by(slug: 'news')
+  post_type = nil #PostType.find_by(slug: 'article')
+  news_type = nil #PostType.find_by(slug: 'news')
 %>
 <ul class="primary">
   <%= render 'layouts/application/main_navigation/prepend' %>
-  <%= render partial: 'layouts/application/main_navigation/categories', locals: { categories: PostCategory.visible.for_tree(post_type) } %>
+  <%#= render partial: 'layouts/application/main_navigation/categories', locals: { categories: PostCategory.visible.for_tree(post_type) } %>
   <li class="<% selected_item == 'impeachment' ? 'selected' : '' %>">
     <%= link_to('Импичмент', '/articles/impeachment') %>
     <ul class="secondary">
@@ -15,9 +15,9 @@
   <li class="<%= selected_item == 'news' ? 'selected' : '' %>">
     <%= link_to t('news.index.heading'), news_index_path %>
     <ul class="secondary">
-      <% PostCategory.visible.for_tree(news_type).each do |news_category| %>
-          <li><%= post_category_link(news_category) %></li>
-      <% end %>
+      <%# PostCategory.visible.for_tree(news_type).each do |news_category| %>
+<!--          <li><%#= post_category_link(news_category) %></li>-->
+      <%# end %>
     </ul>
   </li>
   <li class="<%= selected_item == 'entries' ? 'selected' : '' %>">

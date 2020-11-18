@@ -29,6 +29,6 @@ class PostGroupTaxon < ApplicationRecord
       taxa: { visible: true }
     }
 
-    includes(:taxa).where(clause).ordered_by_priority.map(&:taxon).compact
+    includes(:taxon).where(clause).order('post_group_taxa.priority asc').map(&:taxon).compact
   end
 end

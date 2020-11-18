@@ -4,7 +4,7 @@
   render(
       partial: 'index/index/featured_posts',
       locals: {
-          collection: FeaturedPost.ordered_by_priority
+          collection: Post.featured.list_for_visitors
       }
   )
 %>
@@ -12,8 +12,6 @@
 <%=
   render(
       partial: 'index/index/categories',
-      locals: {
-          categories: PostGroupCategory['homepage']
-      }
+      locals: { categories: PostGroupTaxon['homepage'] }
   )
 %>

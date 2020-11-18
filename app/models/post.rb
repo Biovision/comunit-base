@@ -5,6 +5,7 @@ class Post < ApplicationRecord
   include Checkable
   include HasOwner
   include HasUuid
+  include HasSimpleImage
   include CommentableItem
   include VotableItem
   include Toggleable
@@ -22,22 +23,22 @@ class Post < ApplicationRecord
 
   toggleable :visible, :show_owner
 
-  mount_uploader :image, PostImageUploader
+  # mount_uploader :image, PostImageUploader
 
   paginates_per 12
 
-  belongs_to :region, optional: true
+  # belongs_to :region, optional: true
   belongs_to :user, optional: true
-  belongs_to :post_type, counter_cache: true
+  # belongs_to :post_type, counter_cache: true
   belongs_to :agent, optional: true
-  belongs_to :post_layout, counter_cache: true, optional: true
+  # belongs_to :post_layout, counter_cache: true, optional: true
   has_many :post_references, dependent: :delete_all
   has_many :post_notes, dependent: :delete_all
   has_many :post_links, dependent: :delete_all
-  has_many :post_post_categories, dependent: :destroy
-  has_many :post_categories, through: :post_post_categories
-  has_many :post_post_tags, dependent: :destroy
-  has_many :post_tags, through: :post_post_tags
+  # has_many :post_post_categories, dependent: :destroy
+  # has_many :post_categories, through: :post_post_categories
+  # has_many :post_post_tags, dependent: :destroy
+  # has_many :post_tags, through: :post_post_tags
   has_many :post_images, dependent: :destroy
   has_many :post_attachments, dependent: :destroy
   has_many :post_taxa, dependent: :destroy
@@ -46,7 +47,7 @@ class Post < ApplicationRecord
   after_initialize { self.publication_time = Time.now if publication_time.nil? }
   before_validation :prepare_slug
   before_validation :prepare_source_names
-  before_save :track_region_change
+  # before_save :track_region_change
 
   validates_presence_of :title, :slug, :body
   validates_length_of :title, maximum: TITLE_LIMIT
@@ -57,19 +58,21 @@ class Post < ApplicationRecord
   validates_length_of :image_source_link, maximum: META_LIMIT
   validates_length_of :source_link, maximum: META_LIMIT
   validates_length_of :source_name, maximum: META_LIMIT
-  validates_length_of :meta_title, maximum: TITLE_LIMIT
-  validates_length_of :meta_description, maximum: META_LIMIT
-  validates_length_of :meta_keywords, maximum: META_LIMIT
+  # validates_length_of :meta_title, maximum: TITLE_LIMIT
+  # validates_length_of :meta_description, maximum: META_LIMIT
+  # validates_length_of :meta_keywords, maximum: META_LIMIT
   validates_length_of :author_name, maximum: META_LIMIT
   validates_length_of :author_title, maximum: META_LIMIT
   validates_length_of :author_url, maximum: META_LIMIT
+
+  scope :featured, -> { where(featured: true) }
+  scope :visible, -> { where(visible: true) }
 
   scope :in_region, ->(region) { where(region_id: region&.id.nil? ? nil : region&.subbranch_ids) }
   scope :central, -> { where(region_id: nil) }
   scope :for_site, ->(v) { where(site: v) unless v.blank? }
   scope :recent, -> { order('publication_time desc') }
   scope :popular, -> { order('rating desc') }
-  scope :visible, -> { where(visible: true, deleted: false, approved: true) }
   scope :published, -> { where('publication_time <= current_timestamp') }
   scope :pg_search, ->(v) { where("posts_tsvector(title, lead, body) @@ phraseto_tsquery('russian', ?)", v) }
   scope :exclude_ids, ->(v) { where('posts.id not in (?)', Array(v)) unless v.blank? }
