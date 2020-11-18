@@ -1,0 +1,48 @@
+<% model_name = entity.class.to_s.underscore %>
+<%= form_with(Biovision::Components::BaseComponent.form_options(entity)) do |f| %>
+  <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+
+  <dl class="fields">
+    <%= render partial: 'shared/forms/field', locals: { f: f, field: :name } %>
+    <%= render partial: 'shared/forms/url_field', locals: { f: f, field: :host } %>
+    <%= render partial: 'shared/forms/field', locals: { f: f, field: :description } %>
+
+    <div>
+      <dt><%= f.label :image %></dt>
+      <dd>
+        <figure class="preview" role="group" id="<%= model_name %>-image">
+          <% if entity.image.blank? %>
+            <%= f.label :image, image_tag('biovision/base/placeholders/1x1.svg', alt: '') %>
+          <% else %>
+            <%= f.label :image, image_tag(entity.image.url, alt: '') %>
+          <% end %>
+          <figcaption>
+            <%=
+              f.file_field(
+                  :image,
+                  accept: 'image/*',
+                  data: { image: "#{model_name}-image" },
+                  id: "#{model_name}_image"
+              )
+            %>
+          </figcaption>
+        </figure>
+        <div class="guideline"><%= t('.guidelines.image') %></div>
+      </dd>
+    </div>
+
+    <% unless entity.id.nil? %>
+      <%= render partial: 'shared/forms/field', locals: { f: f, field: :token } %>
+    <% end %>
+
+    <%= render partial: 'shared/forms/field', locals: { f: f, field: :version } %>
+    <%= render partial: 'shared/forms/entity_flags', locals: { f: f } %>
+  </dl>
+
+  <%= render 'shared/forms/state_container' %>
+
+  <div class="buttons">
+    <%= hidden_field_tag :entity_id, entity.id %>
+    <%= f.button t(:save), class: 'button button-save' %>
+  </div>
+<% end %>

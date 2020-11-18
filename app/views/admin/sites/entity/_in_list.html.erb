@@ -1,36 +1,20 @@
-<figure class="image">
-  <%= site_image(entity) %>
-</figure>
+<figure class="image"><%= site_image(entity) %></figure>
 <div class="data">
-  <div><%= admin_site_link(entity) %></div>
-  <div class="info">
-    <%= entity.host %>
-  </div>
+  <div><%= admin_entity_link(entity) %></div>
+  <div class="info"><%= entity.host %></div>
   <div class="secondary info">
-    <%= t('activerecord.attributes.site.version') %>:
+    <%= entity.class.human_attribute_name(:version) %>:
     <%= entity.version %>
   </div>
-  <div class="secondary info">
-    <%= entity.uuid %>
-  </div>
+  <div class="secondary info"><%= entity.uuid %></div>
   <% unless entity.description.blank? %>
-    <div class="secondary info">
-      <%= entity.description %>
-    </div>
+    <div class="secondary info"><%= entity.description %></div>
   <% end %>
 
-  <%=
-    render(
-        partial: 'shared/admin/toggleable',
-        locals: {
-            entity: entity,
-            url: toggle_admin_site_path(id: entity.id)
-        }
-    )
-  %>
+  <%= render(partial: 'shared/admin/toggle', locals: { entity: entity }) %>
 
   <ul class="actions">
-    <li><%= edit_icon(edit_site_path(id: entity.id)) %></li>
+    <li><%= edit_icon(entity) %></li>
     <% if entity.active? %>
       <li>
         <%=

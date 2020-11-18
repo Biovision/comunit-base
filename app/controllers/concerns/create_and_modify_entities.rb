@@ -4,10 +4,6 @@
 module CreateAndModifyEntities
   extend ActiveSupport::Concern
 
-  included do
-    before_action :set_entity, only: %i[edit update destroy]
-  end
-
   def model_class
     @model_class ||= controller_name.classify.constantize
   end
@@ -20,20 +16,17 @@ module CreateAndModifyEntities
     "/admin/#{model_class.table_name}"
   end
 
-  # post /[table_name]/check
   def check
     @entity = model_class.instance_for_check(params[:entity_id], entity_parameters)
 
     render 'shared/forms/check'
   end
 
-  # get /[table_name]/new
   def new
     @entity = model_class.new
     render 'shared/entity/new'
   end
 
-  # post /[table_name]
   def create
     @entity = model_class.new(creation_parameters)
     ensure_site_presence
@@ -45,12 +38,10 @@ module CreateAndModifyEntities
     end
   end
 
-  # get /[table_name]/:id/edit
   def edit
     render 'shared/entity/edit'
   end
 
-  # patch /[table_name]/:id
   def update
     if @entity.update(entity_parameters)
       Comunit::Network::Handler.sync(@entity)
@@ -60,9 +51,8 @@ module CreateAndModifyEntities
     end
   end
 
-  # delete /[table_name]/:id
   def destroy
-    flash[:notice] = t(".success") if @entity.destroy
+    flash[:notice] = t('.success') if @entity.destroy
     redirect_to path_after_destroy
   end
 

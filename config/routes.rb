@@ -37,15 +37,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :sites, except: %i[index show], concerns: :check
-  resources :countries, :regions, except: %i[index show], concerns: :check
-
-  resources :albums, :photos, only: %i[update destroy]
-
-  resources :events, only: %i[update destroy]
-  resources :event_speakers, :event_sponsors, :event_materials, :event_programs, only: %i[update destroy]
-  resources :event_participants, only: :destroy
-
   resources :appeals, only: %i[update destroy]
 
   resources :user_messages, only: :destroy
@@ -222,7 +213,8 @@ Rails.application.routes.draw do
     resources :petition_signs, only: :create, concerns: :check
 
     namespace :admin do
-      resources :sites, only: %i[index show], concerns: %i[link_user toggle]
+      # Comunit component
+      resources :sites, concerns: %i[check toggle]
 
       resources :countries, only: %i[index show], concerns: %i[toggle priority] do
         get 'regions', on: :member
@@ -363,19 +355,6 @@ Rails.application.routes.draw do
       get '/' => 'index#index'
 
       resources :users, only: %i[index show], concerns: :toggle
-    end
-
-    namespace :api, defaults: { format: :json } do
-      resources :users, except: %i[new edit], concerns: :toggle do
-        member do
-          put 'follow'
-          delete 'follow' => :unfollow
-        end
-      end
-
-      resources :user_links, except: %i[new edit], concerns: :toggle do
-        delete 'hide', on: :member
-      end
     end
 
     namespace :network, defaults: { format: :json } do

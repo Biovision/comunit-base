@@ -35,10 +35,11 @@ class Site < ApplicationRecord
   has_many :site_users, dependent: :delete_all
   has_many :site_posts, dependent: :delete_all
 
-  validates_presence_of :host
+  validates_presence_of :host, :version
   validates_length_of :description, maximum: DESCRIPTION_LIMIT
   validates_length_of :host, maximum: HOST_LIMIT
   validates_length_of :name, maximum: NAME_LIMIT
+  validates_numericality_of :version, greater_than_or_equal_to: 0
 
   scope :active, -> { where(active: true) }
   scope :min_version, ->(v = 1) { where('version >= ?', v) }

@@ -1,0 +1,7 @@
+<% site = entity.site %>
+<% unless site.nil? %>
+  <div>
+    <dt><%= t('attributes.site') %></dt>
+    <dd><%= admin_entity_link(site) %></dd>
+  </div>
+<% end %>

@@ -9,21 +9,10 @@
   <h1><%= @entity.name %></h1>
 
   <ul class="actions">
-    <li><%= back_icon(admin_sites_path) %></li>
-    <li><%= edit_icon(edit_site_path(id: @entity.id)) %></li>
+    <li><%= edit_icon(@entity) %></li>
   </ul>
 
-  <nav>
-    <%=
-      link_to(
-          t('admin.sites.users.nav_text'),
-          users_admin_site_path(id: @entity.id),
-          class: 'button-nav'
-      )
-    %>
-  </nav>
-
-  <dl>
+  <dl class="fields">
     <div>
       <dt>ID</dt>
       <dd><%= @entity.id %></dd>
@@ -31,7 +20,7 @@
 
     <% unless @entity.image.blank? %>
       <div>
-        <dt><%= t('activerecord.attributes.site.image') %></dt>
+        <dt><%= @entity.class.human_attribute_name(:image) %></dt>
         <dd>
           <figure role="group" class="preview">
             <%= site_image(@entity) %>
@@ -41,7 +30,7 @@
     <% end %>
 
     <div>
-      <dt><%= t('activerecord.attributes.site.host') %></dt>
+      <dt><%= @entity.class.human_attribute_name(:host) %></dt>
       <dd>
         <%=
           link_to(
@@ -54,34 +43,10 @@
       </dd>
     </div>
 
-    <% unless @entity.description.blank? %>
-      <div>
-        <dt><%= t('activerecord.attributes.site.description') %></dt>
-        <dd><%= @entity.description %></dd>
-      </div>
-    <% end %>
-
-    <div>
-      <dt><%= t('activerecord.attributes.site.token') %></dt>
-      <dd><%= @entity.token %></dd>
-    </div>
-
-    <div>
-      <dt><%= t('activerecord.attributes.site.user_count') %></dt>
-      <dd><%= t(:user_count, count: @entity.user_count) %></dd>
-    </div>
-
+    <%= render partial: 'shared/entity/text_fields', locals: { entity: @entity, list: %w[description token] } %>
     <%= render partial: 'shared/entity/uuid', locals: { entity: @entity } %>
     <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
   </dl>
 
-  <%=
-    render(
-        partial: 'shared/admin/toggleable',
-        locals:  {
-            entity: @entity,
-            url:    toggle_admin_site_path(id: @entity.id)
-        }
-    )
-  %>
+  <%= render(partial: 'shared/admin/toggle', locals: { entity: @entity }) %>
 </article>
