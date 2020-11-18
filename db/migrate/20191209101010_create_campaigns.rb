@@ -35,16 +35,16 @@ class CreateCampaigns < ActiveRecord::Migration[5.2]
       t.string :image
       t.string :flare
       t.jsonb :data, default: {}, null: false
-      t.jsonb :sync_state, default: {}, null: false
     end
 
     add_index :political_forces, :uuid, unique: true
+    add_index :political_forces, :data, using: :gin
   end
 
   def create_campaigns
     create_table :campaigns, comment: 'Political campaigns' do |t|
       t.uuid :uuid, null: false
-      t.references :region, foreign_key: { on_update: :cascade, on_delete: :cascade }
+      # t.references :region, foreign_key: { on_update: :cascade, on_delete: :cascade }
       t.timestamps
       t.boolean :active, default: true, null: false
       t.date :date
@@ -52,10 +52,11 @@ class CreateCampaigns < ActiveRecord::Migration[5.2]
       t.string :image
       t.string :name
       t.string :slug, null: false
-      t.jsonb :sync_state, default: {}, null: false
+      t.jsonb :data, default: {}, null: false
     end
 
     add_index :campaigns, :uuid, unique: true
+    add_index :campaigns, :data, using: :gin
   end
 
   def create_candidates
@@ -63,7 +64,7 @@ class CreateCampaigns < ActiveRecord::Migration[5.2]
       t.uuid :uuid, null: false
       t.references :campaign, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
       t.references :user, foreign_key: { on_update: :cascade, on_delete: :cascade }
-      t.references :region, foreign_key: { on_update: :cascade, on_delete: :cascade }
+      # t.references :region, foreign_key: { on_update: :cascade, on_delete: :cascade }
       t.references :agent, foreign_key: { on_update: :cascade, on_delete: :nullify }
       t.inet :ip
       t.timestamps
@@ -80,10 +81,10 @@ class CreateCampaigns < ActiveRecord::Migration[5.2]
       t.text :about
       t.text :program
       t.jsonb :data, default: {}, null: false
-      t.jsonb :sync_state, default: {}, null: false
     end
 
     add_index :candidates, :uuid, unique: true
+    add_index :candidates, :data, using: :gin
   end
 
   def create_candidate_links

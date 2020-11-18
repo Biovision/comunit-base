@@ -42,7 +42,7 @@ class CreateDecisionsComponent < ActiveRecord::Migration[5.2]
     create_table :decision_users, comment: 'Decisions of users' do |t|
       t.references :decision, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
       t.references :user, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
-      t.references :region, foreign_key: { on_update: :cascade, on_delete: :nullify }
+      # t.references :region, foreign_key: { on_update: :cascade, on_delete: :nullify }
       t.references :agent, foreign_key: { on_update: :cascade, on_delete: :nullify }
       t.inet :ip
       t.uuid :answer, index: true

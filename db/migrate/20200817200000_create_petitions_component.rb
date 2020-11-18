@@ -39,7 +39,7 @@ class CreatePetitionsComponent < ActiveRecord::Migration[6.0]
     create_table :petition_signs, comment: 'Petition signs' do |t|
       t.uuid :uuid, null: false
       t.references :petition, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
-      t.references :region, foreign_key: { on_update: :cascade, on_delete: :nullify }
+      # t.references :region, foreign_key: { on_update: :cascade, on_delete: :nullify }
       t.references :user, foreign_key: { on_update: :cascade, on_delete: :nullify }
       t.references :agent, foreign_key: { on_update: :cascade, on_delete: :nullify }
       t.inet :ip

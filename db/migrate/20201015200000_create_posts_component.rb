@@ -50,8 +50,8 @@ class CreatePostsComponent < ActiveRecord::Migration[6.0]
       t.jsonb :data, default: {}, null: false
     end
 
-    execute "create index posts_created_at_month_idx on posts using btree (date_trunc('month', created_at), post_type_id, user_id);"
-    execute "create index posts_pubdate_month_idx on posts using btree (date_trunc('month', publication_time), post_type_id, user_id);"
+    execute "create index posts_created_at_month_idx on posts using btree (date_trunc('month', created_at), user_id);"
+    execute "create index posts_pubdate_month_idx on posts using btree (date_trunc('month', publication_time), user_id);"
     execute %(
       create or replace function posts_tsvector(title text, lead text, body text)
         returns tsvector as $$
