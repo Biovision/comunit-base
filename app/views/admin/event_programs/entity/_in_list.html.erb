@@ -1,9 +1,0 @@
-<div class="data">
-  <div><%= admin_event_program_link(entity) %></div>
-
-  <% unless entity.locked? %>
-      <ul class="actions">
-        <li><%= edit_icon(edit_event_program_path(id: entity.id)) %></li>
-      </ul>
-  <% end %>
-</div>

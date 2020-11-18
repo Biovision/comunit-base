@@ -90,18 +90,11 @@ Rails.application.routes.draw do
     get 'regional_news/:category_slug' => 'news#category', as: :legacy_news_category, constraints: { category_slug: category_slug_pattern }
     get 'regional_news/:category_slug/:slug' => 'news#show_in_category', as: :legacy_news_in_category, constraints: { category_slug: category_slug_pattern }
 
-    resources :events, except: %i[update destroy]
-    resources :event_speakers, :event_sponsors, :event_materials, :event_programs, except: %i[index new show update destroy]
-    resources :event_participants, only: :create
-
     resources :appeals, except: %i[index new show edit update destroy]
     get 'feedback' => 'appeals#new'
     post 'feedback' => 'appeals#create'
 
     resources :user_messages, only: :create
-
-    resources :groups, except: %i[index show update destroy]
-    resources :teams, except: %i[index show update destroy]
 
     resources :promo_blocks, :promo_items, only: %i[new create edit], concerns: :check
 
@@ -214,26 +207,10 @@ Rails.application.routes.draw do
       end
       resources :regions, only: :show, concerns: %i[toggle priority]
 
-      resources :groups, only: %i[index show], concerns: :link_user
-      resources :teams, only: %i[index show], concerns: %i[toggle priority] do
-        member do
-          put 'privileges/:privilege_id' => :add_privilege, as: :privilege, defaults: { format: :json }
-          delete 'privileges/:privilege_id' => :remove_privilege, defaults: { format: :json }
-        end
-      end
-
       resources :decisions, only: %i[index show], concerns: :toggle
       resources :decision_users, only: %i[index show]
 
       resources :appeals, only: %i[index show], concerns: :toggle
-
-      resources :events, only: %i[index show], concerns: %i[lock toggle] do
-        get 'participants', on: :member
-      end
-      resources :event_participants, only: %i[index show], concerns: :toggle
-      resources :event_speakers, :event_sponsors, only: [], concerns: %i[toggle priority]
-      resources :event_materials, only: [], concerns: :toggle
-      resources :event_programs, only: :show
 
       resources :media_folders, only: %i[index show], concerns: :lock
       resources :media_files, only: %i[index show], concerns: :lock

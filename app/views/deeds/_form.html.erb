@@ -25,33 +25,6 @@
       </dd>
     </div>
 
-    <div class="hidden">
-      <dt><%= f.label :region_id %></dt>
-      <dd>
-        <%=
-          radio_button_tag(
-              "#{model_name}[region_id]",
-              '',
-              entity.region.nil?,
-              id: "#{model_name}_region_0"
-          )
-        %>
-        <%= label_tag "#{model_name}_region_0", t(:not_set) %><br/>
-        <% unless entity.region.nil? %>
-          <%=
-            radio_button_tag(
-                "#{model_name}[region_id]",
-                entity.region_id,
-                true,
-                id: "#{model_name}_region_default"
-            )
-          %>
-          <%= label_tag "#{model_name}_region_default", entity.region.branch_name %><br/>
-        <% end %>
-        <%= render partial: 'regions', locals: { form: f } %>
-      </dd>
-    </div>
-
     <div>
       <dt><%= f.label :title %></dt>
       <dd>
