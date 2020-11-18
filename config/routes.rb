@@ -92,9 +92,6 @@ Rails.application.routes.draw do
     get 'regional_news/:category_slug' => 'news#category', as: :legacy_news_category, constraints: { category_slug: category_slug_pattern }
     get 'regional_news/:category_slug/:slug' => 'news#show_in_category', as: :legacy_news_in_category, constraints: { category_slug: category_slug_pattern }
 
-    resources :albums, except: %i[update destroy]
-    resources :photos, except: %i[index update destroy]
-
     resources :events, except: %i[update destroy]
     resources :event_speakers, :event_sponsors, :event_materials, :event_programs, except: %i[index new show update destroy]
     resources :event_participants, only: :create
@@ -231,11 +228,6 @@ Rails.application.routes.draw do
 
       resources :decisions, only: %i[index show], concerns: :toggle
       resources :decision_users, only: %i[index show]
-
-      resources :albums, only: %i[index show], concerns: :toggle do
-        get 'photos', on: :member
-      end
-      resources :photos, only: %i[index show], concerns: :priority
 
       resources :appeals, only: %i[index show], concerns: :toggle
 
