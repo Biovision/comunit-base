@@ -2,14 +2,8 @@
   <%= profile_avatar(entity) %>
 </div>
 <div class="data">
-  <div><%= admin_user_link(entity) %> (<%= entity.screen_name %>)</div>
+  <div><%= admin_entity_link(entity) %> (<%= entity.screen_name %>)</div>
   <div class="info"><%= entity.uuid %></div>
-  <% unless entity.data.dig(:comunit, :site_id).nil? %>
-    <div class="secondary info">
-      <%= t('activerecord.attributes.user.site_id') %>:
-      <%= Site.find_by(id: entity.data.dig(:comunit, :site_id))&.host %>
-    </div>
-  <% end %>
   <% unless entity.notice.blank? %>
       <div><%= entity.notice %></div>
   <% end %>
@@ -31,17 +25,9 @@
     <% end %>
   </div>
 
-  <%=
-    render(
-        partial: 'shared/admin/toggleable',
-        locals: {
-            entity: entity,
-            url: toggle_admin_user_path(id: entity.id)
-        }
-    )
-  %>
+  <%= render(partial: 'shared/admin/toggle', locals: { entity: entity }) %>
 
   <ul class="actions">
-    <li><%= edit_icon edit_user_path(id: entity.id) %></li>
+    <li><%= edit_icon entity %></li>
   </ul>
 </div>
