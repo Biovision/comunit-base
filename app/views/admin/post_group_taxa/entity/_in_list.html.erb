@@ -1,0 +1,8 @@
+<div class="data">
+  <div><%= admin_entity_link(entity.taxon) %></div>
+  <div class="info"><%= entity.taxon.taxon_type.name %></div>
+
+  <ul class="actions">
+    <%= render(partial: 'shared/admin/priority', locals: { entity: entity }) %>
+  </ul>
+</div>

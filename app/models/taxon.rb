@@ -40,6 +40,8 @@ class Taxon < ApplicationRecord
   has_many :users, through: :taxon_users
   has_many :post_taxa, dependent: :delete_all
   has_many :posts, through: :post_taxa
+  has_many :post_group_taxa, dependent: :delete_all
+  has_many :taxa, through: :post_group_taxa
 
   validates_presence_of :slug, :name
   validates_length_of :name, maximum: NAME_LIMIT
@@ -99,6 +101,21 @@ class Taxon < ApplicationRecord
   # @param [Post] entity
   def remove_post(entity)
     post_taxa.where(post: entity).delete_all
+  end
+
+  # @param [PostGroup] entity
+  def post_group?(entity)
+    post_group_taxa.where(post_group: entity).exists?
+  end
+
+  # @param [PostGroup] entity
+  def add_post_group(entity)
+    post_group_taxa.create(post_group: entity)
+  end
+
+  # @param [PostGroup] entity
+  def remove_post_group(entity)
+    post_group_taxa.where(post_group: entity).delete_all
   end
 
   # @param [User] entity

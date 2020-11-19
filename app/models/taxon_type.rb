@@ -64,4 +64,11 @@ class TaxonType < ApplicationRecord
     list = taxa.joins(:taxon_users).where(taxon_users: { user_id: user&.id })
     list.pluck(:id, :children_cache).flatten.uniq
   end
+
+  # @param [PostGroup] post_group
+  def taxon_ids_for_post_group(post_group)
+    clause = { post_group_taxa: { post_group_id: post_group&.id } }
+    list = taxa.joins(:post_group_taxa).where(clause)
+    list.pluck(:id, :children_cache).flatten.uniq
+  end
 end

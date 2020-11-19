@@ -135,11 +135,6 @@ Rails.application.routes.draw do
       get '/:post_id-:post_slug' => :show, as: :show_blog_post, constraints: { post_id: /\d+/, post_slug: post_slug_pattern }
     end
 
-    scope :authors, controller: 'authors' do
-      get '/' => :index, as: :authors
-      get ':slug' => :show, as: :author
-    end
-
     scope 'u/:slug', controller: :profiles, constraints: { slug: %r{[^/]+} } do
       get 'posts' => :posts, as: :user_posts
     end
@@ -191,29 +186,27 @@ Rails.application.routes.draw do
         end
       end
 
+      # Posts component
       resources :posts, concerns: %i[check toggle] do
         get 'search', on: :collection
       end
-
       resources :post_groups, concerns: %i[check toggle priority] do
         member do
-          put 'categories/:category_id' => :add_category, as: :category
-          delete 'categories/:category_id' => :remove_category
-          put 'tags/:tag_id' => :add_tag, as: :tag
-          delete 'tags/:tag_id' => :remove_tag
-          get :tags, defaults: { format: :json }
+          put 'taxa/:taxon_id' => :add_taxon, as: :taxon
+          delete 'taxa/:taxon_id' => :remove_taxon
         end
       end
-      scope 'post_group_categories/:id', controller: :post_group_categories do
-        post 'priority' => :priority, as: :priority_post_group_category, defaults: { format: :json }
-      end
-      scope 'post_group_tags/:id', controller: :post_group_tags do
-        post 'priority' => :priority, as: :priority_post_group_tag, defaults: { format: :json }
+      scope 'post_group_taxa/:id', controller: :post_group_taxa do
+        post 'priority' => :priority, as: :priority_post_group_taxon, defaults: { format: :json }
       end
 
       resources :taxon_types, concerns: %i[check link_user toggle]
       resources :taxa, concerns: %i[check link_user toggle priority] do
-        get 'children', on: :member
+        member do
+          get 'children'
+          put 'post_groups/:post_group_id' => :add_post_group, as: :post_group
+          delete 'post_groups/:post_group_id' => :remove_post_group
+        end
       end
 
       scope 'post_links', controller: :post_links do

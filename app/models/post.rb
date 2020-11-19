@@ -1,6 +1,28 @@
 # frozen_string_literal: true
 
-# Post entry
+# Post
+#
+# Attributes:
+#       t.uuid :uuid, null: false
+#       t.references :user, foreign_key: { on_update: :cascade, on_delete: :cascade }
+#       t.references :simple_image, foreign_key: { on_update: :cascade, on_delete: :nullify }
+#       t.references :agent, foreign_key: { on_update: :cascade, on_delete: :nullify }
+#       t.inet :ip
+#       t.timestamps
+#       t.boolean :visible, default: true, null: false
+#       t.boolean :show_owner, default: true, null: false
+#       t.boolean :featured, default: false, null: false
+#       t.float :rating, default: 0.0, null: false
+#       t.integer :comments_count, default: 0, null: false
+#       t.integer :view_count, default: 0, null: false
+#       t.datetime :publication_time
+#       t.string :title, null: false
+#       t.string :slug, null: false, index: true
+#       t.string :source_name
+#       t.string :source_link
+#       t.text :lead
+#       t.text :body, null: false
+#       t.jsonb :data, default: {}, null: false
 class Post < ApplicationRecord
   include Checkable
   include HasOwner
@@ -281,6 +303,10 @@ class Post < ApplicationRecord
 
   def commentable_by?(user)
     allow_comments? && !user.nil?
+  end
+
+  def text_for_link
+    title
   end
 
   private

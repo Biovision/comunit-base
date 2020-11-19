@@ -1,5 +1,5 @@
 <%
-  element_id = "user_taxon_#{taxon.id}"
+  element_id = "post_group_taxon_#{taxon.id}"
   checked = taxon_ids.include?(taxon.id)
 %>
 <%=
@@ -8,7 +8,7 @@
       '1',
       checked,
       data: {
-          url: user_admin_taxon_path(id: taxon.id, user_id: user.id)
+          url: post_group_admin_taxon_path(id: taxon.id, post_group_id: post_group.id)
       }
   )
 %>
@@ -21,8 +21,8 @@
           '+',
           class: 'js-taxon-loader',
           data: {
-              url: children_admin_taxon_path(id: taxon.id, user_id: user.id),
-              prefix: 'user'
+              url: children_admin_taxon_path(id: taxon.id, post_group_id: post_group.id),
+              prefix: 'post_group'
           },
           type: :button
       )
@@ -33,10 +33,10 @@
         <li>
           <%=
             render(
-                partial: 'admin/users/entity/components/taxonomy/taxon',
+                partial: 'admin/post_groups/entity/taxonomy/taxon',
                 locals: {
                     taxon: child,
-                    user: user,
+                    post_group: post_group,
                     taxon_ids: taxon_ids
                 }
             )

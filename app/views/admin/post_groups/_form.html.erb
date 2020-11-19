@@ -1,0 +1,18 @@
+<%= form_with(Biovision::Components::BaseComponent.form_options(entity)) do |f| %>
+  <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+
+  <dl class="fields">
+    <%= render partial: 'shared/forms/priority', locals: { f: f } %>
+    <%= render partial: 'shared/forms/field', locals: { f: f, field: :slug, options: { pattern: PostGroup::SLUG_PATTERN_HTML } } %>
+    <%= render partial: 'shared/forms/field', locals: { f: f, field: :name } %>
+    <%= render partial: 'shared/forms/field', locals: { f: f, field: :nav_text } %>
+    <%= render partial: 'shared/forms/entity_flags', locals: { f: f } %>
+  </dl>
+
+  <%= render 'shared/forms/state_container' %>
+
+  <div class="buttons">
+    <%= hidden_field_tag :entity_id, entity.id %>
+    <%= f.button t(:save), class: 'button button-save' %>
+  </div>
+<% end %>

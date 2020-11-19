@@ -68,6 +68,8 @@ module Comunit
 
       # @param [ApplicationRecord] entity
       def self.sync(entity)
+        return unless entity.attributes.key?('data')
+
         NetworkEntitySyncJob.perform_later(entity.class.to_s, entity.id)
       end
 

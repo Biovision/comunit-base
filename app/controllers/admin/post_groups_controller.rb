@@ -1,50 +1,24 @@
 # frozen_string_literal: true
 
-# Administrative part of post group management
+# Managing post groups
 class Admin::PostGroupsController < AdminController
+  include CreateAndModifyEntities
+  include ListAndShowEntities
   include EntityPriority
   include ToggleableEntity
 
-  before_action :set_entity, except: :index
+  before_action :set_entity, except: %i[check create index new]
 
-  # get /admin/post_groups
-  def index
-    @collection = PostGroup.list_for_administration
-  end
-
-  # get /admin/post_groups/:id
-  def show
-  end
-
-  # put /admin/post_groups/:id/categories/:category_id
-  def add_category
-    @entity.add_category(PostCategory.find_by(id: params[:category_id]))
+  # put /admin/post_groups/:id/taxa/:taxon_id
+  def add_taxon
+    @entity.add_taxon(Taxon.find_by(id: params[:taxon_id]))
 
     head :no_content
   end
 
-  # get /admin/post_groups/:id/tags?q=
-  def tags
-    @collection = PostTag.with_name_like(params[:q]).list_for_administration.first(50)
-  end
-
-  # delete /admin/post_groups/:id/categories/:category_id
-  def remove_category
-    @entity.remove_category(PostCategory.find_by(id: params[:category_id]))
-
-    head :no_content
-  end
-
-  # put /admin/post_groups/:id/tags/:tag_id
-  def add_tag
-    @entity.add_tag(PostTag.find_by(id: params[:tag_id]))
-
-    head :no_content
-  end
-
-  # delete /admin/post_groups/:id/tags/:tag_id
-  def remove_tag
-    @entity.remove_tag(PostTag.find_by(id: params[:tag_id]))
+  # delete /admin/post_groups/:id/taxa/:taxon_id
+  def remove_taxon
+    @entity.remove_taxon(Taxon.find_by(id: params[:taxon_id]))
 
     head :no_content
   end
@@ -58,10 +32,5 @@ class Admin::PostGroupsController < AdminController
   def restrict_access
     error = 'Managing post groups is not allowed'
     handle_http_401(error) unless component_handler.allow?('chief_editor')
-  end
-
-  def set_entity
-    @entity = PostGroup.find_by(id: params[:id])
-    handle_http_404('Cannot find post_group') if @entity.nil?
   end
 end

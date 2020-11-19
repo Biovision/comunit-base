@@ -15,140 +15,38 @@ ru:
     other: "%{count} категорий публикаций"
   activerecord:
     models:
-      editorial_member: "Член редакции"
-      editorial_member_post_type: "Тип публикации для члена редакции"
-      featured_post: "Избранная публикация"
       post: "Публикация"
       post_attachment: "Приложение к публикации"
-      post_category: "Категория публикации"
       post_group: "Группа категорий публикаций"
-      post_group_category: "Категория публикаций в группе"
-      post_group_tag: "Метка публикаций в группе"
-      post_illustration: "Иллюстрация в теле публикации"
+      post_group_taxon: "Таксон в группе публикаций"
       post_image: "Картинка для публикации"
-      post_layout: "Шаблон отображения публикации"
-      post_post_category: "Связь категории и публикации"
-      post_post_tag: "Метка у публикации"
-      post_tag: "Метка"
       post_taxon: "Таксон у публикации"
-      post_type: "Тип публикации"
       post_zen_category: "Категория Яндекс.Дзен для публикации"
-      site_post: "Состояние публикации на сайте"
-      theme: "Тема публикаций"
       zen_category: "Категория Яндекс.Дзен"
-    errors:
-      messages:
-        mismatches_post_type: "имеет другой тип публикации"
-      models:
-        post_category:
-          attributes:
-            parent_id:
-              is_too_deep: "находится слишком глубоко"
     attributes:
-      editorial_member:
-        about: "Подробное описание"
-        lead: "Краткое описание"
-        priority: "Порядок сортировки"
-        title: "Титул"
-        user: "Пользователь"
-        user_id: "Пользователь"
-        visible: "Показывать"
-      editorial_member_post_type:
-        editorial_member: "Член редакции"
-        editorial_member_id: "Член редакции"
-        post_type: "Тип публикации"
-        post_type_id: "Тип публикации"
-      featured_post:
-        language: "Язык"
-        language_id: "Язык"
-        post: "Публикация"
-        post_id: "Публикация"
-        priority: "Порядок сортировки"
       post:
-        allow_comments: "Разрешить комментарии"
-        allow_votes: "Разрешить голосовать"
-        approved: "Одобрено к показу"
-        author_name: "Имя автора"
-        author_title: "Титул автора"
-        author_url: "URL автора"
         body: "Текст"
-        created_at: "Время публикации"
-        explicit: "Откровенное содержание"
-        image: "Изображение"
-        image_alt_text: "Альтернативный текст для изображения"
-        image_name: "Название изображения"
-        image_source_link: "Ссылка на источник изображения"
-        image_source_name: "Источник изображения"
-        language_id: "Язык"
+        comments_count: "Количество комментариев"
+        featured: "Тема дня"
         lead: "Аннотация"
-        meta_description: "Описание для метатэга"
-        meta_keywords: "Ключевые слова для метатэга"
-        meta_title: "Название для заголовка окна"
-        original_post_id: "Оригинальная публикация"
-        original_title: "Оригинальное название"
-        privacy: "Видимость"
-        post_categories: "Категории"
-        post_category: "Категория"
-        post_category_id: "Категория"
-        post_layout: "Шаблон"
-        post_layout_id: "Шаблон"
-        post_type: "Тип"
-        post_type_id: "Тип"
         publication_time: "Время публикации"
         rating: "Рейтинг"
-        region_id: "Регион"
         show_owner: "Показывать автора"
-        slug: "Идентификатор для URL"
         source_link: "Ссылка на источник"
         source_name: "Название источника"
-        tags_cache: "Метки"
-        time_required: "Время на прочтение"
         title: "Название"
-        translation: "Перевод"
-        translator_name: "Имя переводчика"
-        user: "Автор"
-        uuid: "UUID"
         view_count: "Количество просмотров"
-        visible: "Показывать"
       post_attachment:
         file: "Файл"
         name: "Название"
         post: "Публикация"
         post_id: "Публикация"
-      post_category:
-        children_cache: "Кеш дочек"
-        meta_description: "Описание для тэга meta"
-        name: "Название"
-        nav_text: "Название для ссылки"
-        parent_id: "Родительская категория"
-        parents_cache: "Кеш родителей"
-        post_type: "Тип публикации"
-        post_type_id: "Тип публикации"
-        priority: "Порядок сортировки"
-        slug: "Идентификатор"
-        visible: "Показывать"
       post_group:
         name: "Название"
         nav_text: "Текст для навигации"
         priority: "Порядок сортировки"
         slug: "Идентификатор"
         visible: "Показывать"
-      post_group_category:
-        post_category: "Категория"
-        post_category_id: "Категория"
-        post_group: "Группа"
-        post_group_id: "Группа"
-        priority: "Порядок сортировки"
-      post_group_tag:
-        post_tag: "Метка"
-        post_tag_id: "Метка"
-        post_group: "Группа"
-        post_group_id: "Группа"
-        priority: "Порядок сортировки"
-      post_illustration:
-        image: "Картинка"
-        user: "Пользователь"
-        user_id: "Пользователь"
       post_image:
         caption: "Название"
         description: "Описание"
@@ -160,45 +58,12 @@ ru:
         source_link: "Ссылка на источник изображения"
         source_name: "Источник изображения"
         visible: "Показывать"
-      post_layout:
-        name: "Название"
-        slug: "Идентификатор"
-      post_post_category:
-        post: "Публикация"
-        post_category: "Категория"
-        post_category_id: "Категория"
-      post_tag:
-        name: "Название"
-        post_type: "Тип публикации"
-        post_type_id: "Тип публикации"
-        posts_count: "Количество публикаций"
-        slug: "Идентификатор"
-      post_type:
-        category_depth: "Глубина категорий"
-        default_category_name: "Название категории по умолчанию"
-        name: "Название"
-        slug: "Идентификатор"
       post_zen_category:
-        post: "Публикация"
-        post_id: "Публикация"
         zen_category: "Категория Яндекс.Дзен"
         zen_category_id: "Категория Яндекс.Дзен"
-      site_post:
-        post: "Публикация"
-        post_id: "Публикация"
-        site: "Сайт"
-        site_id: "Сайт"
-        state: "Состояние"
-        states:
-          original: "Оригинал"
-          copied: "Скопировано"
-          removed: "Удалено"
       zen_category:
         name: "Название"
         posts_count: "Количество публикаций"
-      theme:
-        name: "Название"
-        slug: "Идентификатор"
   attributes:
     post: "Публикация"
     post_id: "Публикация"
@@ -207,31 +72,22 @@ ru:
       posts:
         taxa:
           heading: "Список таксонов"
-    editorial_members:
-      nav_item:
-        description: "Управление публичным составом редакции"
-        text: "Члены редакции"
-      index:
-        heading: "Члены редакции"
-        title: "Члены редакции"
-      show:
-        heading: "Член редакции"
-        title: "Редакция: %{name}"
-        post_types: "Доступные типы публикаций"
-    featured_posts:
-      nav_item:
-        description: "Управление списком избранных публикаций"
-        text: "Избранные публикации"
-      index:
-        add: "Добавить"
-        heading: "Избранные публикации"
-        title: "Избранные публикации"
-    post_categories:
-      show:
-        title: "Категория публикаций «%{name}»"
-        children: "Дочерние категории"
-        new_child: "Добавить дочернюю категорию"
     post_groups:
+      new:
+        title: "Новая группа категорий"
+        heading: "Добавление группы категории публикаций"
+        nav_text: "Создать"
+      edit:
+        title: "Редактирование группы категории публикаций"
+        heading: "Редактирование группы категории публикаций"
+        nav_text: "Редактировать"
+      destroy:
+        success: "Группа категорий публикаций успешно удалена"
+      form:
+        guidelines:
+          name: "Максимум 50 символов."
+          nav_text: "Используется при выводе в меню, максимум 50 символов."
+          slug: "Используется в коде. Только латинские буквы, цифры, подчёркивание и дефис (кроме первого и последнего символа), максимум 30 символов."
       nav_item:
         description: "Управление группировкой категорий публикаций"
         text: "Группы категорий публикаций"
@@ -244,16 +100,30 @@ ru:
         add_category: "Добавить категорию"
         tags: "Метки"
         add_tag: "Добавить метку"
-    post_illustrations:
-      nav_item:
-        description: "Управление загруженными картинками публикаций"
-        text: "Загруженные картинки для публикаций"
-      index:
-        title: "Картинки для публикаций, страница %{page}"
-        heading: "Картинки в публикациях"
-      show:
-        title: "Картинка в публикации «%{name}»"
+        taxa: "Таксоны"
     post_images:
+      new:
+        heading: "Добавление картинки к публикации"
+        nav_text: "Добавить картинку"
+        title: "Новая картинка публикации"
+      edit:
+        heading: "Редактирование изображения публикации"
+        nav_text: "Редактировать"
+        title: "Редактирование изображения публикации"
+      update:
+        success: "Изображение публикации отредактировано"
+      destroy:
+        success: "Изображение публикации удалено"
+      form:
+        guidelines:
+          caption: "Максимум 255 символов."
+          description: "Максимум 5000 символов."
+          image: "Максимальный размер — 3000×3000, формат — JPG или PNG."
+          image_alt_text: "Краткое описание того, что происходит на картинке. До 200 символов."
+          source_link: "Будет открываться при нажатии на имя автора картинки."
+          source_name: "ФИО или название организации. Будет отображаться в подписи к картинке."
+        placeholders:
+          source_link: "https://example.org/user42"
       nav_item:
         description: "Управление картинками публикаций"
         text: "Картинки публикаций"
@@ -262,44 +132,6 @@ ru:
         title: "Картинки публикаций, страница %{page}"
       show:
         title: "Картинка публикации «%{caption}»"
-    post_tags:
-      nav_item:
-        description: "Управление метками публикаций"
-        text: "Метки публикаций"
-      index:
-        heading: "Метки публикаций"
-        title: "Метки публикаций, страница %{page}"
-      show:
-        title: "Метка публикаций «%{name}»"
-      posts:
-        heading: "Публикации"
-        nav_text: "Публикации"
-        title: "Публикации с меткой «%{name}», страница %{page}"
-    post_types:
-      nav_item:
-        description: "Управление типами и категориями публикаций"
-        text: "Типы публикаций"
-      index:
-        heading: "Типы публикаций"
-        title: "Типы публикаций"
-      show:
-        title: "Тип публикаций «%{name}»"
-        children: "Дочерние типы"
-      post_categories:
-        heading: "Категории публикаций"
-        nav_text: "Категории"
-        title: "Категории типа публикаций «%{name}»"
-      post_tags:
-        heading: "Метки публикаций"
-        nav_text: "Метки"
-        title: "Метки публикаций типа «%{name}», страница %{page}"
-      new_post:
-        title: "Новая публикация типа «%{name}»"
-        heading: "Добавить публикацию"
-      authors:
-        title: "Авторы для типа публикаций «%{name}»"
-        nav_text: "Авторы"
-        heading: "Авторы"
     posts:
       nav_item:
         description: "Управление публикациями"
@@ -325,159 +157,50 @@ ru:
           heading: "Приложения"
         sync:
           heading: "Синхронизация"
-    themes:
-      index:
-        title: "Темы группировки публикаций"
-        heading: "Темы группировки публикаций"
-        description: "Управление темами группировки публикаций и новостей на главной"
-      show:
-        title: "Тема группировки публикаций «%{name}»"
-    index:
-      dashboard:
-        biovision_post:
-          heading: "Модуль публикаций"
-        posts_component:
-          heading: "Редакция"
-        posts:
-          heading: "Публикации"
+      edit:
+        title: "Редактирование публикации"
+        heading: "Редактирование публикации"
+      destroy:
+        success: "Публикация успешно удалена"
+      form:
+        guidelines:
+          author_name: "Если указать, будет отображаться вместо текущего пользователя"
+          author_title: "Например, должность или звание"
+          author_url: "Если указать, имя автора будет ссылкой сюда"
+          image: "Максимальный размер — 3000×3000, формат — JPG или PNG."
+          image_alt_text: "Краткое описание того, что происходит на картинке. До 200 символов."
+          image_name: "Будет отображаться в качестве подписи к картинке."
+          image_source_link: "Будет открываться при нажатии на имя автора картинки."
+          image_source_name: "ФИО или название организации. Будет отображаться в подписи к картинке."
+          language_id: "Язык"
+          lead: "Краткая суть, максимум 5000 символов."
+          meta_description: "50–55 слов. Максимум 250 символов."
+          meta_keywords: "Максимум 250 символов."
+          meta_title: "Если указать, будет отображаться в заголовке окна вместо названия. Максимум 250 символов."
+          original_title: "Название в том виде, в котором оно было у источника. Максимум 250 символов."
+          slug: "Только латинские буквы, цифры, точки, дефисы и подчёркивания. Максимум 200 символов."
+          source: "Название источника публикации (агентство и т.п.)"
+          source_link: "Будет открываться при нажатии на название источника"
+          time_required: "Задаётся в минутах"
+          title: "Максимум 255 символов."
+        placeholders:
+          image_source_link: "https://example.com/user42"
+          source_link: "https://example.org/posts/123"
+        tags: "Метки"
+        gallery:
+          heading: "Галерея картинок"
+          add_image: "Добавить изображение"
+        attachments:
+          heading: "Приложения"
+          add: "Добавить приложение"
+        categories: "Категории"
+        cross_post:
+          heading: "Кросс-пост"
   biovision:
     components:
       posts:
         name: "Публикации"
-  editorial_members:
-    new:
-      heading: "Добавление члена редакции"
-      nav_text: "Добавить пользователя"
-      title: "Новый член редакции"
-    edit:
-      heading: "Редактирование члена редакции"
-      nav_text: "Редактировать"
-      title: "Редактирование члена редакции"
-    update:
-      success: "Член редакции успешно отредактирован"
-    destroy:
-      success: "Член редакции успешно удалён"
-    form:
-      guidelines:
-        about: "Максимум 5000 символов."
-        lead: "Максимум 170 символов."
-        title: "Максимум 150 символов."
-      post_types: "Доступные типы публикаций"
-  post_categories:
-    new:
-      title: "Новая категория публикаций"
-      heading: "Добавление категории публикаций"
-    edit:
-      title: "Редактирование категории публикаций"
-      heading: "Редактирование категории публикаций"
-      forbidden: "Редактирование этой категории публикации запрещено"
-    update:
-      success: "Категория публикаций успешно изменена"
-    destroy:
-      success: "Категория публикаций успешно удалена"
-    form:
-      guidelines:
-        meta_description: "Максимум 250 символов."
-        name: "Максимум 50 символов."
-        nav_text: "Используется для ссылок на категорию. Максимум 50 символов."
-        slug: "Используется в URL. Только латинские буквы, цифры и дефис (кроме первого и последнего символа), максимум 50 символов."
-  post_groups:
-    new:
-      title: "Новая группа категорий"
-      heading: "Добавление группы категории публикаций"
-      nav_text: "Создать"
-    edit:
-      title: "Редактирование группы категории публикаций"
-      heading: "Редактирование группы категории публикаций"
-      nav_text: "Редактировать"
-    update:
-      success: "Группа категории публикаций успешно изменена"
-    destroy:
-      success: "Группа категорий публикаций успешно удалена"
-    form:
-      guidelines:
-        name: "Максимум 50 символов."
-        nav_text: "Используется при выводе в меню, максимум 50 символов."
-        slug: "Используется в коде. Только латинские буквы, цифры, подчёркивание и дефис (кроме первого и последнего символа), максимум 30 символов."
-  post_tags:
-    new:
-      heading: "Добавление метки публикаций"
-      nav_text: "Добавить"
-      title: "Новая метка публикаций"
-    edit:
-      heading: "Редактирование метки публикаций"
-      nav_text: "Редактировать"
-      title: "Редактирование метки публикаций"
-    update:
-      success: "Метки публикаций отредактирована"
-    destroy:
-      success: "Метка публикаций удалена"
-    form:
-      guidelines:
-        name: "Максимум 50 символов."
-  post_images:
-    new:
-      heading: "Добавление картинки к публикации"
-      nav_text: "Добавить картинку"
-      title: "Новая картинка публикации"
-    edit:
-      heading: "Редактирование изображения публикации"
-      nav_text: "Редактировать"
-      title: "Редактирование изображения публикации"
-    update:
-      success: "Изображение публикации отредактировано"
-    destroy:
-      success: "Изображение публикации удалено"
-    form:
-      guidelines:
-        caption: "Максимум 255 символов."
-        description: "Максимум 5000 символов."
-        image: "Максимальный размер — 3000×3000, формат — JPG или PNG."
-        image_alt_text: "Краткое описание того, что происходит на картинке. До 200 символов."
-        source_link: "Будет открываться при нажатии на имя автора картинки."
-        source_name: "ФИО или название организации. Будет отображаться в подписи к картинке."
-      placeholders:
-        source_link: "https://example.org/user42"
   posts:
-    edit:
-      title: "Редактирование публикации"
-      heading: "Редактирование публикации"
-    destroy:
-      success: "Публикация успешно удалена"
-    form:
-      guidelines:
-        author_name: "Если указать, будет отображаться вместо текущего пользователя"
-        author_title: "Например, должность или звание"
-        author_url: "Если указать, имя автора будет ссылкой сюда"
-        image: "Максимальный размер — 3000×3000, формат — JPG или PNG."
-        image_alt_text: "Краткое описание того, что происходит на картинке. До 200 символов."
-        image_name: "Будет отображаться в качестве подписи к картинке."
-        image_source_link: "Будет открываться при нажатии на имя автора картинки."
-        image_source_name: "ФИО или название организации. Будет отображаться в подписи к картинке."
-        language_id: "Язык"
-        lead: "Краткая суть, максимум 5000 символов."
-        meta_description: "50–55 слов. Максимум 250 символов."
-        meta_keywords: "Максимум 250 символов."
-        meta_title: "Если указать, будет отображаться в заголовке окна вместо названия. Максимум 250 символов."
-        original_title: "Название в том виде, в котором оно было у источника. Максимум 250 символов."
-        slug: "Только латинские буквы, цифры, точки, дефисы и подчёркивания. Максимум 200 символов."
-        source: "Название источника публикации (агентство и т.п.)"
-        source_link: "Будет открываться при нажатии на название источника"
-        time_required: "Задаётся в минутах"
-        title: "Максимум 255 символов."
-      placeholders:
-        image_source_link: "https://example.com/user42"
-        source_link: "https://example.org/posts/123"
-      tags: "Метки"
-      gallery:
-        heading: "Галерея картинок"
-        add_image: "Добавить изображение"
-      attachments:
-        heading: "Приложения"
-        add: "Добавить приложение"
-      categories: "Категории"
-      cross_post:
-        heading: "Кросс-пост"
     post:
       source: "Источник"
       image_credit: "Источник изображения"
@@ -508,16 +231,6 @@ ru:
       title: "Архив публикаций"
       year: "%{year} год"
       heading: "Архив публикаций"
-  themes:
-    update:
-      success: "Тема группировки успешно обновлена"
-    destroy:
-      success: "Тема группировки успешно удалена"
-    new:
-      title: "Добавить тему группировки"
-    edit:
-      title: "Редактирование темы группировки"
-      forbidden: "Редактирование этой темы группировки запрещено"
   index:
     dashboard:
       biovision_post:

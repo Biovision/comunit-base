@@ -1,5 +1,5 @@
 <% TaxonType.active.list_for_administration.each do |taxon_type| %>
-  <% taxon_ids = taxon_type.taxon_ids_for_user(user) %>
+  <% taxon_ids = taxon_type.taxon_ids_for_post_group(post_group) %>
   <details <%= taxon_ids.any? ? 'open' : '' %>>
     <summary><%= taxon_type.name %> (<%= taxon_ids.count %>)</summary>
     <ul class="entity-taxon-list entity-links">
@@ -7,10 +7,10 @@
         <li>
           <%=
             render(
-                partial: 'admin/users/entity/components/taxonomy/taxon',
+                partial: 'admin/post_groups/entity/taxonomy/taxon',
                 locals: {
                     taxon: taxon,
-                    user: user,
+                    post_group: post_group,
                     taxon_ids: taxon_ids
                 }
             )

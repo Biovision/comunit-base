@@ -78,6 +78,8 @@ module CreateAndModifyEntities
   end
 
   def ensure_site_presence
+    return unless @entity.attributes.key?('data')
+
     @entity.data['comunit'] ||= {}
     @entity.data['comunit']['site_id'] = ENV['SITE_ID']
   end

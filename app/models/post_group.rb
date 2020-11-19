@@ -25,10 +25,8 @@ class PostGroup < ApplicationRecord
 
   toggleable :visible
 
-  has_many :post_group_categories, dependent: :delete_all
-  has_many :post_group_tags, dependent: :delete_all
-  has_many :post_categories, through: :post_group_categories
-  has_many :post_tags, through: :post_group_tags
+  has_many :post_group_taxa, dependent: :delete_all
+  has_many :taxa, through: :post_group_taxa
 
   before_validation { self.slug = slug.to_s.downcase }
 
@@ -45,34 +43,19 @@ class PostGroup < ApplicationRecord
     find_by(slug: slug)
   end
 
-  # @param [PostCategory] entity
-  def add_category(entity)
-    post_group_categories.create(post_category: entity)
+  # @param [Taxon] entity
+  def add_taxon(entity)
+    post_group_taxa.create(taxon: entity)
   end
 
-  # @param [PostCategory] entity
-  def remove_category(entity)
-    post_group_categories.where(post_category: entity).delete_all
+  # @param [Taxon] entity
+  def remove_taxon(entity)
+    post_group_taxa.where(taxon: entity).delete_all
   end
 
-  # @param [PostCategory] entity
-  def category?(entity)
-    post_group_categories.where(post_category: entity).exists?
-  end
-
-  # @param [PostTag] entity
-  def add_tag(entity)
-    post_group_tags.create(post_tag: entity)
-  end
-
-  # @param [PostTag] entity
-  def remove_tag(entity)
-    post_group_tags.where(post_tag: entity).delete_all
-  end
-
-  # @param [PostTag] entity
-  def tag?(entity)
-    post_group_tags.where(post_tag: entity).exists?
+  # @param [Taxon] entity
+  def taxon?(entity)
+    post_group_taxa.where(taxon: entity).exists?
   end
 
   # @param [Integer] page
@@ -80,5 +63,9 @@ class PostGroup < ApplicationRecord
     post_ids = PostPostCategory.where(post_category_id: post_category_ids).pluck(:post_id)
     post_ids += PostPostTag.where(post_tag_id: post_tag_ids).pluck(:post_id)
     Post.list_for_visitors.where(id: post_ids.uniq).page(page)
+  end
+
+  def text_for_link
+    name
   end
 end

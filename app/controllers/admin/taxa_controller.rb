@@ -15,9 +15,24 @@ class Admin::TaxaController < AdminController
     @user = User.find_by(id: params[:user_id])
   end
 
+  # put /admin/taxa/:id/post_groups/:post_group_id
+  def add_post_group
+    @entity.add_post_group(PostGroup.find_by(id: params[:post_group_id]))
+
+    head :no_content
+  end
+
+  # delete /admin/taxa/:id/post_groups/:post_group_id
+  def remove_post_group
+    @entity.remove_post_group(PostGroup.find_by(id: params[:post_group_id]))
+
+    head :no_content
+  end
+
   # get /admin/taxa/:id/children
   def children
     @user = User.find_by(id: params[:user_id])
+    @post_group = PostGroup.find_by(id: params[:post_group_id])
     @collection = @entity.child_items.list_for_administration
   end
 

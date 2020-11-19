@@ -2,18 +2,6 @@
 
 # Helper methods for Posts component
 module PostsHelper
-  # @param [PostType] entity
-  # @param [String] text
-  def admin_post_type_link(entity, text = entity.name)
-    link_to(text, admin_post_type_path(id: entity.id))
-  end
-
-  # @param [PostCategory] entity
-  # @param [String] text
-  def admin_post_category_link(entity, text = entity.name)
-    link_to(text, admin_post_category_path(id: entity.id))
-  end
-
   # @param [Post] entity
   # @param [String] text
   def admin_post_link(entity, text = entity.title)
@@ -24,20 +12,6 @@ module PostsHelper
   # @param [String] text
   def admin_post_tag_link(entity, text = entity.name)
     link_to(text, admin_post_tag_path(id: entity.id))
-  end
-
-  # @param [PostGroup] entity
-  # @param [String] text
-  # @param [Hash] options
-  def admin_post_group_link(entity, text = entity.name, options = {})
-    link_to(text, admin_post_group_path(id: entity.id), options)
-  end
-
-  # @param [Taxon] entity
-  # @param [String] text
-  # @param [Hash] options
-  def admin_taxon_link(entity, text = entity.text_for_link, options = {})
-    link_to(text, admin_taxon_path(id: entity.id), options)
   end
 
   # @param [PostIllustration] entity
