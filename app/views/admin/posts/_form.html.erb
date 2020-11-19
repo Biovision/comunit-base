@@ -1,0 +1,72 @@
+<%
+  model_name = entity.class.to_s.underscore
+  chief = component_handler.group?(:chief)
+%>
+<%= form_with(Biovision::Components::BaseComponent.form_options(entity)) do |f| %>
+  <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+
+  <dl class="fields">
+    <% if chief %>
+      <div>
+        <dt><%= entity.class.human_attribute_name(:user) %></dt>
+        <dd>WIP</dd>
+      </div>
+    <% end %>
+
+    <%= render partial: 'shared/forms/simple_image', locals: { f: f } %>
+    <%= render partial: 'shared/forms/field', locals: { f: f, field: :publication_time } %>
+    <%= render partial: 'shared/forms/field', locals: { f: f, field: :title } %>
+
+    <% if chief && !entity.id.nil? %>
+      <%= render partial: 'shared/forms/field', locals: { f: f, field: :slug, options: { pattern: Post::SLUG_PATTERN_HTML } } %>
+    <% end %>
+
+    <%= render partial: 'posts/form/taxa', locals: { f: f } %>
+
+    <%= render partial: 'shared/forms/field', locals: { f: f, field: :lead } %>
+
+    <div>
+      <dt><%= f.label :body %></dt>
+      <dd>
+        <% if chief %>
+          <div>
+            <button type="button" class="js-wysiwyg-toggle" data-element="<%= model_name %>_body">WYSIWYG</button>
+          </div>
+        <% end %>
+        <%=
+          f.text_area(
+              :body,
+              cols: 20,
+              rows: 25,
+              required: true,
+              data: {
+                  wysiwyg: 1,
+                  upload_url: admin_ckeditor_path(slug: component_handler.slug)
+              }
+          )
+        %>
+      </dd>
+    </div>
+
+    <%= render partial: 'shared/forms/field', locals: { f: f, field: :source_name } %>
+    <%= render partial: 'shared/forms/url_field', locals: { f: f, field: :source_link } %>
+
+    <% if chief %>
+      <%= render partial: 'shared/forms/field', locals: { f: f, field: :rating } %>
+    <% end %>
+
+    <%= render partial: 'shared/forms/entity_flags', locals: { f: f } %>
+  </dl>
+
+  <%= render partial: 'components/posts/form/attachments', locals: { entity: entity } %>
+  <%#= render partial: 'admin/posts/form/cross_post', locals: { entity: entity, handler: handler } %>
+
+  <%= render 'shared/forms/state_container' %>
+
+  <div class="buttons">
+    <%= hidden_field_tag :entity_id, entity.id %>
+    <%= f.button t(:save), class: 'button button-save' %>
+  </div>
+<% end %>
+
+<%= render 'shared/forms/toggle_wysiwyg' %>

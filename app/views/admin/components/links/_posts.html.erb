@@ -1,4 +1,9 @@
-<li><%= render 'admin/posts/nav_item' %></li>
+<li>
+  <%= render 'admin/posts/nav_item' %>
+  <ul class="actions">
+    <li><%= create_icon(new_admin_post_path) %></li>
+  </ul>
+</li>
 <% if handler.allow?('chief_editor') %>
   <li><%= render 'admin/post_groups/nav_item' %></li>
 <!--  <li><%#= render 'admin/post_tags/nav_item' %></li>-->

@@ -6,37 +6,36 @@
     <% if handler.editable?(post) %>
       <ul class="actions">
         <% if handler.group?(:chief) %>
-          <li><%= gear_icon(admin_post_path(id: post.id)) %></li>
+          <li><%= gear_icon(post) %></li>
         <% elsif post.owned_by?(current_user) %>
           <li><%= gear_icon(my_post_path(id: post.id)) %></li>
         <% end %>
-        <li><%= edit_icon(handler.edit_path(post)) %></li>
+        <li><%= edit_icon(post) %></li>
       </ul>
     <% end %>
 
-    <% unless post.image.blank? %>
+    <% unless post.simple_image.blank? %>
+      <% image = post.simple_image %>
       <figure itemprop="image" itemscope itemtype="http://schema.org/ImageObject" role="group">
-        <%= post_image_large(post, { itemprop: 'about' }) %>
-        <meta itemprop="url" content="<%= request.protocol + request.host_with_port + post.image.url %>"/>
-        <% if post.has_image_data? %>
+        <%= simple_image_hd(post, { itemprop: 'about' }) %>
+        <meta itemprop="url" content="<%= request.protocol + request.host_with_port + image.image.url %>"/>
           <figcaption>
-            <% unless post.image_name.blank? %>
+            <% unless image.caption.blank? %>
               <div class="image_name" itemprop="caption">
-                <%= post.image_name %>
+                <%= image.caption %>
               </div>
             <% end %>
-            <% unless post.image_source_name.blank? %>
+            <% unless image.source_name.blank? %>
               <div class="image_source" itemprop="author">
                 <span><%= t('.image_credit') %></span>
-                <% if post.image_source_link.blank? %>
-                  <%= post.image_source_name %>
+                <% if image.source_link.blank? %>
+                  <%= image.source_name %>
                 <% else %>
-                  <%= link_to(post.image_source_name, post.image_source_link, rel: 'external nofollow noopener noreferrer', itemprop: 'url', target: '_blank') %>
+                  <%= link_to(image.source_name, image.source_link, rel: 'external nofollow noopener noreferrer', itemprop: 'url', target: '_blank') %>
                 <% end %>
               </div>
             <% end %>
           </figcaption>
-        <% end %>
       </figure>
     <% end %>
 
@@ -48,7 +47,7 @@
       </div>
     </div>
 
-    <%=
+    <%#=
       render(
           partial: 'posts/entity/gallery',
           locals: {
@@ -56,14 +55,6 @@
           }
       )
     %>
-
-    <% if post.tags_cache.any? %>
-      <ul class="tags" aria-label="<%= t('activerecord.attributes.post.tags_cache') %>">
-        <% post.tags_cache.each do |tag_name| %>
-          <li><%= tagged_posts_link(tag_name, post) %></li>
-        <% end %>
-      </ul>
-    <% end %>
 
     <% if post.post_attachments.any? %>
       <section class="post-attachments">
@@ -84,19 +75,11 @@
     <footer>
       <% if post.show_owner? %>
         <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <span itemprop="name" aria-label="<%= t('activerecord.attributes.post.user') %>">
-            <% if post.author_name.blank? %>
+          <span itemprop="name" aria-label="<%= post.class.human_attribute_name(:user) %>">
               <%= user_link(post.user) %>
-            <% else %>
-              <%= post_author_link(post) %>
-              <% unless post.author_title.blank? %>
-              <span class="author-title"><%= post.author_title %></span>
-              <% end %>
-            <% end %>
           </span>
         </div>
       <% end %>
-      <% if post.has_source_data? %>
         <div class="source">
           <span><%= t('.source') %>:</span>
           <% if post.source_link.blank? %>
@@ -105,17 +88,14 @@
             <%= link_to(post.source_name, post.source_link, rel: 'external nofollow noopener noreferrer', itemprop: 'isBasedOn', target: '_blank') %>
           <% end %>
         </div>
-      <% end %>
 
       <div class="time">
-        <%= time_tag post.publication_time, itemProp: 'datePublished', aria: { label: t('activerecord.attributes.post.created_at') } %>
+        <%= time_tag post.publication_time, itemProp: 'datePublished', aria: { label: post.class.human_attribute_name(:publication_time) } %>
       </div>
 
       <div class="post-counters">
         <span class="views"><%= post.view_count %></span>
-        <% if post.allow_comments? && 'CommentableItem'.safe_constantize %>
-          <span class="comments"><%= post.comments_count %></span>
-        <% end %>
+        <span class="comments"><%= post.comments_count %></span>
       </div>
 
       <% if post.taxa.any? %>

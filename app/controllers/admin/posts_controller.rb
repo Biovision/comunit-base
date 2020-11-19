@@ -2,19 +2,17 @@
 
 # Administrative part for posts management
 class Admin::PostsController < AdminController
+  include CreateAndModifyEntities
+  include ListAndShowEntities
   include LockableEntity
   include ToggleableEntity
 
-  before_action :set_entity, except: %i[index search]
+  before_action :set_entity, except: %i[check create index new search]
 
   # get /admin/posts
   def index
     @filter = params[:filter] || {}
     @collection = Post.page_for_administration(current_page, @filter)
-  end
-
-  # get /admin/posts/:id
-  def show
   end
 
   # get /admin/posts/:id/images
@@ -27,20 +25,10 @@ class Admin::PostsController < AdminController
     @collection = params.key?(:q) ? search_posts(param_from_request(:q)) : []
   end
 
-  # get /admin/posts/regions
-  def regions
-    @collection = RegionManager.new(current_user).for_tree(params[:parent_id])
-  end
-
   private
 
   def component_class
     Biovision::Components::PostsComponent
-  end
-
-  def set_entity
-    @entity = Post.find_by(id: params[:id])
-    handle_http_404('Cannot find post') if @entity.nil?
   end
 
   # @param [String] q

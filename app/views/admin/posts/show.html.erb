@@ -4,111 +4,39 @@
   <span><%= @entity.title %></span>
 <% end %>
 
-<% handler = PostManager.new(@entity) %>
-
 <article>
   <h1><%= @entity.title %></h1>
 
-  <nav>
-    <%=
-      link_to(
-          t('admin.posts.images.nav_text'),
-          images_admin_post_path(id: @entity.id),
-          class: 'button button-secondary'
-      )
-    %>
-  </nav>
-
   <ul class="actions">
-    <li><%= back_icon(admin_posts_path) %></li>
     <% if @entity.visible? %>
-      <li><%= world_icon(handler.post_path) %></li>
+      <li><%= world_icon(@entity) %></li>
     <% end %>
     <% if @entity.editable_by?(current_user) %>
-      <li><%= edit_icon(handler.edit_path) %></li>
+      <li><%= edit_icon(@entity) %></li>
       <li class="danger"><%= destroy_icon(@entity) %></li>
     <% end %>
   </ul>
 
-  <dl>
-    <dt><%= t('activerecord.attributes.post.post_type') %></dt>
-    <dd><%= admin_post_type_link(@entity.post_type) %></dd>
+  <dl class="fields">
+    <%= render partial: 'shared/entity/simple_image', locals: { entity: @entity } %>
+    <%= render partial: 'shared/entity/text_field', locals: { entity: @entity, field: :title } %>
+    <%= render partial: 'shared/entity/slug', locals: { entity: @entity } %>
 
-    <dt><%= t('activerecord.attributes.post.slug') %></dt>
-    <dd><%= @entity.slug %></dd>
+    <div>
+      <dt><%= @entity.class.human_attribute_name(:publication_time) %></dt>
+      <dd><%= time_tag(@entity.publication_time) %></dd>
+    </div>
 
-    <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
+    <div>
+      <dt><%= @entity.class.human_attribute_name(:user) %></dt>
+      <dd><%= admin_entity_link(@entity.user) %></dd>
+    </div>
 
-    <dt><%= t('activerecord.attributes.post.publication_time') %></dt>
-    <dd><%= time_tag(@entity.publication_time) %></dd>
-
-    <dt><%= t('activerecord.attributes.post.user') %></dt>
-    <dd><%= admin_user_link(@entity.user) %></dd>
-
-    <% unless @entity.author_name.blank? %>
-      <dt><%= t('activerecord.attributes.post.author_name') %></dt>
-      <dd><%= @entity.author_name %></dd>
-    <% end %>
-
-    <% unless @entity.author_title.blank? %>
-      <dt><%= t('activerecord.attributes.post.author_title') %></dt>
-      <dd><%= @entity.author_title %></dd>
-    <% end %>
-
-    <% unless @entity.author_url.blank? %>
-      <dt><%= t('activerecord.attributes.post.author_url') %></dt>
-      <dd><%= @entity.author_url %></dd>
-    <% end %>
-
-    <% unless @entity.image.blank? %>
-      <dt><%= t('activerecord.attributes.post.image') %></dt>
-      <dd>
-        <figure role="group" class="preview">
-          <%= link_to(post_image_small(@entity), @entity.image.url) %>
-          <figcaption><%= @entity.image_alt_text %></figcaption>
-        </figure>
-      </dd>
-    <% end %>
-
-    <% unless @entity.image_name.blank? %>
-      <dt><%= t('activerecord.attributes.post.image_name') %></dt>
-      <dd><%= @entity.image_name %></dd>
-    <% end %>
-
-    <% unless @entity.image_source_name.blank? %>
-      <dt><%= t('activerecord.attributes.post.image_source_name') %></dt>
-      <dd><%= @entity.image_source_name %></dd>
-    <% end %>
-
-    <% unless @entity.image_source_link.blank? %>
-      <dt><%= t('activerecord.attributes.post.image_source_link') %></dt>
-      <dd><%= @entity.image_source_link %></dd>
-    <% end %>
-
-    <% unless @entity.lead.blank? %>
-      <dt><%= t('activerecord.attributes.post.lead') %></dt>
-      <dd><%= @entity.lead %></dd>
-    <% end %>
-
-    <dt><%= t('activerecord.attributes.post.body') %></dt>
-    <dd>
-      <div class="text">
-        <%= raw @entity.body %>
-      </div>
-    </dd>
-
-    <% unless @entity.source_name.blank? %>
-      <dt><%= t('activerecord.attributes.post.source_name') %></dt>
-      <dd><%= @entity.source_name %></dd>
-    <% end %>
-
-    <% unless @entity.source_link.blank? %>
-      <dt><%= t('activerecord.attributes.post.source_link') %></dt>
-      <dd><%= @entity.source_link %></dd>
-    <% end %>
-
-    <dt><%= t('activerecord.attributes.post.rating') %></dt>
-    <dd><%= @entity.rating %></dd>
+    <%= render partial: 'shared/entity/text_field', locals: { entity: @entity, field: :lead } %>
+    <%= render partial: 'shared/entity/raw_text_field', locals: { entity: @entity, field: :body } %>
+    <%= render partial: 'shared/entity/text_field', locals: { entity: @entity, field: :source_name } %>
+    <%= render partial: 'shared/entity/text_field', locals: { entity: @entity, field: :source_link } %>
+    <%= render partial: 'shared/entity/text_field', locals: { entity: @entity, field: :rating } %>
 
     <% if @entity.taxa.any? %>
       <div>
@@ -123,41 +51,24 @@
       </div>
     <% end %>
 
-    <% if @entity.post_tags.any? %>
-      <dt><%= t('posts.form.tags') %></dt>
-      <dd>
-        <ul>
-          <% @entity.post_tags.each do |post_tag| %>
-            <li><%= admin_post_tag_link(post_tag) %></li>
-          <% end %>
-        </ul>
-      </dd>
-    <% end %>
-
     <% if @entity.post_images.any? %>
-      <dt><%= link_to(t('.images'), images_admin_post_path(id: @entity.id)) %></dt>
-      <dd>
-        <ul class="image-previews">
-          <% @entity.post_images.list_for_administration.each do |post_image| %>
-            <li><%= post_image_preview(post_image) %></li>
-          <% end %>
-        </ul>
-      </dd>
+      <div>
+        <dt><%= link_to(t('.images'), images_admin_post_path(id: @entity.id)) %></dt>
+        <dd>
+          <ul class="image-previews">
+            <% @entity.post_images.list_for_administration.each do |post_image| %>
+              <li><%= post_image_preview(post_image) %></li>
+            <% end %>
+          </ul>
+        </dd>
+      </div>
     <% end %>
 
     <%= render partial: 'shared/entity/uuid', locals: { entity: @entity } %>
+    <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
   </dl>
 
-  <%=
-    render(
-        partial: 'shared/admin/toggleable',
-        locals: {
-            entity: @entity,
-            url: toggle_admin_post_path(id: @entity.id)
-        }
-    )
-  %>
-
+  <%= render(partial: 'shared/admin/toggle', locals: { entity: @entity}) %>
   <%= render partial: 'shared/track', locals: { item: @entity } %>
 
   <%=
@@ -172,20 +83,8 @@
 
   <%=
     render(
-        partial: 'admin/posts/entity/links',
-        locals: {
-            post: @entity,
-            collection: @entity.post_links.list_for_administration
-        }
-    )
-  %>
-
-  <%=
-    render(
         partial: 'admin/posts/entity/additional_data',
-        locals: {
-            entity: @entity
-        }
+        locals: { entity: @entity }
     )
   %>
 </article>

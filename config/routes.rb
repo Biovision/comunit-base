@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  # category_pattern = /(?!new$|^\d+$)[-_a-z0-9]+[a-z_]/
   category_slug_pattern = /[a-z]+[-_0-9a-z]*[0-9a-z]/
   post_slug_pattern = /[a-z0-9]+[-_.a-z0-9]*[a-z0-9]+/
   archive_constraints = { year: /19\d\d|2[01]\d\d/, month: /0[1-9]|1[0-2]/, day: /0[1-9]|[12]\d|3[01]/ }
@@ -190,14 +189,12 @@ Rails.application.routes.draw do
       resources :posts, concerns: %i[check toggle] do
         get 'search', on: :collection
       end
-      resources :post_groups, concerns: %i[check toggle priority] do
-        member do
-          put 'taxa/:taxon_id' => :add_taxon, as: :taxon
-          delete 'taxa/:taxon_id' => :remove_taxon
-        end
-      end
+      resources :post_groups, concerns: %i[check toggle priority]
       scope 'post_group_taxa/:id', controller: :post_group_taxa do
         post 'priority' => :priority, as: :priority_post_group_taxon, defaults: { format: :json }
+      end
+      scope 'post_links', controller: :post_links do
+        post ':id/priority' => :priority, as: :priority_post_link, defaults: { format: :json }
       end
 
       resources :taxon_types, concerns: %i[check link_user toggle]
@@ -207,10 +204,6 @@ Rails.application.routes.draw do
           put 'post_groups/:post_group_id' => :add_post_group, as: :post_group
           delete 'post_groups/:post_group_id' => :remove_post_group
         end
-      end
-
-      scope 'post_links', controller: :post_links do
-        post ':id/priority' => :priority, as: :priority_post_link, defaults: { format: :json }
       end
 
       resources :polls, only: %i[index show], concerns: :toggle do
