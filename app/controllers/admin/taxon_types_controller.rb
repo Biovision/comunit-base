@@ -2,10 +2,11 @@
 
 # Administrative part of taxon management
 class Admin::TaxonTypesController < AdminController
+  include CreateAndModifyEntities
   include ListAndShowEntities
   include LinkedUsers
 
-  before_action :set_entity, except: :index
+  before_action :set_entity, except: %i[check create index new]
 
   private
 

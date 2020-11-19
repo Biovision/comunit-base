@@ -10,7 +10,8 @@
   <h1><%= @entity.name %></h1>
 
   <ul class="actions">
-    <li><%= edit_icon(edit_taxon_path(id: @entity.id)) %></li>
+    <li><%= edit_icon(@entity) %></li>
+    <li><%= destroy_icon(@entity) %></li>
   </ul>
 
   <dl class="fields">
@@ -43,11 +44,11 @@
   %>
 
   <section>
-    <h2><%= t('taxa.new.nav_text') %></h2>
+    <h2><%= t('admin.taxa.new.nav_text') %></h2>
 
     <%=
       render(
-          partial: 'taxa/form',
+          partial: 'admin/taxa/form',
           locals: { entity: @entity.child_items.new(taxon_type: @entity.taxon_type) }
       )
     %>

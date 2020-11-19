@@ -8,10 +8,6 @@
 <article>
   <h1><%= @entity.name %></h1>
 
-  <ul class="actions">
-    <li><%= back_icon(admin_taxon_types_path) %></li>
-  </ul>
-
   <dl class="fields">
     <%= render partial: 'shared/entity/text_field', locals: { entity: @entity, field: :name } %>
     <%= render partial: 'shared/entity/slug', locals: { entity: @entity } %>
@@ -30,8 +26,8 @@
   %>
 
   <section>
-    <h2><%= t('taxa.new.nav_text') %></h2>
+    <h2><%= t('admin.taxa.new.nav_text') %></h2>
 
-    <%= render(partial: 'taxa/form', locals: { entity: @entity.taxa.new }) %>
+    <%= render(partial: 'admin/taxa/form', locals: { entity: @entity.taxa.new }) %>
   </section>
 </article>

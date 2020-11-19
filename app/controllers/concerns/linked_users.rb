@@ -4,10 +4,6 @@
 module LinkedUsers
   extend ActiveSupport::Concern
 
-  included do
-    before_action :set_entity, only: %i[add_user remove_user users]
-  end
-
   # get /admin/[table_name]/:id/users
   def users
     @collection = @entity.users.page_for_administration(current_page)

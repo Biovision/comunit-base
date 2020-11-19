@@ -2,11 +2,13 @@
 
 # Administrative part of taxon management
 class Admin::TaxaController < AdminController
+  include CreateAndModifyEntities
+  include ListAndShowEntities
   include EntityPriority
   include ToggleableEntity
   include LinkedUsers
 
-  before_action :set_entity, only: %i[show children]
+  before_action :set_entity, except: %i[check create index new]
 
   # get /admin/taxa/:id
   def show

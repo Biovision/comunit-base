@@ -7,9 +7,9 @@
 #   created_at [DateTime]
 #   data [jsonb]
 #   name [string]
-#   nav_text [String]
+#   nav_text [String], optional
 #   object_count [integer]
-#   parent_id [Taxon]
+#   parent_id [Taxon], optional
 #   parents_cache [String]
 #   priority [integer]
 #   simple_image_id [SimpleImage], optional
@@ -48,10 +48,15 @@ class Taxon < ApplicationRecord
 
   before_validation :ensure_parent_match
 
-  scope :for_tree, ->(v = nil) { joined_image.where(parent_id: v).ordered_by_priority }
+  scope :for_tree, ->(v = nil) { included_image.where(parent_id: v).ordered_by_priority }
   scope :visible, -> { where(visible: true) }
-  scope :list_for_visitors, -> { visible.joined_image.ordered_by_priority }
-  scope :list_for_administration, -> { joined_image.ordered_by_priority }
+  scope :list_for_visitors, -> { included_image.visible.ordered_by_priority }
+  scope :list_for_administration, -> { included_image.includes(:taxon_type).ordered_by_priority }
+
+  # @param [Integer] page
+  def self.page_for_administration(page = 1)
+    list_for_administration.page(page)
+  end
 
   # @param [Taxon] entity
   def self.siblings(entity)

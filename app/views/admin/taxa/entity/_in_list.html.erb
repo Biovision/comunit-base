@@ -1,12 +1,14 @@
 <figure class="image"><%= simple_image_preview(entity) %></figure>
 <div class="data">
   <div><%= admin_entity_link(entity) %></div>
-  <div class="info">
-    <%= entity.slug %>
-  </div>
+  <div class="info"><%= entity.slug %></div>
   <div class="secondary info">
     <%= t('attributes.site') %>:
     <%= admin_entity_link(entity.site) %>
+  </div>
+  <div class="secondary info">
+    <%= entity.class.human_attribute_name(:taxon_type) %>:
+    <%= admin_entity_link(entity.taxon_type) %>
   </div>
   <div class="secondary info">
     <%= entity.uuid %>
@@ -17,11 +19,14 @@
       <%= entity.children_cache %>
     </div>
   <% end %>
+  <div class="secondary info">
+    <%= t(:object_count, count: entity.object_count) %>
+  </div>
 
   <%= render(partial: 'shared/admin/toggle', locals: { entity: entity }) %>
 
   <ul class="actions">
-    <li><%= edit_icon(edit_taxon_path(id: entity.id)) %></li>
+    <li><%= edit_icon(entity) %></li>
     <%= render(partial: 'shared/admin/priority', locals: { entity: entity }) %>
   </ul>
 </div>

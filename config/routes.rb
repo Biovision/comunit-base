@@ -18,17 +18,6 @@ Rails.application.routes.draw do
     post :priority, on: :member, defaults: { format: :json }
   end
 
-  concern :removable_image do
-    delete :image, action: :destroy_image, on: :member, defaults: { format: :json }
-  end
-
-  concern :lock do
-    member do
-      put :lock, defaults: { format: :json }
-      delete :lock, action: :unlock, defaults: { format: :json }
-    end
-  end
-
   concern :link_user do
     member do
       get 'users'
@@ -43,19 +32,7 @@ Rails.application.routes.draw do
 
   resources :promo_blocks, :promo_items, only: %i[update destroy]
 
-  resources :regions, only: %i[update destroy]
-
   resources :deed_categories, :deeds, only: %i[destroy update]
-
-  resources :post_categories, :posts, :post_tags, :post_images, only: %i[update destroy]
-  resources :post_links, only: :destroy
-  resources :editorial_members, only: %i[update destroy]
-  resources :featured_posts, only: :destroy
-  resources :post_illustrations, only: :create
-  resources :post_groups, only: %i[update destroy]
-  resources :post_attachments, only: :destroy
-
-  resources :taxon_types, :taxa, only: %i[update destroy]
 
   resources :polls, :poll_questions, :poll_answers, only: %i[update destroy]
 
@@ -93,12 +70,6 @@ Rails.application.routes.draw do
 
     resources :promo_blocks, :promo_items, only: %i[new create edit], concerns: :check
 
-    resources :regions, except: %i[update destroy] do
-      member do
-        get 'children', defaults: { format: :json }
-      end
-    end
-
     resources :campaigns, only: %i[index show], concerns: :check do
       member do
         get 'event-:event_id' => :event, as: :event, constraints: { event_id: /\d+/ }
@@ -123,8 +94,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :post_categories, except: %i[index show update destroy]
-    resources :posts, except: %i[new update destroy] do
+    resources :posts, only: %i[index show] do
       collection do
         get 'search'
         get 'categories/:category_slug' => :category, as: :posts_category, constraints: { category_slug: category_slug_pattern }
@@ -136,16 +106,7 @@ Rails.application.routes.draw do
         get ':id-:slug' => :show, constraints: { id: /\d+/, slug: post_slug_pattern }
       end
     end
-    resources :post_tags, only: :edit
-    resources :post_images, only: %i[edit create]
-    resources :post_links, only: :create
-    resources :editorial_members, only: %i[new create edit]
-    resources :featured_posts, only: :create
-    resources :post_groups, only: %i[show new create edit], concerns: :check
     get 'posts/:category_slug/:slug' => 'posts#legacy_show', as: nil, constraints: { category_slug: category_slug_pattern }
-
-    resources :taxon_types, only: %i[create edit new], concerns: :check
-    resources :taxa, only: %i[create edit], concerns: :check
 
     scope :articles, controller: :articles do
       get '/' => :index, as: :articles
@@ -198,25 +159,14 @@ Rails.application.routes.draw do
       # Comunit component
       resources :sites, concerns: %i[check toggle]
 
-      resources :countries, only: %i[index show], concerns: %i[toggle priority] do
-        get 'regions', on: :member
-      end
-      resources :regions, only: :show, concerns: %i[toggle priority]
-
       # Decisions component
       resources :decisions, concerns: %i[check toggle]
       resources :decision_users, concerns: :check
 
       resources :appeals, only: %i[index show], concerns: :toggle
 
-      resources :media_folders, only: %i[index show], concerns: :lock
-      resources :media_files, only: %i[index show], concerns: :lock
-
       resources :promo_blocks, only: %i[index show], concerns: :toggle
       resources :promo_blocks, :promo_items, only: :show, concerns: :toggle
-
-      resources :countries, only: %i[index show]
-      resources :regions, only: %i[index show], concerns: %i[link_user priority toggle]
 
       resources :political_forces, concerns: :check do
         member do
@@ -241,30 +191,11 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :post_types, only: %i[link_user index show] do
-        member do
-          get :post_categories
-          get :new_post
-          get :post_tags
-          get :authors
-        end
-      end
-
-      resources :post_categories, only: :show, concerns: %i[link_user toggle priority]
-
-      resources :posts, only: %i[index show], concerns: %i[lock toggle] do
+      resources :posts, concerns: %i[check toggle] do
         get 'search', on: :collection
-        get 'images', on: :member
       end
 
-      resources :post_tags, only: %i[index show] do
-        get 'posts', on: :member
-      end
-
-      resources :post_illustrations, only: %i[index show]
-      resources :post_images, only: %i[index show], concerns: %i[toggle priority]
-
-      resources :post_groups, only: %i[index show], concerns: %i[toggle priority] do
+      resources :post_groups, concerns: %i[check toggle priority] do
         member do
           put 'categories/:category_id' => :add_category, as: :category
           delete 'categories/:category_id' => :remove_category
@@ -280,19 +211,10 @@ Rails.application.routes.draw do
         post 'priority' => :priority, as: :priority_post_group_tag, defaults: { format: :json }
       end
 
-      resources :taxon_types, only: %i[index show], concerns: %i[link_user toggle]
-      resources :taxa, only: %i[show], concerns: %i[link_user toggle priority] do
+      resources :taxon_types, concerns: %i[check link_user toggle]
+      resources :taxa, concerns: %i[check link_user toggle priority] do
         get 'children', on: :member
       end
-
-      resources :editorial_members, only: %i[index show], concerns: %i[toggle priority] do
-        member do
-          put 'post_types/:post_type_id' => :add_post_type, as: :post_type
-          delete 'post_types/:post_type_id' => :remove_post_type
-        end
-      end
-
-      resources :featured_posts, only: :index, concerns: :priority
 
       scope 'post_links', controller: :post_links do
         post ':id/priority' => :priority, as: :priority_post_link, defaults: { format: :json }
@@ -313,12 +235,6 @@ Rails.application.routes.draw do
       end
     end
 
-    namespace :editorial do
-      get '/' => 'index#index'
-
-      resources :users, only: %i[index show], concerns: :toggle
-    end
-
     namespace :network, defaults: { format: :json } do
       resources :users, only: %i[create update] do
         put 'uuid' => :update_uuid, on: :member
@@ -336,14 +252,7 @@ Rails.application.routes.draw do
         end
       end
 
-      get 'articles' => 'posts#articles'
-      get 'news' => 'posts#news_index'
-      get 'blog' => 'posts#blog_posts'
-      get 'articles/new' => 'posts#new_article', as: :new_article
-      get 'news/new' => 'posts#new_news', as: :new_news
-      get 'blog_posts/new' => 'posts#new_blog_post', as: :new_blog_post
-
-      resources :posts, except: :new
+      resources :posts
     end
 
     get 'impeachment/candidates' => 'impeachment#candidates', as: :impeachment_candidates
