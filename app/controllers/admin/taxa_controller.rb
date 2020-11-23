@@ -33,6 +33,7 @@ class Admin::TaxaController < AdminController
   def children
     @user = User.find_by(id: params[:user_id])
     @post_group = PostGroup.find_by(id: params[:post_group_id])
+    @post = Post.find_by(id: params[:post_id])
     @collection = @entity.child_items.list_for_administration
   end
 

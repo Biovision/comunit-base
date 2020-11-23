@@ -1,0 +1,29 @@
+<% entity = f.object %>
+<div class="post-form-taxa">
+  <dt>Таксоны</dt>
+  <dd class="entity-taxon-list">
+    <% TaxonType.active.list_for_administration.each do |taxon_type| %>
+      <% collection = taxon_type.taxa.for_current_site.for_tree %>
+      <% if collection.any? %>
+        <% taxon_ids = taxon_type.taxon_ids_for_post(entity) %>
+        <div class="taxon-type"><%= taxon_type.name %></div>
+        <ul>
+          <% collection.each do |taxon| %>
+            <li>
+              <%=
+                render(
+                    partial: 'admin/components/posts/form/taxonomy/taxon',
+                    locals: {
+                        taxon: taxon,
+                        post: entity,
+                        taxon_ids: taxon_ids
+                    }
+                )
+              %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    <% end %>
+  </dd>
+</div>

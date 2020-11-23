@@ -2,12 +2,6 @@
 
 # Posts management
 class PostsController < ApplicationController
-  before_action :restrict_access, only: %i[new create]
-  before_action :set_entity, only: %i[edit update destroy]
-  before_action :restrict_editing, only: %i[edit update destroy]
-
-  layout 'admin', only: %i[new edit]
-
   # get /posts
   def index
     excluded = param_from_request(:x).split(',').map(&:to_i)
@@ -15,22 +9,16 @@ class PostsController < ApplicationController
     @collection = Post.exclude_ids(excluded).with_taxon_ids(taxon_ids).page_for_visitors(current_page)
   end
 
-  # post /posts
-  def create
-    @entity = Post.new(creation_parameters)
-    if @entity.save
-      apply_post_tags
-      apply_post_categories
-      apply_post_taxa
-      add_attachments if params.key?(:post_attachment)
-      mark_as_featured if params[:featured]
-      unless Comunit::Network::Handler.central_site?
-        NetworkEntitySyncJob.perform_later(@entity.class.to_s, @entity.id)
-      end
-      form_processed_ok(PostManager.new(@entity).post_path)
-    else
-      form_processed_with_error(:new)
-    end
+  def news
+    redirect_to posts_path
+  end
+
+  def articles
+    redirect_to posts_path
+  end
+
+  def blog
+    redirect_to posts_path
   end
 
   # get /posts/:id(-:slug)
@@ -58,37 +46,9 @@ class PostsController < ApplicationController
     end
   end
 
-  # get /posts/:id/edit
-  def edit
-  end
-
-  # patch /posts/:id
-  def update
-    if @entity.update(entity_parameters)
-      apply_post_tags
-      apply_post_categories
-      apply_post_taxa
-      add_attachments if params.key?(:post_attachment)
-      # PostBodyParserJob.perform_later(@entity.id)
-      unless Comunit::Network::Handler.central_site?
-        NetworkEntitySyncJob.perform_later(@entity.class.to_s, @entity.id)
-      end
-      form_processed_ok(PostManager.new(@entity).post_path)
-    else
-      form_processed_with_error(:edit)
-    end
-  end
-
-  # delete /posts/:id
-  def destroy
-    flash[:notice] = t('.success') if @entity.destroy
-
-    redirect_to admin_posts_path
-  end
-
   # get /posts/tagged/:tag_name
   def tagged
-    @collection = Post.tagged(params[:tag_name]).page_for_visitors(current_page)
+    redirect_to posts_path
   end
 
   # get /posts/:category_slug
@@ -137,60 +97,6 @@ class PostsController < ApplicationController
     Biovision::Components::PostsComponent
   end
 
-  def restrict_access
-    error = 'Managing posts is not allowed'
-    handle_http_401(error) unless component_handler.allow?
-  end
-
-  def set_entity
-    @entity = Post.find_by(id: params[:id])
-    handle_http_404('Cannot find post') if @entity.nil?
-  end
-
-  def restrict_editing
-    unless component_handler.editable?(@entity)
-      handle_http_403('Post is not editable by current user')
-    end
-  end
-
-  def entity_parameters
-    params.require(:post).permit(Post.entity_parameters).merge(owner_for_post)
-  end
-
-  def creation_parameters
-    parameters = params.require(:post).permit(Post.creation_parameters)
-    parameters.merge(owner_for_entity(true)).merge(owner_for_post)
-  end
-
-  def apply_post_tags
-    @entity.tags_string = param_from_request(:tags_string)
-  end
-
-  def apply_post_categories
-    if params.key?(:post_category_ids)
-      @entity.post_category_ids = Array(params[:post_category_ids])
-    else
-      @entity.post_post_categories.destroy_all
-    end
-  end
-
-  def apply_post_taxa
-    if params.key?(:taxon_ids)
-      @entity.taxon_ids = Array(params[:taxon_ids])
-    else
-      @entity.post_taxa.destroy_all
-    end
-  end
-
-  def owner_for_post
-    key = :user_for_entity
-    result = {}
-    if component_handler.group?(:chief) && params.key?(key)
-      result[:user_id] = param_from_request(key)
-    end
-    result
-  end
-
   def collect_dates
     array = Post.visible.published.archive
     @dates = Post.archive_dates(array)
@@ -205,24 +111,6 @@ class PostsController < ApplicationController
 
   # @param [String] q
   def search_posts(q)
-    if Post.respond_to?(:search)
-      Post.search(q).records.first(50).select(&:visible_to_visitors?)
-    else
-      Post.pg_search(q).list_for_visitors.first(50)
-    end
-  end
-
-  def add_attachments
-    permitted = PostAttachment.entity_parameters
-    parameters = params.require(:post_attachment).permit(permitted)
-
-    @entity.post_attachments.create(parameters)
-  end
-
-  def mark_as_featured
-    FeaturedPost.update_all('priority = priority + 1')
-    link = FeaturedPost.new(post: @entity)
-    link.priority = 1
-    link.save
+    Post.search(q).list_for_visitors.first(50)
   end
 end

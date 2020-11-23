@@ -76,6 +76,7 @@ class Post < ApplicationRecord
   scope :published, -> { where('publication_time <= current_timestamp') }
   scope :search, ->(v) { where("posts_tsvector(title, lead, body) @@ phraseto_tsquery('russian', ?)", v) }
   scope :exclude_ids, ->(v) { where('posts.id not in (?)', Array(v)) unless v.blank? }
+  scope :with_taxon_ids, ->(v) { joins(:post_taxa).where(post_taxa: { taxon_id: Array(v) }) }
   scope :list_for_visitors, -> { visible.published.includes(:simple_image, :user).recent }
   scope :list_for_administration, -> { includes(:simple_image, :user).order('id desc') }
   scope :list_for_owner, ->(v) { includes(:simple_image, :user).owned_by(v).recent }
@@ -170,10 +171,8 @@ class Post < ApplicationRecord
   def prepare_source_names
     return unless source_name.blank? && !source_link.blank?
 
-    begin
-      self.source_name = URI.parse(source_link).host
-    rescue URI::InvalidURIError
-      self.source_name = URL_PATTERN.match(source_link)[1]
-    end
+    self.source_name = URI.parse(source_link).host
+  rescue URI::InvalidURIError
+    self.source_name = URL_PATTERN.match(source_link)[1]
   end
 end

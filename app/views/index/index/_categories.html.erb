@@ -15,7 +15,7 @@
 <% end %>
 
 <section class="frontpage-posts">
-  <h2><%= link_to('Новости', news_index_path) %></h2>
+  <h2><%= link_to('Новости', news_path) %></h2>
 
   <% if region.id.nil? %>
     <% collection = [] #Post.of_type('news').list_for_visitors.first(6) %>

@@ -21,8 +21,6 @@
       <%= render partial: 'shared/forms/field', locals: { f: f, field: :slug, options: { pattern: Post::SLUG_PATTERN_HTML } } %>
     <% end %>
 
-    <%= render partial: 'posts/form/taxa', locals: { f: f } %>
-
     <%= render partial: 'shared/forms/field', locals: { f: f, field: :lead } %>
 
     <div>
@@ -56,6 +54,7 @@
     <% end %>
 
     <%= render partial: 'shared/forms/entity_flags', locals: { f: f } %>
+    <%= render partial: 'admin/components/posts/form/taxonomy', locals: { f: f } %>
   </dl>
 
   <%= render partial: 'components/posts/form/attachments', locals: { entity: entity } %>

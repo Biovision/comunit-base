@@ -1,48 +1,32 @@
 <div class="post-preview" role="group">
   <figure class="image">
     <%=
-      post_link(
+      entity_link(
           entity,
-          post_image_small(entity),
+          simple_image_small(entity),
           class: 'covered proportional-container r-3x2'
       )
     %>
   </figure>
   <div class="text">
-    <div class="title"><%= post_link(entity) %></div>
-    <p class="lead"><%= post_link(entity, entity.lead) %></p>
+    <div class="title"><%= entity_link(entity) %></div>
+    <p class="lead"><%= entity_link(entity, entity.lead) %></p>
   </div>
   <div class="meta">
-    <div class="category" aria-label="<%= t('activerecord.attributes.post.post_category_id') %>">
-      <% entity.post_categories.each do |category| %>
-        <%= post_category_link(category) if category.site&.uuid == ENV['SITE_ID'] %>
+    <div class="category" aria-label="<%= %>">
+      <% entity.taxa.each do |taxon| %>
+        <%= taxon_link(taxon) if taxon.site&.uuid == ENV['SITE_ID'] %>
       <% end %>
     </div>
-    <% if entity.tags_cache.any? %>
-      <ul class="tags">
-        <% entity.tags_cache.each do |tag_name| %>
-          <li><%= tagged_posts_link(tag_name, entity) %></li>
-        <% end %>
-      </ul>
-    <% end %>
-    <% unless entity.region.nil? %>
-      <div class="region"><%= entity.region.long_name %></div>
-    <% end %>
     <div class="time-and-author">
       <% if entity.show_owner? %>
-        <% if entity.author_name.blank? %>
-          <%= user_link(entity.user) %>
-        <% else %>
-          <%= post_author_link(entity) %>
-        <% end %>
+        <%= user_link(entity.user) %>
       <% end %>
       <%= time_tag(entity.publication_time.to_date, format: :default) %>
     </div>
   </div>
   <div class="post-counters">
-    <% if entity.allow_comments? %>
-      <span class="comments"><%= entity.comments_count %></span>
-    <% end %>
+    <span class="comments"><%= entity.comments_count %></span>
     <span class="views"><%= entity.view_count %></span>
   </div>
 </div>

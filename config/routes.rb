@@ -106,30 +106,24 @@ Rails.application.routes.draw do
       end
     end
     get 'posts/:category_slug/:slug' => 'posts#legacy_show', as: nil, constraints: { category_slug: category_slug_pattern }
+    get 'articles' => 'posts#index'
+    get 'news' => 'posts#news'
+    get 'blog_posts' => 'posts#blog'
 
-    scope :articles, controller: :articles do
-      get '/' => :index, as: :articles
-      get 'new' => :new, as: :new_article
+    scope :articles, controller: :posts do
       get 'archive/(:year)(-:month)(-:day)' => :archive, as: :articles_archive, constraints: archive_constraints
-      get 'tagged/(:tag_name)' => :tagged, as: :tagged_articles, constraints: { tag_name: /[^\/]+?/ }
       get '/:category_slug' => :category, as: :articles_category, constraints: { category_slug: category_slug_pattern }
       get '/:post_id-:post_slug' => :show, as: :show_article, constraints: { post_id: /\d+/, post_slug: post_slug_pattern }
     end
 
-    scope :news, controller: :news do
-      get '/' => :index, as: :news_index
-      get 'new' => :new, as: :new_news
+    scope :news, controller: :posts do
       get 'archive/(:year)(-:month)(-:day)' => :archive, as: :news_archive, constraints: archive_constraints
-      get 'tagged/(:tag_name)' => :tagged, as: :tagged_news, constraints: { tag_name: /[^\/]+?/ }
       get '/:category_slug' => :category, as: :news_category, constraints: { category_slug: category_slug_pattern }
       get '/:post_id-:post_slug' => :show, as: :show_news, constraints: { post_id: /\d+/, post_slug: post_slug_pattern }
     end
 
-    scope :blog_posts, controller: :blog_posts do
-      get '/' => :index, as: :blog_posts
-      get 'new' => :new, as: :new_blog_post
+    scope :blog_posts, controller: :posts do
       get 'archive/(:year)(-:month)(-:day)' => :archive, as: :blog_posts_archive, constraints: archive_constraints
-      get 'tagged/(:tag_name)' => :tagged, as: :tagged_blog_posts, constraints: { tag_name: /[^\/]+?/ }
       get '/:category_slug' => :category, as: :blog_posts_category, constraints: { category_slug: category_slug_pattern }
       get '/:post_id-:post_slug' => :show, as: :show_blog_post, constraints: { post_id: /\d+/, post_slug: post_slug_pattern }
     end

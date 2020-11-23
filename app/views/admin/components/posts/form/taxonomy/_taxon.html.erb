@@ -1,0 +1,46 @@
+<%
+  element_id = "taxon_#{taxon.id}"
+  checked = taxon_ids.include?(taxon.id)
+%>
+<%=
+  check_box_tag(
+      "taxon_ids[]",
+      taxon.id,
+      checked,
+      id: element_id
+  )
+%>
+<%= label_tag(element_id, taxon.name) %>
+<% unless taxon.children_cache.blank? %>
+  <% intersection = taxon_ids & taxon.children_cache %>
+  <% if checked || !intersection.any? %>
+    <%=
+      button_tag(
+          '+',
+          class: 'js-taxon-loader',
+          data: {
+              url: children_admin_taxon_path(id: taxon.id, post_id: post.id),
+              prefix: 'post'
+          },
+          type: :button
+      )
+    %>
+  <% elsif intersection.any? %>
+    <ul>
+      <% taxon.child_items.list_for_administration.each do |child| %>
+        <li>
+          <%=
+            render(
+                partial: 'admin/components/posts/form/taxonomy/taxon',
+                locals: {
+                    taxon: child,
+                    post: post,
+                    taxon_ids: taxon_ids
+                }
+            )
+          %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>

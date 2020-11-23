@@ -65,6 +65,12 @@ class TaxonType < ApplicationRecord
     list.pluck(:id, :children_cache).flatten.uniq
   end
 
+  # @param [Post] post
+  def taxon_ids_for_post(post)
+    list = taxa.joins(:post_taxa).where(post_taxa: { post_id: post&.id })
+    list.pluck(:id, :children_cache).flatten.uniq
+  end
+
   # @param [PostGroup] post_group
   def taxon_ids_for_post_group(post_group)
     clause = { post_group_taxa: { post_group_id: post_group&.id } }

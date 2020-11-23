@@ -1,6 +1,6 @@
 <% content_for :meta_title, t('.title', category: @category.name, page: current_page) %>
 <% content_for :breadcrumbs do %>
-    <%= link_to(t('news.index.nav_text'), news_index_path) %>
+    <%= link_to(t('news.index.nav_text'), news_path) %>
     <% @category.parents.each do |parent| %>
         <%= link_to(parent.name, articles_category_path(category_slug: parent.long_slug)) %>
     <% end %>

@@ -60,7 +60,7 @@ module PostsHelper
   # @param [String] text
   # @param [Hash] options
   def post_link(entity, text = entity.title, options = {})
-    link_to(text, entity.url, options)
+    link_to(text, entity.world_url, options)
   end
 
   # @param [PostCategory] entity

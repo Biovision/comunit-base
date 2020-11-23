@@ -190,9 +190,6 @@ ru:
         gallery:
           heading: "Галерея картинок"
           add_image: "Добавить изображение"
-        attachments:
-          heading: "Приложения"
-          add: "Добавить приложение"
         categories: "Категории"
         cross_post:
           heading: "Кросс-пост"
@@ -200,6 +197,12 @@ ru:
     components:
       posts:
         name: "Публикации"
+  components:
+    posts:
+      form:
+        attachments:
+          heading: "Приложения"
+          add: "Добавить приложение"
   posts:
     post:
       source: "Источник"
