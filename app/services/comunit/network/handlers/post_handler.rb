@@ -22,7 +22,7 @@ module Comunit
         def meta_for_remote
           meta = super
           meta[:agent] = entity.agent&.name
-          unless entity.image.blank?
+          if entity.attributes.key?('image') && !entity.image.blank?
             meta[:image_path] = entity.image.path
             meta[:image_url] = host + entity.image.url
           end
@@ -34,7 +34,8 @@ module Comunit
 
         def after_pull
           apply_attachments
-          apply_post_categories
+          apply_post_categories if entity.respond_to?(:post_categories)
+          apply_taxa if entity.respond_to?(:taxa)
           forward if self.class.central_site?
           true
         end
@@ -55,16 +56,23 @@ module Comunit
           apply_user
           apply_region
           apply_image
+          apply_simple_image
         end
 
         def relationships_for_remote
-          {
+          result = {
             user: UserHandler.relationship_data(entity.user),
-            region: RegionHandler.relationship_data(entity.region),
-            post_type: PostTypeHandler.relationship_data(entity.post_type),
-            attachments: attachments_for_remote,
-            post_categories: post_categories_for_remote
+            attachments: attachments_for_remote
           }
+
+          result[:region] = RegionHandler.relationship_data(entity.region) if entity.attributes.key?('region_id')
+          if entity.attributes.key?('post_type_id')
+            result[:post_type] = PostTypeHandler.relationship_data(entity.post_type)
+          end
+          result[:post_categories] = post_categories_for_remote if entity.respond_to?(:post_categories)
+          result[:taxa] = taxa_for_remote if entity.respond_to?(:taxa)
+
+          result
         end
 
         def attachments_for_remote
@@ -81,6 +89,13 @@ module Comunit
           collection.any? ? { data: collection } : nil
         end
 
+        def taxa_for_remote
+          collection = entity.taxa.map do |item|
+            TaxonHandler.relationship_data(item, false)
+          end
+          collection.any? ? { data: collection } : nil
+        end
+
         def apply_attachments
           data.dig(:relationships, :attachments, :data)&.each do |data|
             PostAttachmentHandler.pull_for_post(entity, data)
@@ -90,6 +105,12 @@ module Comunit
         def apply_post_categories
           data.dig(:relationships, :post_categories, :data)&.each do |data|
             PostCategoryHandler.pull_for_post(entity, data)
+          end
+        end
+
+        def apply_taxa
+          data.dig(:relationships, :taxa, :data)&.each do |data|
+            TaxonHandler.pull_for_post(entity, data)
           end
         end
       end
