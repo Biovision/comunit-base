@@ -1,0 +1,21 @@
+ru:
+  activerecord:
+    models:
+      trade_union: "Профсоюз"
+      trade_union_document: "Документ профсоюза"
+      trade_union_taxon: "Таксон в профсоюзе"
+      trade_union_user: "Пользователь в профсоюзе"
+    attributes:
+      trade_union:
+        description: "Описание"
+        lead: "Краткое описание"
+        name: "Название"
+      trade_union_document:
+        attachment: "Документ"
+        name: "Название"
+  attributes:
+    trade_union_id: "Профсоюз"
+  biovision:
+    components:
+      trade_unions:
+        name: "Профсоюзы"
