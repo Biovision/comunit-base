@@ -15,6 +15,7 @@
 #   user_count [Integer]
 #   uuid [uuid]
 class TradeUnion < ApplicationRecord
+  include Checkable
   include HasSimpleImage
   include HasUuid
   include BelongsToSite
@@ -50,5 +51,13 @@ class TradeUnion < ApplicationRecord
 
   def self.entity_parameters
     %i[description lead name simple_image_id]
+  end
+
+  def text_for_link
+    name
+  end
+
+  def world_url
+    "/trade_unions/#{id}-#{slug}"
   end
 end

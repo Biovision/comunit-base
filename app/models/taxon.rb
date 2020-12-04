@@ -75,7 +75,7 @@ class Taxon < ApplicationRecord
 
   def text_for_link
     if nav_text.blank?
-      name.count > 50 ? "#{name[0..49]}…" : name
+      name.length > 50 ? "#{name[0..49]}…" : name
     else
       nav_text
     end

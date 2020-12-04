@@ -19,3 +19,21 @@ ru:
     components:
       trade_unions:
         name: "Профсоюзы"
+  admin:
+    trade_unions:
+      nav_item:
+        text: "Список профсоюзов"
+        description: "Управление списком профсоюзов"
+      index:
+        title: "Профсоюзы, страница %{page}"
+        nav_text: "Список профсоюзов"
+        heading: "Профсоюзы"
+      show:
+        title: "Профсоюз «%{name}»"
+  trade_unions:
+    show:
+      title: "Профсоюз «%{name}»"
+    index:
+      nav_text: "Профсоюзы"
+      title: "Профсоюзы, страница %{page}"
+      heading: "Профсоюзы"

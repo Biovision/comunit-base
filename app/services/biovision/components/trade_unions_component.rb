@@ -3,7 +3,7 @@
 module Biovision
   module Components
     # Trade unions
-    class TradeUnionComponent < BaseComponent
+    class TradeUnionsComponent < BaseComponent
     end
   end
 end

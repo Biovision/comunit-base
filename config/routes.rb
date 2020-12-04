@@ -77,6 +77,10 @@ Rails.application.routes.draw do
 
   resources :petitions, :petition_signs, only: %i[update destroy]
 
+  resources :trade_unions, only: :index do
+    get ':id-:slug' => :show, on: :collection, as: :show, constraints: { id: /\d+/ }
+  end
+
   scope '(:locale)', constraints: { locale: /ru|en/ } do
     root 'index#index'
 
@@ -357,6 +361,8 @@ Rails.application.routes.draw do
       resources :petitions, only: %i[index show], concerns: :toggle do
         get 'signs', on: :member
       end
+
+      resources :trade_unions, concerns: :check
     end
 
     namespace :editorial do

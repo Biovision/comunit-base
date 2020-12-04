@@ -17,13 +17,13 @@ class CreateTradeUnions < ActiveRecord::Migration[6.0]
       drop_table model.table_name if model.table_exists?
     end
 
-    BiovisionComponent[Biovision::Components::TradeUnionComponent.slug]&.destroy
+    BiovisionComponent[Biovision::Components::TradeUnionsComponent.slug]&.destroy
   end
 
   private
 
   def create_component
-    slug = Biovision::Components::TradeUnionComponent.slug
+    slug = Biovision::Components::TradeUnionsComponent.slug
     BiovisionComponent.create(slug: slug)
   end
 
