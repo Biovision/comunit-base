@@ -31,6 +31,7 @@ class Post < ApplicationRecord
   belongs_to :post_type, counter_cache: true
   belongs_to :agent, optional: true
   belongs_to :post_layout, counter_cache: true, optional: true
+  belongs_to :simple_image, counter_cache: :object_count, optional: true
   has_many :post_references, dependent: :delete_all
   has_many :post_notes, dependent: :delete_all
   has_many :post_links, dependent: :delete_all
