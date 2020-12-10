@@ -1,0 +1,18 @@
+<% content_for :meta_title, t('.title', page: current_page) %>
+<% content_for :breadcrumbs do %>
+  <span><%= t('.nav_text') %></span>
+<% end %>
+
+<article>
+  <div class="content-wrapper">
+    <h1><%= t('.heading') %></h1>
+
+    <%= paginate @collection %>
+    <ul>
+      <% @collection.each do |entity| %>
+        <li><%= entity_link(entity) %></li>
+      <% end %>
+    </ul>
+    <%= paginate @collection %>
+  </div>
+</article>

@@ -1,0 +1,14 @@
+<figure class="image"><%= simple_image_preview(entity) %></figure>
+<div class="data">
+  <div><%= admin_entity_link(entity) %></div>
+  <div class="info">
+    <%= entity.slug %>
+  </div>
+  <div class="secondary info"><%= entity.lead %></div>
+  <div class="secondary info"><%= entity.uuid %></div>
+
+  <ul class="actions">
+    <li><%= world_icon(entity) %></li>
+    <li><%= edit_icon(entity) %></li>
+  </ul>
+</div>

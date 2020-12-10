@@ -23,7 +23,7 @@ module Comunit
 
       def apply_image
         image_path = data.dig(:meta, :image_path)
-        return if image_path.blank?
+        return if image_path.blank? || !entity.attributes.key?('image')
 
         if File.exist?(image_path)
           entity.image = Pathname.new(image_path).open
@@ -36,10 +36,14 @@ module Comunit
       end
 
       def apply_region
+        return unless entity.attributes.key?('region_id')
+
         entity.region = Region.find_by(uuid: dig_related_id(:region))
       end
 
       def apply_post_type
+        return unless entity.attributes.key?('post_type_id')
+
         entity.post_type = PostType.find_by(slug: dig_related_id(:post_type))
       end
 

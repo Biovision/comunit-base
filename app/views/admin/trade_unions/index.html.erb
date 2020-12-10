@@ -1,0 +1,20 @@
+<% content_for :meta_title, t('.title', page: current_page) %>
+<% content_for :breadcrumbs do %>
+  <%= admin_biovision_component_link(component_handler.component) %>
+  <span><%= t('.nav_text') %></span>
+<% end %>
+
+<article>
+  <h1><%= t('.heading') %></h1>
+
+  <ul class="actions">
+    <li><%= create_icon(new_admin_trade_union_path) %></li>
+  </ul>
+
+  <%=
+    render(
+        partial: 'shared/admin/list',
+        locals: { collection: @collection }
+    )
+  %>
+</article>

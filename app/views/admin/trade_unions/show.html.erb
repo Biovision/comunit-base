@@ -1,0 +1,28 @@
+<% content_for :meta_title, t('.title', name: @entity.name) %>
+<% content_for :breadcrumbs do %>
+  <%= admin_biovision_component_link(component_handler.component) %>
+  <%= link_to(t('admin.trade_unions.index.nav_text'), admin_trade_unions_path) %>
+  <span><%= @entity.name %></span>
+<% end %>
+
+<article>
+  <h1><%= @entity.name %></h1>
+
+  <ul class="actions">
+    <li><%= world_icon(@entity) %></li>
+    <li><%= edit_icon(@entity) %></li>
+    <li><%= destroy_icon(@entity) %></li>
+  </ul>
+
+  <dl class="fields">
+    <%= render partial: 'shared/entity/simple_image', locals: { entity: @entity } %>
+    <%= render partial: 'shared/entity/text_field', locals: { entity: @entity, field: :name } %>
+    <%= render partial: 'shared/entity/slug', locals: { entity: @entity } %>
+    <%= render partial: 'shared/entity/raw_text_field', locals: { entity: @entity, field: :lead } %>
+    <%= render partial: 'shared/entity/raw_text_field', locals: { entity: @entity, field: :description } %>
+    <%= render partial: 'shared/entity/uuid', locals: { entity: @entity } %>
+    <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
+  </dl>
+
+  <%= render partial: 'shared/comunit/sync_state', locals: { entity: @entity } %>
+</article>

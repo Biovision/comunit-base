@@ -1,0 +1,22 @@
+<% model_name = entity.class.to_s.underscore %>
+<%=
+  form_with(Biovision::Components::BaseComponent.form_options(entity)) do |f|
+%>
+  <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+
+  <dl class="fields">
+    <%= render(partial: 'shared/forms/simple_image', locals: { f: f }) %>
+    <%= render(partial: 'shared/forms/field', locals: { f: f, field: :name }) %>
+    <%= render(partial: 'shared/forms/field', locals: { f: f, field: :lead, options: { rows: 2 } }) %>
+    <%= render(partial: 'shared/forms/field', locals: { f: f, field: :description, data: { wysiwyg: 1, upload_url: admin_ckeditor_path(slug: component_handler.slug) } }) %>
+  </dl>
+
+  <%= render 'shared/forms/state_container' %>
+
+  <div class="buttons">
+    <%= hidden_field_tag :entity_id, entity.id %>
+    <%= f.button t(:save), class: 'button button-save' %>
+  </div>
+<% end %>
+
+<%= render 'shared/forms/wysiwyg' %>
