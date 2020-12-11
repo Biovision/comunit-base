@@ -1,12 +1,6 @@
 <% model_name = entity.class.to_s.underscore %>
 <%=
-  form_with(
-      model: entity,
-      html: {
-          id: "#{model_name}-form",
-          data: { check_url: check_taxon_types_path }
-      }
-  ) do |f|
+  form_with(Biovision::Components::BaseComponent.form_options(entity)) do |f|
 %>
   <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
 
